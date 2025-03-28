@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3061383637894087434, guid: aadf4b9dcd225ab48ac4a8d0335dc10a, type: 3}
       propertyPath: m_Name
-      value: Board Variant
+      value: BoardX
       objectReference: {fileID: 0}
     - target: {fileID: 3300613134708269600, guid: aadf4b9dcd225ab48ac4a8d0335dc10a, type: 3}
       propertyPath: m_LocalScale.x
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3300613134708269600, guid: aadf4b9dcd225ab48ac4a8d0335dc10a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.875
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3300613134708269600, guid: aadf4b9dcd225ab48ac4a8d0335dc10a, type: 3}
       propertyPath: m_LocalPosition.x
