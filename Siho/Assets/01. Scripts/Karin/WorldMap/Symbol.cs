@@ -2,10 +2,9 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace karin
+namespace karin.worldmap
 {
     public class Symbol : MonoBehaviour
     {
@@ -14,8 +13,6 @@ namespace karin
 
         private int _nowMapIdx = 0;
         private WaitForSeconds _passingDelay;
-
-        [SerializeField] private int debugValue;
 
         private bool moveNext = true;
 
@@ -32,18 +29,10 @@ namespace karin
             OnEnterNextStage -= SetUpNextStage;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Move(debugValue);
-            }
-        }
-
         public void Move(int value)
         {
             WorldMapManager wmm = WorldMapManager.Instance;
-            int adjustedValue = Mathf.Clamp(value, 1, wmm._tileCount - _nowMapIdx);
+            int adjustedValue = Mathf.Clamp(value, 1, wmm._tileCount - _nowMapIdx - 1);
             List<Tile> moveTiles = wmm.GetTiles(_nowMapIdx + 1, adjustedValue);
             StartCoroutine(PassingAnimationCoroutine(moveTiles));
             StartCoroutine(MoveCoroutine(moveTiles));
@@ -71,10 +60,8 @@ namespace karin
             }
             targetTiles[targetTiles.Count - 1].EnterAnimation();
             _nowMapIdx += targetTiles.Count;
-            Debug.Log(_nowMapIdx);
             if (_nowMapIdx == 36)
             {
-                Debug.Log("StageEnd");
                 OnEnterNextStage?.Invoke();
             }
         }

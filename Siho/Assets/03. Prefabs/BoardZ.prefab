@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28e911b74313584e998cf61afbf3047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _passingAnimPushValue: 0.7
+  _passingAnimPushValue: 0.2
   _passingAnimPushDuration: 0.1
   _passingAnimPushEase:
     serializedVersion: 2
@@ -148,5 +148,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _TileChangeAnimPullValue: 0.3
   _passingAnimPullDuration: 0.3
   _passingAnimPullEase: 30
+  isChangableTile: 1
+  tileData: {fileID: 0}
