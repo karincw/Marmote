@@ -57,18 +57,20 @@ namespace karin.worldmap
         [ContextMenu("PassingAnimation")]
         public void PassingAnimation()
         {
+            DOTween.Complete(2);
             float originYPos = transform.position.y;
             Sequence seq = DOTween.Sequence()
-                .Append(transform.DOLocalMoveY(transform.position.y - _passingAnimPushValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase))
-                .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase));
+                .Append(transform.DOLocalMoveY(transform.position.y - _passingAnimPushValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(1)
+                .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(1);
         }
 
         [ContextMenu("TileChangeAnimation")]
         public void TileChangeAnimation(TileType tileType)
         {
+            DOTween.Complete(1);
             float originYPos = transform.position.y;
             Sequence seq = DOTween.Sequence()
-                .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase))
+                .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(2)
                 .AppendCallback(() =>
                 {
                     tileData.tileType = tileType;
@@ -96,8 +98,8 @@ namespace karin.worldmap
                             _meshRenderer.material.color = Color.yellow;
                             break;
                     }
-                })
-                .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase));
+                }).SetId(2)
+                .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(2);
         }
 
         public void EnterAnimation()
