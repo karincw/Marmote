@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2393503762010480926, guid: aadf4b9dcd225ab48ac4a8d0335dc10a, type: 3}
+      propertyPath: isChangableTile
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3061383637894087434, guid: aadf4b9dcd225ab48ac4a8d0335dc10a, type: 3}
       propertyPath: m_Name
       value: BoardX

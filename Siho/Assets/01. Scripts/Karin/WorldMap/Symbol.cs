@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -11,12 +12,12 @@ namespace karin.worldmap
         [SerializeField] private float _moveSpeed = 0.4f;
         [SerializeField] private Ease _moveEase;
 
-        private int _nowMapIdx = 0;
+        public int nowIndex = 0;
         private WaitForSeconds _passingDelay;
 
         private bool moveNext = true;
 
-        public event Action OnEnterNextStage;
+        public Action<int> OnEnterNextStage;
 
         private void OnEnable()
         {
@@ -32,8 +33,8 @@ namespace karin.worldmap
         public void Move(int value)
         {
             WorldMapManager wmm = WorldMapManager.Instance;
-            int adjustedValue = Mathf.Clamp(value, 1, wmm._tileCount - _nowMapIdx - 1);
-            List<Tile> moveTiles = wmm.GetTiles(_nowMapIdx + 1, adjustedValue);
+            int adjustedValue = Mathf.Clamp(value, 1, wmm.tileCount - nowIndex - 1);
+            List<Tile> moveTiles = wmm.GetTiles(nowIndex + 1, adjustedValue);
             StartCoroutine(PassingAnimationCoroutine(moveTiles));
             StartCoroutine(MoveCoroutine(moveTiles));
         }
@@ -59,16 +60,23 @@ namespace karin.worldmap
                 yield return new WaitUntil(() => moveNext);
             }
             targetTiles[targetTiles.Count - 1].EnterAnimation();
-            _nowMapIdx += targetTiles.Count;
-            if (_nowMapIdx == 36)
+            nowIndex += targetTiles.Count;
+            if (nowIndex == 36)
             {
-                OnEnterNextStage?.Invoke();
+                WorldMapManager.Instance.stageIndex++;
+                OnEnterNextStage?.Invoke(WorldMapManager.Instance.stageIndex);
             }
         }
 
-        public void SetUpNextStage()
+        public void SetTileIndex(int index)
         {
-            _nowMapIdx = 0;
+            nowIndex = index;
+            transform.position = WorldMapManager.Instance.GetTiles(index, 1).First().transform.position;
+        }
+
+        public void SetUpNextStage(int stageIndex)
+        {
+            nowIndex = 0;
         }
 
     }

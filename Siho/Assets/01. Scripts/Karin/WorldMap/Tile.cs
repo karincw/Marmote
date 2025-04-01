@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -19,7 +20,7 @@ namespace karin.worldmap
 
         [Space(10), Header("Tile Settings")]
         [SerializeField] private bool isChangableTile = true;
-        public TileDataSO tileData;
+        public TileDataSO myTileData;
         public bool canChange => isChangableTile;
 
         private MeshRenderer _meshRenderer;
@@ -27,31 +28,8 @@ namespace karin.worldmap
         private void Awake()
         {
             _meshRenderer = GetComponent<MeshRenderer>();
-            tileData = Instantiate(tileData);
-            switch (tileData.tileType)
-            {
-                case TileType.None:
-                    _meshRenderer.material.color = Color.white;
-                    break;
-                case TileType.Battle:
-                    _meshRenderer.material.color = Color.red;
-                    break;
-                case TileType.Elite:
-                    _meshRenderer.material.color = Color.black;
-                    break;
-                case TileType.Boss:
-                    _meshRenderer.material.color = Color.blue;
-                    break;
-                case TileType.Shop:
-                    _meshRenderer.material.color = Color.green;
-                    break;
-                case TileType.Event:
-                    _meshRenderer.material.color = Color.cyan;
-                    break;
-                case TileType.ChangeStage:
-                    _meshRenderer.material.color = Color.yellow;
-                    break;
-            }
+            myTileData = Instantiate(myTileData);
+            ApplyTileColor();
         }
 
         [ContextMenu("PassingAnimation")]
@@ -65,7 +43,22 @@ namespace karin.worldmap
         }
 
         [ContextMenu("TileChangeAnimation")]
-        public void TileChangeAnimation(TileType tileType)
+        public void TileChangeAnimation()
+        {
+            DOTween.Complete(1);
+            float originYPos = transform.position.y;
+            Sequence seq = DOTween.Sequence()
+                .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(2)
+                .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(2);
+        }
+        
+        public void TileChange(TileDataSO newTileData)
+        {
+            myTileData = newTileData;
+            ApplyTileColor();
+        }
+
+        public void TileChangeAnimation(TileDataSO newTileData)
         {
             DOTween.Complete(1);
             float originYPos = transform.position.y;
@@ -73,33 +66,15 @@ namespace karin.worldmap
                 .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(2)
                 .AppendCallback(() =>
                 {
-                    tileData.tileType = tileType;
-                    switch (tileType)
-                    {
-                        case TileType.None:
-                            _meshRenderer.material.color = Color.white;
-                            break;
-                        case TileType.Battle:
-                            _meshRenderer.material.color = Color.red;
-                            break;
-                        case TileType.Elite:
-                            _meshRenderer.material.color = Color.black;
-                            break;
-                        case TileType.Boss:
-                            _meshRenderer.material.color = Color.blue;
-                            break;
-                        case TileType.Shop:
-                            _meshRenderer.material.color = Color.green;
-                            break;
-                        case TileType.Event:
-                            _meshRenderer.material.color = Color.cyan;
-                            break;
-                        case TileType.ChangeStage:
-                            _meshRenderer.material.color = Color.yellow;
-                            break;
-                    }
+                    myTileData = newTileData;
+                    ApplyTileColor();
                 }).SetId(2)
                 .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(2);
+        }
+
+        private void ApplyTileColor()
+        {
+            _meshRenderer.material.color = myTileData.tileColor;
         }
 
         public void EnterAnimation()
@@ -108,7 +83,9 @@ namespace karin.worldmap
         }
         private void EnterEvent()
         {
-            Debug.Log(tileData.tileType.ToString());
+            myTileData.Play();
+
+            Debug.Log(myTileData.tileType.ToString());
         }
     }
 }
