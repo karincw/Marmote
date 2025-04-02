@@ -65,6 +65,7 @@ namespace karin.worldmap
             {
                 WorldMapManager.Instance.stageIndex++;
                 OnEnterNextStage?.Invoke(WorldMapManager.Instance.stageIndex);
+                Debug.Log("NextStage");
             }
         }
 

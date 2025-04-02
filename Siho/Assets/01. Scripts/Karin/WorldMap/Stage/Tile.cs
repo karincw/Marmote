@@ -42,18 +42,9 @@ namespace karin.worldmap
                 .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(1);
         }
 
-        [ContextMenu("TileChangeAnimation")]
-        public void TileChangeAnimation()
-        {
-            DOTween.Complete(1);
-            float originYPos = transform.position.y;
-            Sequence seq = DOTween.Sequence()
-                .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(2)
-                .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(2);
-        }
-        
         public void TileChange(TileDataSO newTileData)
         {
+            if (!canChange) return;
             myTileData = newTileData;
             ApplyTileColor();
         }
@@ -66,6 +57,7 @@ namespace karin.worldmap
                 .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(2)
                 .AppendCallback(() =>
                 {
+                    if (!canChange) return;
                     myTileData = newTileData;
                     ApplyTileColor();
                 }).SetId(2)
@@ -84,8 +76,6 @@ namespace karin.worldmap
         private void EnterEvent()
         {
             myTileData.Play();
-
-            Debug.Log(myTileData.tileType.ToString());
         }
     }
 }

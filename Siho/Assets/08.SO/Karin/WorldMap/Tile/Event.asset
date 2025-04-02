@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c55a64cfc5dbaa4e937c63a56f45c0f, type: 3}
   m_Name: Event
   m_EditorClassIdentifier: 
-  tileType: 16
+  tileType: 8
   tileColor: {r: 0.91194963, g: 0.67804646, b: 0.27243772, a: 1}

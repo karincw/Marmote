@@ -7,11 +7,10 @@ namespace karin
     {
         None = 0,
         Battle = 1,
-        Elite = 2,
-        Boss = 4,
-        Shop = 8,
-        Event = 16,
-        ChangeStage = 32,
+        Boss = 2,
+        Shop = 4,
+        Event = 8,
+        ChangeStage = 16,
     }
 
 }

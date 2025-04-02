@@ -9,7 +9,7 @@ namespace karin.worldmap
         public override void Play()
         {
             var enemys = WorldMapManager.Instance.GetBattleEnemyDatas();
-            Debug.Log($"{enemys[0]}{enemys[1]}{enemys[2]}");
+            Debug.Log($"Battle {enemys[0]}{enemys[1]}{enemys[2]}");
         }
 
     }

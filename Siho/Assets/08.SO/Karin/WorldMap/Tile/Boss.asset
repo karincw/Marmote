@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679eeaa747d65b741a8a672ab4c3bbcc, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  tileType: 4
+  tileType: 2
   tileColor: {r: 0.4392157, g: 0.035266113, b: 0.02533517, a: 1}

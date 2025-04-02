@@ -12,6 +12,7 @@ namespace karin.worldmap
     {
         [SerializeField] private List<Tile> _tiles;
         [SerializeField] private List<StageEnemyList> _stageToEnemyList;
+        [SerializeField] private List<StageDataSO> _stageDatas;
 
         public int tileCount = 0;
         public int stageIndex = 0;
@@ -55,7 +56,7 @@ namespace karin.worldmap
             }
             if (Input.GetKeyDown(KeyCode.W))
             {
-                HandleNextStage(1);
+                HandleNextStage(0);
             }
         }
 
@@ -66,6 +67,11 @@ namespace karin.worldmap
             mapData.stageIndex = stageIndex;
             mapData.tileData = _tiles.Select(t => t.myTileData).ToList();
             DataManager.Instance.SaveMap(mapData);
+        }
+
+        public List<TileDataSO> GetStageTileData(int index)
+        {
+            return _stageDatas[index].GetTileDatas();
         }
 
         private void HandleLoadMap(MapData data)
@@ -109,21 +115,28 @@ namespace karin.worldmap
         [ContextMenu("UpgradeWorldMap")]
         private void HandleNextStage(int stageIndex)
         {
+            var tileData = GetStageTileData(stageIndex);
             int halfPoint = Mathf.CeilToInt((tileCount - 1) / 2);
+
             var lefts = _tiles.GetRange(0, halfPoint);
             var rights = _tiles.GetRange(halfPoint, tileCount - halfPoint);
+
+            var leftChanges = tileData.GetRange(0, halfPoint);
+            var rightChanges = tileData.GetRange(halfPoint, tileCount - halfPoint);
+
             rights.Reverse();
             DOTween.Complete(2);
-            StartCoroutine(TileAnimationCoroutine(lefts));
-            StartCoroutine(TileAnimationCoroutine(rights));
+
+            StartCoroutine(TileAnimationCoroutine(lefts, leftChanges));
+            StartCoroutine(TileAnimationCoroutine(rights, rightChanges));
         }
 
-        private IEnumerator TileAnimationCoroutine(List<Tile> targetTiles)
+        private IEnumerator TileAnimationCoroutine(List<Tile> targetTiles, List<TileDataSO> changes)
         {
-            foreach (var tile in targetTiles)
+            for(int i = 0; i < targetTiles.Count; i++)
             {
                 yield return _mapChangeAnimationDelay;
-                tile.TileChangeAnimation();
+                targetTiles[i].TileChangeAnimation(changes[i]);
             }
         }
 

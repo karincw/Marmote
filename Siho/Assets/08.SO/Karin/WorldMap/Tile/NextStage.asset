@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c55a64cfc5dbaa4e937c63a56f45c0f, type: 3}
   m_Name: NextStage
   m_EditorClassIdentifier: 
-  tileType: 32
+  tileType: 16
   tileColor: {r: 0.3236869, g: 0.240655, b: 0.4528302, a: 1}

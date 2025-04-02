@@ -8,7 +8,7 @@ namespace karin.worldmap
 
         public override void Play()
         {
-
+            Debug.Log($"Event");
         }
     }
 }

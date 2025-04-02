@@ -1,3 +1,4 @@
+using karin.worldmap;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,9 @@ namespace karin.Core
             if (isFirstLoading)
             {
                 isFirstLoading = false;
-                return;
+                mapData.stageIndex = 0;
+                mapData.positionIndex = 0;
+                mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
             }
             OnLoadWorldMap?.Invoke(mapData);
         }
