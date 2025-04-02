@@ -6,11 +6,6 @@ namespace Shy
     [CreateAssetMenu(menuName = "SO/Shy/Skill/Skill")]
     public class SkillEventSO : ScriptableObject
     {
-        [Header("Info")]
-        public string skillName;
-        [TextArea]
-        public string explian;
-
         [Header("Data")]
         public EventType eventType;
         public ActionWay actionWay;

@@ -35,7 +35,9 @@ namespace Shy
 
         public void OnEvent(int _value, EventType _type)
         {
-            if(_type == EventType.AttackEvent) health.OnDamageEvent(_value);
+            Debug.Log(gameObject.name + " Event : " + _type.ToString() + " / " + _value);
+
+            if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - def);
             else if (_type == EventType.BuffEvent)
             {
 
@@ -60,10 +62,12 @@ namespace Shy
 
                 if (way == ActionWay.None) way = _way;
 
+                int a = i;
+
                 switch (way)
                 {
                     case ActionWay.Self:
-                        skillActions += () => so.skills[i].UseSkill(this, this);
+                        skillActions += () => so.skills[a].UseSkill(this, this);
                         break;
                     case ActionWay.Opposite:
                         break;
@@ -71,13 +75,13 @@ namespace Shy
                         break;
                     case ActionWay.Random:
                         Character tR = targets[Random.Range(0, targets.Length)];
-                        skillActions += () => so.skills[i].UseSkill(this, tR);
+                        skillActions += () => so.skills[a].UseSkill(this, tR);
                         break;
                     case ActionWay.All:
                         for (int j = 0; j < targets.Length; j++)
                         {
                             Character tA = targets[j];
-                            int a = i;
+                            
                             skillActions += () => so.skills[a].UseSkill(this, tA);
                         }
                         break;

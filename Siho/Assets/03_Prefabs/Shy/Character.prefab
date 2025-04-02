@@ -131,6 +131,7 @@ MonoBehaviour:
   maxHp: 0
   hp: 0
   shield: 0
+  healthGuage: {fileID: 8697336861996818192}
 --- !u!114 &5626284147956596930
 MonoBehaviour:
   m_ObjectHideFlags: 0

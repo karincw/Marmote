@@ -1478,7 +1478,6 @@ MonoBehaviour:
   - {fileID: 525351020}
   enemies:
   - {fileID: 1782439856}
-  dicePrefab: {fileID: 0}
 --- !u!1 &907521295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2083,7 @@ GameObject:
   - component: {fileID: 2110304619}
   - component: {fileID: 2110304620}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Pooling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2117,6 +2116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218cb7761c6c84e4b8c599c39b0659ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items:
+  - obj: {fileID: 1401576709206948206, guid: 4e4bc8dc2295aa147944aa8be92f0783, type: 3}
+    spawnCnt: 10
+    type: 0
 --- !u!1001 &3515497841113049913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2209,6 +2212,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5626284147956596930, guid: 7c6f0cfdef041fc4789285c57e98c30f, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c1188dbaba7c3242abbb9c41f1bbae1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

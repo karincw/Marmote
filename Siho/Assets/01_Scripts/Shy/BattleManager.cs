@@ -13,11 +13,8 @@ namespace Shy
         public List<Character> enemies;
 
         //Dices
-        [SerializeField] private DiceUi dicePrefab;
-        private List<DiceUi> dices;
+        private List<DiceUi> dices = new List<DiceUi>();
         private int diceLoop;
-
-        
 
         private void Awake()
         {
@@ -25,16 +22,24 @@ namespace Shy
             else Instance = this;
         }
 
+        private void Start()
+        {
+            Init();
+        }
+
         public void Init()
         {
             // Minion의 값
 
+            //PIayerData
+
             // Enemy의 값
-            
+
             // Dice의 값
-
-            //
-
+            DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice).GetComponent<DiceUi>();
+            dUi.transform.parent = transform;
+            dices.Add(dUi);
+            
         }
 
         public void TurnEnd()

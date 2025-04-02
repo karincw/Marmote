@@ -10,14 +10,9 @@ namespace Shy
         [SerializeField] private int hp;
         [SerializeField] private int shield;
 
-        private Image healthGuage;
+        [SerializeField] private Image healthGuage;
 
         public Action dieEvent;
-
-        private void Awake()
-        {
-            healthGuage = transform.Find("Health Bar").GetChild(0).GetComponent<Image>();
-        }
 
         public void Init(int _hp)
         {
@@ -27,6 +22,8 @@ namespace Shy
 
         public void OnDamageEvent(int _value)
         {
+            if (_value <= 0) return;
+
             _value -= shield;
 
             if(_value > 0)

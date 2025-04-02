@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Shy
 {
     [System.Serializable]
@@ -16,4 +18,11 @@ namespace Shy
         public ActionWay target;
     }
 
+    [System.Serializable]
+    public struct PoolItem
+    {
+        public GameObject obj;
+        public int spawnCnt;
+        public PoolingType type;
+    }
 }

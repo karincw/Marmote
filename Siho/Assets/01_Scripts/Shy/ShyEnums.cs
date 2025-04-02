@@ -33,8 +33,9 @@ namespace Shy
         Def
     }
 
-    public enum PoolingObject
+    public enum PoolingType
     {
-
+       Dice = 0,
+       end
     }
 }
