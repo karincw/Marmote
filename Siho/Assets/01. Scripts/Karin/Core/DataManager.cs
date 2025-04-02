@@ -21,34 +21,29 @@ namespace karin.Core
 
         private void handleSceneLoad(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name != "WorldMap") return;
-
-            if (isFirstLoading)
+            switch (scene.name)
             {
-                isFirstLoading = false;
-                mapData.stageIndex = 0;
-                mapData.positionIndex = 0;
-                mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
+                case "WorldMap":
+                    if (isFirstLoading)
+                    {
+                        isFirstLoading = false;
+                        mapData.stageIndex = 0;
+                        mapData.positionIndex = 0;
+                        mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
+                    }
+                    OnLoadWorldMap?.Invoke(mapData);
+                    break;
+                case "Battle":
+                    break;
             }
-            OnLoadWorldMap?.Invoke(mapData);
-        }
-
-        private void OnEnable()
-        {
-            Debug.Log("start");
         }
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.F1))
+            if (Input.GetKeyDown(KeyCode.F1))
             {
                 SceneManager.LoadScene(DebugSceneIdx);
             }
-        }
-
-        public void ChangeBattleScene()
-        {
-
         }
 
         public void SaveMap(MapData data)

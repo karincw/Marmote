@@ -20,6 +20,8 @@ namespace karin.worldmap
 
         [Space(10), Header("Tile Settings")]
         [SerializeField] private bool isChangableTile = true;
+        [SerializeField] private float _imageAngle;
+
         public TileDataSO myTileData;
         public bool canChange => isChangableTile;
 
@@ -29,7 +31,8 @@ namespace karin.worldmap
         {
             _meshRenderer = GetComponent<MeshRenderer>();
             myTileData = Instantiate(myTileData);
-            ApplyTileColor();
+            _meshRenderer.material.SetFloat("_Angle", _imageAngle);
+            RefreshTileData();
         }
 
         [ContextMenu("PassingAnimation")]
@@ -46,7 +49,7 @@ namespace karin.worldmap
         {
             if (!canChange) return;
             myTileData = newTileData;
-            ApplyTileColor();
+            RefreshTileData();
         }
 
         public void TileChangeAnimation(TileDataSO newTileData)
@@ -59,14 +62,15 @@ namespace karin.worldmap
                 {
                     if (!canChange) return;
                     myTileData = newTileData;
-                    ApplyTileColor();
+                    RefreshTileData();
                 }).SetId(2)
                 .Append(transform.DOLocalMoveY(originYPos, _passingAnimPullDuration).SetEase(_passingAnimPullEase)).SetId(2);
         }
 
-        private void ApplyTileColor()
+        private void RefreshTileData()
         {
-            _meshRenderer.material.color = myTileData.tileColor;
+            _meshRenderer.material.SetColor("_BaseColor", myTileData.tileColor);
+            _meshRenderer.material.SetTexture("_MainTex", myTileData.iconTexture);
         }
 
         public void EnterAnimation()

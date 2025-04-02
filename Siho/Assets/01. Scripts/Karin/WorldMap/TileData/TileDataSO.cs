@@ -6,6 +6,7 @@ namespace karin.worldmap
     {
         public TileType tileType;
         [ColorUsage(true)]public Color    tileColor;
+        public Texture2D iconTexture;
 
         public abstract void Play();
     }
