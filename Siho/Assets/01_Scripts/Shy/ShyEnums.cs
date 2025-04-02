@@ -1,17 +1,40 @@
 namespace Shy
 {
-    public enum ActionWay
+    public enum Team
     {
-        Self,
-        Target,
-        RandomAll,
-        RandomEnemy,
-        RandomTeam
+        None,
+        Player,
+        Enemy
     }
 
-    public enum ActionType
+    public enum EventType
     {
-        Attack,
-        Heal,
+        AttackEvent,
+        ShieldEvent,
+        HealEvent,
+        BuffEvent
+    }
+
+    public enum ActionWay
+    {
+        None,
+        Self,
+        Opposite,//맞은편
+        Select, //지정
+        Random, //무작위
+        All //전체
+    }
+
+    public enum StatEnum
+    {
+        MaxHp,
+        Hp,
+        Str,
+        Def
+    }
+
+    public enum PoolingObject
+    {
+
     }
 }

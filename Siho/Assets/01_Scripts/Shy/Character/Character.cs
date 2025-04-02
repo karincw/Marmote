@@ -1,70 +1,107 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace Shy
 {
+    [RequireComponent(typeof(HealthCompo))]
     public class Character : MonoBehaviour
     {
-        public float maxHp = 5;
-        public float hp = 0;
-        public int atk = 3;
-        public int spd = 3;
+        //Stat
+        private HealthCompo health;
+        [SerializeField] private CharacterSO data;
+        public int str;
+        public int def;
 
-        public CharacterSO data;
-        public List<int> nums;
-        public List<Character> targets;
+        //Other
+        public Team team = Team.None;
 
-        private Image healthBar;
+        public UnityAction skillActions;
 
-        public bool isDie { get; private set; }
-
-        private void Awake()
+        public virtual void Awake()
         {
-            healthBar = transform.GetChild(0).GetComponent<Image>();
+            health = GetComponent<HealthCompo>();
         }
 
-        private void Update()
+        public void Init(Team _team, CharacterSO _data)
         {
-            healthBar.fillAmount = hp / maxHp;
+            data = _data;
+            team = _team;
+
+            //Stat
+            str = data.stats.str;
+            def = data.stats.def;
+            health.Init(_data.stats.hp);
         }
 
-        public void Init(CharacterSO _value)
+        public void OnEvent(int _value, EventType _type)
         {
-            data = _value;
-            maxHp = _value.hp;
-            hp = maxHp;
+            if(_type == EventType.AttackEvent) health.OnDamageEvent(_value);
+            else if (_type == EventType.BuffEvent)
+            {
+
+            }
+            else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
+            else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
+
+            Debug.Log("Event 끝");
         }
 
-        public void UseAction(UnityAction<SkillSO> _action)
+        #region 공격 시점
+        public void SkillSet(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
-            if (isDie) return;
+            SkillSO so = data.skills[_v];
+            skillActions = null;
 
-            SkillSO skill = data.skills[nums[0]];
-            int value = skill.GetValue();
+            for (int i = 0; i < so.skills.Count; i++)
+            {
+                Character[] targets = (so.skills[i].targetTeam == Team.Player) ? players : enemies;
 
-            Debug.Log(gameObject.name + $"의 {nums[0]}번째 행동 / 값 : " + value);
+                ActionWay way = so.skills[i].actionWay;
 
-            nums.RemoveAt(0);
+                if (way == ActionWay.None) way = _way;
 
-            _action.Invoke(skill);
+                switch (way)
+                {
+                    case ActionWay.Self:
+                        skillActions += () => so.skills[i].UseSkill(this, this);
+                        break;
+                    case ActionWay.Opposite:
+                        break;
+                    case ActionWay.Select:
+                        break;
+                    case ActionWay.Random:
+                        Character tR = targets[Random.Range(0, targets.Length)];
+                        skillActions += () => so.skills[i].UseSkill(this, tR);
+                        break;
+                    case ActionWay.All:
+                        for (int j = 0; j < targets.Length; j++)
+                        {
+                            Character tA = targets[j];
+                            int a = i;
+                            skillActions += () => so.skills[a].UseSkill(this, tA);
+                        }
+                        break;
+                }
+            }
+
+            //애니메이션
+            AttackAnime();
         }
 
-        public void OnDie()
+        public void AttackAnime()
         {
-            isDie = true;
+            skillActions?.Invoke();
         }
+        #endregion
 
-        [ContextMenu("Set Data")]
-        public void SetData()
+        public int GetStat(StatEnum _stat)
         {
-            hp = data.hp;
-            atk = data.atk;
-            spd = data.spd;
-        }
+            if (_stat == StatEnum.Str) return str;
+            if (_stat == StatEnum.Def) return def;
+            if (_stat == StatEnum.MaxHp) return health.GetMaxHealth();
+            if (_stat == StatEnum.Hp) return health.GetHealth();
 
-        internal bool CheckDice() => nums.Count > 0;
+            Debug.LogError("Not Found"); return 0;
+        }
     }
 }

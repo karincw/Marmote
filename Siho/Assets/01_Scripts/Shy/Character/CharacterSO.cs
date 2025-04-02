@@ -5,12 +5,8 @@ namespace Shy
     [CreateAssetMenu(menuName = "SO/Shy/Character")]
     public class CharacterSO : ScriptableObject
     {
-        [Header("Stat")]
-        public int hp;
-        public int atk;
-        public int spd;
+        public Stat stats;
 
-        [Header("Other")]
-        public SkillSO[] skills = new SkillSO[6];
+        public SkillSO[] skills = new SkillSO[3];
     }
 }

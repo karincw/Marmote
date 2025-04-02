@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a3a0f3a5a0f3f489501f949dee5fb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
   m_Name: Test Enemy
   m_EditorClassIdentifier: 
-  hp: 20
-  atk: 10
-  spd: 5
+  hp: 0
+  atk: 0
+  spd: 0
   skills:
-  - {fileID: 11400000, guid: 8392f8d8405ba4248911ec8c80ed66de, type: 2}
-  - {fileID: 11400000, guid: 8392f8d8405ba4248911ec8c80ed66de, type: 2}
-  - {fileID: 11400000, guid: 8392f8d8405ba4248911ec8c80ed66de, type: 2}
-  - {fileID: 11400000, guid: 8392f8d8405ba4248911ec8c80ed66de, type: 2}
-  - {fileID: 11400000, guid: 8392f8d8405ba4248911ec8c80ed66de, type: 2}
-  - {fileID: 11400000, guid: 8392f8d8405ba4248911ec8c80ed66de, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

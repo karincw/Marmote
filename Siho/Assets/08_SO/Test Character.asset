@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a3a0f3a5a0f3f489501f949dee5fb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
   m_Name: Test Character
   m_EditorClassIdentifier: 
-  hp: 20
-  atk: 10
-  spd: 5
+  stats:
+    hp: 0
+    str: 0
+    def: 0
   skills:
-  - {fileID: 11400000, guid: b08b520a6a4b29f49babc709b1e18e8f, type: 2}
-  - {fileID: 11400000, guid: b08b520a6a4b29f49babc709b1e18e8f, type: 2}
-  - {fileID: 11400000, guid: b08b520a6a4b29f49babc709b1e18e8f, type: 2}
-  - {fileID: 11400000, guid: b08b520a6a4b29f49babc709b1e18e8f, type: 2}
-  - {fileID: 11400000, guid: b08b520a6a4b29f49babc709b1e18e8f, type: 2}
-  - {fileID: 11400000, guid: b08b520a6a4b29f49babc709b1e18e8f, type: 2}
+  - {fileID: 11400000, guid: daa404f56025d474a8f90b4e66ee618b, type: 2}
+  - {fileID: 11400000, guid: daa404f56025d474a8f90b4e66ee618b, type: 2}
+  - {fileID: 11400000, guid: daa404f56025d474a8f90b4e66ee618b, type: 2}
