@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -9,6 +10,9 @@ namespace karin.worldmap
     {
         public List<TileChangeData> TileChangeDatas;
         [SerializeField] private TileDataSO _noneTile;
+        [SerializeField] private bool _isBossStage = false;
+        [SerializeField] private TileDataSO _bossTile;
+        [SerializeField] private TileDataSO _stageChangeTile;
         private int _maxTile = 32;
 
 
@@ -30,11 +34,20 @@ namespace karin.worldmap
 
             tileDatas = Utils.ShuffleList(tileDatas);
 
+            var startTile = _isBossStage ? _bossTile : _stageChangeTile;
+            
             tileDatas.Insert(0, _noneTile);
             tileDatas.Insert(9, _noneTile);
             tileDatas.Insert(18, _noneTile);
             tileDatas.Insert(27, _noneTile);
-            tileDatas.Insert(36, _noneTile);
+            tileDatas.Insert(36, startTile);
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var data in tileDatas)
+            {
+                sb.Append(data.ToString() +"\n");
+            }
+            Debug.Log(sb.ToString());
 
             return tileDatas;
         }

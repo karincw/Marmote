@@ -19,6 +19,11 @@ namespace karin.Core
             SceneManager.sceneLoaded += handleSceneLoad;
         }
 
+        private void Start()
+        {
+            SceneManager.LoadScene("WorldMap");
+        }
+
         private void handleSceneLoad(Scene scene, LoadSceneMode mode)
         {
             switch (scene.name)

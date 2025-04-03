@@ -13,4 +13,14 @@ namespace karin
         ChangeStage = 16,
     }
 
+    public enum Theme
+    {
+        Elice = 0,
+        OZ,
+        RedHood,
+        Pinocchio,
+        Jack,
+
+    }
+
 }

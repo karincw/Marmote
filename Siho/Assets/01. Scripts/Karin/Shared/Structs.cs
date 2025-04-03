@@ -28,5 +28,6 @@ namespace karin
         public int stageIndex;
         public int positionIndex;
         public List<TileDataSO> tileData;
+        public Theme stageTheme;
     }
 }

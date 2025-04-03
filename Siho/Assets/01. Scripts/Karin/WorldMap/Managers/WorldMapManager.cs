@@ -1,9 +1,11 @@
+using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using karin.Core;
 using karin.worldmap.dice;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -11,9 +13,11 @@ namespace karin.worldmap
     public class WorldMapManager : MonoSingleton<WorldMapManager>
     {
         [SerializeField] private List<Tile> _tiles;
-        [SerializeField] private List<StageEnemyList> _stageToEnemyList;
         [SerializeField] private List<StageDataSO> _stageDatas;
+        [Space(5)]
+        [SerializeField, SerializedDictionary("Theme", "Theme Enemys")] private SerializedDictionary<Theme, StageEnemyList> _themeToEnemyList;
 
+        [Space(5)]
         public int tileCount = 0;
         public int stageIndex = 0;
 
@@ -22,6 +26,8 @@ namespace karin.worldmap
         private Symbol _symbol;
 
         private WaitForSeconds _mapChangeAnimationDelay;
+        private StageDataSO _currentStage => _stageDatas[stageIndex];
+        private Theme _stageTheme;
 
         private void Awake()
         {
@@ -31,6 +37,7 @@ namespace karin.worldmap
             _floor = FindFirstObjectByType<Floor>();
             _symbol = FindFirstObjectByType<Symbol>();
             _mapChangeAnimationDelay = new WaitForSeconds(0.05f);
+            _stageTheme = (Theme)Random.Range(0, 5);
         }
 
         private void OnEnable()
@@ -47,7 +54,7 @@ namespace karin.worldmap
             DataManager.Instance.OnLoadWorldMap -= HandleLoadMap;
             SaveData();
         }
-
+#if UNITY_EDITOR
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Q))
@@ -59,25 +66,29 @@ namespace karin.worldmap
                 HandleNextStage(0);
             }
         }
+#endif
 
         public void SaveData()
         {
             MapData mapData = new MapData();
             mapData.positionIndex = _symbol.nowIndex;
             mapData.stageIndex = stageIndex;
+            mapData.stageTheme = _stageTheme;
             mapData.tileData = _tiles.Select(t => t.myTileData).ToList();
             DataManager.Instance.SaveMap(mapData);
         }
 
         public List<TileDataSO> GetStageTileData(int index)
         {
-            return _stageDatas[index].GetTileDatas();
+            var tiles = _stageDatas[index].GetTileDatas();
+            return tiles;
         }
 
         private void HandleLoadMap(MapData data)
         {
             _symbol.SetTileIndex(data.positionIndex);
             stageIndex = data.stageIndex;
+            _stageTheme = data.stageTheme;
             for (int i = 0; i < _tiles.Count; i++)
             {
                 _tiles[i].TileChange(data.tileData[i]);
@@ -87,13 +98,13 @@ namespace karin.worldmap
         public List<EnemyDataSO> GetBattleEnemyDatas()
         {
             ShuffleEnemyList(stageIndex);
-            return _stageToEnemyList[stageIndex].enemyList.GetRange(0, 3);
+            return _themeToEnemyList[_stageTheme].enemyList.GetRange(0, 3);
         }
 
         private void ShuffleEnemyList(int stageIndex)
         {
-            var shuffledList = _stageToEnemyList[stageIndex].enemyList.OrderBy(e => Random.value).ToList();
-            _stageToEnemyList[stageIndex] = new StageEnemyList(shuffledList);
+            var shuffledList = _themeToEnemyList[_stageTheme].enemyList.OrderBy(e => Random.value).ToList();
+            _themeToEnemyList[_stageTheme] = new StageEnemyList(shuffledList);
         }
 
         public List<Tile> GetTiles(int index, int count)
@@ -115,6 +126,9 @@ namespace karin.worldmap
         [ContextMenu("UpgradeWorldMap")]
         private void HandleNextStage(int stageIndex)
         {
+            if (stageIndex % 5 == 0)
+                _stageTheme = (Theme)Random.Range(0, 5);
+
             var tileData = GetStageTileData(stageIndex);
             int halfPoint = Mathf.CeilToInt((tileCount - 1) / 2);
 
@@ -125,6 +139,7 @@ namespace karin.worldmap
             var rightChanges = tileData.GetRange(halfPoint, tileCount - halfPoint);
 
             rights.Reverse();
+            rightChanges.Reverse();
             DOTween.Complete(2);
 
             StartCoroutine(TileAnimationCoroutine(lefts, leftChanges));
@@ -133,7 +148,7 @@ namespace karin.worldmap
 
         private IEnumerator TileAnimationCoroutine(List<Tile> targetTiles, List<TileDataSO> changes)
         {
-            for(int i = 0; i < targetTiles.Count; i++)
+            for (int i = 0; i < targetTiles.Count; i++)
             {
                 yield return _mapChangeAnimationDelay;
                 targetTiles[i].TileChangeAnimation(changes[i]);
