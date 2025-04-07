@@ -30,4 +30,10 @@ namespace karin
         public List<TileDataSO> tileData;
         public Theme stageTheme;
     }
+
+    [System.Serializable]
+    public struct EnemyData
+    {
+
+    }
 }

@@ -1,3 +1,4 @@
+using karin.Core;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +9,10 @@ namespace karin.worldmap
     {
         public override void Play()
         {
-            var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(1);
-            Debug.Log($"Battle {enemys[0]}");
+            var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(Random.Range(2, 4));
+            EnemyData eData = new EnemyData();
+
+            DataManager.Instance.WriteEnemyData(eData);
         }
 
     }

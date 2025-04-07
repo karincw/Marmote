@@ -8,11 +8,12 @@ namespace karin.Core
     public class DataManager : MonoSingleton<DataManager>
     {
         [SerializeField] private MapData mapData;
-        //[SerializeField] private MapData mapData; //적 데이터 구조체
+        [SerializeField] private EnemyData enemyData;
         public event Action<MapData> OnLoadWorldMap;
 
         [SerializeField] private int DebugSceneIdx = 0;
         private bool isFirstLoading = true;
+        public EnemyData GetEnemyData => enemyData;
         private void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
@@ -54,6 +55,11 @@ namespace karin.Core
         public void SaveMap(MapData data)
         {
             mapData = data;
+        }
+
+        public void WriteEnemyData(EnemyData data)
+        {
+            enemyData = data;
         }
 
     }
