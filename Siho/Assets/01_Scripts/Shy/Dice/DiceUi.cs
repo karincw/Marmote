@@ -17,14 +17,13 @@ namespace Shy
         [SerializeField] private int dNum;
         [SerializeField] private DiceSO data;
         public Character user;
+        public Team team;
 
         private void Awake()
         {
             visual = transform.Find("Visual").GetComponent<Image>();
             icon = transform.Find("Icon").GetComponent<Image>();
             userIcon = transform.Find("UserIcon").GetComponent<Image>();
-
-            HideDice();
         }
 
         public void HideDice()
@@ -36,8 +35,14 @@ namespace Shy
 
         public void RollDice()
         {
+            //Visual Set
+            transform.localScale = Vector2.one;
             visual.gameObject.SetActive(true);
+
+            //Value
             dNum = Random.Range(0, 6);
+            //icon.sprite = data.eyes[dNum].icon;
+            user = null;
 
             //나중에 애니메이션으로 이동
             RollFin();
@@ -45,8 +50,8 @@ namespace Shy
 
         public void RollFin()
         {
-            //icon visual Update
             icon.gameObject.SetActive(true);
+            BattleManager.Instance.CheckTurn(this);
         }
 
         public EyeSO UseDice()
@@ -55,9 +60,19 @@ namespace Shy
             return data.eyes[dNum];
         }
 
+        public void SelectCharacter(Character _ch)
+        {
+            Debug.Log("User Change : " + _ch.gameObject.name);
+            user = _ch;
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Dice Click by " + gameObject.name);
+            if (!CanInteract.interact) return;
+
+            Debug.Log("Dice Click by " + transform.GetSiblingIndex() + gameObject.name);
+
+            Selector.Instance.ShowCharacter(team, (va)=>SelectCharacter(va));
         }
     }
 }

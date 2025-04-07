@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Shy
 {
@@ -15,6 +15,9 @@ namespace Shy
         //Dices
         private List<DiceUi> dices = new List<DiceUi>();
         private int diceLoop;
+        [SerializeField] private RectTransform hand;
+        [SerializeField] private RectTransform handVisual;
+
 
         private void Awake()
         {
@@ -36,18 +39,66 @@ namespace Shy
             // Enemy의 값
 
             // Dice의 값
-            DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice).GetComponent<DiceUi>();
-            dUi.transform.parent = transform;
-            dices.Add(dUi);
-            
+            Transform spawn = hand.Find("Groups");
+
+            for (int i = 0; i < 1; i++)
+            {
+                DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice).GetComponent<DiceUi>();
+                dUi.transform.SetParent(spawn);
+                dices.Add(dUi);
+                dUi.gameObject.SetActive(true);
+                dUi.team = Team.Player;
+            }
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice).GetComponent<DiceUi>();
+                dUi.transform.SetParent(spawn);
+                dices.Add(dUi);
+                dUi.gameObject.SetActive(true);
+                dUi.team = Team.Enemy;
+            }
+
+            StartCoroutine(TurnStart());
+        }
+
+        #region Turn
+        public IEnumerator TurnStart()
+        {
+            // +Dice Shuffle
+            for (int i = 0; i < dices.Count; i++)
+            {
+                dices[i].HideDice();
+            }
+
+            handVisual.sizeDelta = Vector2.zero;
+            hand.sizeDelta = new Vector2(60 + 180 * dices.Count, 200);
+
+            for (int i = 0; i <= dices.Count * 10; i++)
+            {
+                yield return new WaitForSeconds(0.025f);
+                handVisual.sizeDelta = new Vector2(60 + 18 * i, 40);
+
+                if(i % 10 == 8) dices[i / 10].RollDice();
+            }
+        }
+
+        public void CheckTurn(DiceUi _dice)
+        {
+            if (_dice != dices[dices.Count - 1]) return;
+
+            CanInteract.interact = true;
         }
 
         public void TurnEnd()
         {
+            Debug.Log("Turn End");
+
             diceLoop = 0;
 
             UseDice();
         }
+        #endregion
 
         public void UseDice()
         {

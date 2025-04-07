@@ -52,6 +52,7 @@ namespace Shy
 
         public void Return(GameObject _obj)
         {
+            _obj.SetActive(false);
             for (int i = 0; i < transform.childCount; i++)
             {
                 if(transform.GetChild(i).name == _obj.name)

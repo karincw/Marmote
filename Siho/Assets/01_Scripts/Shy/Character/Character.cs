@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace Shy
 {
     [RequireComponent(typeof(HealthCompo))]
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IPointerClickHandler
     {
         //Stat
         private HealthCompo health;
@@ -12,11 +14,17 @@ namespace Shy
         public int str;
         public int def;
 
+        public int bonusAtk = 0;
+        public int bonusDef = 0;
+
+        public List<Buff> buffs;
+
         //Other
         public Team team = Team.None;
 
         public UnityAction skillActions;
 
+        #region 초기화
         public virtual void Awake()
         {
             health = GetComponent<HealthCompo>();
@@ -31,19 +39,27 @@ namespace Shy
             str = data.stats.str;
             def = data.stats.def;
             health.Init(_data.stats.hp);
+
+            buffs = new List<Buff>();
+        }
+        #endregion
+
+        public void BuffCheck()
+        {
+            foreach (Buff item in buffs)
+            {
+                item.CountDown();
+            }
         }
 
-        public void OnEvent(int _value, EventType _type)
+        public void OnSkillEvent(int _value, EventType _type)
         {
             Debug.Log(gameObject.name + " Event : " + _type.ToString() + " / " + _value);
 
             if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - def);
-            else if (_type == EventType.BuffEvent)
-            {
-
-            }
             else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
             else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
+            else if (_type == EventType.BuffEvent) health.OnShieldEvent(_value);
 
             Debug.Log("Event 끝");
         }
@@ -106,6 +122,12 @@ namespace Shy
             if (_stat == StatEnum.Hp) return health.GetHealth();
 
             Debug.LogError("Not Found"); return 0;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Debug.Log("Click Character");
+            Selector.Instance.SelectCharacter(this);
         }
     }
 }

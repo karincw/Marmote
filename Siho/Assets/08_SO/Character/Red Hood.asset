@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
+  m_Name: Red Hood
+  m_EditorClassIdentifier: 
+  stats:
+    hp: 0
+    str: 0
+    def: 0
+  skills:
+  - {fileID: 11400000, guid: b1851658ef3246b4ca3a87d8daf74e5b, type: 2}
+  - {fileID: 11400000, guid: b1851658ef3246b4ca3a87d8daf74e5b, type: 2}
+  - {fileID: 11400000, guid: b1851658ef3246b4ca3a87d8daf74e5b, type: 2}
+  sprite: {fileID: 21300000, guid: 9b2f9b92215aca7439f08076d496223a, type: 3}
+  attackAnime: {fileID: 0}
+  skillAnime: {fileID: 0}
+  skill2Anime: {fileID: 0}

@@ -16,3 +16,4 @@ MonoBehaviour:
   explain: 
   icon: {fileID: 0}
   value: 3
+  attackWay: 5

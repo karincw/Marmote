@@ -15,6 +15,14 @@ namespace Shy
         BuffEvent
     }
 
+    public enum BuffEvent
+    {
+        Brave = 0,
+        Scare,
+        Poison,
+        Burn,
+    }
+
     public enum ActionWay
     {
         None,
@@ -36,6 +44,7 @@ namespace Shy
     public enum PoolingType
     {
        Dice = 0,
+       Buff,
        end
     }
 }
