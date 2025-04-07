@@ -23,7 +23,8 @@ namespace karin.worldmap
         [SerializeField] private float _imageAngle;
 
         public TileDataSO myTileData;
-        public bool canChange => isChangableTile;
+        public bool CanChange => isChangableTile;
+        public bool IsBreaking => myTileData.tileType == TileType.Boss;
 
         private MeshRenderer _meshRenderer;
 
@@ -47,7 +48,7 @@ namespace karin.worldmap
 
         public void TileChange(TileDataSO newTileData)
         {
-            if (!canChange) return;
+            if (!CanChange) return;
             myTileData = newTileData;
             RefreshTileData();
         }
@@ -60,7 +61,7 @@ namespace karin.worldmap
                 .Append(transform.DOLocalMoveY(transform.position.y + _TileChangeAnimPullValue, _passingAnimPushDuration).SetEase(_passingAnimPushEase)).SetId(2)
                 .AppendCallback(() =>
                 {
-                    if (!canChange) return;
+                    if (!CanChange) return;
                     myTileData = newTileData;
                     RefreshTileData();
                 }).SetId(2)

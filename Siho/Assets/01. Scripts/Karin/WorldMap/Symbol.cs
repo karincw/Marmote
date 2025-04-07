@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -17,17 +18,15 @@ namespace karin.worldmap
 
         private bool moveNext = true;
 
-        public Action<int> OnEnterNextStage;
-
         private void OnEnable()
         {
             _passingDelay = new WaitForSeconds(_moveSpeed);
-            OnEnterNextStage += SetUpNextStage;
+            WorldMapManager.Instance.OnEnterNextStage += SetUpNextStage;
         }
 
         private void OnDisable()
         {
-            OnEnterNextStage -= SetUpNextStage;
+            WorldMapManager.Instance.OnEnterNextStage -= SetUpNextStage;
         }
 
         public void Move(int value)
@@ -35,6 +34,11 @@ namespace karin.worldmap
             WorldMapManager wmm = WorldMapManager.Instance;
             int adjustedValue = Mathf.Clamp(value, 1, wmm.tileCount - nowIndex - 1);
             List<Tile> moveTiles = wmm.GetTiles(nowIndex + 1, adjustedValue);
+
+            int breakingIndex = moveTiles.FindIndex(t => t == moveTiles.FirstOrDefault(t => t.IsBreaking));
+            if (breakingIndex != -1)
+                moveTiles = moveTiles.GetRange(0, breakingIndex + 1).ToList();
+
             StartCoroutine(PassingAnimationCoroutine(moveTiles));
             StartCoroutine(MoveCoroutine(moveTiles));
         }
@@ -53,20 +57,11 @@ namespace karin.worldmap
             {
                 moveNext = false;
                 transform.DOMove(tile.transform.position, _moveSpeed).SetEase(_moveEase)
-                    .OnComplete(() =>
-                    {
-                        moveNext = true;
-                    });
+                    .OnComplete(() => { moveNext = true; });
                 yield return new WaitUntil(() => moveNext);
             }
-            targetTiles[targetTiles.Count - 1].EnterAnimation();
             nowIndex += targetTiles.Count;
-            if (nowIndex == 36)
-            {
-                WorldMapManager.Instance.stageIndex++;
-                OnEnterNextStage?.Invoke(WorldMapManager.Instance.stageIndex);
-                Debug.Log("NextStage");
-            }
+            targetTiles[targetTiles.Count - 1].EnterAnimation();
         }
 
         public void SetTileIndex(int index)
@@ -78,6 +73,7 @@ namespace karin.worldmap
         public void SetUpNextStage(int stageIndex)
         {
             nowIndex = 0;
+            SetTileIndex(nowIndex);
         }
 
     }

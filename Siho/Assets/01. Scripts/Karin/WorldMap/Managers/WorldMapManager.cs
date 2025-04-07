@@ -2,11 +2,12 @@ using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using karin.Core;
 using karin.worldmap.dice;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace karin.worldmap
 {
@@ -29,6 +30,8 @@ namespace karin.worldmap
         private StageDataSO _currentStage => _stageDatas[stageIndex];
         private Theme _stageTheme;
 
+        public Action<int> OnEnterNextStage;
+
         private void Awake()
         {
             tileCount = _tiles.Count;
@@ -43,14 +46,14 @@ namespace karin.worldmap
         private void OnEnable()
         {
             _floor.OnDiceStopEvent += HandleDiceStop;
-            _symbol.OnEnterNextStage += HandleNextStage;
+            OnEnterNextStage += HandleNextStage;
             DataManager.Instance.OnLoadWorldMap += HandleLoadMap;
         }
 
         private void OnDisable()
         {
             _floor.OnDiceStopEvent -= HandleDiceStop;
-            _symbol.OnEnterNextStage -= HandleNextStage;
+            OnEnterNextStage -= HandleNextStage;
             DataManager.Instance.OnLoadWorldMap -= HandleLoadMap;
             SaveData();
         }
@@ -67,6 +70,12 @@ namespace karin.worldmap
             }
         }
 #endif
+
+        public void SetNextStage()
+        {
+            OnEnterNextStage?.Invoke(++stageIndex);
+            Debug.Log($"NextStage : {stageIndex}");
+        }
 
         public void SaveData()
         {
@@ -95,10 +104,10 @@ namespace karin.worldmap
             }
         }
 
-        public List<EnemyDataSO> GetBattleEnemyDatas()
+        public List<EnemyDataSO> GetBattleEnemyDatas(int count)
         {
             ShuffleEnemyList(stageIndex);
-            return _themeToEnemyList[_stageTheme].enemyList.GetRange(0, 3);
+            return _themeToEnemyList[_stageTheme].enemyList.GetRange(0, count);
         }
 
         private void ShuffleEnemyList(int stageIndex)

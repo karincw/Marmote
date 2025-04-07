@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   tileType: 2
-  tileColor: {r: 0.4392157, g: 0.035266113, b: 0.02533517, a: 1}
+  tileColor: {r: 0.34591186, g: 0, b: 0.030614857, a: 1}
+  iconTexture: {fileID: 0}

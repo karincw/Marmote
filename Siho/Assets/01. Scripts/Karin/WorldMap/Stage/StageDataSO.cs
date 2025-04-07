@@ -34,18 +34,18 @@ namespace karin.worldmap
 
             tileDatas = Utils.ShuffleList(tileDatas);
 
-            var startTile = _isBossStage ? _bossTile : _stageChangeTile;
-            
             tileDatas.Insert(0, _noneTile);
             tileDatas.Insert(9, _noneTile);
             tileDatas.Insert(18, _noneTile);
             tileDatas.Insert(27, _noneTile);
-            tileDatas.Insert(36, startTile);
+            tileDatas.Insert(36, _stageChangeTile);
+            if (_isBossStage)
+                tileDatas[35] = _bossTile;
 
             StringBuilder sb = new StringBuilder();
             foreach (var data in tileDatas)
             {
-                sb.Append(data.ToString() +"\n");
+                sb.Append(data.ToString() + "\n");
             }
             Debug.Log(sb.ToString());
 

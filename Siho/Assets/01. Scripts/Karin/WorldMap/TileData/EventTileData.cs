@@ -8,7 +8,14 @@ namespace karin.worldmap
 
         public override void Play()
         {
-            Debug.Log($"Event");
+            if (tileType.HasFlag(TileType.ChangeStage))
+            {
+                WorldMapManager.Instance.SetNextStage();
+            }
+            else if (tileType.HasFlag(TileType.Event))
+            {
+                Debug.Log("Event");
+            }
         }
     }
 }
