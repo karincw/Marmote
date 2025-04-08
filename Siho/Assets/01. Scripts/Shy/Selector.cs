@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Shy
 {
@@ -23,8 +24,10 @@ namespace Shy
 
         public void ShowCharacter(Team _targetTeam, UnityAction<Character> _act)
         {
-            //Dotween Black Board
-            blackBoard.color = new Color(0, 0, 0, 0.8f);
+            blackBoard.DOFade(0.8f, 0.3f);
+            //blackBoard.color = new Color(0, 0, 0, 0.8f);
+
+            act = _act;
 
             blackBoard.transform.SetAsLastSibling();
 

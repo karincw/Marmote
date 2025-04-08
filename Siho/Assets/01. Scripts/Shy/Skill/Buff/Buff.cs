@@ -22,10 +22,11 @@ namespace Shy
             tmp = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void Init(BuffEvent _ev, int _life)
+        public void Init(Character _user, BuffEvent _ev, int _life)
         {
             buffEvent = _ev;
             life = _life;
+            user = _user;
 
             tmp.text = life.ToString();
 

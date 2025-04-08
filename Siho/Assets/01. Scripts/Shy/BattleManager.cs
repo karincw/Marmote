@@ -33,10 +33,15 @@ namespace Shy
         public void Init()
         {
             // Minion의 값
+            CharacterSO[] so = DataManager.Instance.GetMinions();
 
-            //PIayerData
+            for (int i = 0; i < minions.Count; i++)
+            {
+                minions[i].Init(Team.Player, so[i]);
+            }
 
             // Enemy의 값
+            //CharacterSO[] so = karin.Core.DataManager.Instance.GetEnemyData();
 
             // Dice의 값
             Transform spawn = hand.Find("Groups");

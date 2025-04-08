@@ -25,6 +25,8 @@ namespace Shy
                 data = data.Replace(getStats[i].key, v.ToString());
             }
 
+            Debug.Log(data);
+
             int value = int.Parse(Formula.GetFormula(data));
 
             if (_user.bonusAtk != 0) value = Mathf.RoundToInt(value * _user.bonusAtk * 0.01f);

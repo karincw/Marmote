@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
-  m_Name: Red Hood
+  m_Name: GoldDuck
   m_EditorClassIdentifier: 
   stats:
-    maxHp: 15
-    hp: 15
-    str: 8
-    def: 5
+    maxHp: 0
+    hp: 0
+    str: 0
+    def: 0
   skills:
   - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
   - {fileID: 11400000, guid: 03ab5b3aafd7a5b429a2b4da4956b258, type: 2}
   - {fileID: 11400000, guid: b1851658ef3246b4ca3a87d8daf74e5b, type: 2}
-  sprite: {fileID: 21300000, guid: 9b2f9b92215aca7439f08076d496223a, type: 3}
-  attackAnime: {fileID: 21300000, guid: 7e83e57038e971f40b9dd8526c468964, type: 3}
+  sprite: {fileID: 21300000, guid: fe796082e88a76744a74303a36bc7301, type: 3}
+  attackAnime: {fileID: 0}
   skillAnime: {fileID: 0}
   skill2Anime: {fileID: 0}

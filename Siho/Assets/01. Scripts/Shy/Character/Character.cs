@@ -8,20 +8,20 @@ namespace Shy
     [RequireComponent(typeof(HealthCompo))]
     public class Character : MonoBehaviour, IPointerClickHandler
     {
-        //Stat
+        [Header("Stat")]
         private HealthCompo health;
         [SerializeField] private CharacterSO data;
         public int str;
         public int def;
 
+        [Header("Other")]
         public int bonusAtk = 0;
         public int bonusDef = 0;
 
         public List<Buff> buffs;
 
-        //Other
-        public Team team = Team.None;
-
+        private Team team = Team.None;
+        public Transform buffGroup;
         public UnityAction skillActions;
 
         #region 초기화
@@ -59,7 +59,6 @@ namespace Shy
             if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - def);
             else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
             else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
-            else if (_type == EventType.BuffEvent) health.OnShieldEvent(_value);
 
             Debug.Log("Event 끝");
         }
@@ -67,7 +66,7 @@ namespace Shy
         #region 공격 시점
         public void SkillSet(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
-            SkillSO so = data.skills[_v];
+            SkillSO so = data.skills[_v - 1];
             skillActions = null;
 
             for (int i = 0; i < so.skills.Count; i++)

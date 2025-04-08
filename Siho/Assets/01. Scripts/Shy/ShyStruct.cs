@@ -5,6 +5,7 @@ namespace Shy
     [System.Serializable]
     public struct Stat
     {
+        public int maxHp;
         public int hp;
         public int str;
         public int def;

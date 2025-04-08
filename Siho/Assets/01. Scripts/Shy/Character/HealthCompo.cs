@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,13 +12,16 @@ namespace Shy
         [SerializeField] private int shield;
 
         [SerializeField] private Image healthGuage;
+        [SerializeField] private TextMeshProUGUI healthValue;
 
         public Action dieEvent;
 
         public void Init(int _hp)
         {
-            _hp = maxHp;
+            maxHp = _hp;
             hp = maxHp;
+
+            UpdateHealth();
         }
 
         public void OnDamageEvent(int _value)
@@ -30,6 +34,8 @@ namespace Shy
             {
                 hp -= _value;
             }
+
+            UpdateHealth();
 
             if (hp <= 0) dieEvent?.Invoke();
         }
@@ -49,5 +55,11 @@ namespace Shy
 
         public int GetHealth() => hp;
         public int GetMaxHealth() => maxHp;
+
+        public void UpdateHealth()
+        {
+            healthGuage.fillAmount = hp / maxHp;
+            healthValue.text = hp + " / " + maxHp;
+        }
     }
 }

@@ -11,7 +11,10 @@ namespace Shy
         public override void UseSkill(Character _user, Character _target)
         {
             Buff buff = Pooling.Instance.Use(PoolingType.Buff).GetComponent<Buff>();
-            buff.Init(type, cnt);
+            buff.Init(_target, type, cnt);
+            buff.transform.parent = _user.buffGroup;
+            buff.gameObject.SetActive(true);
+            buff.transform.localScale = Vector3.one;
 
             _target.buffs.Add(buff);
         }
