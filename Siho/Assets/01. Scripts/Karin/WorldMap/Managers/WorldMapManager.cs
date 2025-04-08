@@ -2,6 +2,7 @@ using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using karin.Core;
 using karin.worldmap.dice;
+using Shy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -104,7 +105,7 @@ namespace karin.worldmap
             }
         }
 
-        public List<EnemyDataSO> GetBattleEnemyDatas(int count)
+        public List<CharacterSO> GetBattleEnemyDatas(int count)
         {
             ShuffleEnemyList(stageIndex);
             return _themeToEnemyList[_stageTheme].enemyList.GetRange(0, count);
