@@ -11,8 +11,9 @@ namespace karin.worldmap
         {
             var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(Random.Range(2, 4));
             EnemyData eData = new EnemyData();
-
+            eData.enemyList = enemys;
             DataManager.Instance.WriteEnemyData(eData);
+            //æ¿ ¿Ãµø
         }
 
     }
