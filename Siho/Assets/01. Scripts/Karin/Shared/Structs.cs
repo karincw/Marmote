@@ -1,5 +1,6 @@
 
 using karin.worldmap;
+using Shy;
 using System.Collections.Generic;
 
 namespace karin
@@ -14,9 +15,9 @@ namespace karin
     [System.Serializable]
     public struct StageEnemyList
     {
-        public List<EnemyDataSO> enemyList; 
+        public List<CharacterSO> enemyList; 
 
-        public StageEnemyList(List<EnemyDataSO> _enemyList)
+        public StageEnemyList(List<CharacterSO> _enemyList)
         {
             enemyList = _enemyList;
         }
@@ -34,6 +35,6 @@ namespace karin
     [System.Serializable]
     public struct EnemyData
     {
-
+        public List<CharacterSO> enemyList;
     }
 }
