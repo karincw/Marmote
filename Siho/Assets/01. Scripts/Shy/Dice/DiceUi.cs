@@ -72,7 +72,7 @@ namespace Shy
 
             Debug.Log("Dice Click by " + transform.GetSiblingIndex() + gameObject.name);
 
-            Selector.Instance.ShowCharacter(team, (va)=>SelectCharacter(va));
+            SelectManager.Instance.ShowCharacter(team, (va)=>SelectCharacter(va));
         }
     }
 }

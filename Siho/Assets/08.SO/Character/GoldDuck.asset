@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
   m_Name: GoldDuck
   m_EditorClassIdentifier: 
+  characterName: "\uD669\uAE08 \uAC70\uC704"
   stats:
-    maxHp: 0
-    hp: 0
-    str: 0
-    def: 0
+    maxHp: 10
+    hp: 10
+    str: 8
+    def: 3
   skills:
-  - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
-  - {fileID: 11400000, guid: 03ab5b3aafd7a5b429a2b4da4956b258, type: 2}
-  - {fileID: 11400000, guid: b1851658ef3246b4ca3a87d8daf74e5b, type: 2}
+  - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
+  - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
+  - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
   sprite: {fileID: 21300000, guid: fe796082e88a76744a74303a36bc7301, type: 3}
   attackAnime: {fileID: 0}
   skillAnime: {fileID: 0}

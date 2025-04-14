@@ -1,16 +1,22 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
+using UnityEngine.UI;
 
 namespace Shy
 {
     [RequireComponent(typeof(HealthCompo))]
     public class Character : MonoBehaviour, IPointerClickHandler
     {
-        [Header("Stat")]
         private HealthCompo health;
+        [SerializeField] private PlayableAsset timeLineAsset;
         [SerializeField] private CharacterSO data;
+
+        [Header("Stat")]
         public int str;
         public int def;
 
@@ -24,10 +30,13 @@ namespace Shy
         public Transform buffGroup;
         public UnityAction skillActions;
 
+        private Image visual;
+
         #region 초기화
         public virtual void Awake()
         {
             health = GetComponent<HealthCompo>();
+            visual = transform.Find("Visual").GetComponent<Image>();
         }
 
         public void Init(Team _team, CharacterSO _data)
@@ -41,6 +50,10 @@ namespace Shy
             health.Init(_data.stats.hp);
 
             buffs = new List<Buff>();
+
+            //Visual
+            VisualUpdate(0);
+            transform.Find("Info").Find("Name").GetComponent<TextMeshProUGUI>().text = data.characterName;
         }
         #endregion
 
@@ -52,6 +65,7 @@ namespace Shy
             }
         }
 
+        #region Skill
         public void OnSkillEvent(int _value, EventType _type)
         {
             Debug.Log(gameObject.name + " Event : " + _type.ToString() + " / " + _value);
@@ -63,9 +77,37 @@ namespace Shy
             Debug.Log("Event 끝");
         }
 
+        public void VisualUpdate(int _value)
+        {
+            switch (_value)
+            {
+                case 1:
+                    visual.sprite = data.skillAnime;
+                    break;
+                case 2:
+                    visual.sprite = data.skillAnime;
+                    break;
+                case 3:
+                    visual.sprite = data.skillAnime;
+                    break;
+                default:
+                    visual.sprite = data.sprite;
+                    break;
+            }
+        }
+        #endregion
+
         #region 공격 시점
         public void SkillSet(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
+            if(team == Team.Enemy)
+            {
+                Character[] p = players;
+                players = enemies;
+                enemies = p;
+            }
+
+
             SkillSO so = data.skills[_v - 1];
             skillActions = null;
 
@@ -74,7 +116,6 @@ namespace Shy
                 Character[] targets = (so.skills[i].targetTeam == Team.Player) ? players : enemies;
 
                 ActionWay way = so.skills[i].actionWay;
-
                 if (way == ActionWay.None) way = _way;
 
                 int a = i;
@@ -103,7 +144,8 @@ namespace Shy
                 }
             }
 
-            //애니메이션
+            //skillActions += BattleManager.Instance.NextAction;
+
             AttackAnime();
         }
 
@@ -126,7 +168,14 @@ namespace Shy
         public void OnPointerClick(PointerEventData eventData)
         {
             Debug.Log("Click Character");
-            Selector.Instance.SelectCharacter(this);
+            //SelectManager.Instance.SelectCharacter(this);
+
+            AnimeManager.Instance.PlayAnime(timeLineAsset, gameObject);
+        }
+
+        public void SingalTest()
+        {
+            VisualUpdate(1);
         }
     }
 }

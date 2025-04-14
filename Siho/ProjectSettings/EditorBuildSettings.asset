@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Battle Proto.unity
     guid: c03f63205464ac04e92ba48f7043e731
   - enabled: 1
+    path: Assets/Scenes/Tester.unity
+    guid: 675b980cc62a8ac468b5475dc4a32b6f
+  - enabled: 1
     path: Assets/Scenes/StartSetUpScene.unity
     guid: c0f64ed3d571b784398f21f2e7e6f8c5
   - enabled: 1

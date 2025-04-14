@@ -58,7 +58,7 @@ namespace Shy
 
         public void UpdateHealth()
         {
-            healthGuage.fillAmount = hp / maxHp;
+            healthGuage.fillAmount = hp / (float)maxHp;
             healthValue.text = hp + " / " + maxHp;
         }
     }

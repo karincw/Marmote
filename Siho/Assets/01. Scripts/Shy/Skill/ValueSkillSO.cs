@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 namespace Shy
@@ -16,6 +18,8 @@ namespace Shy
         {
             string data = formula;
 
+            
+
             //statÀ» ¾ò°í
             for (int i = 0; i < getStats.Count; i++)
             {
@@ -25,12 +29,11 @@ namespace Shy
                 data = data.Replace(getStats[i].key, v.ToString());
             }
 
-            Debug.Log(data);
-
             int value = int.Parse(Formula.GetFormula(data));
 
             if (_user.bonusAtk != 0) value = Mathf.RoundToInt(value * _user.bonusAtk * 0.01f);
 
+            _user.VisualUpdate(value);
             _target.OnSkillEvent(value, eventType);
         }
     }
