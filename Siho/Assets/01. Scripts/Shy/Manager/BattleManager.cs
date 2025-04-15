@@ -54,10 +54,8 @@ namespace Shy
 
             for (int i = 0; i < 1; i++)
             {
-                DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice).GetComponent<DiceUi>();
+                DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice, spawn).GetComponent<DiceUi>();
                 dices.Add(dUi);
-                dUi.transform.SetParent(spawn);
-                dUi.transform.localPosition = Vector3.zero;
                 dUi.gameObject.SetActive(true);
                 dUi.team = Team.Player;
                 dUi.HideDice();
@@ -65,13 +63,11 @@ namespace Shy
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice).GetComponent<DiceUi>();
-                dUi.HideDice();
-                dUi.transform.SetParent(spawn);
-                dUi.transform.localPosition = Vector3.zero;
+                DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice, spawn).GetComponent<DiceUi>();
                 dices.Add(dUi);
                 dUi.gameObject.SetActive(true);
                 dUi.team = Team.Enemy;
+                dUi.HideDice();
             }
 
             StartCoroutine(TurnStart(0));

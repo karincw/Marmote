@@ -13,6 +13,7 @@ namespace Shy
 
         [SerializeField] private Image healthGuage;
         [SerializeField] private TextMeshProUGUI healthValue;
+        [SerializeField] private Transform dmgTxtPos;
 
         public Action dieEvent;
 
@@ -32,6 +33,9 @@ namespace Shy
 
             if(_value > 0)
             {
+                DamageText trm = Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>();
+                trm.Use(_value.ToString());
+
                 hp -= _value;
             }
 

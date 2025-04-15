@@ -8,6 +8,8 @@ namespace Shy
     {
         [Header("Info")]
         public string skillName;
+        public AnimationClip pAnime;
+        public AnimationClip eAnime;
         [TextArea]
         public string explian;
 

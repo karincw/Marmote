@@ -45,6 +45,7 @@ namespace Shy
     {
        Dice = 0,
        Buff,
+       DmgText,
        end
     }
 }

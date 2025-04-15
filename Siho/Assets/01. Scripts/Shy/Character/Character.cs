@@ -12,8 +12,9 @@ namespace Shy
     [RequireComponent(typeof(HealthCompo))]
     public class Character : MonoBehaviour, IPointerClickHandler
     {
+        #region 변수
         private HealthCompo health;
-        [SerializeField] private PlayableAsset timeLineAsset;
+        private AnimeCompo anime;
         [SerializeField] private CharacterSO data;
 
         [Header("Stat")]
@@ -27,16 +28,18 @@ namespace Shy
         public List<Buff> buffs;
 
         private Team team = Team.None;
-        public Transform buffGroup;
         public UnityAction skillActions;
 
+        public Transform buffGroup;
         private Image visual;
+        #endregion
 
         #region 초기화
         public virtual void Awake()
         {
             health = GetComponent<HealthCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
+            anime = transform.Find("TimeLine").GetComponent<AnimeCompo>();
         }
 
         public void Init(Team _team, CharacterSO _data)
@@ -79,6 +82,7 @@ namespace Shy
 
         public void VisualUpdate(int _value)
         {
+            Debug.Log("Visual Update");
             switch (_value)
             {
                 case 1:
@@ -97,7 +101,7 @@ namespace Shy
         }
         #endregion
 
-        #region 공격 시점
+        #region 공격
         public void SkillSet(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
             if(team == Team.Enemy)
@@ -110,6 +114,7 @@ namespace Shy
 
             SkillSO so = data.skills[_v - 1];
             skillActions = null;
+            skillActions += () => VisualUpdate(_v);
 
             for (int i = 0; i < so.skills.Count; i++)
             {
@@ -144,14 +149,20 @@ namespace Shy
                 }
             }
 
-            //skillActions += BattleManager.Instance.NextAction;
 
-            AttackAnime();
+            anime.PlayAnime(team == Team.Enemy ? so.eAnime : so.pAnime);
         }
 
-        public void AttackAnime()
+        public void Attack()
         {
             skillActions?.Invoke();
+        }
+
+        public void AttackFin()
+        {
+            VisualUpdate(0);
+
+            BattleManager.Instance.NextAction();
         }
         #endregion
 
@@ -168,14 +179,9 @@ namespace Shy
         public void OnPointerClick(PointerEventData eventData)
         {
             Debug.Log("Click Character");
-            //SelectManager.Instance.SelectCharacter(this);
-
-            AnimeManager.Instance.PlayAnime(timeLineAsset, gameObject);
+            SelectManager.Instance.SelectCharacter(this);
         }
 
-        public void SingalTest()
-        {
-            VisualUpdate(1);
-        }
+        
     }
 }

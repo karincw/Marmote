@@ -35,11 +35,31 @@ namespace Shy
             }
         }
 
-        public GameObject Use(PoolingType _type)
+        public GameObject Use(PoolingType _type, Transform _parent)
         {
             Transform trm = transform.Find(_type.ToString());
-            if(trm.childCount == 0) return Make(_type, trm);
-            return trm.GetChild(0).gameObject;
+            Transform obj;
+
+            if (trm.childCount == 0)
+            {
+                obj = Make(_type, trm).transform;
+            }
+            else
+                obj = trm.GetChild(0);
+
+            if(_parent != null)
+            {
+                obj.parent = _parent;
+                obj.localScale = Vector3.one;
+                obj.localPosition = Vector3.zero;
+            }
+
+            return obj.gameObject;
+        }
+
+        public GameObject Use(PoolingType _type)
+        {
+            return Use(_type, null);
         }
 
         private GameObject Make(PoolingType _type, Transform _parent)
