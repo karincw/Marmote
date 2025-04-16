@@ -8,8 +8,9 @@ namespace Shy
     {
         [Header("Info")]
         public string skillName;
-        public AnimationClip pAnime;
-        public AnimationClip eAnime;
+        public Sprite summon;
+        public Sprite summonAnime;
+        public AttackMotion motion;
         [TextArea]
         public string explian;
 

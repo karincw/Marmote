@@ -16,15 +16,13 @@ namespace Shy
 
             seq.AppendInterval(0.2f);
             seq.Append(transform.DOLocalMoveY(20, 0.3f));
-            seq.Append(tmp.DOFade(0, 0.5f).OnComplete(() => Pooling.Instance.Return(gameObject)));
+            seq.Insert(0.3f, tmp.DOFade(0, 0.2f).OnComplete(() => Pooling.Instance.Return(gameObject)));
 
             seq.Pause();
         }
 
         public void Use(string _mes)
         {
-            Debug.Log("Show");
-
             tmp.alpha = 1;
             tmp.text = _mes;
 

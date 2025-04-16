@@ -19,10 +19,11 @@ MonoBehaviour:
     str: 8
     def: 5
   skills:
-  - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
-  - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
-  - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
+  - {fileID: 11400000, guid: 03ab5b3aafd7a5b429a2b4da4956b258, type: 2}
+  - {fileID: 11400000, guid: 03ab5b3aafd7a5b429a2b4da4956b258, type: 2}
+  - {fileID: 11400000, guid: 03ab5b3aafd7a5b429a2b4da4956b258, type: 2}
   sprite: {fileID: 21300000, guid: 9b2f9b92215aca7439f08076d496223a, type: 3}
   attackAnime: {fileID: 21300000, guid: 7e83e57038e971f40b9dd8526c468964, type: 3}
-  skillAnime: {fileID: 21300000, guid: 7e83e57038e971f40b9dd8526c468964, type: 3}
+  skillAnime: {fileID: 21300000, guid: 1049d925f93cbe94dbcc936840cfea34, type: 3}
   skill2Anime: {fileID: 21300000, guid: 7e83e57038e971f40b9dd8526c468964, type: 3}
+  hitAnime: {fileID: 21300000, guid: eaff287e43362f34d98a8b457d1aded0, type: 3}

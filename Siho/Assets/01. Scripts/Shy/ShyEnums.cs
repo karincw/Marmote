@@ -48,4 +48,15 @@ namespace Shy
        DmgText,
        end
     }
+
+    public enum AttackMotion
+    {
+        Near = 0,
+        Long,
+        Self,
+        PetSelf,
+        PetAndShort,
+        PetAndLong,
+        DropAttack,
+    }
 }

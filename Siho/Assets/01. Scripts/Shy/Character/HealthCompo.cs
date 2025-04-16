@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Shy
@@ -15,12 +16,16 @@ namespace Shy
         [SerializeField] private TextMeshProUGUI healthValue;
         [SerializeField] private Transform dmgTxtPos;
 
+        private UnityAction hitEvent;
+
         public Action dieEvent;
 
-        public void Init(int _hp)
+        public void Init(int _hp, UnityAction _action)
         {
             maxHp = _hp;
             hp = maxHp;
+
+            hitEvent = _action;
 
             UpdateHealth();
         }
@@ -33,8 +38,10 @@ namespace Shy
 
             if(_value > 0)
             {
-                DamageText trm = Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>();
-                trm.Use(_value.ToString());
+                Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos)
+                    .GetComponent<DamageText>().Use(_value.ToString());
+
+                hitEvent?.Invoke();
 
                 hp -= _value;
             }

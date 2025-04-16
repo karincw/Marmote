@@ -1,10 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.Playables;
-using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace Shy
@@ -27,8 +26,9 @@ namespace Shy
 
         public List<Buff> buffs;
 
-        private Team team = Team.None;
+        internal Team team = Team.None;
         public UnityAction skillActions;
+        public UnityAction visualAction;
 
         public Transform buffGroup;
         private Image visual;
@@ -39,7 +39,6 @@ namespace Shy
         {
             health = GetComponent<HealthCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
-            anime = transform.Find("TimeLine").GetComponent<AnimeCompo>();
         }
 
         public void Init(Team _team, CharacterSO _data)
@@ -50,7 +49,11 @@ namespace Shy
             //Stat
             str = data.stats.str;
             def = data.stats.def;
-            health.Init(_data.stats.hp);
+
+            UnityAction act = null;
+            act += () => VisualUpdate(4);
+            act += () => StartCoroutine(HitAnime());
+            health.Init(_data.stats.hp, act);
 
             buffs = new List<Buff>();
 
@@ -60,29 +63,22 @@ namespace Shy
         }
         #endregion
 
-        public void BuffCheck()
+        private IEnumerator HitAnime()
         {
-            foreach (Buff item in buffs)
-            {
-                item.CountDown();
-            }
+            yield return new WaitForSeconds(0.6f);
+            VisualUpdate(0);
         }
 
         #region Skill
         public void OnSkillEvent(int _value, EventType _type)
         {
-            Debug.Log(gameObject.name + " Event : " + _type.ToString() + " / " + _value);
-
             if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - def);
             else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
             else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
-
-            Debug.Log("Event 끝");
         }
 
-        public void VisualUpdate(int _value)
+        private void VisualUpdate(int _value)
         {
-            Debug.Log("Visual Update");
             switch (_value)
             {
                 case 1:
@@ -94,16 +90,25 @@ namespace Shy
                 case 3:
                     visual.sprite = data.skillAnime;
                     break;
+                case 4:
+                    visual.sprite = data.hitAnime;
+                    break;
                 default:
                     visual.sprite = data.sprite;
                     break;
             }
         }
+
+        public Transform GetVisual() => visual.transform;
         #endregion
 
         #region 공격
         public void SkillSet(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
+            SkillSO so = data.skills[_v - 1];
+            skillActions = visualAction = null;
+
+            //적이면 타겟 반전
             if(team == Team.Enemy)
             {
                 Character[] p = players;
@@ -111,10 +116,10 @@ namespace Shy
                 enemies = p;
             }
 
+            visualAction += () => VisualUpdate(_v);
 
-            SkillSO so = data.skills[_v - 1];
-            skillActions = null;
-            skillActions += () => VisualUpdate(_v);
+            if (!Bool.IsPetMotion(so.motion))
+                skillActions += visualAction;
 
             for (int i = 0; i < so.skills.Count; i++)
             {
@@ -124,7 +129,6 @@ namespace Shy
                 if (way == ActionWay.None) way = _way;
 
                 int a = i;
-
                 switch (way)
                 {
                     case ActionWay.Self:
@@ -149,16 +153,10 @@ namespace Shy
                 }
             }
 
-
-            anime.PlayAnime(team == Team.Enemy ? so.eAnime : so.pAnime);
+            SkillManager.Instance.UseSkill(this, so);
         }
 
-        public void Attack()
-        {
-            skillActions?.Invoke();
-        }
-
-        public void AttackFin()
+        public void SkillFin()
         {
             VisualUpdate(0);
 
@@ -176,12 +174,18 @@ namespace Shy
             Debug.LogError("Not Found"); return 0;
         }
 
+        public void BuffCheck()
+        {
+            foreach (Buff item in buffs)
+            {
+                item.CountDown();
+            }
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             Debug.Log("Click Character");
             SelectManager.Instance.SelectCharacter(this);
         }
-
-        
     }
 }

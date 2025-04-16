@@ -18,8 +18,6 @@ namespace Shy
         {
             string data = formula;
 
-            
-
             //stat을 얻고
             for (int i = 0; i < getStats.Count; i++)
             {
@@ -29,9 +27,10 @@ namespace Shy
                 data = data.Replace(getStats[i].key, v.ToString());
             }
 
+            //구현해놓은 Formula에서 값 설정
             int value = int.Parse(Formula.GetFormula(data));
 
-            if (_user.bonusAtk != 0) value = Mathf.RoundToInt(value * _user.bonusAtk * 0.01f);
+            if (_user.bonusAtk != 0) value += Mathf.RoundToInt(value * _user.bonusAtk * 0.01f);
 
             _target.OnSkillEvent(value, eventType);
         }

@@ -16,5 +16,6 @@ namespace Shy
         public Sprite attackAnime;
         public Sprite skillAnime;
         public Sprite skill2Anime;
+        public Sprite hitAnime;
     }
 }

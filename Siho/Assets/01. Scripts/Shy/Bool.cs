@@ -1,0 +1,15 @@
+using UnityEngine;
+
+namespace Shy
+{
+    public class Bool
+    {
+        public static bool IsPetMotion(AttackMotion _motion)
+        {
+            if (_motion == AttackMotion.PetSelf) return true;
+            if (_motion == AttackMotion.PetAndShort) return true;
+            if (_motion == AttackMotion.PetAndLong) return true;
+            return false;
+        }
+    }
+}
