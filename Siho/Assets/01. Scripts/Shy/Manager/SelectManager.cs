@@ -20,15 +20,21 @@ namespace Shy
             Instance = this;
 
             blackBoard.color = Color.clear;
+            blackBoard.gameObject.SetActive(false);
+        }
+
+        private void Update()
+        {
+            if (blackBoard.color.a != 0.8f) return;
+            if (Input.GetMouseButtonDown(0)) SelectCharacter(null);
         }
 
         public void ShowCharacter(Team _targetTeam, UnityAction<Character> _act)
         {
+            blackBoard.gameObject.SetActive(true);
             blackBoard.DOFade(0.8f, 0.3f);
-            //blackBoard.color = new Color(0, 0, 0, 0.8f);
 
             act = _act;
-
             blackBoard.transform.SetAsLastSibling();
 
             if (_targetTeam != Team.Player) enemies.SetAsLastSibling();
@@ -37,8 +43,11 @@ namespace Shy
 
         public void SelectCharacter(Character _ch)
         {
+            Debug.Log("Select Character : " + _ch);
+
             act?.Invoke(_ch);
             blackBoard.color = Color.clear;
+            blackBoard.gameObject.SetActive(false);
         }
     }
 }

@@ -69,6 +69,8 @@ namespace Shy
             VisualUpdate(0);
         }
 
+        public Sprite GetIcon() => data.sprite;
+
         #region Skill
         public void OnSkillEvent(int _value, EventType _type)
         {

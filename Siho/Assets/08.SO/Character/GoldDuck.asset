@@ -26,3 +26,4 @@ MonoBehaviour:
   attackAnime: {fileID: 0}
   skillAnime: {fileID: 0}
   skill2Anime: {fileID: 0}
+  hitAnime: {fileID: 0}

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Shy
@@ -17,6 +18,8 @@ namespace Shy
         private int diceLoop;
         [SerializeField] private RectTransform hand;
         [SerializeField] private RectTransform handVisual;
+
+        
 
         #region Init
 
@@ -52,13 +55,15 @@ namespace Shy
             // Dice의 값
             Transform spawn = hand.Find("Groups");
 
-            for (int i = 0; i < 1; i++)
+            List<DiceSO> dArr = DataManager.Instance.dices.ToList();
+
+            for (int i = 0; i < dArr.Count; i++)
             {
                 DiceUi dUi = Pooling.Instance.Use(PoolingType.Dice, spawn).GetComponent<DiceUi>();
                 dices.Add(dUi);
                 dUi.gameObject.SetActive(true);
                 dUi.team = Team.Player;
-                dUi.HideDice();
+                dUi.Init(dArr[i]);
             }
 
             for (int i = 0; i < enemies.Count; i++)

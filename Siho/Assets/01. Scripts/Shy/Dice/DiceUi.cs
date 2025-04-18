@@ -25,6 +25,13 @@ namespace Shy
             icon = transform.Find("Icon").GetComponent<Image>();
             userIcon = transform.Find("UserIcon").GetComponent<Image>();
         }
+        
+        public void Init(DiceSO _so)
+        {
+            data = _so;
+            visual.color = data.color;
+            HideDice();
+        }
 
         public void HideDice()
         {
@@ -62,8 +69,12 @@ namespace Shy
 
         public void SelectCharacter(Character _ch)
         {
+            if (_ch == null) return;
+
             Debug.Log("User Change : " + _ch.gameObject.name);
             user = _ch;
+            userIcon.gameObject.SetActive(true);
+            userIcon.sprite = _ch.GetIcon();
         }
 
         public void OnPointerClick(PointerEventData eventData)

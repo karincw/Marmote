@@ -37,7 +37,7 @@ namespace Shy
             Sequence seq = DOTween.Sequence();
 
             // Cam
-            seq.Append(CamRotate(1, targetTeam, time));
+            seq.Append(CamRotate(1f, targetTeam, time));
             seq.Join(CamMove(targetTeam, time).OnStart(()=> StartCoroutine(CameraZoom(50, time))));
 
 
