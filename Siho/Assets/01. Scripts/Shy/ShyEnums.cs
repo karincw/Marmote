@@ -43,7 +43,6 @@ namespace Shy
 
     public enum PoolingType
     {
-       Dice = 0,
        Buff,
        DmgText,
        end

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,36 +9,39 @@ using UnityEngine.UI;
 
 namespace Shy
 {
-    [RequireComponent(typeof(HealthCompo))]
+    [RequireComponent(typeof(HealthCompo), typeof(StatCompo))]
     public class Character : MonoBehaviour, IPointerClickHandler
     {
         #region 변수
         private HealthCompo health;
-        private AnimeCompo anime;
+        private StatCompo stat;
         [SerializeField] private CharacterSO data;
 
-        [Header("Stat")]
-        public int str;
-        public int def;
-
-        [Header("Other")]
-        public int bonusAtk = 0;
-        public int bonusDef = 0;
-
-        public List<Buff> buffs;
-
+        internal List<Buff> buffs;
         internal Team team = Team.None;
-        public UnityAction skillActions;
-        public UnityAction visualAction;
-
-        public Transform buffGroup;
+        internal UnityAction skillActions, visualAction;
+        internal Transform buffGroup;
         private Image visual;
         #endregion
 
-        #region 초기화
+        #region Get
+        public Sprite GetIcon() => data.sprite;
+        public Transform GetVisual() => visual.transform;
+        public int GetStat(StatEnum _stat)
+        {
+            if (_stat == StatEnum.Str) return stat.GetStr();
+            if (_stat == StatEnum.Def) return stat.GetDef();
+            if (_stat == StatEnum.MaxHp) return health.GetMaxHealth();
+            if (_stat == StatEnum.Hp) return health.GetHealth();
+            Debug.LogError("Not Found"); return 0;
+        }
+        #endregion
+
+        #region Init
         public virtual void Awake()
         {
             health = GetComponent<HealthCompo>();
+            stat = GetComponent<StatCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
         }
 
@@ -46,14 +50,12 @@ namespace Shy
             data = _data;
             team = _team;
 
-            //Stat
-            str = data.stats.str;
-            def = data.stats.def;
+            UnityAction hitEvent = null;
+            hitEvent += () => VisualUpdate(4);
+            hitEvent += () => StartCoroutine(HitAnime());
 
-            UnityAction act = null;
-            act += () => VisualUpdate(4);
-            act += () => StartCoroutine(HitAnime());
-            health.Init(_data.stats.hp, act);
+            stat.Init(_data.stats);
+            health.Init(_data.stats.hp, hitEvent);
 
             buffs = new List<Buff>();
 
@@ -63,20 +65,23 @@ namespace Shy
         }
         #endregion
 
+        #region Visual
         private IEnumerator HitAnime()
         {
             yield return new WaitForSeconds(0.6f);
-            VisualUpdate(0);
+
+            if(!health.isDie) VisualUpdate(0);
+            else DeadAnime();
         }
 
-        public Sprite GetIcon() => data.sprite;
-
-        #region Skill
-        public void OnSkillEvent(int _value, EventType _type)
+        private void DeadAnime()
         {
-            if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - def);
-            else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
-            else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
+            Sequence seq = DOTween.Sequence();
+
+            seq.Append(visual.DOColor(Color.black, 0.3f));
+            seq.Join(visual.DOFade(0, 0.4f).OnComplete(()=> {
+                health.dieEvent.Invoke();
+            }));
         }
 
         private void VisualUpdate(int _value)
@@ -84,13 +89,13 @@ namespace Shy
             switch (_value)
             {
                 case 1:
-                    visual.sprite = data.skillAnime;
+                    visual.sprite = data.attackAnime;
                     break;
                 case 2:
                     visual.sprite = data.skillAnime;
                     break;
                 case 3:
-                    visual.sprite = data.skillAnime;
+                    visual.sprite = data.skill2Anime;
                     break;
                 case 4:
                     visual.sprite = data.hitAnime;
@@ -100,12 +105,17 @@ namespace Shy
                     break;
             }
         }
-
-        public Transform GetVisual() => visual.transform;
         #endregion
 
-        #region 공격
-        public void SkillSet(int _v, ActionWay _way, Character[] players, Character[] enemies)
+        #region Skill
+        public void OnValueEvent(int _value, EventType _type)
+        {
+            if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - stat.GetDef());
+            else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
+            else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
+        }
+
+        public void SkillUse(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
             SkillSO so = data.skills[_v - 1];
             skillActions = visualAction = null;
@@ -119,9 +129,7 @@ namespace Shy
             }
 
             visualAction += () => VisualUpdate(_v);
-
-            if (!Bool.IsPetMotion(so.motion))
-                skillActions += visualAction;
+            if (!Bool.IsPetMotion(so.motion)) skillActions += visualAction;
 
             for (int i = 0; i < so.skills.Count; i++)
             {
@@ -136,10 +144,6 @@ namespace Shy
                     case ActionWay.Self:
                         skillActions += () => so.skills[a].UseSkill(this, this);
                         break;
-                    case ActionWay.Opposite:
-                        break;
-                    case ActionWay.Select:
-                        break;
                     case ActionWay.Random:
                         Character tR = targets[Random.Range(0, targets.Length)];
                         skillActions += () => so.skills[a].UseSkill(this, tR);
@@ -148,7 +152,6 @@ namespace Shy
                         for (int j = 0; j < targets.Length; j++)
                         {
                             Character tA = targets[j];
-                            
                             skillActions += () => so.skills[a].UseSkill(this, tA);
                         }
                         break;
@@ -161,32 +164,17 @@ namespace Shy
         public void SkillFin()
         {
             VisualUpdate(0);
-
             BattleManager.Instance.NextAction();
         }
         #endregion
 
-        public int GetStat(StatEnum _stat)
-        {
-            if (_stat == StatEnum.Str) return str;
-            if (_stat == StatEnum.Def) return def;
-            if (_stat == StatEnum.MaxHp) return health.GetMaxHealth();
-            if (_stat == StatEnum.Hp) return health.GetHealth();
-
-            Debug.LogError("Not Found"); return 0;
-        }
-
         public void BuffCheck()
         {
-            foreach (Buff item in buffs)
-            {
-                item.CountDown();
-            }
+            foreach (Buff buff in buffs) buff.CountDown();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Click Character");
             SelectManager.Instance.SelectCharacter(this);
         }
     }

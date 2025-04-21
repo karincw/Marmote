@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,23 +9,20 @@ namespace Shy
 {
     public class HealthCompo : MonoBehaviour
     {
-        [SerializeField] private int maxHp;
-        [SerializeField] private int hp;
-        [SerializeField] private int shield;
-
+        [SerializeField] private int maxHp, hp, shield;
         [SerializeField] private Image healthGuage;
         [SerializeField] private TextMeshProUGUI healthValue;
         [SerializeField] private Transform dmgTxtPos;
 
-        private UnityAction hitEvent;
+        internal bool isDie = false;
 
+        private UnityAction hitEvent;
         public Action dieEvent;
 
         public void Init(int _hp, UnityAction _action)
         {
             maxHp = _hp;
             hp = maxHp;
-
             hitEvent = _action;
 
             UpdateHealth();
@@ -38,17 +36,15 @@ namespace Shy
 
             if(_value > 0)
             {
-                Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos)
-                    .GetComponent<DamageText>().Use(_value.ToString());
+                Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>().Use(_value.ToString());
 
                 hitEvent?.Invoke();
-
                 hp -= _value;
             }
 
             UpdateHealth();
 
-            if (hp <= 0) dieEvent?.Invoke();
+            if (hp <= 0) isDie = true;
         }
 
         public void OnHealEvent(int _value)

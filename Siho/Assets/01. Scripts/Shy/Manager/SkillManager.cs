@@ -30,19 +30,25 @@ namespace Shy
             Team userTeam = _user.team;
             Team targetTeam = (userTeam == Team.Player) ? Team.Enemy : Team.Player;
 
-            bool isPet = Bool.IsPetMotion(_skill.motion);
+            bool isPet = Bool.IsPetMotion(_skill.motion), 
+                isTeam = Bool.IsTeamMotion(_skill.motion);
 
             float time = 0.4f;
 
             Sequence seq = DOTween.Sequence();
 
             // Cam
-            seq.Append(CamRotate(1f, targetTeam, time));
-            seq.Join(CamMove(targetTeam, time).OnStart(()=> StartCoroutine(CameraZoom(50, time))));
+            seq.Append(CamMove(isTeam ? userTeam : targetTeam, time)
+                .OnStart(() => StartCoroutine(CameraZoom(50, time))));
 
+            if (!isTeam)
+            { 
+                seq.Join(CamRotate(1f, targetTeam, time));
+            }
+            
 
             //CharacterMove
-            if (!isPet)
+            if (!isPet && !isTeam)
                 seq.Insert(0.1f, CharacterMove(_user.GetVisual(), time - 0.1f));
             else
             {
@@ -57,9 +63,13 @@ namespace Shy
                 seq.Insert(0.3f, CharacterMove(pet.transform, time - 0.1f));
             }
             
-            seq.Append(DOTween.To(() => 0f, x => { }, 1f, 0.03f).OnComplete(()=> {
+            seq.Append(DOTween.To(() => 0f, x => { }, 0.3f, 0.03f).OnComplete(()=> {
                 if (isPet)
-                    seq.Join(ShortDash(pet.transform, 0.1f).OnStart(()=>pet.sprite = _skill.summonAnime));
+                {
+                    pet.sprite = _skill.summonAnime;
+                    if (!isTeam)
+                        seq.Join(ShortDash(pet.transform, 0.1f));
+                }
 
                 _user.skillActions?.Invoke();
             }));
@@ -88,6 +98,7 @@ namespace Shy
 
         private Tween CharacterReturn(Transform _target, float _t) => _target.DOLocalMove(Vector2.zero, _t);
 
+        #region Camera
         private IEnumerator CameraZoom(float _lastValue, float _t)
         {
             float zoomValue = (_lastValue - mainCam.Lens.FieldOfView) * 0.05f, time = _t * 0.05f;
@@ -115,6 +126,6 @@ namespace Shy
 
             return mainCam.transform.DOLocalMove(pos, 0.75f);
         }
-
+        #endregion
     }
 }

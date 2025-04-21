@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Shy
@@ -9,6 +10,13 @@ namespace Shy
             if (_motion == AttackMotion.PetSelf) return true;
             if (_motion == AttackMotion.PetAndShort) return true;
             if (_motion == AttackMotion.PetAndLong) return true;
+            return false;
+        }
+
+        internal static bool IsTeamMotion(AttackMotion _motion)
+        {
+            if (_motion == AttackMotion.PetSelf) return true;
+            if (_motion == AttackMotion.Self) return true;
             return false;
         }
     }

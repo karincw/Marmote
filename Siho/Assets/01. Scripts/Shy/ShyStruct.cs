@@ -26,11 +26,4 @@ namespace Shy
         public int spawnCnt;
         public PoolingType type;
     }
-
-    public struct Skill
-    {
-        //user
-        Character user;
-        SkillSO useSkill;
-    }
 }

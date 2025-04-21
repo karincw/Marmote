@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eyeName: 
   explain: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 60e7c7e6221c78543a0622fcfc6bca4e, type: 3}
   value: 2
   attackWay: 5

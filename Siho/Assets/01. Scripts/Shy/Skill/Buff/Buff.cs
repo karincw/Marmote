@@ -73,7 +73,7 @@ namespace Shy
         {
             DestroyEvent();
             oneTime = false;
-            Pooling.Instance.Return(gameObject);
+            Pooling.Instance.Return(gameObject, PoolingType.Buff);
         }
 
         public void CountDown()
@@ -86,10 +86,7 @@ namespace Shy
             }
             else
             {
-                if(!oneTime)
-                {
-                    OnEvent();
-                }
+                if(!oneTime) OnEvent();
             }
         }
     }

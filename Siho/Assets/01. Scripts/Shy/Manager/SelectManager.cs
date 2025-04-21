@@ -46,6 +46,7 @@ namespace Shy
             Debug.Log("Select Character : " + _ch);
 
             act?.Invoke(_ch);
+            BattleManager.Instance.EndCheck();
             blackBoard.color = Color.clear;
             blackBoard.gameObject.SetActive(false);
         }

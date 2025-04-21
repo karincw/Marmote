@@ -8,7 +8,9 @@ namespace Shy
         public static Pooling Instance;
 
         public List<PoolItem> items;
-        private Dictionary<PoolingType, GameObject> poolDic = new Dictionary<PoolingType, GameObject>();
+
+        private Dictionary<PoolingType, PoolItem> makeData = new Dictionary<PoolingType, PoolItem>();
+        private Dictionary<PoolingType, List<GameObject>> pool = new Dictionary<PoolingType, List<GameObject>>();
 
         private void Awake()
         {
@@ -19,68 +21,55 @@ namespace Shy
             }
             Instance = this;
 
-            for (int i = 0; i < (int)PoolingType.end; i++)
-            {
-                GameObject obj = new GameObject();
-                obj.name = ((PoolingType)i).ToString();
-                obj.transform.parent = transform;
-            }
-
             for (int i = 0; i < items.Count; i++)
             {
-                Transform parent = transform.Find(items[i].type.ToString());
-                poolDic.Add(items[i].type, items[i].obj);
+                //key ¿¬°á
+                makeData.Add(items[i].type, items[i]);
+                pool.Add(items[i].type, new List<GameObject>());
 
-                for (int s = 0; s < items[i].spawnCnt; s++) Make(items[i].type, parent);
+                for (int s = 0; s < items[i].spawnCnt; s++) Make(items[i].type, true);
             }
         }
+
+        public GameObject Use(PoolingType _type) => Use(_type, null);
 
         public GameObject Use(PoolingType _type, Transform _parent)
         {
-            Transform trm = transform.Find(_type.ToString());
-            Transform obj;
+            GameObject obj;
 
-            if (trm.childCount == 0)
-            {
-                obj = Make(_type, trm).transform;
-            }
+            if (pool[_type].Count == 0) obj = Make(_type, false);
             else
-                obj = trm.GetChild(0);
+            {
+                obj = pool[_type][0];
+                pool[_type].RemoveAt(0);
+            }
 
+            //Parent Check
             if(_parent != null)
             {
-                obj.parent = _parent;
-                obj.localScale = Vector3.one;
-                obj.localPosition = Vector3.zero;
+                Transform trm = obj.transform;
+
+                trm.parent = _parent;
+                trm.localScale = Vector3.one;
+                trm.localPosition = Vector3.zero;
             }
 
-            return obj.gameObject;
-        }
-
-        public GameObject Use(PoolingType _type)
-        {
-            return Use(_type, null);
-        }
-
-        private GameObject Make(PoolingType _type, Transform _parent)
-        {
-            GameObject obj = Instantiate(poolDic[_type], _parent);
-            obj.name = _type.ToString();
-            obj.SetActive(false);
             return obj;
         }
 
-        public void Return(GameObject _obj)
+        private GameObject Make(PoolingType _type, bool _add)
+        {
+            GameObject obj = Instantiate(makeData[_type].obj, transform);
+            if(_add) pool[_type].Add(obj);
+            obj.SetActive(false);
+
+            return obj;
+        }
+
+        public void Return(GameObject _obj, PoolingType _type)
         {
             _obj.SetActive(false);
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                if(transform.GetChild(i).name == _obj.name)
-                {
-                    _obj.transform.parent = transform.GetChild(i);
-                    return;
-                }
-            }
+            pool[_type].Add(_obj);
         }
     }
 }
