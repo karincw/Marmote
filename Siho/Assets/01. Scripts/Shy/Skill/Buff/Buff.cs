@@ -42,7 +42,7 @@ namespace Shy
             switch (buffEvent)
             {
                 case BuffEvent.Brave:
-                    user.bonusAtk += 15;
+                    user.BonusStat(StatEnum.Str, 15);
                     break;
                 case BuffEvent.Scare:
                     break;
@@ -58,7 +58,7 @@ namespace Shy
             switch (buffEvent)
             {
                 case BuffEvent.Brave:
-                    user.bonusAtk -= 15;
+                    user.BonusStat(StatEnum.Str, -15);
                     break;
                 case BuffEvent.Scare:
                     break;
