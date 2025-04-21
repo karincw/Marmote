@@ -29,8 +29,9 @@ namespace Shy
 
             //구현해놓은 Formula에서 값 설정
             int value = int.Parse(Formula.GetFormula(data));
+            int bAtk = _user.GetNowStr();
 
-            if (_user.GetNowStr() != 0) value += Mathf.RoundToInt(value * _user.GetNowStr() * 0.01f);
+            if (bAtk != 0) value += Mathf.RoundToInt(value * bAtk * 0.01f);
 
             _target.OnValueEvent(value, eventType);
         }

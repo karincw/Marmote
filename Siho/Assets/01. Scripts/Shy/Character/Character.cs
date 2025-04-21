@@ -35,8 +35,8 @@ namespace Shy
             if (_stat == StatEnum.Hp) return health.GetHealth();
             Debug.LogError("Not Found"); return 0;
         }
-        public int GetNowStr() => stat.GetStr() * Mathf.Max(stat.bonusAtk, 1);
-        public int GetNowDef() => stat.GetDef() * Mathf.Max(stat.bonusDef, 1);
+        public int GetNowStr() => stat.bonusAtk;
+        public int GetNowDef() => stat.bonusDef;
         #endregion
 
         #region Init
