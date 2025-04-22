@@ -2,6 +2,9 @@
 using karin.worldmap;
 using Shy;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace karin
 {
@@ -15,7 +18,7 @@ namespace karin
     [System.Serializable]
     public struct StageEnemyList
     {
-        public List<CharacterSO> enemyList; 
+        public List<CharacterSO> enemyList;
 
         public StageEnemyList(List<CharacterSO> _enemyList)
         {
@@ -37,4 +40,27 @@ namespace karin
     {
         public List<CharacterSO> enemyList;
     }
+
+    [System.Serializable]
+    public struct StatUpData<T> where T : struct
+    {
+        [Tooltip("0부터 시작")]
+        public int index;
+        public string branchName;
+        public List<T> branchActions;
+    }
+
+    [System.Serializable]
+    public struct StatChangeData
+    {
+        public StatEnum targetStat;
+        public int statIncresement;
+    }
+
+    [System.Serializable]
+    public struct DiceChangeData
+    {
+        
+    }
+
 }

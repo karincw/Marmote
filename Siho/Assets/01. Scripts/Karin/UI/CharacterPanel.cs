@@ -3,49 +3,52 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+ 
 using ShyDataManager = Shy.DataManager;
 
-public class CharacterPanel : MonoBehaviour
+namespace karin.ui
 {
-    private Image _characterIcon;
-    private TMP_Text _health;
-    private TMP_Text _melee;
-    private TMP_Text _defence;
-    private CharacterSO _data;
-    [SerializeField] private int _index;
-    private Button _descriptionPanelBtn;
-    public event Action<CharacterSO> OnDescriptionOpen;
-
-    private void Awake()
+    public class CharacterPanel : MonoBehaviour
     {
-        _characterIcon = transform.Find("CharacterIcon").GetComponent<Image>();
-        _health = transform.Find("Health").GetComponentInChildren<TMP_Text>();
-        _melee = transform.Find("Melee").GetComponentInChildren<TMP_Text>();
-        _defence = transform.Find("Defence").GetComponentInChildren<TMP_Text>();
-        _descriptionPanelBtn = transform.Find("DescriptionOpenBtn").GetComponent<Button>();
-        _descriptionPanelBtn.onClick.AddListener(OpenDescription);
-    }
+        private Image _characterIcon;
+        private TMP_Text _health;
+        private TMP_Text _melee; 
+        private TMP_Text _defence;
+        private CharacterSO _data;
+        [SerializeField] private int _index;
+        private Button _descriptionPanelBtn;
+        public event Action<CharacterSO> OnDescriptionOpen;
 
-    public void SetData()
-    {
-        _data = ShyDataManager.Instance.minions[_index];
-        Debug.Log(_data);
-        if (_data == null)
+        private void Awake()
         {
-            //雀祸贸府
-            return;
+            _characterIcon = transform.Find("CharacterIcon").GetComponent<Image>();
+            _health = transform.Find("Health").GetComponentInChildren<TMP_Text>();
+            _melee = transform.Find("Melee").GetComponentInChildren<TMP_Text>();
+            _defence = transform.Find("Defence").GetComponentInChildren<TMP_Text>();
+            _descriptionPanelBtn = transform.Find("DescriptionOpenBtn").GetComponent<Button>();
+            _descriptionPanelBtn.onClick.AddListener(OpenDescription);
         }
 
-        _characterIcon.sprite = _data.sprite;
-        _health.text = _data.stats.hp.ToString();
-        _melee.text = _data.stats.str.ToString();
-        _defence.text = _data.stats.def.ToString();
-    }
+        public void SetData()
+        {
+            _data = ShyDataManager.Instance.minions[_index];
+            Debug.Log(_data);
+            if (_data == null)
+            {
+                //雀祸贸府
+                return;
+            }
 
-    private void OpenDescription()
-    {
-        OnDescriptionOpen?.Invoke(_data);
-    }
+            _characterIcon.sprite = _data.sprite;
+            _health.text = _data.stats.hp.ToString();
+            _melee.text = _data.stats.str.ToString();
+            _defence.text = _data.stats.def.ToString();
+        }
 
+        private void OpenDescription()
+        {
+            OnDescriptionOpen?.Invoke(_data);
+        }
+
+    }
 }

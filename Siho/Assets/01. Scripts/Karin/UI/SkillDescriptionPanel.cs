@@ -1,23 +1,25 @@
 using Shy;
 using TMPro;
 using UnityEngine;
-
-public class SkillDescriptionPanel : MonoBehaviour
+namespace karin.ui
 {
-    private TMP_Text _desc;
-    [SerializeField] private int _index;
-
-    private void Awake()
+    public class SkillDescriptionPanel : MonoBehaviour
     {
-        _desc = GetComponentInChildren<TMP_Text>();
-    }
+        private TMP_Text _desc;
+        [SerializeField] private int _index;
 
-    public void SetUpDate(CharacterSO data)
-    {
-        Debug.Log(_desc);
-        Debug.Log(data);
-        Debug.Log(data.skills);
-        Debug.Log(data.skills[_index]);
-        _desc.text = data.skills[_index].explian;
+        private void Awake()
+        {
+            _desc = GetComponentInChildren<TMP_Text>();
+        }
+
+        public void SetUpDate(CharacterSO data)
+        {
+            Debug.Log(_desc);
+            Debug.Log(data);
+            Debug.Log(data.skills);
+            Debug.Log(data.skills[_index]);
+            _desc.text = data.skills[_index].explian;
+        }
     }
 }

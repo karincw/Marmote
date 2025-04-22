@@ -1,29 +1,31 @@
 using karin.worldmap;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class RollingDiceBtn : MonoBehaviour
+namespace karin.ui
 {
-    private Button _button;
-    private Floor _floor;
-
-    private void Awake()
+    public class RollingDiceBtn : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-        _floor = FindFirstObjectByType<Floor>();
-        _floor.OnDiceStopEvent += HandleDiceStop;
-        _button.onClick.AddListener(() => _button.interactable = false);
-    }
+        private Button _button;
+        private Floor _floor;
 
-    private void OnDestroy()
-    {
-        _floor.OnDiceStopEvent -= HandleDiceStop;
-        _button.onClick.RemoveAllListeners();
-    }
+        private void Awake()
+        {
+            _button = GetComponent<Button>();
+            _floor = FindFirstObjectByType<Floor>();
+            _floor.OnDiceStopEvent += HandleDiceStop;
+            _button.onClick.AddListener(() => _button.interactable = false);
+        }
 
-    private void HandleDiceStop(int cumber)
-    {
-        _button.interactable = true;
-    }
+        private void OnDestroy()
+        {
+            _floor.OnDiceStopEvent -= HandleDiceStop;
+            _button.onClick.RemoveAllListeners();
+        }
 
+        private void HandleDiceStop(int cumber)
+        {
+            _button.interactable = true;
+        }
+
+    }
 }
