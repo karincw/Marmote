@@ -19,5 +19,12 @@ namespace Shy
             if (_motion == AttackMotion.Self) return true;
             return false;
         }
+
+        internal static bool IsSummonMotion(AttackMotion _motion)
+        {
+            if (_motion == AttackMotion.SummonAndShort) return true;
+            if (_motion == AttackMotion.SummonAndLong) return true;
+            return false;
+        }
     }
 }

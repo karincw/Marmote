@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fe796082e88a76744a74303a36bc7301
+guid: d0d51ba4460a4774f89c5d81b3af4018
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7237383801591450531
-    second: duck_12_0
+      213: 9212466896269272301
+    second: Oven_Attack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: duck_12_0
+      name: Oven_Attack_0
       rect:
         serializedVersion: 2
-        x: 173
-        y: 33
-        width: 848
-        height: 1005
+        x: 365
+        y: 232
+        width: 522
+        height: 826
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3ab4605e83a507460800000000000000
-      internalID: 7237383801591450531
+      spriteID: de4ec2915d149df70800000000000000
+      internalID: 9212466896269272301
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      duck_12_0: 7237383801591450531
+      Oven_Attack_0: 9212466896269272301
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

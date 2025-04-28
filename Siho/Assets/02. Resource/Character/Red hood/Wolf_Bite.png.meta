@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: d6ba6c27550ea0d4eb2d49f0f4319e74
+guid: 23b91f9236c915346b738156f5e1afb1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1668817437235345319
-    second: Bite_Wolf_0
-  - first:
-      213: -108229747334612569
-    second: Bite_Wolf_1
+      213: 2314434150977376782
+    second: Wolf_Bite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -116,11 +113,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bite_Wolf_0
+      name: Wolf_Bite_0
       rect:
         serializedVersion: 2
         x: 287
-        y: 270
+        y: 320
         width: 550
         height: 473
       alignment: 0
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9580c92f16b27d8e0800000000000000
-      internalID: -1668817437235345319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bite_Wolf_1
-      rect:
-        serializedVersion: 2
-        x: 472
-        y: 270
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7a97df34e9d7f7ef0800000000000000
-      internalID: -108229747334612569
+      spriteID: e021a0119958e1020800000000000000
+      internalID: 2314434150977376782
       vertices: []
       indices: 
       edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Bite_Wolf_0: -1668817437235345319
-      Bite_Wolf_1: -108229747334612569
+      Wolf_Bite_0: 2314434150977376782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

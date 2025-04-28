@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92797061b5c8aef448488b44fa86a074, type: 3}
-  m_Name: Red Hood 2
+  m_Name: Gretel 2
   m_EditorClassIdentifier: 
-  skillName: "\uBB3C\uC5B4"
-  summon: {fileID: 21300000, guid: 1042b82dfca21f2449fa2e48c2271e66, type: 3}
-  summonAnime: {fileID: 21300000, guid: d6ba6c27550ea0d4eb2d49f0f4319e74, type: 3}
-  motion: 4
+  skillName: 
+  summon: {fileID: 0}
+  summonAnime: {fileID: 0}
+  motion: 2
   explian: 
-  skills:
-  - {fileID: 11400000, guid: 008a2554e0d47a04a801a862461358c0, type: 2}
+  skills: []

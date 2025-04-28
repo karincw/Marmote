@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
   - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
   - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
-  sprite: {fileID: 21300000, guid: fe796082e88a76744a74303a36bc7301, type: 3}
+  sprite: {fileID: 21300000, guid: df974ba8769585f4cae0133a62b2c765, type: 3}
   attackAnime: {fileID: 0}
   skillAnime: {fileID: 0}
   skill2Anime: {fileID: 0}
-  hitAnime: {fileID: 0}
+  hitAnime: {fileID: 21300000, guid: f4b93ec7de7b6ee44a6bacacc088a639, type: 3}

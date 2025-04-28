@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92797061b5c8aef448488b44fa86a074, type: 3}
+  m_Name: Red Hood 3
+  m_EditorClassIdentifier: 
+  skillName: "\uBB34\uC11C\uC6B4 \uB291\uB300"
+  summon: {fileID: 21300000, guid: be6f1f23c1848654297000718b42c4ab, type: 3}
+  summonAnime: {fileID: 21300000, guid: a120f51593824b04d8c6d24946b0aade, type: 3}
+  motion: 3
+  explian: 
+  skills:
+  - {fileID: 11400000, guid: 5b42da13a7776b8469a2d309302a4153, type: 2}

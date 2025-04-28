@@ -8,6 +8,7 @@ namespace Shy
 {
     public class BattleManager : MonoBehaviour
     {
+        #region 변수
         public static BattleManager Instance;
 
         [Header("Character")]
@@ -25,7 +26,7 @@ namespace Shy
         [Header("Other")]
         [SerializeField] private GameObject endBtn;
         private UnityAction buffEvent;
-
+        #endregion
 
         #region Init
         private void Awake()
@@ -86,6 +87,7 @@ namespace Shy
             }
 
             endBtn.SetActive(false);
+            buffEvent += () => StartCoroutine(TurnStart(0.7f));
 
             StartCoroutine(TurnStart(0));
         }
@@ -128,12 +130,20 @@ namespace Shy
                 if(dices[i].user == null) dices[i].noUsed.SetActive(true);
             }
 
+            endBtn.SetActive(false);
+
             StartCoroutine(DiceDelay());
         }
         #endregion
 
         private void UseDice()
         {
+            if (dices[diceLoop].user == null)
+            {
+                NextAction();
+                return;
+            }
+
             EyeSO eye = dices[diceLoop].UseDice();
             dices[diceLoop].user.SkillUse(eye.value, eye.attackWay, minions.ToArray(), enemies.ToArray());
         }
@@ -145,22 +155,7 @@ namespace Shy
             if(diceLoop == dices.Count)
             {
                 Debug.Log("모든 다이스 종료");
-
-
-                for (int i = 0; i < minions.Count; i++)
-                    if (minions[i].buffs.Count != 0) buffEvent += minions[i].BuffCheck;
-
-                for (int i = 0; i < enemies.Count; i++)
-                    if (enemies[i].buffs.Count != 0) buffEvent += enemies[i].BuffCheck;
-
-                buffEvent += () => StartCoroutine(TurnStart(0.7f));
                 buffEvent.Invoke();
-                return;
-            }
-
-            if (dices[diceLoop].user == null)
-            {
-                NextAction();
                 return;
             }
 
@@ -180,12 +175,16 @@ namespace Shy
 
         public void EndCheck()
         {
+            Character[] _arr = { };
+
             for (int i = 0; i < enDices.Count; i++)
             {
-                if (enDices[i].user == null)
-                {
-                    return;
-                }
+                Character c = enDices[i].user;
+
+                if (c == null) return;
+                if (c.team != Team.Enemy) continue;
+
+
             }
 
             endBtn.SetActive(true);

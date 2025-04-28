@@ -1,6 +1,4 @@
-﻿using DG.Tweening;
-using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -17,7 +15,6 @@ namespace Shy
         internal bool isDie = false;
 
         private UnityAction hitEvent;
-        public Action dieEvent;
 
         public void Init(int _hp, UnityAction _action)
         {
@@ -42,9 +39,13 @@ namespace Shy
                 hp -= _value;
             }
 
-            UpdateHealth();
+            if (hp <= 0)
+            {
+                isDie = true;
+                hp = 0;
+            }
 
-            if (hp <= 0) isDie = true;
+            UpdateHealth();
         }
 
         public void OnHealEvent(int _value)

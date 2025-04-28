@@ -20,7 +20,7 @@ namespace Shy
         internal List<Buff> buffs;
         internal Team team = Team.None;
         internal UnityAction skillActions, visualAction;
-        internal Transform buffGroup;
+        public Transform buffGroup;
         private Image visual;
         #endregion
 
@@ -37,6 +37,7 @@ namespace Shy
         }
         public int GetNowStr() => stat.bonusAtk;
         public int GetNowDef() => stat.bonusDef;
+        public bool IsDie() => health.isDie;
         #endregion
 
         #region Init
@@ -72,7 +73,7 @@ namespace Shy
         {
             yield return new WaitForSeconds(0.6f);
 
-            if(!health.isDie) VisualUpdate(0);
+            if(!IsDie()) VisualUpdate(0);
             else DeadAnime();
         }
 
@@ -80,9 +81,9 @@ namespace Shy
         {
             Sequence seq = DOTween.Sequence();
 
-            seq.Append(visual.DOColor(Color.black, 0.3f));
+            seq.Append(visual.DOColor(new Color(0.25f, 0.25f, 0.25f), 0.3f));
             seq.Join(visual.DOFade(0, 0.4f).OnComplete(()=> {
-                health.dieEvent.Invoke();
+                VisualUpdate(0);
             }));
         }
 
@@ -141,21 +142,38 @@ namespace Shy
                 if (way == ActionWay.None) way = _way;
 
                 int a = i;
+                Character t;
                 switch (way)
                 {
                     case ActionWay.Self:
                         skillActions += () => so.skills[a].UseSkill(this, this);
                         break;
                     case ActionWay.Random:
-                        Character tR = targets[Random.Range(0, targets.Length)];
-                        skillActions += () => so.skills[a].UseSkill(this, tR);
+                        t = targets[Random.Range(0, targets.Length)];
+                        skillActions += () => so.skills[a].UseSkill(this, t);
                         break;
                     case ActionWay.All:
                         for (int j = 0; j < targets.Length; j++)
                         {
-                            Character tA = targets[j];
-                            skillActions += () => so.skills[a].UseSkill(this, tA);
+                            t = targets[j];
+                            skillActions += () => so.skills[a].UseSkill(this, t);
                         }
+                        break;
+                    #region Hp
+                    case ActionWay.LessHp:
+                        t = targets[0];
+                        for (int j = 1; j < targets.Length; j++)
+                            if (targets[j].GetStat(StatEnum.Hp) < t.GetStat(StatEnum.Hp)) t = targets[j];
+                        skillActions += () => so.skills[a].UseSkill(this, t);
+                        break;
+                    case ActionWay.MoreHp:
+                        t = targets[0];
+                        for (int j = 1; j < targets.Length; j++)
+                            if (targets[j].GetStat(StatEnum.Hp) > t.GetStat(StatEnum.Hp)) t = targets[j];
+                        skillActions += () => so.skills[a].UseSkill(this, t);
+                        break;
+                    #endregion
+                    case ActionWay.Fast:
                         break;
                 }
             }

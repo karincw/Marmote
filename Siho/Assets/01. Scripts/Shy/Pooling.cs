@@ -69,6 +69,7 @@ namespace Shy
         public void Return(GameObject _obj, PoolingType _type)
         {
             _obj.SetActive(false);
+            _obj.transform.parent = transform;
             pool[_type].Add(_obj);
         }
     }

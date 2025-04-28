@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: eaff287e43362f34d98a8b457d1aded0
+guid: 97b800f5939834a42aa4f822dd340a84
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1363791442323159518
-    second: Hit_Hood_0
+      213: 1785655526764500565
+    second: Red_Hit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hit_Hood_0
+      name: Red_Hit_0
       rect:
         serializedVersion: 2
-        x: 277
-        y: 26
-        width: 775
-        height: 914
+        x: 293
+        y: 78
+        width: 755
+        height: 912
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2264c9ca8e6d21de0800000000000000
-      internalID: -1363791442323159518
+      spriteID: 556d204ad3ce7c810800000000000000
+      internalID: 1785655526764500565
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hit_Hood_0: -1363791442323159518
+      Red_Hit_0: 1785655526764500565
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

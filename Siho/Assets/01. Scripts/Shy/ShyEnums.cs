@@ -23,14 +23,19 @@ namespace Shy
         Burn,
     }
 
+    [System.Serializable]
     public enum ActionWay
     {
         None,
         Self,
         Opposite,//맞은편
-        Select, //지정
         Random, //무작위
-        All //전체
+        All, //전체
+        LessHp,
+        MoreHp,
+        Already,
+        Fast,
+        Slow,
     }
 
     public enum StatEnum
@@ -56,6 +61,8 @@ namespace Shy
         PetSelf,
         PetAndShort,
         PetAndLong,
+        SummonAndShort,
+        SummonAndLong,
         DropAttack,
     }
 }

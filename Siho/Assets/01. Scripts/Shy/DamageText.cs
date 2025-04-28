@@ -14,6 +14,8 @@ namespace Shy
             tmp = GetComponent<TextMeshProUGUI>();
             seq = DOTween.Sequence();
 
+            seq.SetAutoKill(false);
+
             seq.AppendInterval(0.2f);
             seq.Append(transform.DOLocalMoveY(20, 0.3f));
             seq.Insert(0.3f, tmp.DOFade(0, 0.2f).OnComplete(() => Pooling.Instance.Return(gameObject, PoolingType.DmgText)));
