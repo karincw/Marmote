@@ -22,7 +22,7 @@ namespace karin.Core
 
         private void Start()
         {
-            SceneManager.LoadScene("WorldMap");
+            SceneManager.LoadScene(DebugSceneIdx);
         }
 
         private void handleSceneLoad(Scene scene, LoadSceneMode mode)
