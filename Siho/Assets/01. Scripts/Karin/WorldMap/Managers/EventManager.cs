@@ -1,20 +1,26 @@
 using UnityEngine;
 
-namespace karin.worldmap
+namespace karin.ui
 {
     public class EventManager : MonoSingleton<EventManager>
     {
-        [SerializeField] private Canvas _backgroundCanvas;
-        private CanvasGroup _backgroundGroup;
-        [SerializeField] private Canvas _eventCanvas;
-        private CanvasGroup _eventGroup;
+        private IEvent _statUpEvent;
+        public EventSO testEvent;
 
         private void Awake()
         {
-            _backgroundGroup = _backgroundCanvas.GetComponent<CanvasGroup>();
-            _eventGroup = _eventCanvas.GetComponent<CanvasGroup>();
+            _statUpEvent = FindFirstObjectByType<StatUpEvent>();
+        }
 
-            _eventGroup.alpha = 0;
+        [ContextMenu("TestStatUp")]
+        public void StatUpEvent()
+        {
+            _statUpEvent.OpenEvent(testEvent);
         }
     }
-}
+
+    public interface IEvent
+    {
+        public void OpenEvent(EventSO eventData);
+    }
+} 

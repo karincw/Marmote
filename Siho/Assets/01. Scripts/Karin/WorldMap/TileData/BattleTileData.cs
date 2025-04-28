@@ -1,6 +1,6 @@
 using karin.Core;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace karin.worldmap
 {
@@ -13,7 +13,7 @@ namespace karin.worldmap
             EnemyData eData = new EnemyData();
             eData.enemyList = enemys;
             DataManager.Instance.WriteEnemyData(eData);
-            //æ¿ ¿Ãµø
+            SceneManager.LoadScene("Battle Proto");
         }
 
     }
