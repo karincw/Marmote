@@ -58,7 +58,8 @@ namespace karin
     [System.Serializable]
     public struct DiceChangeData
     {
-
+        public ActionWay changeWay;
+        public int eyeIndex;
     }
 
 }

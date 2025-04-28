@@ -12,24 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23923709f1d3092439cece3ccc11123e, type: 3}
   m_Name: DiceUpgrade
   m_EditorClassIdentifier: 
-  EventChat: 
+  EventChat: qweasd
   eventSprite: {fileID: 0}
   actions:
   - index: 0
-    branchName: 
-    branchActions: []
-  - index: 0
-    branchName: 
-    branchActions: []
-  - index: 0
-    branchName: 
-    branchActions: []
-  - index: 0
-    branchName: 
-    branchActions: []
-  - index: 0
-    branchName: 
-    branchActions: []
-  - index: 0
-    branchName: 
-    branchActions: []
+    branchName: qwe
+    branchActions:
+    - change: 4
+      eyeIndex: 0
+    - change: 4
+      eyeIndex: 1
+  - index: 1
+    branchName: asd
+    branchActions:
+    - change: 5
+      eyeIndex: 1

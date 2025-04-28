@@ -17,6 +17,7 @@ namespace karin.ui
         {
             _statUpEvent = FindFirstObjectByType<StatUpEvent>();
             WorldMapManager.Instance.OnEnterNextStage += HandleStageChange;
+            HandleStageChange(0);
         }
 
         private void OnDestroy()
