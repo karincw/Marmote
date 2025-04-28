@@ -226,8 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minions:
-  - {fileID: 11400000, guid: dcb5b5a0e6a754c41bc929c4dc1be40a, type: 2}
   - {fileID: 11400000, guid: 3c5b69ede8be53b48a128eb1f163053b, type: 2}
+  - {fileID: 11400000, guid: dcb5b5a0e6a754c41bc929c4dc1be40a, type: 2}
   - {fileID: 11400000, guid: 3c5b69ede8be53b48a128eb1f163053b, type: 2}
   dices:
   - {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}

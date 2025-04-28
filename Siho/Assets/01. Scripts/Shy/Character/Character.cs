@@ -20,8 +20,10 @@ namespace Shy
         internal List<Buff> buffs;
         internal Team team = Team.None;
         internal UnityAction skillActions, visualAction;
+
         public Transform buffGroup;
         private Image visual;
+        private TextMeshProUGUI actSign;
         #endregion
 
         #region Get
@@ -46,6 +48,7 @@ namespace Shy
             health = GetComponent<HealthCompo>();
             stat = GetComponent<StatCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
+            actSign = transform.Find("Act Sign").GetComponent<TextMeshProUGUI>();
         }
 
         public void Init(Team _team, CharacterSO _data)
@@ -61,6 +64,8 @@ namespace Shy
             health.Init(_data.stats.hp, hitEvent);
 
             buffs = new List<Buff>();
+
+            actSign.gameObject.SetActive(false);
 
             //Visual
             VisualUpdate(0);
@@ -82,9 +87,11 @@ namespace Shy
             Sequence seq = DOTween.Sequence();
 
             seq.Append(visual.DOColor(new Color(0.25f, 0.25f, 0.25f), 0.3f));
-            seq.Join(visual.DOFade(0, 0.4f).OnComplete(()=> {
+            seq.OnComplete(() =>
+            {
                 VisualUpdate(0);
-            }));
+
+            });
         }
 
         private void VisualUpdate(int _value)

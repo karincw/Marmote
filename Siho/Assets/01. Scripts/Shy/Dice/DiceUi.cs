@@ -39,8 +39,15 @@ namespace Shy
         {
             visual.gameObject.SetActive(false);
             icon.gameObject.SetActive(false);
-            userIcon.gameObject.SetActive(false);
+            UserReset();
             noUsed.SetActive(false);
+        }
+
+        public void UserReset()
+        {
+            user = null;
+            userIcon.sprite = null;
+            userIcon.gameObject.SetActive(false);
         }
 
         public void RollDice()
@@ -52,7 +59,6 @@ namespace Shy
             //Value
             dNum = Random.Range(0, 6);
             icon.sprite = data.eyes[dNum].icon;
-            user = null;
 
             //나중에 애니메이션으로 이동
             RollFin();

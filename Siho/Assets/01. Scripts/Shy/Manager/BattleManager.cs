@@ -175,16 +175,24 @@ namespace Shy
 
         public void EndCheck()
         {
-            Character[] _arr = { };
+            Character[] _arr = new Character[enDices.Count];
 
             for (int i = 0; i < enDices.Count; i++)
             {
                 Character c = enDices[i].user;
 
                 if (c == null) return;
-                if (c.team != Team.Enemy) continue;
 
+                _arr[i] = c;
 
+                for (int j = 0; j < i; j++)
+                {
+                    if(_arr[j] == c)
+                    {
+                        enDices[j].UserReset();
+                        return;
+                    }
+                }
             }
 
             endBtn.SetActive(true);
