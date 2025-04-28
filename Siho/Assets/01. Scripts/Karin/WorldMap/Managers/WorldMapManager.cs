@@ -1,6 +1,5 @@
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
-using karin.Core;
 using karin.worldmap.dice;
 using Shy;
 using System;

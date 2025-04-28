@@ -12,10 +12,10 @@ namespace karin.ui
         public override void Play(int index)
         {
             var targetAction = actions[index];
-            var target = ShyDataManager.Instance.minions[actions[index].index];
+            var targetDice = ShyDataManager.Instance.dices[index];
             foreach (var change in targetAction.branchActions)
             {
-
+                targetDice.eyes[change.eyeIndex].attackWay = change.changeWay;
             }
         }
     }
