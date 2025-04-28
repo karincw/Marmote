@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using DataManager = karin.Core.DataManager;
+using DataLinkManager = karin.Core.DataLinkManager;
 
 namespace karin.worldmap
 {
@@ -49,14 +49,14 @@ namespace karin.worldmap
         {
             _floor.OnDiceStopEvent += HandleDiceStop;
             OnEnterNextStage += HandleNextStage;
-            DataManager.Instance.OnLoadWorldMap += HandleLoadMap;
+            DataLinkManager.Instance.OnLoadWorldMap += HandleLoadMap;
         }
 
         private void OnDisable()
         {
             _floor.OnDiceStopEvent -= HandleDiceStop;
             OnEnterNextStage -= HandleNextStage;
-            DataManager.Instance.OnLoadWorldMap -= HandleLoadMap;
+            DataLinkManager.Instance.OnLoadWorldMap -= HandleLoadMap;
             SaveData();
         }
 #if UNITY_EDITOR
@@ -86,7 +86,7 @@ namespace karin.worldmap
             mapData.stageIndex = stageIndex;
             mapData.stageTheme = _stageTheme;
             mapData.tileData = _tiles.Select(t => t.myTileData).ToList();
-            DataManager.Instance.SaveMap(mapData);
+            DataLinkManager.Instance.SaveMap(mapData);
         }
 
         public List<TileDataSO> GetStageTileData(int index)

@@ -2,9 +2,7 @@
 using karin.worldmap;
 using Shy;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace karin
 {
@@ -36,9 +34,9 @@ namespace karin
     }
 
     [System.Serializable]
-    public struct EnemyData
+    public struct DataStruct<T> where T : ScriptableObject
     {
-        public List<CharacterSO> enemyList;
+        public List<T> list;
     }
 
     [System.Serializable]
@@ -60,7 +58,7 @@ namespace karin
     [System.Serializable]
     public struct DiceChangeData
     {
-        
+
     }
 
 }
