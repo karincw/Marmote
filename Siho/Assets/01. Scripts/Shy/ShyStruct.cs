@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Shy
 {
@@ -63,5 +64,12 @@ namespace Shy
         public GameObject obj;
         public int spawnCnt;
         public PoolingType type;
+    }
+
+    [System.Serializable]
+    public struct LevelByDice
+    {
+        public int level;
+        public DiceSO[] dices;
     }
 }

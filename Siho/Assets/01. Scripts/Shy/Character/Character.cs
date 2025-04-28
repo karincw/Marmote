@@ -23,7 +23,6 @@ namespace Shy
 
         public Transform buffGroup;
         private Image visual;
-        private TextMeshProUGUI actSign;
         #endregion
 
         #region Get
@@ -48,7 +47,6 @@ namespace Shy
             health = GetComponent<HealthCompo>();
             stat = GetComponent<StatCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
-            actSign = transform.Find("Act Sign").GetComponent<TextMeshProUGUI>();
         }
 
         public void Init(Team _team, CharacterSO _data)
@@ -65,8 +63,6 @@ namespace Shy
 
             buffs = new List<Buff>();
 
-            actSign.gameObject.SetActive(false);
-
             //Visual
             VisualUpdate(0);
             transform.Find("Info").Find("Name").GetComponent<TextMeshProUGUI>().text = data.characterName;
@@ -82,7 +78,7 @@ namespace Shy
             else DeadAnime();
         }
 
-        private void DeadAnime()
+        protected virtual void DeadAnime()
         {
             Sequence seq = DOTween.Sequence();
 
@@ -90,7 +86,6 @@ namespace Shy
             seq.OnComplete(() =>
             {
                 VisualUpdate(0);
-
             });
         }
 

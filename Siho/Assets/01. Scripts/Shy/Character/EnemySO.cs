@@ -6,7 +6,7 @@ namespace Shy
     public class EnemySO : ScriptableObject
     {
         public CharacterSO data;
-        public int actValue = 1;
-        public DiceSO[] dices;
+        public int level = 1;
+        public LevelByDice[] dices;
     }
 }

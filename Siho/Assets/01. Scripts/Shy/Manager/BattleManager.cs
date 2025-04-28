@@ -136,6 +136,7 @@ namespace Shy
         }
         #endregion
 
+        #region Dice
         private void UseDice()
         {
             if (dices[diceLoop].user == null)
@@ -167,10 +168,18 @@ namespace Shy
             yield return new WaitForSeconds(0.7f);
             UseDice();
         }
+        #endregion
 
-        public void CharacterDie(Team _team, Character _ch)
+        public void CharacterDie(Character _ch)
         {
-
+            if(_ch is Enemy)
+            {
+                enemies.Remove(_ch);
+            }
+            else
+            {
+                minions.Remove(_ch);
+            }
         }
 
         public void EndCheck()
