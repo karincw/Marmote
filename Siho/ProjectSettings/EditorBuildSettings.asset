@@ -6,17 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Battle Proto.unity
-    guid: c03f63205464ac04e92ba48f7043e731
-  - enabled: 1
-    path: Assets/Scenes/Tester.unity
-    guid: 675b980cc62a8ac468b5475dc4a32b6f
-  - enabled: 1
     path: Assets/Scenes/StartSetUpScene.unity
     guid: c0f64ed3d571b784398f21f2e7e6f8c5
   - enabled: 1
     path: Assets/Scenes/WorldMap.unity
     guid: ac645c4f562064345abc71a385944638
+  - enabled: 1
+    path: Assets/Scenes/Battle Proto.unity
+    guid: c03f63205464ac04e92ba48f7043e731
+  - enabled: 1
+    path: Assets/Scenes/Tester.unity
+    guid: 675b980cc62a8ac468b5475dc4a32b6f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

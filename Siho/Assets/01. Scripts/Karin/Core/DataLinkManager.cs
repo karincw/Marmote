@@ -1,19 +1,20 @@
 using karin.worldmap;
+using Shy;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace karin.Core
 {
-    public class DataManager : MonoSingleton<DataManager>
+    public class DataLinkManager : MonoSingleton<DataLinkManager>
     {
         [SerializeField] private MapData mapData;
-        [SerializeField] private EnemyData enemyData;
+        [SerializeField] private DataStruct<CharacterSO> enemyData;
         public event Action<MapData> OnLoadWorldMap;
 
         [SerializeField] private int DebugSceneIdx = 0;
         private bool isFirstLoading = true;
-        public EnemyData GetEnemyData => enemyData;
+        public DataStruct<CharacterSO> GetEnemyData => enemyData;
         private void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
@@ -57,7 +58,7 @@ namespace karin.Core
             mapData = data;
         }
 
-        public void WriteEnemyData(EnemyData data)
+        public void WriteEnemyData(DataStruct<CharacterSO> data)
         {
             enemyData = data;
         }
