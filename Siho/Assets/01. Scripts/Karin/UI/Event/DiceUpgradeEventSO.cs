@@ -3,10 +3,10 @@ using ShyDataManager = Shy.DataManager;
 
 namespace karin.ui
 {
-    [CreateAssetMenu(menuName = "SO/karin/StatUpEventSO")]
-    public class StatUpEventSO : EventSO
+    [CreateAssetMenu(menuName = "SO/karin/DiceUpgradeEventSO")]
+    public class DiceUpgradeEventSO : EventSO
     {
-        public StatUpData<StatChangeData>[] actions = new StatUpData<StatChangeData>[3];
+        public StatUpData<DiceChangeData>[] actions = new StatUpData<DiceChangeData>[6];
         public override int branchCount => actions.Length;
 
         public override void Play(int index)
@@ -15,7 +15,7 @@ namespace karin.ui
             var target = ShyDataManager.Instance.minions[actions[index].index];
             foreach (var change in targetAction.branchActions)
             {
-                target.stats[change.targetStat] += change.statIncresement;
+
             }
         }
     }

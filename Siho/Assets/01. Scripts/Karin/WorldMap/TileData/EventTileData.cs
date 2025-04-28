@@ -1,3 +1,4 @@
+using karin.ui;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -14,7 +15,7 @@ namespace karin.worldmap
             }
             else if (tileType.HasFlag(TileType.Event))
             {
-                Debug.Log("Event");
+                EventManager.Instance.StatUpEvent();
             }
         }
     }
