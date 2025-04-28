@@ -54,7 +54,7 @@ namespace Shy
             }
 
             // Enemy의 값
-            CharacterSO[] eSO = karin.Core.DataManager.Instance.GetEnemyData.enemyList.ToArray();
+            CharacterSO[] eSO = karin.Core.DataLinkManager.Instance.GetEnemyData.list.ToArray();
 
             for (int i = 0; i < enemies.Count; i++)
             {

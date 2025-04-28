@@ -160,13 +160,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 95690779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f022d89c18aa140a58e7638b7374fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 35abc6e2ebc451b4a9a74cdb6f85a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mapData:
-    stageIndex: -1
+    stageIndex: 0
     positionIndex: 0
     tileData: []
+    stageTheme: 0
+  enemyData:
+    list: []
   DebugSceneIdx: 1
 --- !u!1 &532475232
 GameObject:
