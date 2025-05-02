@@ -16,7 +16,7 @@ MonoBehaviour:
   stats:
     maxHp: 15
     hp: 15
-    str: 8
+    str: 20
     def: 5
   skills:
   - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}

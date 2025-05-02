@@ -9,12 +9,12 @@ namespace karin.Core
     public class DataLinkManager : MonoSingleton<DataLinkManager>
     {
         [SerializeField] private MapData mapData;
-        [SerializeField] private DataStruct<CharacterSO> enemyData;
+        [SerializeField] private DataStruct<EnemySO> enemyData;
         public event Action<MapData> OnLoadWorldMap;
 
         [SerializeField] private int DebugSceneIdx = 0;
         private bool isFirstLoading = true;
-        public DataStruct<CharacterSO> GetEnemyData => enemyData;
+        public DataStruct<EnemySO> GetEnemyData => enemyData;
         private void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
@@ -58,7 +58,7 @@ namespace karin.Core
             mapData = data;
         }
 
-        public void WriteEnemyData(DataStruct<CharacterSO> data)
+        public void WriteEnemyData(DataStruct<EnemySO> data)
         {
             enemyData = data;
         }

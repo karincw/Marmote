@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileChangeDatas:
   - ChangeTile: {fileID: 11400000, guid: 48749f3ce97251d4e864c2a5584c7563, type: 2}
-    changeCount: 8
+    changeCount: 20
   - ChangeTile: {fileID: 11400000, guid: 8f9bc02163e512c4e90873aabba8fe86, type: 2}
-    changeCount: 6
+    changeCount: 3
   _noneTile: {fileID: 11400000, guid: b027f4d9aa1724644ba741e4faf3b490, type: 2}
   _isBossStage: 0
   _bossTile: {fileID: 11400000, guid: d7c6e60e6510f9a41b37606c92fc8eeb, type: 2}

@@ -26,7 +26,6 @@ namespace Shy
         private void Update()
         {
             if (blackBoard.color.a != 0.8f) return;
-            if (Input.GetMouseButtonDown(0)) SelectCharacter(null);
         }
 
         public void ShowCharacter(Team _targetTeam, UnityAction<Character> _act)
@@ -41,11 +40,16 @@ namespace Shy
             if (_targetTeam != Team.Enemy) minions.SetAsLastSibling();
         }
 
+        public void SelectCancel()
+        {
+            SelectCharacter(null);
+        }
+
         public void SelectCharacter(Character _ch)
         {
             Debug.Log("Select Character : " + _ch);
 
-            if (_ch.IsDie()) act?.Invoke(null);
+            if (_ch == null || _ch.IsDie()) act?.Invoke(null);
             else act?.Invoke(_ch);
             BattleManager.Instance.EndCheck();
             blackBoard.color = Color.clear;

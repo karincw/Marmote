@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Red Hood 3
   m_EditorClassIdentifier: 
   skillName: "\uBB34\uC11C\uC6B4 \uB291\uB300"
-  summon: {fileID: 21300000, guid: be6f1f23c1848654297000718b42c4ab, type: 3}
+  summon: {fileID: 21300000, guid: 23b91f9236c915346b738156f5e1afb1, type: 3}
   summonAnime: {fileID: 21300000, guid: a120f51593824b04d8c6d24946b0aade, type: 3}
   motion: 3
   explian: 

@@ -14,14 +14,13 @@ namespace Shy
         [Header("Character")]
         public List<Character> minions;
         public List<Character> enemies;
+        private Dictionary<Character, List<DiceUi>> enemyDiceDic = new Dictionary<Character, List<DiceUi>>();
 
         [Header("Dice")]
         [SerializeField] private DiceUi dicePrefab;
         private int diceLoop;
-        private List<DiceUi> dices = new List<DiceUi>();
-        private List<DiceUi> enDices = new List<DiceUi>();
-        [SerializeField] private RectTransform hand;
-        [SerializeField] private RectTransform handVisual;
+        private List<DiceUi> dices = new List<DiceUi>(), enDices = new List<DiceUi>();
+        [SerializeField] private RectTransform hand, handVisual;
 
         [Header("Other")]
         [SerializeField] private GameObject endBtn;
@@ -40,52 +39,48 @@ namespace Shy
             Init();
         }
 
+        private void CharacterInit(Team _team, CharacterSO[] _so)
+        {
+            List<Character> characterList = (_team == Team.Player ? minions : enemies);
+            for (int i = 0; i < characterList.Count; i++)
+            {
+                characterList[i].Init(_team, _so[i]);
+                buffEvent += characterList[i].BuffCheck;
+            }
+        }
+
         public void Init()
         {
-            buffEvent = null;
-
-            // Minion의 값
-            CharacterSO[] pSO = DataManager.Instance.minions;
-
-            for (int i = 0; i < minions.Count; i++)
-            {
-                minions[i].Init(Team.Player, pSO[i]);
-                buffEvent += minions[i].BuffCheck;
-            }
-
-            // Enemy의 값
-            CharacterSO[] eSO = karin.Core.DataLinkManager.Instance.GetEnemyData.list.ToArray();
-
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                enemies[i].Init(Team.Enemy, eSO[i]);
-                buffEvent += enemies[i].BuffCheck;
-            }
-
-            // Dice의 값
+            EnemySO[] enemyDatas = karin.Core.DataLinkManager.Instance.GetEnemyData.list.ToArray();
+            List<DiceSO> _diceList = DataManager.Instance.dices;
             Transform spawn = hand.Find("Groups");
 
-            List<DiceSO> dArr = DataManager.Instance.dices.ToList();
+            buffEvent = null;
+            handVisual.sizeDelta = Vector2.zero;
 
-            for (int i = 0; i < dArr.Count; i++)
+            CharacterInit(Team.Player, DataManager.Instance.minions);
+            CharacterInit(Team.Enemy, enemyDatas.Select(enemy => enemy.data).ToArray());
+
+            for (int i = 0; i < _diceList.Count; i++)
             {
                 DiceUi dUi = Instantiate(dicePrefab, spawn);
                 dices.Add(dUi);
-                dUi.gameObject.SetActive(true);
-                dUi.team = Team.Player;
-                dUi.Init(dArr[i]);
+                dUi.Init(_diceList[i], Team.Player);
             }
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                DiceUi dUi = Instantiate(dicePrefab, spawn);
-                enDices.Add(dUi);
-                dices.Add(dUi);
-                dUi.gameObject.SetActive(true);
-                dUi.team = Team.Enemy;
-                dUi.HideDice();
+                List<DiceUi> dUis  = new List<DiceUi>();
+                foreach (DiceSO dice in enemyDatas[i].GetDices())
+                {
+                    DiceUi dUi = Instantiate(dicePrefab, spawn);
+                    enDices.Add(dUi); dices.Add(dUi);
+                    dUi.Init(dice, Team.Enemy);
+                    dUis.Add(dUi);
+                }
+                enemyDiceDic.Add(enemies[i], dUis);
             }
-
+            
             endBtn.SetActive(false);
             buffEvent += () => StartCoroutine(TurnStart(0.7f));
 
@@ -98,10 +93,13 @@ namespace Shy
         {
             yield return new WaitForSeconds(_delay);
 
+            for (int i = 0; i < dices.Count; i++)
+            {
+                if(dices[i].DiceCheck()) dices.RemoveAt(i--);
+            }
             // +Dice Shuffle
-            for (int i = 0; i < dices.Count; i++) dices[i].HideDice();
 
-            handVisual.sizeDelta = Vector2.zero;
+            
             hand.sizeDelta = new Vector2(60 + 180 * dices.Count, 200);
             float sec = 0.075f / dices.Count;
 
@@ -117,8 +115,31 @@ namespace Shy
         public void CheckTurn(DiceUi _dice)
         {
             if (_dice != dices[dices.Count - 1]) return;
-
             CanInteract.interact = true;
+        }
+
+        public void EndCheck()
+        {
+            Character[] _arr = new Character[enDices.Count];
+
+            for (int i = 0; i < enDices.Count; i++)
+            {
+                Character c = enDices[i].user;
+                if (c == null) return;
+
+                _arr[i] = c;
+
+                for (int j = 0; j < i; j++)
+                {
+                    if (_arr[j] == c)
+                    {
+                        enDices[j].UserReset();
+                        return;
+                    }
+                }
+            }
+
+            endBtn.SetActive(true);
         }
 
         public void TurnEnd()
@@ -126,12 +147,9 @@ namespace Shy
             diceLoop = 0;
 
             for (int i = 0; i < dices.Count; i++)
-            {
-                if(dices[i].user == null) dices[i].noUsed.SetActive(true);
-            }
+                if (dices[i].user == null) dices[i].noUsed.SetActive(true);
 
             endBtn.SetActive(false);
-
             StartCoroutine(DiceDelay());
         }
         #endregion
@@ -139,21 +157,13 @@ namespace Shy
         #region Dice
         private void UseDice()
         {
-            if (dices[diceLoop].user == null)
-            {
-                NextAction();
-                return;
-            }
-
             EyeSO eye = dices[diceLoop].UseDice();
             dices[diceLoop].user.SkillUse(eye.value, eye.attackWay, minions.ToArray(), enemies.ToArray());
         }
 
         public void NextAction()
         {
-            diceLoop++;
-
-            if(diceLoop == dices.Count)
+            if(++diceLoop >= dices.Count)
             {
                 Debug.Log("모든 다이스 종료");
                 buffEvent.Invoke();
@@ -165,46 +175,35 @@ namespace Shy
 
         private IEnumerator DiceDelay()
         {
-            yield return new WaitForSeconds(0.7f);
-            UseDice();
+            yield return new WaitForSeconds(0.11f);
+
+            if (dices[diceLoop].user == null)
+            {
+                NextAction();
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.6f);
+                UseDice();
+            }
         }
         #endregion
 
         public void CharacterDie(Character _ch)
         {
-            if(_ch is Enemy)
+            if(enemies.Contains(_ch))
             {
                 enemies.Remove(_ch);
+                foreach (DiceUi dice in enemyDiceDic[_ch])
+                {
+                    dice.KillDice();
+                    enDices.Remove(dice);
+                }
             }
             else
             {
                 minions.Remove(_ch);
             }
-        }
-
-        public void EndCheck()
-        {
-            Character[] _arr = new Character[enDices.Count];
-
-            for (int i = 0; i < enDices.Count; i++)
-            {
-                Character c = enDices[i].user;
-
-                if (c == null) return;
-
-                _arr[i] = c;
-
-                for (int j = 0; j < i; j++)
-                {
-                    if(_arr[j] == c)
-                    {
-                        enDices[j].UserReset();
-                        return;
-                    }
-                }
-            }
-
-            endBtn.SetActive(true);
         }
     }
 }

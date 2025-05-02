@@ -169,7 +169,10 @@ MonoBehaviour:
     tileData: []
     stageTheme: 0
   enemyData:
-    list: []
+    list:
+    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
   DebugSceneIdx: 1
 --- !u!1 &532475232
 GameObject:

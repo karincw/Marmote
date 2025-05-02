@@ -82,11 +82,14 @@ namespace Shy
         {
             Sequence seq = DOTween.Sequence();
 
+            seq.OnStart(() =>
+            {
+                BattleManager.Instance.CharacterDie(this);
+            });
             seq.Append(visual.DOColor(new Color(0.25f, 0.25f, 0.25f), 0.3f));
             seq.OnComplete(() =>
             {
-                VisualUpdate(0);
-            });
+                VisualUpdate(0);            });
         }
 
         private void VisualUpdate(int _value)

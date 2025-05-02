@@ -105,7 +105,7 @@ namespace karin.worldmap
             }
         }
 
-        public List<CharacterSO> GetBattleEnemyDatas(int count)
+        public List<EnemySO> GetBattleEnemyDatas(int count)
         {
             ShuffleEnemyList(stageIndex);
             return _themeToEnemyList[_stageTheme].enemyList.GetRange(0, count);

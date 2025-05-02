@@ -16,9 +16,9 @@ namespace karin
     [System.Serializable]
     public struct StageEnemyList
     {
-        public List<CharacterSO> enemyList;
+        public List<EnemySO> enemyList;
 
-        public StageEnemyList(List<CharacterSO> _enemyList)
+        public StageEnemyList(List<EnemySO> _enemyList)
         {
             enemyList = _enemyList;
         }

@@ -20,6 +20,8 @@ namespace Shy
         public Character user;
         public Team team;
 
+        private bool isDead;
+
         private void Awake()
         {
             visual = transform.Find("Visual").GetComponent<Image>();
@@ -28,14 +30,32 @@ namespace Shy
             noUsed = transform.Find("None").gameObject;
         }
         
-        public void Init(DiceSO _so)
+        public void Init(DiceSO _so, Team _team)
         {
+            gameObject.SetActive(true);
             data = _so;
             visual.color = data.color;
+            team = _team;
+            isDead = false;
             HideDice();
         }
 
-        public void HideDice()
+        public bool DiceCheck()
+        {
+            if (isDead) Destroy(gameObject);
+            else HideDice();
+
+            return isDead;
+        }
+
+        public void KillDice()
+        {
+            UserReset();
+            noUsed.SetActive(true);
+            isDead = true;
+        }
+
+        private void HideDice()
         {
             visual.gameObject.SetActive(false);
             icon.gameObject.SetActive(false);

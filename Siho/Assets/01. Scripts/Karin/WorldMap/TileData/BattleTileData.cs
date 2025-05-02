@@ -1,7 +1,7 @@
 using karin.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using CharacterSO = Shy.CharacterSO;
+using EnemySO = Shy.EnemySO;
 
 namespace karin.worldmap
 {
@@ -11,7 +11,7 @@ namespace karin.worldmap
         public override void Play()
         {
             var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(Random.Range(2, 4));
-            DataStruct<CharacterSO> eData = new DataStruct<CharacterSO>();
+            DataStruct<EnemySO> eData = new DataStruct<EnemySO>();
             eData.list = enemys;
             DataLinkManager.Instance.WriteEnemyData(eData);
             SceneManager.LoadScene("Battle Proto");
