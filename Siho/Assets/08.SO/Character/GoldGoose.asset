@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
-  m_Name: GoldDuck
+  m_Name: GoldGoose
   m_EditorClassIdentifier: 
   characterName: "\uD669\uAE08 \uAC70\uC704"
   stats:
@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
   - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
   - {fileID: 11400000, guid: 54fff5b8c2ce4d34f90bfb034282fcce, type: 2}
-  sprite: {fileID: 21300000, guid: df974ba8769585f4cae0133a62b2c765, type: 3}
-  attackAnime: {fileID: 0}
-  skillAnime: {fileID: 0}
-  skill2Anime: {fileID: 0}
-  hitAnime: {fileID: 21300000, guid: f4b93ec7de7b6ee44a6bacacc088a639, type: 3}
+  sprite: {fileID: 21300000, guid: d38c70f732ed9c2418384a403c662335, type: 3}
+  attackAnime: {fileID: 21300000, guid: 84283163462727d4d8c7de885863c736, type: 3}
+  skillAnime: {fileID: 21300000, guid: 716d65231a6888c41939061ed23f13f2, type: 3}
+  skill2Anime: {fileID: 21300000, guid: 84283163462727d4d8c7de885863c736, type: 3}
+  hitAnime: {fileID: 21300000, guid: 97fd0599f0df0d445933c1fe843a9ac2, type: 3}

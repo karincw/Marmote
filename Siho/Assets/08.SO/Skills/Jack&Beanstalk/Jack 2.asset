@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92797061b5c8aef448488b44fa86a074, type: 3}
-  m_Name: Golduck
+  m_Name: Jack 2
   m_EditorClassIdentifier: 
   skillName: 
-  pAnime: {fileID: 7400000, guid: 358c8377e3515384ba7947a56ed01916, type: 2}
-  eAnime: {fileID: 7400000, guid: 358c8377e3515384ba7947a56ed01916, type: 2}
+  summon: {fileID: 0}
+  summonAnime: {fileID: 0}
+  motion: 0
   explian: 
   skills:
-  - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}
+  - {fileID: 11400000, guid: 357fb916ed93c314da4c5b3eae07cbf4, type: 2}

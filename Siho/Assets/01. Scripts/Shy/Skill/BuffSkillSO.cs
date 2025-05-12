@@ -5,7 +5,7 @@ namespace Shy
     [CreateAssetMenu(menuName = "SO/Shy/Skill/Buff")]
     public class BuffSkillSO : SkillEventSO
     {
-        public BuffEvent type;
+        public BuffType type;
         public int life = 0;
 
         public override void UseSkill(Character _user, Character _target)

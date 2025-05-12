@@ -1,9 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
+using Show = System.SerializableAttribute;
 
 namespace Shy
 {
-    [System.Serializable]
+    [Show]
     public struct Stat
     {
         public int maxHp;
@@ -50,7 +50,7 @@ namespace Shy
         }
     }
 
-    [System.Serializable]
+    [Show]
     public struct GetStat
     {
         public string key;
@@ -58,7 +58,22 @@ namespace Shy
         public ActionWay target;
     }
 
-    [System.Serializable]
+    [Show]
+    public struct GetStack
+    {
+        public string key;
+        public BuffType buff;
+    }
+
+    [Show]
+    public struct BuffItem
+    {
+        public BuffType buff;
+        public bool canCountDown;
+        public Sprite sprite;
+    }
+
+    [Show]
     public struct PoolItem
     {
         public GameObject obj;
@@ -66,7 +81,7 @@ namespace Shy
         public PoolingType type;
     }
 
-    [System.Serializable]
+    [Show]
     public struct LevelByDice
     {
         public int level;

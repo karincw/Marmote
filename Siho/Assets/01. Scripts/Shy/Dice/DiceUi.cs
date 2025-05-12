@@ -8,20 +8,19 @@ namespace Shy
 {
     public class DiceUi : MonoBehaviour, IPointerClickHandler
     {
-        // Visual
-        private Image visual;
-        private Image icon;
-        private Image userIcon;
+        #region Variable
+        private Image visual, icon, userIcon;
         internal GameObject noUsed;
 
-        // Data
         [SerializeField] private int dNum;
         [SerializeField] private DiceSO data;
         public Character user;
         public Team team;
 
         private bool isDead;
+        #endregion
 
+        #region Init
         private void Awake()
         {
             visual = transform.Find("Visual").GetComponent<Image>();
@@ -40,21 +39,6 @@ namespace Shy
             HideDice();
         }
 
-        public bool DiceCheck()
-        {
-            if (isDead) Destroy(gameObject);
-            else HideDice();
-
-            return isDead;
-        }
-
-        public void KillDice()
-        {
-            UserReset();
-            noUsed.SetActive(true);
-            isDead = true;
-        }
-
         private void HideDice()
         {
             visual.gameObject.SetActive(false);
@@ -69,14 +53,31 @@ namespace Shy
             userIcon.sprite = null;
             userIcon.gameObject.SetActive(false);
         }
+        #endregion
 
+        #region Kill
+        public bool DiceCheck()
+        {
+            if (isDead) Destroy(gameObject);
+            else HideDice();
+
+            return isDead;
+        }
+
+        public void KillDice()
+        {
+            UserReset();
+            noUsed.SetActive(true);
+            isDead = true;
+        }
+        #endregion
+
+        #region Roll
         public void RollDice()
         {
-            //Visual Set
             transform.localScale = Vector3.one;
             visual.gameObject.SetActive(true);
 
-            //Value
             dNum = Random.Range(0, 6);
             icon.sprite = data.eyes[dNum].icon;
 
@@ -89,12 +90,20 @@ namespace Shy
             icon.gameObject.SetActive(true);
             BattleManager.Instance.CheckTurn(this);
         }
+        #endregion
 
+        #region Use
         public EyeSO UseDice() => data.eyes[dNum];
 
-        private void SelectCharacter(Character _ch)
+        private void CharacterSelect(Character _ch)
         {
             if (_ch == null) return;
+
+            if (_ch == user)
+            {
+                UserReset();
+                return;
+            }
 
             user = _ch;
             userIcon.gameObject.SetActive(true);
@@ -104,8 +113,8 @@ namespace Shy
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!CanInteract.interact) return;
-
-            SelectManager.Instance.ShowCharacter(team, (va)=>SelectCharacter(va));
+            SelectManager.Instance.ShowCharacter(team, (va)=>CharacterSelect(va));
         }
+        #endregion
     }
 }

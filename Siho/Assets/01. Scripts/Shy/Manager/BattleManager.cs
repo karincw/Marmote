@@ -12,8 +12,7 @@ namespace Shy
         public static BattleManager Instance;
 
         [Header("Character")]
-        public List<Character> minions;
-        public List<Character> enemies;
+        public List<Character> minions, enemies;
         private Dictionary<Character, List<DiceUi>> enemyDiceDic = new Dictionary<Character, List<DiceUi>>();
 
         [Header("Dice")]
@@ -70,20 +69,19 @@ namespace Shy
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                List<DiceUi> dUis  = new List<DiceUi>();
+                List<DiceUi> dUiList  = new List<DiceUi>();
                 foreach (DiceSO dice in enemyDatas[i].GetDices())
                 {
                     DiceUi dUi = Instantiate(dicePrefab, spawn);
                     enDices.Add(dUi); dices.Add(dUi);
                     dUi.Init(dice, Team.Enemy);
-                    dUis.Add(dUi);
+                    dUiList.Add(dUi);
                 }
-                enemyDiceDic.Add(enemies[i], dUis);
+                enemyDiceDic.Add(enemies[i], dUiList);
             }
             
             endBtn.SetActive(false);
             buffEvent += () => StartCoroutine(TurnStart(0.7f));
-
             StartCoroutine(TurnStart(0));
         }
         #endregion
@@ -93,12 +91,19 @@ namespace Shy
         {
             yield return new WaitForSeconds(_delay);
 
-            for (int i = 0; i < dices.Count; i++)
+            for (int i = 0; i < dices.Count;)
             {
-                if(dices[i].DiceCheck()) dices.RemoveAt(i--);
+                if (dices[i].DiceCheck()) dices.RemoveAt(i);
+                else i++;
             }
-            // +Dice Shuffle
 
+            for (int i = 0; i < 10; i++)
+            {
+                int rand = Random.Range(0, dices.Count);
+                dices[0].transform.SetSiblingIndex(rand);
+                dices.Insert(rand + 1, dices[0]);
+                dices.RemoveAt(0);
+            }
             
             hand.sizeDelta = new Vector2(60 + 180 * dices.Count, 200);
             float sec = 0.075f / dices.Count;
@@ -107,7 +112,6 @@ namespace Shy
             {
                 yield return new WaitForSeconds(sec);
                 handVisual.sizeDelta = new Vector2(60 + 18 * i, 40);
-
                 if(i % 10 == 8) dices[i / 10].RollDice();
             }
         }
@@ -177,10 +181,7 @@ namespace Shy
         {
             yield return new WaitForSeconds(0.11f);
 
-            if (dices[diceLoop].user == null)
-            {
-                NextAction();
-            }
+            if (dices[diceLoop].user == null) NextAction();
             else
             {
                 yield return new WaitForSeconds(0.6f);

@@ -9,13 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92797061b5c8aef448488b44fa86a074, type: 3}
-  m_Name: Gretel 1
+  m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
+  m_Name: Jack 2-1
   m_EditorClassIdentifier: 
-  skillName: "\uD718\uB450\uB974\uAE30"
-  summon: {fileID: 0}
-  summonAnime: {fileID: 0}
-  motion: 0
-  explian: 
-  skills:
-  - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}
+  actionWay: 0
+  targetTeam: 0
+  eventType: 0
+  formula: str * 0.9 + hp * 0.45
+  getStats:
+  - key: str
+    stat: 2
+    target: 1
+  - key: hp
+    stat: 1
+    target: 2

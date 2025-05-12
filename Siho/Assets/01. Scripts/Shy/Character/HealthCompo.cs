@@ -18,8 +18,7 @@ namespace Shy
 
         public void Init(int _hp, UnityAction _action)
         {
-            maxHp = _hp;
-            hp = maxHp;
+            maxHp = hp = _hp;
             hitEvent = _action;
 
             UpdateHealth();

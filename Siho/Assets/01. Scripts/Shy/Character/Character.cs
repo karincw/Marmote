@@ -36,6 +36,15 @@ namespace Shy
             if (_stat == StatEnum.Hp) return health.GetHealth();
             Debug.LogError("Not Found"); return 0;
         }
+        public int GetStackCnt(BuffType _type)
+        {
+            for (int i = 0; i < buffs.Count; i++)
+            {
+                int n = buffs[i].CheckBuff(_type);
+                if(n != 0) return n;
+            }
+            Debug.LogError("Not Found"); return 0;
+        }
         public int GetNowStr() => stat.bonusAtk;
         public int GetNowDef() => stat.bonusDef;
         public bool IsDie() => health.isDie;
@@ -59,7 +68,7 @@ namespace Shy
             hitEvent += () => StartCoroutine(HitAnime());
 
             stat.Init(_data.stats);
-            health.Init(_data.stats.hp, hitEvent);
+            health.Init(_data.stats.maxHp, hitEvent);
 
             buffs = new List<Buff>();
 
@@ -183,7 +192,7 @@ namespace Shy
                 }
             }
 
-            SkillManager.Instance.UseSkill(this, so);
+            SkillMotionManager.Instance.UseSkill(this, so);
         }
 
         public void SkillFin()

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 namespace Shy
@@ -13,23 +11,27 @@ namespace Shy
         public string formula;
 
         public List<GetStat> getStats;
+        public List<GetStack> getStacks;
 
         public override void UseSkill(Character _user, Character _target)
         {
             string data = formula;
 
             //stat을 얻고
-            for (int i = 0; i < getStats.Count; i++)
+            foreach (GetStat stat in getStats)
             {
-                Character c = getStats[i].target == ActionWay.Self ? _user : _target;
-                int v = c.GetStat(getStats[i].stat);
+                Character c = (stat.target == ActionWay.Self) ? _user : _target;
+                data = data.Replace(stat.key, c.GetStat(stat.stat).ToString());
+            }
 
-                data = data.Replace(getStats[i].key, v.ToString());
+            foreach (GetStack stack in getStacks)
+            {
+                int v = _user.GetStackCnt(stack.buff);
+                data = data.Replace(stack.key, v.ToString());
             }
 
             //구현해놓은 Formula에서 값 설정
-            int value = int.Parse(Formula.GetFormula(data));
-            int bAtk = _user.GetNowStr();
+            int value = int.Parse(Formula.GetFormula(data)), bAtk = _user.GetNowStr();
 
             if (bAtk != 0) value += Mathf.RoundToInt(value * bAtk * 0.01f);
 

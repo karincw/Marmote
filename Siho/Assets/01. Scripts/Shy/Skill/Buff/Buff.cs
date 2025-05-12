@@ -8,7 +8,7 @@ namespace Shy
     {
         //Data
         private int life = 0;
-        private BuffEvent buffEvent;
+        private BuffType buffType;
         private bool oneTime = false;
         private Character user;
 
@@ -22,15 +22,15 @@ namespace Shy
             tmp = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void Init(Character _user, BuffEvent _ev, int _life)
+        public void Init(Character _user, BuffType _ev, int _life)
         {
-            buffEvent = _ev;
+            buffType = _ev;
             life = _life;
             user = _user;
 
             tmp.text = life.ToString();
 
-            if (buffEvent == BuffEvent.Brave)
+            if (buffType == BuffType.Brave)
             {
                 OnEvent();
                 oneTime = true;
@@ -39,32 +39,36 @@ namespace Shy
 
         private void OnEvent()
         {
-            switch (buffEvent)
+            switch (buffType)
             {
-                case BuffEvent.Brave:
+                case BuffType.Brave:
                     user.BonusStat(StatEnum.Str, 15);
                     break;
-                case BuffEvent.Scare:
+                case BuffType.Bleeding:
                     break;
-                case BuffEvent.Poison:
+                case BuffType.Bondage:
                     break;
-                case BuffEvent.Burn:
+                case BuffType.Crumbs:
+                    break;
+                case BuffType.Gingerbread:
                     break;
             }
         }
 
         private void DestroyEvent()
         {
-            switch (buffEvent)
+            switch (buffType)
             {
-                case BuffEvent.Brave:
+                case BuffType.Brave:
                     user.BonusStat(StatEnum.Str, -15);
                     break;
-                case BuffEvent.Scare:
+                case BuffType.Bleeding:
                     break;
-                case BuffEvent.Poison:
+                case BuffType.Bondage:
                     break;
-                case BuffEvent.Burn:
+                case BuffType.Crumbs:
+                    break;
+                case BuffType.Gingerbread:
                     break;
             }
         }
@@ -88,6 +92,12 @@ namespace Shy
             {
                 if(!oneTime) OnEvent();
             }
+        }
+
+        public int CheckBuff(BuffType _buff)
+        {
+            if (buffType == _buff) return life;
+            return 0;
         }
     }
 }

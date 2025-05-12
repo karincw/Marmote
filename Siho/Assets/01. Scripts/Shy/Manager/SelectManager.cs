@@ -23,11 +23,6 @@ namespace Shy
             blackBoard.gameObject.SetActive(false);
         }
 
-        private void Update()
-        {
-            if (blackBoard.color.a != 0.8f) return;
-        }
-
         public void ShowCharacter(Team _targetTeam, UnityAction<Character> _act)
         {
             blackBoard.gameObject.SetActive(true);
@@ -47,8 +42,6 @@ namespace Shy
 
         public void SelectCharacter(Character _ch)
         {
-            Debug.Log("Select Character : " + _ch);
-
             if (_ch == null || _ch.IsDie()) act?.Invoke(null);
             else act?.Invoke(_ch);
             BattleManager.Instance.EndCheck();

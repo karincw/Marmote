@@ -15,27 +15,14 @@ namespace Shy
         BuffEvent
     }
 
-    public enum BuffEvent
+    public enum BuffType
     {
         Brave = 0,
-        Scare,
-        Poison,
-        Burn,
-    }
-
-    [System.Serializable]
-    public enum ActionWay
-    {
-        None,
-        Self,
-        Opposite,//맞은편
-        Random, //무작위
-        All, //전체
-        LessHp,
-        MoreHp,
-        Already,
-        Fast,
-        Slow,
+        Bleeding,
+        Bondage,
+        Crumbs,
+        Gingerbread,
+        Music,
     }
 
     public enum StatEnum
@@ -53,10 +40,25 @@ namespace Shy
        end
     }
 
+    public enum ActionWay
+    {
+        None,
+        Self,
+        Opposite,//맞은편
+        Random, //무작위
+        All, //전체
+        LessHp,
+        MoreHp,
+        Already,
+        Fast,
+        Slow,
+    }
+
     public enum AttackMotion
     {
         Near = 0,
         Long,
+        All,
         Self,
         PetSelf,
         PetAndShort,

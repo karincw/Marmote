@@ -2,14 +2,13 @@ using UnityEngine;
 using DG.Tweening;
 using Unity.Cinemachine;
 using System.Collections;
-using System;
 using UnityEngine.UI;
 
 namespace Shy
 {
-    public class SkillManager : MonoBehaviour
+    public class SkillMotionManager : MonoBehaviour
     {
-        public static SkillManager Instance;
+        public static SkillMotionManager Instance;
 
         [SerializeField] private CinemachineCamera mainCam;
         [SerializeField] private Image pet;
@@ -34,11 +33,12 @@ namespace Shy
             Sequence seq = DOTween.Sequence();
 
             // Cam
-            seq.Append(CamMove(isTeam ? userTeam : targetTeam, time).OnStart(() => StartCoroutine(CameraZoom(50, time))));
-
-            if (!isTeam) seq.Join(CamRotate(1f, targetTeam, time));
-
-
+            if(_skill.motion != AttackMotion.All)
+            {
+                seq.Append(CamMove(isTeam ? userTeam : targetTeam, time).OnStart(() => StartCoroutine(CameraZoom(50, time))));
+                if (!isTeam) seq.Join(CamRotate(1f, targetTeam, time));
+            }
+            
             //CharacterMove
             if (!isPet && !isTeam && !isSummon)
                 seq.Insert(0.1f, CharacterMove(_user.GetVisual(), time - 0.1f));
@@ -64,15 +64,13 @@ namespace Shy
                 }
             }
             
-            seq.Append(DOTween.To(() => 0f, x => { }, 0.3f, 0.03f).OnComplete(()=> {
+            seq.Append(DOTween.To(() => 0f, x => { }, 0.3f, 0.03f).OnComplete(()=> 
+            {
                 if (isPet || isSummon)
                 {
                     pet.sprite = _skill.summonAnime;
-                    if (!isTeam)
-                    {
-                        if(_skill.motion != AttackMotion.SummonAndLong)
-                        seq.Join(ShortDash(pet.transform, 0.1f));
-                    }
+
+                    if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Join(ShortDash(pet.transform, 0.1f));
                 }
 
                 _user.skillActions?.Invoke();
@@ -93,16 +91,9 @@ namespace Shy
             }
         }
 
-        private Tween CharacterDrop(Transform _target, float _t)
-        {
-            Debug.Log(_t + " / " + _target.transform.position.y);
-            return _target.DOMoveY(13, _t);
-        }
+        private Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(13, _t);
 
-        private Tween CharacterMove(Transform _target, float _t)
-        {
-            return _target.DOMove(new Vector3(0, 13, _target.position.z), _t);
-        }
+        private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 13, _target.position.z), _t);
 
         private Tween ShortDash(Transform _tar, float _t) => _tar.DOLocalMoveX(_tar.localPosition.x + 100, _t);
 
@@ -131,8 +122,8 @@ namespace Shy
         {
             Vector2 pos = Vector2.zero;
             if (_target == Team.Enemy) pos.x = 47.45f;
-            if (_target == Team.Player) pos.x = -47.45f;
-            if (_target != Team.None) pos.y = 7.5f;
+            else if (_target == Team.Player) pos.x = -47.45f;
+            else if (_target != Team.None) pos.y = 7.5f;
 
             return mainCam.transform.DOLocalMove(pos, 0.75f);
         }
