@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1fb61bb62ab6c894dbb8deae594b9d81
+guid: fbdf026078f4a09439231e589fd164c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1391976305132119154
-    second: Red_Bite_0
+      213: -6217545173113187943
+    second: Ant_Attack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Bite_0
+      name: Ant_Attack_0
       rect:
         serializedVersion: 2
-        x: 297
-        y: 177
-        width: 671
-        height: 884
+        x: 355
+        y: 344
+        width: 503
+        height: 493
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2742923131b415310800000000000000
-      internalID: 1391976305132119154
+      spriteID: 991d4a56b97d6b9a0800000000000000
+      internalID: -6217545173113187943
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Red_Bite_0: 1391976305132119154
+      Ant_Attack_0: -6217545173113187943
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

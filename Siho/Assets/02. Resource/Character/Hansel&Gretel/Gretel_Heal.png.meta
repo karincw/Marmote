@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 1fb61bb62ab6c894dbb8deae594b9d81
+guid: 71db3e4893f8fa4459c4d836c2dd597f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1391976305132119154
-    second: Red_Bite_0
+      213: -8551083457755159538
+    second: Gretel_Heal_0
+  - first:
+      213: 1759074525619205077
+    second: Gretel_Heal_1
+  - first:
+      213: -5702613582980091721
+    second: Gretel_Heal_2
+  - first:
+      213: -1222801098975093288
+    second: Gretel_Heal_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Bite_0
+      name: Gretel_Heal_0
       rect:
         serializedVersion: 2
-        x: 297
-        y: 177
-        width: 671
-        height: 884
+        x: 35
+        y: 681
+        width: 285
+        height: 238
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2742923131b415310800000000000000
-      internalID: 1391976305132119154
+      spriteID: e04e8c796e2745980800000000000000
+      internalID: -8551083457755159538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gretel_Heal_1
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 100
+        width: 740
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d3b8f806fc796810800000000000000
+      internalID: 1759074525619205077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gretel_Heal_2
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 151
+        width: 202
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b07727f82f3cd0b0800000000000000
+      internalID: -5702613582980091721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gretel_Heal_3
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 249
+        width: 284
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ddd1a011ecb70fe0800000000000000
+      internalID: -1222801098975093288
       vertices: []
       indices: 
       edges: []
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Red_Bite_0: 1391976305132119154
+      Gretel_Heal_0: -8551083457755159538
+      Gretel_Heal_1: 1759074525619205077
+      Gretel_Heal_2: -5702613582980091721
+      Gretel_Heal_3: -1222801098975093288
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

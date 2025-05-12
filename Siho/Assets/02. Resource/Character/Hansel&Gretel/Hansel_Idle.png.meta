@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1fb61bb62ab6c894dbb8deae594b9d81
+guid: d96377319539d1f4f9029695c3e6f36d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1391976305132119154
-    second: Red_Bite_0
+      213: -7188501465739912369
+    second: Hansel_Idle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Bite_0
+      name: Hansel_Idle_0
       rect:
         serializedVersion: 2
-        x: 297
-        y: 177
-        width: 671
-        height: 884
+        x: 346
+        y: 170
+        width: 553
+        height: 860
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2742923131b415310800000000000000
-      internalID: 1391976305132119154
+      spriteID: f4b9233d0005d3c90800000000000000
+      internalID: -7188501465739912369
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Red_Bite_0: 1391976305132119154
+      Hansel_Idle_0: -7188501465739912369
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,25 +1,31 @@
 fileFormatVersion: 2
-guid: a120f51593824b04d8c6d24946b0aade
+guid: 53bb81641cad7494aabc5f7ba3fcb506
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8790607820871134144
-    second: Wolf_Bark_0
+      213: 6348914268114968342
+    second: Grasshopper_PlaySolo_0
   - first:
-      213: 2851902152654721431
-    second: Wolf_Bark_1
+      213: -645906574929451886
+    second: Grasshopper_PlaySolo_1
   - first:
-      213: -8998840660593153061
-    second: Wolf_Bark_2
+      213: 5776518502216565005
+    second: Grasshopper_PlaySolo_2
   - first:
-      213: -84414234907147338
-    second: Wolf_Bark_3
+      213: -7879341116441101087
+    second: Grasshopper_PlaySolo_3
   - first:
-      213: 7017592861112665778
-    second: Wolf_Bark_4
+      213: 2134710883235821786
+    second: Grasshopper_PlaySolo_4
   - first:
-      213: 4248308793353816762
-    second: Wolf_Bark_5
+      213: -3654369990648003481
+    second: Grasshopper_PlaySolo_5
+  - first:
+      213: 8991212211094188677
+    second: Grasshopper_PlaySolo_6
+  - first:
+      213: -8696160517876534552
+    second: Grasshopper_PlaySolo_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wolf_Bark_0
+      name: Grasshopper_PlaySolo_0
       rect:
         serializedVersion: 2
-        x: 199
-        y: 681
-        width: 118
-        height: 73
+        x: 375
+        y: 181
+        width: 489
+        height: 829
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0449435f2cc710680800000000000000
-      internalID: -8790607820871134144
+      spriteID: 61fd66c83efdb1850800000000000000
+      internalID: 6348914268114968342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_1
+      name: Grasshopper_PlaySolo_1
       rect:
         serializedVersion: 2
-        x: 343
-        y: 692
-        width: 12
-        height: 17
+        x: 858
+        y: 834
+        width: 254
+        height: 82
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7911827d5edf39720800000000000000
-      internalID: 2851902152654721431
+      spriteID: 294ad3b64674907f0800000000000000
+      internalID: -645906574929451886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_2
+      name: Grasshopper_PlaySolo_2
       rect:
         serializedVersion: 2
-        x: 346
-        y: 368
-        width: 546
-        height: 472
+        x: 871
+        y: 772
+        width: 277
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,63 +193,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdbe00bd812bd1380800000000000000
-      internalID: -8998840660593153061
+      spriteID: d010713f8f05a2050800000000000000
+      internalID: 5776518502216565005
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_3
+      name: Grasshopper_PlaySolo_3
       rect:
         serializedVersion: 2
-        x: 149
-        y: 586
-        width: 129
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b38f5a53b914def0800000000000000
-      internalID: -84414234907147338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_4
-      rect:
-        serializedVersion: 2
-        x: 238
-        y: 536
-        width: 93
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2b600f0c68f736160800000000000000
-      internalID: 7017592861112665778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_5
-      rect:
-        serializedVersion: 2
-        x: 589
-        y: 367
-        width: 12
+        x: 860
+        y: 804
+        width: 6
         height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -253,8 +215,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abac50cc65605fa30800000000000000
-      internalID: 4248308793353816762
+      spriteID: 1ecf56a4005f6a290800000000000000
+      internalID: -7879341116441101087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grasshopper_PlaySolo_4
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 808
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad87e65fc3400ad10800000000000000
+      internalID: 2134710883235821786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grasshopper_PlaySolo_5
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 781
+        width: 8
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 764049dead1194dc0800000000000000
+      internalID: -3654369990648003481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grasshopper_PlaySolo_6
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 278
+        width: 251
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5827c665ed337cc70800000000000000
+      internalID: 8991212211094188677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grasshopper_PlaySolo_7
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 346
+        width: 248
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e2313e4518015780800000000000000
+      internalID: -8696160517876534552
       vertices: []
       indices: 
       edges: []
@@ -273,12 +323,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wolf_Bark_0: -8790607820871134144
-      Wolf_Bark_1: 2851902152654721431
-      Wolf_Bark_2: -8998840660593153061
-      Wolf_Bark_3: -84414234907147338
-      Wolf_Bark_4: 7017592861112665778
-      Wolf_Bark_5: 4248308793353816762
+      Grasshopper_PlaySolo_0: 6348914268114968342
+      Grasshopper_PlaySolo_1: -645906574929451886
+      Grasshopper_PlaySolo_2: 5776518502216565005
+      Grasshopper_PlaySolo_3: -7879341116441101087
+      Grasshopper_PlaySolo_4: 2134710883235821786
+      Grasshopper_PlaySolo_5: -3654369990648003481
+      Grasshopper_PlaySolo_6: 8991212211094188677
+      Grasshopper_PlaySolo_7: -8696160517876534552
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

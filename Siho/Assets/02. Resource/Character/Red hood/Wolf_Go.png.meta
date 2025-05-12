@@ -119,8 +119,8 @@ TextureImporter:
       name: Wolf_Go_0
       rect:
         serializedVersion: 2
-        x: 287
-        y: 320
+        x: 345
+        y: 367
         width: 550
         height: 473
       alignment: 0
@@ -141,8 +141,8 @@ TextureImporter:
       name: Wolf_Go_1
       rect:
         serializedVersion: 2
-        x: 472
-        y: 320
+        x: 530
+        y: 367
         width: 7
         height: 8
       alignment: 0

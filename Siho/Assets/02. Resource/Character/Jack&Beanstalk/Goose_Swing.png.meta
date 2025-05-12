@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1fb61bb62ab6c894dbb8deae594b9d81
+guid: 84283163462727d4d8c7de885863c736
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1391976305132119154
-    second: Red_Bite_0
+      213: 7416086409803838086
+    second: Goose_Swing_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Bite_0
+      name: Goose_Swing_0
       rect:
         serializedVersion: 2
-        x: 297
-        y: 177
-        width: 671
-        height: 884
+        x: 49
+        y: 57
+        width: 1092
+        height: 978
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2742923131b415310800000000000000
-      internalID: 1391976305132119154
+      spriteID: 682b5ff2c4b3be660800000000000000
+      internalID: 7416086409803838086
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Red_Bite_0: 1391976305132119154
+      Goose_Swing_0: 7416086409803838086
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

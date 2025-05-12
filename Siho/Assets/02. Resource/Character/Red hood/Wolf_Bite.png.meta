@@ -116,8 +116,8 @@ TextureImporter:
       name: Wolf_Bite_0
       rect:
         serializedVersion: 2
-        x: 287
-        y: 320
+        x: 345
+        y: 368
         width: 550
         height: 473
       alignment: 0

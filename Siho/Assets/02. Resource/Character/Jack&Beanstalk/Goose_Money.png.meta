@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: a120f51593824b04d8c6d24946b0aade
+guid: 716d65231a6888c41939061ed23f13f2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8790607820871134144
-    second: Wolf_Bark_0
+      213: -1560413071479076071
+    second: Goose_Money_0
   - first:
-      213: 2851902152654721431
-    second: Wolf_Bark_1
+      213: 6044972666471732935
+    second: Goose_Money_1
   - first:
-      213: -8998840660593153061
-    second: Wolf_Bark_2
+      213: 5891832438168447024
+    second: Goose_Money_2
   - first:
-      213: -84414234907147338
-    second: Wolf_Bark_3
+      213: -8043506472396434498
+    second: Goose_Money_3
   - first:
-      213: 7017592861112665778
-    second: Wolf_Bark_4
+      213: -1615271696953752057
+    second: Goose_Money_4
   - first:
-      213: 4248308793353816762
-    second: Wolf_Bark_5
+      213: 1445024640503276128
+    second: Goose_Money_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wolf_Bark_0
+      name: Goose_Money_0
       rect:
         serializedVersion: 2
-        x: 199
-        y: 681
-        width: 118
-        height: 73
+        x: 113
+        y: 1017
+        width: 78
+        height: 85
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0449435f2cc710680800000000000000
-      internalID: -8790607820871134144
+      spriteID: 91b0d93349c485ae0800000000000000
+      internalID: -1560413071479076071
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_1
+      name: Goose_Money_1
       rect:
         serializedVersion: 2
-        x: 343
-        y: 692
-        width: 12
-        height: 17
+        x: 237
+        y: 1060
+        width: 87
+        height: 83
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7911827d5edf39720800000000000000
-      internalID: 2851902152654721431
+      spriteID: 7c65efdcc9e04e350800000000000000
+      internalID: 6044972666471732935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_2
+      name: Goose_Money_2
       rect:
         serializedVersion: 2
-        x: 346
-        y: 368
-        width: 546
-        height: 472
+        x: 367
+        y: 1067
+        width: 95
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdbe00bd812bd1380800000000000000
-      internalID: -8998840660593153061
+      spriteID: 0386721e26ef3c150800000000000000
+      internalID: 5891832438168447024
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_3
+      name: Goose_Money_3
       rect:
         serializedVersion: 2
-        x: 149
-        y: 586
-        width: 129
-        height: 72
+        x: 89
+        y: 886
+        width: 49
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,20 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6b38f5a53b914def0800000000000000
-      internalID: -84414234907147338
+      spriteID: eb3514cca79bf5090800000000000000
+      internalID: -8043506472396434498
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_4
+      name: Goose_Money_4
       rect:
         serializedVersion: 2
-        x: 238
-        y: 536
-        width: 93
-        height: 64
+        x: 132
+        y: 57
+        width: 1009
+        height: 978
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b600f0c68f736160800000000000000
-      internalID: 7017592861112665778
+      spriteID: 706445f13f66599e0800000000000000
+      internalID: -1615271696953752057
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wolf_Bark_5
+      name: Goose_Money_5
       rect:
         serializedVersion: 2
-        x: 589
-        y: 367
-        width: 12
-        height: 7
+        x: 208
+        y: 973
+        width: 86
+        height: 86
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,8 +253,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abac50cc65605fa30800000000000000
-      internalID: 4248308793353816762
+      spriteID: 06262e42142cd0410800000000000000
+      internalID: 1445024640503276128
       vertices: []
       indices: 
       edges: []
@@ -273,12 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wolf_Bark_0: -8790607820871134144
-      Wolf_Bark_1: 2851902152654721431
-      Wolf_Bark_2: -8998840660593153061
-      Wolf_Bark_3: -84414234907147338
-      Wolf_Bark_4: 7017592861112665778
-      Wolf_Bark_5: 4248308793353816762
+      Goose_Money_0: -1560413071479076071
+      Goose_Money_1: 6044972666471732935
+      Goose_Money_2: 5891832438168447024
+      Goose_Money_3: -8043506472396434498
+      Goose_Money_4: -1615271696953752057
+      Goose_Money_5: 1445024640503276128
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
