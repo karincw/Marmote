@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Red Hood 1
   m_EditorClassIdentifier: 
   skillName: "\uBE75\uC57C"
-  pAnime: {fileID: 7400000, guid: 77930623f08c89846948e80cb7f60bf6, type: 2}
-  eAnime: {fileID: 7400000, guid: 77930623f08c89846948e80cb7f60bf6, type: 2}
+  summon: {fileID: 0}
+  summonAnime: {fileID: 0}
+  motion: 0
   explian: 
   skills:
   - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}

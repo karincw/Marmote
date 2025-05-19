@@ -74,7 +74,9 @@ namespace Shy
 
             //Visual
             VisualUpdate(0);
-            transform.Find("Info").Find("Name").GetComponent<TextMeshProUGUI>().text = data.characterName;
+            Transform namePos = transform.Find("Info").Find("Name");
+            namePos.GetComponent<TextMeshProUGUI>().text = data.characterName;
+            namePos.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.characterName;
         }
         #endregion
 

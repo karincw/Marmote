@@ -91,11 +91,11 @@ namespace Shy
             }
         }
 
-        private Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(13, _t);
+        private Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(5, _t);
 
-        private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 13, _target.position.z), _t);
+        private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 5, _target.position.z), _t);
 
-        private Tween ShortDash(Transform _tar, float _t) => _tar.DOLocalMoveX(_tar.localPosition.x + 100, _t);
+        private Tween ShortDash(Transform _target, float _t) => _target.DOLocalMoveX(_target.localPosition.x + 100, _t);
 
         private Tween CharacterReturn(Transform _target, float _t) => _target.DOLocalMove(Vector2.zero, _t);
 

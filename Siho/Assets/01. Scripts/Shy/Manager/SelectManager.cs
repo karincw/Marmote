@@ -44,6 +44,8 @@ namespace Shy
         {
             if (_ch == null || _ch.IsDie()) act?.Invoke(null);
             else act?.Invoke(_ch);
+
+            act = null;
             BattleManager.Instance.EndCheck();
             blackBoard.color = Color.clear;
             blackBoard.gameObject.SetActive(false);

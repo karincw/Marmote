@@ -5,13 +5,7 @@ namespace Shy
 {
     public class Enemy : Character
     {
-        private TextMeshProUGUI actSign;
-
-        public override void Awake()
-        {
-            base.Awake();
-            actSign = transform.Find("Act Sign").GetComponent<TextMeshProUGUI>();
-        }
+        [SerializeField] private TextMeshProUGUI actSign;
 
         protected override void DeadAnime()
         {

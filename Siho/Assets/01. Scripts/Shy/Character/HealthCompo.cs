@@ -9,7 +9,6 @@ namespace Shy
     {
         [SerializeField] private int maxHp, hp, shield;
         [SerializeField] private Image healthGuage;
-        [SerializeField] private TextMeshProUGUI healthValue;
         [SerializeField] private Transform dmgTxtPos;
 
         internal bool isDie = false;
@@ -66,7 +65,6 @@ namespace Shy
         public void UpdateHealth()
         {
             healthGuage.fillAmount = hp / (float)maxHp;
-            healthValue.text = hp + " / " + maxHp;
         }
     }
 }
