@@ -70,7 +70,7 @@ namespace Shy
                 {
                     pet.sprite = _skill.summonAnime;
 
-                    if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Append(ShortDash(pet.transform, 0.1f, userTeam));
+                    if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Prepend(ShortDash(pet.transform, 0.1f, userTeam));
                 }
 
                 _user.skillActions?.Invoke();

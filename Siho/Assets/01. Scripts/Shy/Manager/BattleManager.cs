@@ -97,8 +97,6 @@ namespace Shy
         #region Turn
         public IEnumerator TurnStart(float _delay)
         {
-            Debug.Log("Turn Start");
-
             yield return new WaitForSeconds(_delay);
 
             //초기화
@@ -112,9 +110,13 @@ namespace Shy
             for (int i = 0; i < 10; i++)
             {
                 int rand = Random.Range(0, dices.Count);
-                dices[0].transform.SetSiblingIndex(rand);
-                dices.Insert(rand + 1, dices[0]);
-                dices.RemoveAt(0);
+                DiceUi temp = dices[0];
+                dices[0] = dices[rand];
+                dices[rand] = temp;
+            }
+            for (int i = 0; i < dices.Count; i++)
+            {
+                dices[i].transform.SetSiblingIndex(i);
             }
             
             hand.sizeDelta = new Vector2(60 + 180 * dices.Count, 200);
@@ -123,7 +125,6 @@ namespace Shy
             for (int i = 0; i <= dices.Count * 10; i++)
             {
                 yield return new WaitForSeconds(sec);
-                //handVisual.sizeDelta = new Vector2(60 + 18 * i, 40);
                 if(i % 10 == 8) dices[i / 10].RollDice();
             }
         }

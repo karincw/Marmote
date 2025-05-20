@@ -268,8 +268,6 @@ namespace Shy
                 //캐릭터 선택
                 BattleManager.Instance.SetCharacterInDice(this);
             }
-
-            Debug.Log("Exit Press");
         }
 
         public void LongPress()
