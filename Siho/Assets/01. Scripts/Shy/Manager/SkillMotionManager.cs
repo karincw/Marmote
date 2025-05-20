@@ -26,8 +26,8 @@ namespace Shy
             Team userTeam = _user.team;
             Team targetTeam = (userTeam == Team.Player) ? Team.Enemy : Team.Player;
 
-            bool isPet = Bool.IsPetMotion(_skill.motion), isTeam = Bool.IsTeamMotion(_skill.motion),
-                isSummon = Bool.IsSummonMotion(_skill.motion);
+            bool isPet = Bool.IsPetMotion(_skill.motion), isTeam = Bool.IsTeamMotion(_skill.motion);
+            bool isSummon = Bool.IsSummonMotion(_skill.motion);
             float time = 0.4f;
 
             Sequence seq = DOTween.Sequence();
@@ -44,7 +44,7 @@ namespace Shy
                 seq.Insert(0.1f, CharacterMove(_user.GetVisual(), time - 0.1f));
             else if (isPet || isSummon)
             {
-                pet.transform.parent = _user.transform;
+                pet.transform.SetParent(_user.transform);
                 pet.transform.SetAsFirstSibling();
                 pet.transform.rotation = Quaternion.Euler(0, targetTeam == Team.Enemy ? 180 : 0, 0);
                 pet.sprite = _skill.summon;
@@ -70,10 +70,9 @@ namespace Shy
                 {
                     pet.sprite = _skill.summonAnime;
 
-                    if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Join(ShortDash(pet.transform, 0.1f));
+                    if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Append(ShortDash(pet.transform, 0.1f, userTeam));
                 }
 
-                Debug.Log("Skill");
                 _user.skillActions?.Invoke();
             }));
 
@@ -88,7 +87,7 @@ namespace Shy
             else
             {
                 seq.Join(CharacterReturn(pet.transform, time + 0.15f).OnStart(() => _user.SkillFin()));
-                seq.Join(pet.DOFade(0, time).OnComplete(()=>pet.transform.parent = null));
+                seq.Join(pet.DOFade(0, time).OnComplete(()=>pet.transform.SetParent(null)));
             }
         }
 
@@ -96,7 +95,7 @@ namespace Shy
 
         private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 5, _target.position.z), _t);
 
-        private Tween ShortDash(Transform _target, float _t) => _target.DOLocalMoveX(_target.localPosition.x + 100, _t);
+        private Tween ShortDash(Transform _target, float _t, Team _team) => _target.DOLocalMoveX(_target.localPosition.x + (_team == Team.Player ? 100 : -100), _t);
 
         private Tween CharacterReturn(Transform _target, float _t) => _target.DOLocalMove(Vector2.zero, _t);
 

@@ -216,12 +216,7 @@ namespace Shy
 
         public void BuffCheck()
         {
-            Debug.Log(gameObject.name);
-
             foreach (Buff buff in buffs) buff.CountDown();
-
-
-            Debug.Log("Buff Check fin");
         }
 
         public void BonusStat(StatEnum _stat, int _value)
@@ -238,12 +233,16 @@ namespace Shy
         #region Press
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (IsDie()) return;
+
             pressing = true;
             pressStartTime = Time.time;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (IsDie()) return;
+
             ExitPress();
 
             openInfo = false;

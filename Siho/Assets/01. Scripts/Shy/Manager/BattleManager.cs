@@ -235,6 +235,15 @@ namespace Shy
                     SceneManager.LoadScene("WorldMap");
                 }
 
+                for (int i = 0; i < dices.Count; i++)
+                {
+                    if(dices[i].user == _ch)
+                    {
+                        dices[i].UserReset();
+                        dices[i].noUsed.SetActive(true);
+                    }
+                }
+
                 foreach (DiceUi dice in enemyDiceDic[_ch])
                 {
                     dice.KillDice();

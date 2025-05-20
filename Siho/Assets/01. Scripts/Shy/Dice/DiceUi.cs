@@ -56,19 +56,14 @@ namespace Shy
         #endregion
 
         #region Kill
+        public void KillDice() => isDead = true;
+
         public bool DiceDieCheck()
         {
             if (isDead) Destroy(gameObject);
             else HideDice();
 
             return isDead;
-        }
-
-        public void KillDice()
-        {
-            UserReset();
-            noUsed.SetActive(true);
-            isDead = true;
         }
         #endregion
 
