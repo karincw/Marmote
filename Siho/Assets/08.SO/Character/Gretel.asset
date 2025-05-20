@@ -15,8 +15,8 @@ MonoBehaviour:
   characterName: "\uADF8\uB808\uD154"
   stats:
     maxHp: 15
-    hp: 15
-    str: 8
+    hp: 27
+    str: 56
     def: 5
   skills:
   - {fileID: 11400000, guid: 4bb6434884f28044696024d2d9366d7c, type: 2}
