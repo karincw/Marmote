@@ -1,19 +1,24 @@
 using karin.worldmap;
 using Shy;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace karin.Core
 {
-    public class DataLinkManager : MonoSingleton<DataLinkManager>
+    public class DataLinkManager : MonoSingleton<DataLinkManager>, IHaveSaveData
     {
         [SerializeField] private MapData mapData;
         [SerializeField] private DataStruct<EnemySO> enemyData;
         public event Action<MapData> OnLoadWorldMap;
 
-        [SerializeField] private int DebugSceneIdx = 0;
         private bool isFirstLoading = true;
+        public DataStruct<CharacterSO> GetEnemyData => enemyData;
+
+        [SerializeField] private int DebugSceneIdx = 0;
+        [SerializeField] private bool DebugMode = false;
+
         public DataStruct<EnemySO> GetEnemyData => enemyData;
         private void Awake()
         {
@@ -23,6 +28,7 @@ namespace karin.Core
 
         private void Start()
         {
+            if(DebugMode)
             SceneManager.LoadScene(DebugSceneIdx);
         }
 
@@ -63,5 +69,13 @@ namespace karin.Core
             enemyData = data;
         }
 
+        public void GetSaveData(ref SaveData save)
+        {
+            save.theme         = (int)mapData.stageTheme;
+            save.stageIndex    = mapData.stageIndex;
+            save.stagePosition = mapData.positionIndex;
+            save.tileData      = mapData.tileData.Select(t => (int)t.tileType).ToList();
+            save.isBattle      = SceneManager.GetActiveScene().name == "WorldMap" ? 0 : 1;
+        }
     }
 }

@@ -15,10 +15,6 @@ namespace karin.ui
 
         public void SetUpDate(CharacterSO data)
         {
-            Debug.Log(_desc);
-            Debug.Log(data);
-            Debug.Log(data.skills);
-            Debug.Log(data.skills[_index]);
             _desc.text = data.skills[_index].explian;
         }
     }

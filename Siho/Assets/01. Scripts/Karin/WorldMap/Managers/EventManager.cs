@@ -1,6 +1,7 @@
 using karin.worldmap;
 using Shy;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace karin.ui
@@ -17,6 +18,7 @@ namespace karin.ui
         {
             _statUpEvent = FindFirstObjectByType<StatUpEvent>();
             WorldMapManager.Instance.OnEnterNextStage += HandleStageChange;
+            _events = new Queue<EventSO>();
             HandleStageChange(0);
         }
 
@@ -30,7 +32,7 @@ namespace karin.ui
             _events.Clear();
             List<EventSO> eventList = new List<EventSO>();
             eventList.AddRange(_baseEventList);
-            eventList.AddRange(_stageToEventList[index].list);
+            //eventList.AddRange(_stageToEventList[index].list);
             Utils.ShuffleList<EventSO>(eventList);
             eventList.ForEach( t => _events.Enqueue(t));
         }
