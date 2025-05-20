@@ -14,22 +14,12 @@ namespace karin.Core
         public event Action<MapData> OnLoadWorldMap;
 
         private bool isFirstLoading = true;
-        public DataStruct<CharacterSO> GetEnemyData => enemyData;
-
-        [SerializeField] private int DebugSceneIdx = 0;
-        [SerializeField] private bool DebugMode = false;
-
         public DataStruct<EnemySO> GetEnemyData => enemyData;
+
         private void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
             SceneManager.sceneLoaded += handleSceneLoad;
-        }
-
-        private void Start()
-        {
-            if(DebugMode)
-            SceneManager.LoadScene(DebugSceneIdx);
         }
 
         private void handleSceneLoad(Scene scene, LoadSceneMode mode)
@@ -51,14 +41,6 @@ namespace karin.Core
             }
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                SceneManager.LoadScene(DebugSceneIdx);
-            }
-        }
-
         public void SaveMap(MapData data)
         {
             mapData = data;
@@ -71,11 +53,11 @@ namespace karin.Core
 
         public void GetSaveData(ref SaveData save)
         {
-            save.theme         = (int)mapData.stageTheme;
-            save.stageIndex    = mapData.stageIndex;
+            save.theme = (int)mapData.stageTheme;
+            save.stageIndex = mapData.stageIndex;
             save.stagePosition = mapData.positionIndex;
-            save.tileData      = mapData.tileData.Select(t => (int)t.tileType).ToList();
-            save.isBattle      = SceneManager.GetActiveScene().name == "WorldMap" ? 0 : 1;
+            save.tileData = mapData.tileData.Select(t => (int)t.tileType).ToList();
+            save.isBattle = SceneManager.GetActiveScene().name == "WorldMap" ? 0 : 1;
         }
     }
 }
