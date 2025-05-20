@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 59512847}
   - component: {fileID: 59512850}
   m_Layer: 5
-  m_Name: Button_2
+  m_Name: Load
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 503289025}
   - component: {fileID: 503289024}
   m_Layer: 5
-  m_Name: Button_1
+  m_Name: Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -481,6 +481,58 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &798914304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 798914305}
+  - component: {fileID: 798914306}
+  m_Layer: 0
+  m_Name: ShyDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &798914305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798914304}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &798914306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798914304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65dac26d0fe87a9429688ecd27939d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minions:
+  - {fileID: 11400000, guid: dcb5b5a0e6a754c41bc929c4dc1be40a, type: 2}
+  - {fileID: 11400000, guid: d846e0daa4b134e4a8f2f8db4a2c71c3, type: 2}
+  - {fileID: 11400000, guid: 3c5b69ede8be53b48a128eb1f163053b, type: 2}
+  dices:
+  - {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  - {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  - {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
 --- !u!1 &901041678
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +547,7 @@ GameObject:
   - component: {fileID: 901041680}
   - component: {fileID: 901041683}
   m_Layer: 5
-  m_Name: Button_3
+  m_Name: NewStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,7 +1134,7 @@ GameObject:
   - component: {fileID: 1264031204}
   - component: {fileID: 1264031203}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1498,7 +1550,9 @@ MonoBehaviour:
     stageTheme: 0
   enemyData:
     list:
-    - {fileID: 11400000, guid: 92e9b32c5716c4e46914d108a1ff1004, type: 2}
+    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
   DebugSceneIdx: 1
   DebugMode: 0
 --- !u!4 &1629808626
@@ -1679,3 +1733,4 @@ SceneRoots:
   - {fileID: 2034810737}
   - {fileID: 1629808626}
   - {fileID: 1084164008}
+  - {fileID: 798914305}

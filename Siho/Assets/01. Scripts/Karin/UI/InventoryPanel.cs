@@ -17,7 +17,7 @@ namespace karin.ui
             _canvasGroup = GetComponent<CanvasGroup>();
             _rectTransform = transform as RectTransform;
             originPos = _rectTransform.localPosition;
-            _rectTransform.localPosition = originPos - new Vector2(-1000, 0);
+            _rectTransform.localPosition = originPos + new Vector2(-1000, 0);
         }
 
         public void Open()
