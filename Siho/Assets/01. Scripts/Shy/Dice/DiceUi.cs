@@ -56,7 +56,7 @@ namespace Shy
         #endregion
 
         #region Kill
-        public bool DiceCheck()
+        public bool DiceDieCheck()
         {
             if (isDead) Destroy(gameObject);
             else HideDice();
@@ -95,25 +95,27 @@ namespace Shy
         #region Use
         public EyeSO UseDice() => data.eyes[dNum];
 
-        private void CharacterSelect(Character _ch)
+        public void CharacterSelect(Character _ch)
         {
-            if (_ch == null) return;
-
-            if (_ch == user)
-            {
-                UserReset();
-                return;
-            }
-
             user = _ch;
             userIcon.gameObject.SetActive(true);
             userIcon.sprite = _ch.GetIcon();
         }
 
+        public bool CanUseCheck() => !noUsed.activeSelf && user == null;
+
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (!CanInteract.interact) return;
-            SelectManager.Instance.ShowCharacter(team, (va)=>CharacterSelect(va));
+            if(user == null)
+            {
+                if(team == Team.Player)
+                {
+                    noUsed.SetActive(!noUsed.activeSelf);
+                }
+                return;
+            }
+
+            UserReset();
         }
         #endregion
     }

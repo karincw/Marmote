@@ -91,12 +91,14 @@ namespace Shy
         {
             yield return new WaitForSeconds(_delay);
 
+            //초기화
             for (int i = 0; i < dices.Count;)
             {
-                if (dices[i].DiceCheck()) dices.RemoveAt(i);
+                if (dices[i].DiceDieCheck()) dices.RemoveAt(i);
                 else i++;
             }
 
+            //섞기
             for (int i = 0; i < 10; i++)
             {
                 int rand = Random.Range(0, dices.Count);
@@ -111,7 +113,7 @@ namespace Shy
             for (int i = 0; i <= dices.Count * 10; i++)
             {
                 yield return new WaitForSeconds(sec);
-                handVisual.sizeDelta = new Vector2(60 + 18 * i, 40);
+                //handVisual.sizeDelta = new Vector2(60 + 18 * i, 40);
                 if(i % 10 == 8) dices[i / 10].RollDice();
             }
         }
@@ -159,6 +161,16 @@ namespace Shy
         #endregion
 
         #region Dice
+        private DiceUi GetCurrentDice()
+        {
+            for (int i = 0; i < dices.Count; i++)
+            {
+                if (dices[i].CanUseCheck()) return dices[i];
+            }
+
+            return null;
+        }
+
         private void UseDice()
         {
             EyeSO eye = dices[diceLoop].UseDice();
@@ -189,6 +201,18 @@ namespace Shy
             }
         }
         #endregion
+
+        public void SetCharacterInDice(Character _user)
+        {
+            DiceUi _dice = GetCurrentDice();
+
+            if(_dice != null)
+            {
+                if (_dice.team != _user.team) return;
+
+                _dice.CharacterSelect(_user);
+            }
+        }
 
         public void CharacterDie(Character _ch)
         {

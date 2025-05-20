@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace Shy
 {
     [RequireComponent(typeof(HealthCompo), typeof(StatCompo))]
-    public class Character : MonoBehaviour, IPointerClickHandler
+    public class Character : MonoBehaviour, IPointerClickHandler, IPress
     {
         #region 변수
         private HealthCompo health;
@@ -23,6 +23,9 @@ namespace Shy
 
         public Transform buffGroup;
         private Image visual;
+
+        private bool pressing = false, openInfo = false;
+        private float pressStartTime;
         #endregion
 
         #region Get
@@ -74,9 +77,9 @@ namespace Shy
 
             //Visual
             VisualUpdate(0);
-            Transform namePos = transform.Find("Info").Find("Name");
-            namePos.GetComponent<TextMeshProUGUI>().text = data.characterName;
-            namePos.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.characterName;
+            //Transform namePos = transform.Find("Ui").Find("Name");
+            //namePos.GetComponent<TextMeshProUGUI>().text = data.characterName;
+            //namePos.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.characterName;
         }
         #endregion
 
@@ -219,5 +222,50 @@ namespace Shy
         {
             SelectManager.Instance.SelectCharacter(this);
         }
+
+        #region Press
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            pressing = true;
+            pressStartTime = Time.time;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            ExitPress();
+
+            openInfo = false;
+            pressing = false;
+        }
+
+        private void Update()
+        {
+            if(pressing && !openInfo)
+            {
+                if(Time.time - pressStartTime >= 1) LongPress();
+            }
+        }
+
+        public void ExitPress()
+        {
+            if (openInfo)
+            {
+                //info창 끄기
+            }
+            else
+            {
+                //캐릭터 선택
+                BattleManager.Instance.SetCharacterInDice(this);
+            }
+
+            Debug.Log("Exit Press");
+        }
+
+        public void LongPress()
+        {
+            openInfo = true;
+            Debug.Log("Long Press");
+        }
+        #endregion
     }
 }
