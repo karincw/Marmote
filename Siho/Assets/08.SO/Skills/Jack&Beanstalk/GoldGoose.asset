@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92797061b5c8aef448488b44fa86a074, type: 3}
   m_Name: GoldGoose
   m_EditorClassIdentifier: 
-  skillName: 
-  pAnime: {fileID: 7400000, guid: 358c8377e3515384ba7947a56ed01916, type: 2}
-  eAnime: {fileID: 7400000, guid: 358c8377e3515384ba7947a56ed01916, type: 2}
+  skillName: d
+  summon: {fileID: 0}
+  summonAnime: {fileID: 0}
+  motion: 0
   explian: 
   skills:
   - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b6c62135a45024f98f1a106ab12d5a, type: 3}
   m_Name: Brave
   m_EditorClassIdentifier: 
-  actionWay: 0
+  actionWay: 1
   targetTeam: 1
   type: 0
   life: 3

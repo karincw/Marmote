@@ -49,7 +49,7 @@ namespace Shy
             {
                 Transform trm = obj.transform;
 
-                trm.parent = _parent;
+                trm.SetParent(_parent);
                 trm.localScale = Vector3.one;
                 trm.localPosition = Vector3.zero;
             }
@@ -69,7 +69,7 @@ namespace Shy
         public void Return(GameObject _obj, PoolingType _type)
         {
             _obj.SetActive(false);
-            _obj.transform.parent = transform;
+            _obj.transform.SetParent(transform);
             pool[_type].Add(_obj);
         }
     }

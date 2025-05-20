@@ -73,6 +73,7 @@ namespace Shy
                     if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Join(ShortDash(pet.transform, 0.1f));
                 }
 
+                Debug.Log("Skill");
                 _user.skillActions?.Invoke();
             }));
 

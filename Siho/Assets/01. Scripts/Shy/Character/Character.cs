@@ -63,6 +63,12 @@ namespace Shy
 
         public void Init(Team _team, CharacterSO _data)
         {
+            if (_data == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             data = _data;
             team = _team;
 
@@ -103,7 +109,8 @@ namespace Shy
             seq.Append(visual.DOColor(new Color(0.25f, 0.25f, 0.25f), 0.3f));
             seq.OnComplete(() =>
             {
-                VisualUpdate(0);            });
+                VisualUpdate(0);
+            });
         }
 
         private void VisualUpdate(int _value)
@@ -209,7 +216,12 @@ namespace Shy
 
         public void BuffCheck()
         {
+            Debug.Log(gameObject.name);
+
             foreach (Buff buff in buffs) buff.CountDown();
+
+
+            Debug.Log("Buff Check fin");
         }
 
         public void BonusStat(StatEnum _stat, int _value)

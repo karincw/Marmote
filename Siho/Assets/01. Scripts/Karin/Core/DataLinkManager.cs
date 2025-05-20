@@ -13,13 +13,13 @@ namespace karin.Core
         [SerializeField] private DataStruct<EnemySO> enemyData;
         public event Action<MapData> OnLoadWorldMap;
 
+        public DataStruct<EnemySO> GetEnemyData => enemyData;
         private bool isFirstLoading = true;
-        public DataStruct<CharacterSO> GetEnemyData => enemyData;
 
         [SerializeField] private int DebugSceneIdx = 0;
         [SerializeField] private bool DebugMode = false;
 
-        public DataStruct<EnemySO> GetEnemyData => enemyData;
+
         private void Awake()
         {
             DontDestroyOnLoad(this.gameObject);

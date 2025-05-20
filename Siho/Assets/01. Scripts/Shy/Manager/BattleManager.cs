@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Shy
 {
@@ -43,6 +44,13 @@ namespace Shy
             List<Character> characterList = (_team == Team.Player ? minions : enemies);
             for (int i = 0; i < characterList.Count; i++)
             {
+                if (i >= _so.Length || _so[i] == null)
+                {
+                    characterList[i].Init(_team, null);
+                    characterList.RemoveAt(i--);
+                    continue;
+                }
+
                 characterList[i].Init(_team, _so[i]);
                 buffEvent += characterList[i].BuffCheck;
             }
@@ -89,6 +97,8 @@ namespace Shy
         #region Turn
         public IEnumerator TurnStart(float _delay)
         {
+            Debug.Log("Turn Start");
+
             yield return new WaitForSeconds(_delay);
 
             //초기화
@@ -219,6 +229,12 @@ namespace Shy
             if(enemies.Contains(_ch))
             {
                 enemies.Remove(_ch);
+
+                if (enemies.Count == 0)
+                {
+                    SceneManager.LoadScene("WorldMap");
+                }
+
                 foreach (DiceUi dice in enemyDiceDic[_ch])
                 {
                     dice.KillDice();
