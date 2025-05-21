@@ -9,6 +9,7 @@ namespace karin.Core
 {
     public class DataLinkManager : MonoSingleton<DataLinkManager>, IHaveSaveData
     {
+        public int Gem;
         [SerializeField] private MapData mapData;
         [SerializeField] private DataStruct<EnemySO> enemyData;
         public event Action<MapData> OnLoadWorldMap;
