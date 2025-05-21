@@ -27,3 +27,4 @@ MonoBehaviour:
   skillAnime: {fileID: 21300000, guid: 71db3e4893f8fa4459c4d836c2dd597f, type: 3}
   skill2Anime: {fileID: 21300000, guid: 32c532683dccb3b41a681ada7115cf26, type: 3}
   hitAnime: {fileID: 21300000, guid: bb842f4db4017574a81b0af018014f70, type: 3}
+  startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}

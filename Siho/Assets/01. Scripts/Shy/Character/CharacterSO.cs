@@ -17,5 +17,6 @@ namespace Shy
         public Sprite skillAnime;
         public Sprite skill2Anime;
         public Sprite hitAnime;
+        public DiceSO startDiceSO;
     }
 }

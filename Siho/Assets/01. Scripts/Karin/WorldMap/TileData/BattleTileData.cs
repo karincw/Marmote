@@ -14,7 +14,7 @@ namespace karin.worldmap
             DataStruct<EnemySO> eData = new DataStruct<EnemySO>();
             eData.list = enemys;
             DataLinkManager.Instance.WriteEnemyData(eData);
-            SceneManager.LoadScene("Battle Proto");
+            SceneChanger.Instance.LoadScene("Battle Proto");
         }
 
     }

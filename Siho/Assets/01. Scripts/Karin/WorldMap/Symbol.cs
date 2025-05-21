@@ -1,9 +1,7 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -22,11 +20,6 @@ namespace karin.worldmap
         {
             _passingDelay = new WaitForSeconds(_moveSpeed);
             WorldMapManager.Instance.OnEnterNextStage += SetUpNextStage;
-        }
-
-        private void OnDisable()
-        {
-            WorldMapManager.Instance.OnEnterNextStage -= SetUpNextStage;
         }
 
         public void Move(int value)
