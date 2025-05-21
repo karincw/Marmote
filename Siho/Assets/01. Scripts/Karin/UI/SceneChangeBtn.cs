@@ -1,26 +1,27 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-[RequireComponent(typeof(Button))]
-public class SceneChangeBtn : MonoBehaviour
+namespace karin
 {
-    [SerializeField] private string _targetSceneName;
-    private Button _btn;
-
-    private void Awake()
+    [RequireComponent(typeof(Button))]
+    public class SceneChangeBtn : MonoBehaviour
     {
-        _btn = GetComponent<Button>();
-        _btn.onClick.AddListener(SceneChange);
-    }
+        [SerializeField] private string _targetSceneName;
+        private Button _btn;
 
-    private void OnDestroy()
-    {
-        _btn.onClick.RemoveListener(SceneChange);
-    }
+        private void Awake()
+        {
+            _btn = GetComponent<Button>();
+            _btn.onClick.AddListener(SceneChange);
+        }
 
-    private void SceneChange()
-    {
-        SceneManager.LoadScene(_targetSceneName);
+        private void OnDestroy()
+        {
+            _btn.onClick.RemoveListener(SceneChange);
+        }
+
+        private void SceneChange()
+        {
+            SceneChanger.Instance.LoadScene(_targetSceneName);
+        }
     }
 }
