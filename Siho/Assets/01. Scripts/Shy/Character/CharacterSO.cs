@@ -17,6 +17,10 @@ namespace Shy
         public Sprite skillAnime;
         public Sprite skill2Anime;
         public Sprite hitAnime;
+
+        [Header("UI-Settings")]
         public DiceSO startDiceSO;
+        public Sprite cardImage;
+        [ColorUsage(true)] public Color personalColor;
     }
 }
