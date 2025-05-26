@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace karin.worldmap
         [SerializeField] private Ease _moveEase;
 
         public int nowIndex = 0;
+        public event Action OnMoveEndEvent;
         private WaitForSeconds _passingDelay;
 
         private bool moveNext = true;
@@ -55,6 +57,7 @@ namespace karin.worldmap
             }
             nowIndex += targetTiles.Count;
             targetTiles[targetTiles.Count - 1].EnterAnimation();
+            OnMoveEndEvent?.Invoke();
         }
 
         public void SetTileIndex(int index)

@@ -1,7 +1,7 @@
+using AYellowpaper.SerializedCollections;
 using karin.worldmap;
-using Shy;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
+using System.Linq;
 using UnityEngine;
 
 namespace karin.ui
@@ -12,7 +12,8 @@ namespace karin.ui
         private Queue<EventSO> _events;
 
         [SerializeField] private List<EventSO> _baseEventList;
-        [SerializeField] private List<DataStruct<EventSO>> _stageToEventList;
+        [Space(5), SerializeField, SerializedDictionary("Theme", "ThemeEvent")]
+        private SerializedDictionary<Theme, List<EventSO>> _stageToEventDictionary;
 
         private void Awake()
         {
@@ -32,9 +33,11 @@ namespace karin.ui
             _events.Clear();
             List<EventSO> eventList = new List<EventSO>();
             eventList.AddRange(_baseEventList);
-            //eventList.AddRange(_stageToEventList[index].list);
-            Utils.ShuffleList<EventSO>(eventList);
-            eventList.ForEach( t => _events.Enqueue(t));
+            eventList.AddRange(_stageToEventDictionary[WorldMapManager.Instance.stageTheme]);
+            eventList.OrderBy(e => Random.value);
+            eventList.ForEach(t => _events.Enqueue(t));
+
+            Debug.Log($"events : {_events.Count}");
         }
 
         [ContextMenu("TestStatUp")]
@@ -48,4 +51,4 @@ namespace karin.ui
     {
         public void OpenEvent(EventSO eventData);
     }
-} 
+}
