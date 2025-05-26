@@ -88,9 +88,9 @@ namespace karin
             }
             else
             {
-                if (DataLinkManager.Instance.Gem >= _sellPrice)
+                if (DataLinkManager.Instance.Gem.Value >= _sellPrice)
                 {
-                    DataLinkManager.Instance.Gem -= _sellPrice;
+                    DataLinkManager.Instance.Gem.Value -= _sellPrice;
                     canPlay = true;
                 }
                 else

@@ -116,12 +116,12 @@ TextureImporter:
       name: Gretel_Idle_0
       rect:
         serializedVersion: 2
-        x: 169
-        y: 100
-        width: 897
-        height: 1000
-      alignment: 9
-      pivot: {x: 0.5, y: 0.83}
+        x: 123
+        y: 25
+        width: 1000
+        height: 1100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

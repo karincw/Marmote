@@ -29,4 +29,4 @@ MonoBehaviour:
   hitAnime: {fileID: 21300000, guid: 97b800f5939834a42aa4f822dd340a84, type: 3}
   startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
   cardImage: {fileID: -1008724806224199663, guid: a8dd56cc98ec26b4f982a34b65d85706, type: 3}
-  personalColor: {r: 0.8930817, g: 0.18816485, b: 0.18816485, a: 1}
+  personalColor: {r: 1.2630082, g: 0.26610526, b: 0.26610526, a: 1}

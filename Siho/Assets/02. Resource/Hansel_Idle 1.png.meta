@@ -116,12 +116,12 @@ TextureImporter:
       name: Hansel_Idle_0
       rect:
         serializedVersion: 2
-        x: 180
-        y: 170
-        width: 854
-        height: 860
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 94
+        y: 111
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

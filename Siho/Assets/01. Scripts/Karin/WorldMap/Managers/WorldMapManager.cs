@@ -28,8 +28,7 @@ namespace karin.worldmap
         private Symbol _symbol;
 
         private WaitForSeconds _mapChangeAnimationDelay;
-        private StageDataSO _currentStage => _stageDatas[stageIndex];
-        private Theme _stageTheme;
+        public Theme stageTheme;
 
         public Action<int> OnEnterNextStage;
 
@@ -41,7 +40,7 @@ namespace karin.worldmap
             _floor = FindFirstObjectByType<Floor>();
             _symbol = FindFirstObjectByType<Symbol>();
             _mapChangeAnimationDelay = new WaitForSeconds(0.05f);
-            _stageTheme = (Theme)Random.Range(0, 5);
+            stageTheme = (Theme)Random.Range(0, 5);
         }
 
         private void OnEnable()
@@ -75,7 +74,6 @@ namespace karin.worldmap
         public void SetNextStage()
         {
             OnEnterNextStage?.Invoke(++stageIndex);
-            Debug.Log($"NextStage : {stageIndex}");
         }
 
         public void SaveData()
@@ -83,7 +81,7 @@ namespace karin.worldmap
             MapData mapData = new MapData();
             mapData.positionIndex = _symbol.nowIndex;
             mapData.stageIndex = stageIndex;
-            mapData.stageTheme = _stageTheme;
+            mapData.stageTheme = stageTheme;
             mapData.tileData = _tiles.Select(t => t.myTileData).ToList();
             DataLinkManager.Instance.SaveMap(mapData);
         }
@@ -98,7 +96,7 @@ namespace karin.worldmap
         {
             _symbol.SetTileIndex(data.positionIndex);
             stageIndex = data.stageIndex;
-            _stageTheme = data.stageTheme;
+            stageTheme = data.stageTheme;
             for (int i = 0; i < _tiles.Count; i++)
             {
                 _tiles[i].TileChange(data.tileData[i]);
@@ -108,13 +106,13 @@ namespace karin.worldmap
         public List<EnemySO> GetBattleEnemyDatas(int count)
         {
             ShuffleEnemyList(stageIndex);
-            return _themeToEnemyList[_stageTheme].enemyList.GetRange(0, count);
+            return _themeToEnemyList[stageTheme].enemyList.GetRange(0, count);
         }
 
         private void ShuffleEnemyList(int stageIndex)
         {
-            var shuffledList = _themeToEnemyList[_stageTheme].enemyList.OrderBy(e => Random.value).ToList();
-            _themeToEnemyList[_stageTheme] = new StageEnemyList(shuffledList);
+            var shuffledList = _themeToEnemyList[stageTheme].enemyList.OrderBy(e => Random.value).ToList();
+            _themeToEnemyList[stageTheme] = new StageEnemyList(shuffledList);
         }
 
         public List<Tile> GetTiles(int index, int count)
@@ -137,7 +135,7 @@ namespace karin.worldmap
         private void HandleNextStage(int stageIndex)
         {
             if (stageIndex % 5 == 0)
-                _stageTheme = (Theme)Random.Range(0, 5);
+                stageTheme = (Theme)Random.Range(0, 5);
 
             var tileData = GetStageTileData(stageIndex);
             int halfPoint = Mathf.CeilToInt((tileCount - 1) / 2);
