@@ -16,7 +16,9 @@ namespace karin.Core
         public event Action<MapData> OnLoadWorldMap;
 
         public DataStruct<EnemySO> GetEnemyData => enemyData;
+        public MapData GetMapData => mapData;
         private bool isFirstLoading = true;
+        public  double runStartTime;
 
         private void Awake()
         {
@@ -39,6 +41,7 @@ namespace karin.Core
                         mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
                         Coin.Value = 0;
                         Debug.Log("货肺款 甘 积己");
+                        runStartTime = Time.time;
                     }
                     OnLoadWorldMap?.Invoke(mapData);
                     break;

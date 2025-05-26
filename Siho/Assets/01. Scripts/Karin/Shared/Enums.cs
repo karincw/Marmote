@@ -23,4 +23,14 @@ namespace karin
 
     }
 
+    public enum CharacterType
+    {
+        GoldDuck,
+        RedHood,
+        Pinocchio,
+        Hansel,
+        Gretel,
+        Grasshopper,
+    }
+
 }
