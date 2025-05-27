@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using Shy.Unit;
 
 namespace Shy
@@ -234,7 +233,6 @@ namespace Shy
                     dices[i].noUsed.SetActive(true);
                 }
             }
-
 
             if (isEnemy)
             {

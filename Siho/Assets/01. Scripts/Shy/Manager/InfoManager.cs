@@ -13,7 +13,6 @@ namespace Shy.Info
         private float distance = 4f;
         private Character currentCharacter;
 
-
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -39,7 +38,7 @@ namespace Shy.Info
             infoPanel.gameObject.SetActive(true);
         }
 
-        public void CloseInfoPanel()
+        private void CloseInfoPanel()
         {
             currentCharacter = null;
             infoPanel.gameObject.SetActive(false);
@@ -48,7 +47,6 @@ namespace Shy.Info
         public void CloseInfoPanel(Character _character)
         {
             if (_character != currentCharacter) return;
-
             CloseInfoPanel();
         }
     }
