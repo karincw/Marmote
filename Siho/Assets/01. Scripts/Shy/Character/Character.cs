@@ -26,7 +26,7 @@ namespace Shy.Unit
         private Image visual;
         private Transform parentTrm, uiTrm;
 
-        private bool pressing = false;
+        private bool pressing = false, openInfo;
         private float pressStartTime;
         #endregion
 
@@ -277,18 +277,20 @@ namespace Shy.Unit
             {
                 InfoManager.Instance.CloseInfoPanel(this);
                 pressing = false;
+                openInfo = false;
             }
         }
 
         public void LongPress()
         {
             Debug.Log("Long Press");
+            openInfo = true;
             InfoManager.Instance.OpenInfoPanel(transform, this, data);
         }
 
         private void Update()
         {
-            if(pressing)
+            if(pressing && !openInfo)
             {
                 if(Time.time - pressStartTime >= 1) LongPress();
             }

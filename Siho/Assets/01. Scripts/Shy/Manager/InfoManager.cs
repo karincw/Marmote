@@ -1,5 +1,6 @@
 using UnityEngine;
 using Shy.Unit;
+using TMPro;
 
 namespace Shy.Info
 {
@@ -8,8 +9,10 @@ namespace Shy.Info
         public static InfoManager Instance;
 
         [SerializeField] private InfoPanel infoPanel;
-        private float distance = 45f;
+
+        private float distance = 4f;
         private Character currentCharacter;
+
 
         private void Awake()
         {
@@ -29,7 +32,9 @@ namespace Shy.Info
             float x = distance;
             if(_targetPos.position.x > 0) x = -distance;
 
-            infoPanel.transform.position = _targetPos.position + Vector3.right * x;
+            Vector3 addPos = new Vector3(x, -0.9f);
+            infoPanel.transform.position = _targetPos.position + addPos;
+
             //Data Update
             infoPanel.gameObject.SetActive(true);
         }

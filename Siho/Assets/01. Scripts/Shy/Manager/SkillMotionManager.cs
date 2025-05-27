@@ -150,6 +150,8 @@ namespace Shy
             Vector2 pos = Vector2.zero;
             if (_target == Team.Enemy) pos.x = 5f;
             else if (_target == Team.Player) pos.x = -5f;
+            
+            if (_target != Team.None) pos.y = 0.5f;
 
             return mainCam.transform.DOMove(pos, 0.75f);
         }

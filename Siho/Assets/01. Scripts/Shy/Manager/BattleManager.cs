@@ -27,6 +27,7 @@ namespace Shy
         [Header("Other")]
         [SerializeField] private GameObject endBtn;
         private UnityAction buffEvent;
+        [SerializeField] private RewardCanvas rewardPanel;
         #endregion
 
         #region Init
@@ -38,6 +39,7 @@ namespace Shy
 
         private void Start()
         {
+            rewardPanel.Close();
             Init();
         }
 
@@ -214,33 +216,33 @@ namespace Shy
 
         public void CharacterDie(Character _ch)
         {
-            if(enemies.Contains(_ch))
+            bool isEnemy = enemies.Contains(_ch);
+
+            if (isEnemy) enemies.Remove(_ch);
+            else minions.Remove(_ch);
+
+            if(enemies.Count == 0 || minions.Count == 0)
             {
-                enemies.Remove(_ch);
+                rewardPanel.Open(isEnemy, 10, 10);
+            }
 
-                if (enemies.Count == 0)
+            for (int i = 0; i < dices.Count; i++)
+            {
+                if (dices[i].user == _ch)
                 {
-                    SceneChanger.Instance.LoadScene("WorldMap");
+                    dices[i].DeleteUser();
+                    dices[i].noUsed.SetActive(true);
                 }
+            }
 
-                for (int i = 0; i < dices.Count; i++)
-                {
-                    if(dices[i].user == _ch)
-                    {
-                        dices[i].DeleteUser();
-                        dices[i].noUsed.SetActive(true);
-                    }
-                }
 
+            if (isEnemy)
+            {
                 foreach (DiceUi dice in enemyDiceDic[_ch])
                 {
                     dice.KillDice();
                     enDices.Remove(dice);
                 }
-            }
-            else
-            {
-                minions.Remove(_ch);
             }
         }
     }
