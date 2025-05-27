@@ -5,7 +5,7 @@ namespace karin
     [RequireComponent(typeof(Button))]
     public class SceneChangeBtn : MonoBehaviour
     {
-        [SerializeField] protected string _targetSceneName;
+        public string targetSceneName;
         protected Button _btn;
 
         private void Awake()
@@ -21,7 +21,7 @@ namespace karin
 
         protected virtual void SceneChange()
         {
-            SceneChanger.Instance.LoadScene(_targetSceneName);
+            SceneChanger.Instance.LoadScene(targetSceneName);
         }
     }
 }

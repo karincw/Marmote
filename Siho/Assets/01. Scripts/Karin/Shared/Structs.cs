@@ -63,4 +63,11 @@ namespace karin
         public int eyeIndex;
     }
 
+    [System.Serializable]
+    public struct IntPair
+    {
+        public int first;
+        public int second;
+    }
+
 }
