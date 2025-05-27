@@ -35,6 +35,8 @@ namespace Shy.Info
             infoPanel.transform.position = _targetPos.position + addPos;
 
             //Data Update
+            
+
             infoPanel.gameObject.SetActive(true);
         }
 

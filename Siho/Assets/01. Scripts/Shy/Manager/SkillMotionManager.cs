@@ -51,7 +51,7 @@ namespace Shy
             if(_skill.motion != AttackMotion.All)
             {
                 seq.Join(CamMove(isTeam ? userTeam : targetTeam, time).OnStart(() => StartCoroutine(CameraZoom(50, time))));
-                if (!isTeam) seq.Join(CamRotate(1f, targetTeam, time));
+                if (!isTeam) seq.Join(CamRotate(0.8f, targetTeam, time));
             }
             
             //CharacterMove
@@ -76,7 +76,7 @@ namespace Shy
                 }
                 else if(isSummon)
                 {
-                    pet.transform.position = new Vector3(0, 30, pet.transform.position.z);
+                    pet.transform.position = new Vector3(0, 10, pet.transform.position.z);
                     seq.Insert(0.2f, CharacterDrop(pet.transform, time));
                 }
             }
@@ -118,7 +118,7 @@ namespace Shy
             #endregion
         }
 
-        private Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(5, _t);
+        private Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(0.5f, _t);
 
         private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 0.5f, _target.position.z), _t);
 
