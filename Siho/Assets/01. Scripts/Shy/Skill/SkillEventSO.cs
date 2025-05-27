@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Shy
+namespace Shy.Unit
 {
     public abstract class SkillEventSO : ScriptableObject
     {

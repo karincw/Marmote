@@ -1,30 +1,32 @@
 using DG.Tweening;
+using Shy.Info;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Shy
+namespace Shy.Unit
 {
     [RequireComponent(typeof(HealthCompo), typeof(StatCompo))]
-    public class Character : MonoBehaviour, IPointerClickHandler, IPress
+    public class Character : MonoBehaviour, IPress, IBeginDragHandler, IDragHandler
     {
         #region 변수
         private HealthCompo health;
         private StatCompo stat;
-        [SerializeField] private CharacterSO data;
+        private CharacterSO data;
 
-        internal List<Buff> buffs;
         internal Team team = Team.None;
+        internal List<Buff> buffs;
+        internal List<Character> targets;
         internal UnityAction skillActions, visualAction;
 
         public Transform buffGroup;
         private Image visual;
+        private Transform parentTrm, uiTrm;
 
-        private bool pressing = false, openInfo = false;
+        private bool pressing = false;
         private float pressStartTime;
         #endregion
 
@@ -59,7 +61,11 @@ namespace Shy
             health = GetComponent<HealthCompo>();
             stat = GetComponent<StatCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
+            uiTrm = transform.Find("Ui");
+            parentTrm = transform.parent;
         }
+
+        private void ResetParent() => transform.parent = parentTrm;
 
         public void Init(Team _team, CharacterSO _data)
         {
@@ -90,6 +96,13 @@ namespace Shy
         #endregion
 
         #region Visual
+        public void HideUi() => uiTrm.gameObject.SetActive(false);
+        public void ShowUi()
+        {
+            uiTrm.gameObject.SetActive(true);
+            health.UpdateHealth();
+        }
+
         private IEnumerator HitAnime()
         {
             yield return new WaitForSeconds(0.6f);
@@ -144,9 +157,16 @@ namespace Shy
             else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
         }
 
+        private void AddTarget(Character _ch, SkillSO _skill, int _v)
+        {
+            targets.Add(_ch);
+            skillActions += () => _skill.skills[_v].UseSkill(this, _ch);
+        }
+
         public void SkillUse(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
             SkillSO so = data.skills[_v - 1];
+            targets = new();
             skillActions = visualAction = null;
 
             //적이면 타겟 반전
@@ -172,33 +192,40 @@ namespace Shy
                 switch (way)
                 {
                     case ActionWay.Self:
-                        skillActions += () => so.skills[a].UseSkill(this, this);
+                        AddTarget(this, so, a);
                         break;
+
                     case ActionWay.Random:
                         t = targets[Random.Range(0, targets.Length)];
-                        skillActions += () => so.skills[a].UseSkill(this, t);
+                        AddTarget(t, so, a);
                         break;
+
                     case ActionWay.All:
                         for (int j = 0; j < targets.Length; j++)
                         {
                             t = targets[j];
-                            skillActions += () => so.skills[a].UseSkill(this, t);
+                            AddTarget(t, so, a);
                         }
                         break;
+
                     #region Hp
                     case ActionWay.LessHp:
                         t = targets[0];
                         for (int j = 1; j < targets.Length; j++)
                             if (targets[j].GetStat(StatEnum.Hp) < t.GetStat(StatEnum.Hp)) t = targets[j];
-                        skillActions += () => so.skills[a].UseSkill(this, t);
+
+                        AddTarget(t, so, a);
                         break;
+
                     case ActionWay.MoreHp:
                         t = targets[0];
                         for (int j = 1; j < targets.Length; j++)
                             if (targets[j].GetStat(StatEnum.Hp) > t.GetStat(StatEnum.Hp)) t = targets[j];
-                        skillActions += () => so.skills[a].UseSkill(this, t);
+
+                        AddTarget(t, so, a);
                         break;
                     #endregion
+
                     case ActionWay.Fast:
                         break;
                 }
@@ -210,6 +237,9 @@ namespace Shy
         public void SkillFin()
         {
             VisualUpdate(0);
+            ResetParent();
+            for (int i = 0; i < targets.Count; i++) targets[i].ResetParent();
+
             BattleManager.Instance.NextAction();
         }
         #endregion
@@ -223,11 +253,6 @@ namespace Shy
         {
             if (_stat == StatEnum.Str) stat.bonusAtk += _value;
             if (_stat == StatEnum.Def) stat.bonusDef += _value;
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            SelectManager.Instance.SelectCharacter(this);
         }
 
         #region Press
@@ -244,37 +269,38 @@ namespace Shy
             if (IsDie()) return;
 
             ExitPress();
-
-            openInfo = false;
-            pressing = false;
-        }
-
-        private void Update()
-        {
-            if(pressing && !openInfo)
-            {
-                if(Time.time - pressStartTime >= 1) LongPress();
-            }
         }
 
         public void ExitPress()
         {
-            if (openInfo)
+            if (pressing)
             {
-                //info창 끄기
-            }
-            else
-            {
-                //캐릭터 선택
-                BattleManager.Instance.SetCharacterInDice(this);
+                InfoManager.Instance.CloseInfoPanel(this);
+                pressing = false;
             }
         }
 
         public void LongPress()
         {
-            openInfo = true;
             Debug.Log("Long Press");
+            InfoManager.Instance.OpenInfoPanel(transform, this, data);
         }
+
+        private void Update()
+        {
+            if(pressing)
+            {
+                if(Time.time - pressStartTime >= 1) LongPress();
+            }
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            Select.SelectManager.Instance.DragBegin(this);
+            ExitPress();
+        }
+
+        public void OnDrag(PointerEventData eventData) { }
         #endregion
     }
 }

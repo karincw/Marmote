@@ -1,4 +1,4 @@
-using Shy;
+using Shy.Unit;
 using TMPro;
 using UnityEngine;
 namespace karin.ui

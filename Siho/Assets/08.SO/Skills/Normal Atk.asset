@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
   m_Name: Normal Atk
   m_EditorClassIdentifier: 
-  actionWay: 0
+  actionWay: 4
   targetTeam: 2
   eventType: 0
   formula: str
@@ -20,3 +20,4 @@ MonoBehaviour:
   - key: str
     stat: 2
     target: 1
+  getStacks: []

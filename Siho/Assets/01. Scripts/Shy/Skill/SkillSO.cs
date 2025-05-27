@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Shy
+namespace Shy.Unit
 {
     [CreateAssetMenu(menuName = "SO/Shy/Skill/Events")]
     public class SkillSO : ScriptableObject

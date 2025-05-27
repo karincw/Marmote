@@ -3,6 +3,7 @@ using DG.Tweening;
 using Unity.Cinemachine;
 using System.Collections;
 using UnityEngine.UI;
+using Shy.Unit;
 
 namespace Shy
 {
@@ -11,37 +12,53 @@ namespace Shy
         public static SkillMotionManager Instance;
 
         [SerializeField] private CinemachineCamera mainCam;
-        [SerializeField] private Image pet;
+        [SerializeField] private Image battleView, pet;
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
             else Destroy(this);
 
+            battleView.color = new Color(0, 0, 0, 0);
+            battleView.gameObject.SetActive(false);
             pet.color = new Color(0,0,0,0);
         }
 
         public void UseSkill(Character _user, SkillSO _skill)
         {
+            #region Set
             Team userTeam = _user.team;
             Team targetTeam = (userTeam == Team.Player) ? Team.Enemy : Team.Player;
 
             bool isPet = Bool.IsPetMotion(_skill.motion), isTeam = Bool.IsTeamMotion(_skill.motion);
             bool isSummon = Bool.IsSummonMotion(_skill.motion);
-            float time = 0.4f;
+            float time = 0.3f;
 
+            battleView.gameObject.SetActive(true);
             Sequence seq = DOTween.Sequence();
+            #endregion
+
+            #region Skill Begin Event
+            for (int i = 0; i < _user.targets.Count; i++)
+            {
+                _user.targets[i].transform.parent = battleView.transform;
+            }
+            _user.transform.parent = battleView.transform;
+
+            seq.Append(battleView.DOFade(0.7f, 0.2f).OnComplete(()=>BattleManager.Instance.HideHealthUi()));
 
             // Cam
             if(_skill.motion != AttackMotion.All)
             {
-                seq.Append(CamMove(isTeam ? userTeam : targetTeam, time).OnStart(() => StartCoroutine(CameraZoom(50, time))));
+                seq.Join(CamMove(isTeam ? userTeam : targetTeam, time).OnStart(() => StartCoroutine(CameraZoom(50, time))));
                 if (!isTeam) seq.Join(CamRotate(1f, targetTeam, time));
             }
             
             //CharacterMove
             if (!isPet && !isTeam && !isSummon)
+            {
                 seq.Insert(0.1f, CharacterMove(_user.GetVisual(), time - 0.1f));
+            }
             else if (isPet || isSummon)
             {
                 pet.transform.SetParent(_user.transform);
@@ -75,25 +92,35 @@ namespace Shy
 
                 _user.skillActions?.Invoke();
             }));
+            #endregion
 
-            //Init
+            #region Skill Fin Event
             time = 0.2f;
 
             seq.AppendInterval(0.5f);
             seq.Append(CamRotate(0, Team.None, time));
             seq.Join(CamMove(Team.None, time).OnStart(()=>StartCoroutine(CameraZoom(60, 0.2f))));
+            seq.Join(battleView.DOFade(0, 0.15f).OnComplete(()=>
+            {
+                battleView.gameObject.SetActive(false);
+                BattleManager.Instance.ShowHealthUi();
+            }));
 
-            if(!isPet && !isSummon) seq.Join(CharacterReturn(_user.GetVisual(), time + 0.15f).OnStart(()=>_user.SkillFin()));
+            if(!isPet && !isSummon)
+            {
+                seq.Join(CharacterReturn(_user.GetVisual(), time + 0.15f).OnStart(() => _user.SkillFin()));
+            }
             else
             {
                 seq.Join(CharacterReturn(pet.transform, time + 0.15f).OnStart(() => _user.SkillFin()));
                 seq.Join(pet.DOFade(0, time).OnComplete(()=>pet.transform.SetParent(null)));
             }
+            #endregion
         }
 
         private Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(5, _t);
 
-        private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 5, _target.position.z), _t);
+        private Tween CharacterMove(Transform _target, float _t) => _target.DOMove(new Vector3(0, 0.5f, _target.position.z), _t);
 
         private Tween ShortDash(Transform _target, float _t, Team _team) => _target.DOLocalMoveX(_target.localPosition.x + (_team == Team.Player ? 100 : -100), _t);
 
@@ -121,11 +148,10 @@ namespace Shy
         private Tween CamMove(Team _target, float _t)
         {
             Vector2 pos = Vector2.zero;
-            if (_target == Team.Enemy) pos.x = 47.45f;
-            else if (_target == Team.Player) pos.x = -47.45f;
-            else if (_target != Team.None) pos.y = 7.5f;
+            if (_target == Team.Enemy) pos.x = 5f;
+            else if (_target == Team.Player) pos.x = -5f;
 
-            return mainCam.transform.DOLocalMove(pos, 0.75f);
+            return mainCam.transform.DOMove(pos, 0.75f);
         }
         #endregion
     }

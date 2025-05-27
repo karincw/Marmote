@@ -1,6 +1,7 @@
 
 using karin.worldmap;
 using Shy;
+using Shy.Unit;
 using System.Collections.Generic;
 using UnityEngine;
 

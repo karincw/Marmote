@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shy
+namespace Shy.Unit
 {
     [CreateAssetMenu(menuName = "SO/Shy/Character")]
     public class CharacterSO : ScriptableObject

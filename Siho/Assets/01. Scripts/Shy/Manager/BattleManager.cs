@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Shy.Unit;
 
 namespace Shy
 {
@@ -14,12 +15,12 @@ namespace Shy
 
         [Header("Character")]
         public List<Character> minions, enemies;
-        private Dictionary<Character, List<DiceUi>> enemyDiceDic = new Dictionary<Character, List<DiceUi>>();
+        private Dictionary<Character, List<DiceUi>> enemyDiceDic = new();
 
         [Header("Dice")]
         [SerializeField] private DiceUi dicePrefab;
         private int diceLoop;
-        private List<DiceUi> dices = new List<DiceUi>(), enDices = new List<DiceUi>();
+        private List<DiceUi> dices = new(), enDices = new();
         [SerializeField] private RectTransform hand, handVisual;
 
         [Header("Other")]
@@ -37,23 +38,6 @@ namespace Shy
         private void Start()
         {
             Init();
-        }
-
-        private void CharacterInit(Team _team, CharacterSO[] _so)
-        {
-            List<Character> characterList = (_team == Team.Player ? minions : enemies);
-            for (int i = 0; i < characterList.Count; i++)
-            {
-                if (i >= _so.Length || _so[i] == null)
-                {
-                    characterList[i].Init(_team, null);
-                    characterList.RemoveAt(i--);
-                    continue;
-                }
-
-                characterList[i].Init(_team, _so[i]);
-                buffEvent += characterList[i].BuffCheck;
-            }
         }
 
         public void Init()
@@ -77,7 +61,7 @@ namespace Shy
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                List<DiceUi> dUiList  = new List<DiceUi>();
+                List<DiceUi> dUiList = new List<DiceUi>();
                 foreach (DiceSO dice in enemyDatas[i].GetDices())
                 {
                     DiceUi dUi = Instantiate(dicePrefab, spawn);
@@ -87,10 +71,28 @@ namespace Shy
                 }
                 enemyDiceDic.Add(enemies[i], dUiList);
             }
-            
+
             endBtn.SetActive(false);
             buffEvent += () => StartCoroutine(TurnStart(0.7f));
             StartCoroutine(TurnStart(0));
+        }
+
+        private void CharacterInit(Team _team, CharacterSO[] _so)
+        {
+            List<Character> characterList = (_team == Team.Player ? minions : enemies);
+
+            for (int i = 0; i < characterList.Count; i++)
+            {
+                if (i >= _so.Length || _so[i] == null)
+                {
+                    characterList[i].Init(_team, null);
+                    characterList.RemoveAt(i--);
+                    continue;
+                }
+
+                characterList[i].Init(_team, _so[i]);
+                buffEvent += characterList[i].BuffCheck;
+            }
         }
         #endregion
 
@@ -114,13 +116,11 @@ namespace Shy
                 dices[0] = dices[rand];
                 dices[rand] = temp;
             }
-            for (int i = 0; i < dices.Count; i++)
-            {
-                dices[i].transform.SetSiblingIndex(i);
-            }
-            
+
+            for (int i = 0; i < dices.Count; i++) dices[i].transform.SetSiblingIndex(i);
+
             hand.sizeDelta = new Vector2(60 + 180 * dices.Count, 200);
-            float sec = 0.075f / dices.Count;
+            float sec = 0.065f / dices.Count;
 
             for (int i = 0; i <= dices.Count * 10; i++)
             {
@@ -129,31 +129,21 @@ namespace Shy
             }
         }
 
-        public void CheckTurn(DiceUi _dice)
+        public bool CanSelectChacter(Character _ch)
         {
-            if (_dice != dices[dices.Count - 1]) return;
-            CanInteract.interact = true;
+            if (_ch is not Enemy _enemy) return true;
+            
+            int useCnt = enDices.Count(_dice => _dice.user == _enemy);
+            return _enemy.actionValue > useCnt;
         }
 
         public void EndCheck()
         {
-            Character[] _arr = new Character[enDices.Count];
+            Debug.Log("End Check");
 
-            for (int i = 0; i < enDices.Count; i++)
+            foreach (DiceUi _dice in enDices)
             {
-                Character c = enDices[i].user;
-                if (c == null) return;
-
-                _arr[i] = c;
-
-                for (int j = 0; j < i; j++)
-                {
-                    if (_arr[j] == c)
-                    {
-                        enDices[j].UserReset();
-                        return;
-                    }
-                }
+                if (_dice.user == null) return;
             }
 
             endBtn.SetActive(true);
@@ -172,19 +162,15 @@ namespace Shy
         #endregion
 
         #region Dice
-        private DiceUi GetCurrentDice()
+        public void CheckDiceAllFin(DiceUi _dice)
         {
-            for (int i = 0; i < dices.Count; i++)
-            {
-                if (dices[i].CanUseCheck()) return dices[i];
-            }
-
-            return null;
+            if (_dice != dices[dices.Count - 1]) return;
+            CanInteract.interact = true;
         }
 
         private void UseDice()
         {
-            EyeSO eye = dices[diceLoop].UseDice();
+            EyeSO eye = dices[diceLoop].GetEyes();
             dices[diceLoop].user.SkillUse(eye.value, eye.attackWay, minions.ToArray(), enemies.ToArray());
         }
 
@@ -202,27 +188,27 @@ namespace Shy
 
         private IEnumerator DiceDelay()
         {
-            yield return new WaitForSeconds(0.11f);
+            yield return new WaitForSeconds(0.18f);
 
             if (dices[diceLoop].user == null) NextAction();
             else
             {
-                yield return new WaitForSeconds(0.6f);
+                yield return new WaitForSeconds(0.8f);
                 UseDice();
             }
         }
         #endregion
 
-        public void SetCharacterInDice(Character _user)
+        public void HideHealthUi()
         {
-            DiceUi _dice = GetCurrentDice();
+            foreach (var item in minions) item.HideUi();
+            foreach (var item in enemies) item.HideUi();
+        }
 
-            if(_dice != null)
-            {
-                if (_dice.team != _user.team) return;
-
-                _dice.CharacterSelect(_user);
-            }
+        public void ShowHealthUi()
+        {
+            foreach (var item in minions) item.ShowUi();
+            foreach (var item in enemies) item.ShowUi();
         }
 
         public void CharacterDie(Character _ch)
@@ -240,7 +226,7 @@ namespace Shy
                 {
                     if(dices[i].user == _ch)
                     {
-                        dices[i].UserReset();
+                        dices[i].DeleteUser();
                         dices[i].noUsed.SetActive(true);
                     }
                 }

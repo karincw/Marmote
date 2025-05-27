@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Shy
+namespace Shy.Unit
 {
     [CreateAssetMenu(menuName = "SO/Shy/Skill/Value")]
     public class ValueSkillSO : SkillEventSO

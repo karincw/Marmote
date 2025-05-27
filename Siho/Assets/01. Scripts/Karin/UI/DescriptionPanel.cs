@@ -1,5 +1,5 @@
 using DG.Tweening;
-using Shy;
+using Shy.Unit;
 using UnityEngine;
 using UnityEngine.UI;
 namespace karin.ui

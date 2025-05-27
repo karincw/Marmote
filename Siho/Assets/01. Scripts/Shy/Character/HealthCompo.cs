@@ -1,26 +1,30 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
-namespace Shy
+namespace Shy.Unit
 {
     public class HealthCompo : MonoBehaviour
     {
         [SerializeField] private int maxHp, hp, shield;
-        [SerializeField] private Image healthGuage;
+        [SerializeField] private Image healthGuage, effectGuage;
         [SerializeField] private Transform dmgTxtPos;
 
         internal bool isDie = false;
 
         private UnityAction hitEvent;
 
+        private float getHpPer() => hp / (float)maxHp;
+
         public void Init(int _hp, UnityAction _action)
         {
             maxHp = hp = _hp;
             hitEvent = _action;
 
-            UpdateHealth();
+            float healthPer = getHpPer();
+            healthGuage.fillAmount = healthPer;
+            effectGuage.fillAmount = healthPer;
         }
 
         public void OnDamageEvent(int _value)
@@ -42,8 +46,6 @@ namespace Shy
                 isDie = true;
                 hp = 0;
             }
-
-            UpdateHealth();
         }
 
         public void OnHealEvent(int _value)
@@ -64,7 +66,9 @@ namespace Shy
 
         public void UpdateHealth()
         {
-            healthGuage.fillAmount = hp / (float)maxHp;
+            float healthPer = getHpPer();
+            healthGuage.fillAmount = healthPer;
+            effectGuage.DOFillAmount(healthPer, 0.35f);
         }
     }
 }

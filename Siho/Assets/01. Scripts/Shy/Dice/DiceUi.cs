@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Shy
+namespace Shy.Unit
 {
     public class DiceUi : MonoBehaviour, IPointerClickHandler
     {
@@ -43,16 +42,11 @@ namespace Shy
         {
             visual.gameObject.SetActive(false);
             icon.gameObject.SetActive(false);
-            UserReset();
+            DeleteUser();
             noUsed.SetActive(false);
         }
 
-        public void UserReset()
-        {
-            user = null;
-            userIcon.sprite = null;
-            userIcon.gameObject.SetActive(false);
-        }
+        
         #endregion
 
         #region Kill
@@ -72,7 +66,6 @@ namespace Shy
         {
             transform.localScale = Vector3.one;
             visual.gameObject.SetActive(true);
-
             dNum = Random.Range(0, 6);
             icon.sprite = data.eyes[dNum].icon;
 
@@ -83,34 +76,33 @@ namespace Shy
         private void RollFin()
         {
             icon.gameObject.SetActive(true);
-            BattleManager.Instance.CheckTurn(this);
+            BattleManager.Instance.CheckDiceAllFin(this);
         }
         #endregion
 
         #region Use
-        public EyeSO UseDice() => data.eyes[dNum];
+        public EyeSO GetEyes() => data.eyes[dNum];
 
-        public void CharacterSelect(Character _ch)
+        public void SelectUser(Character _ch)
         {
+            if (_ch.team != team) return;
+            if (!BattleManager.Instance.CanSelectChacter(_ch)) return;
+
             user = _ch;
             userIcon.gameObject.SetActive(true);
             userIcon.sprite = _ch.GetIcon();
         }
 
-        public bool CanUseCheck() => !noUsed.activeSelf && user == null;
+        public void DeleteUser()
+        {
+            user = null;
+            userIcon.sprite = null;
+            userIcon.gameObject.SetActive(false);
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if(user == null)
-            {
-                if(team == Team.Player)
-                {
-                    noUsed.SetActive(!noUsed.activeSelf);
-                }
-                return;
-            }
-
-            UserReset();
+            DeleteUser();
         }
         #endregion
     }
