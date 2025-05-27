@@ -1594,8 +1594,8 @@ Canvas:
   m_GameObject: {fileID: 310945882}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 415281000}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3173,6 +3173,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
     - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
     - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+  runStartTime: 0
 --- !u!4 &740639913
 Transform:
   m_ObjectHideFlags: 0
@@ -5386,7 +5387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457e0b5be4dda8b47a45dfae2d06dd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetSceneName: WorldMap
+  targetSceneName: 
 --- !u!114 &1715542065
 MonoBehaviour:
   m_ObjectHideFlags: 0

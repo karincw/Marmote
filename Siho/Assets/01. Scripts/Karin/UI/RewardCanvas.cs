@@ -29,6 +29,7 @@ namespace karin
 
         public void Open(bool isWin, int gem, int coin)
         {
+            gameObject.SetActive(true);
             _rewardPanel.SetData(isWin, gem, coin);
             _sceneBtn.targetSceneName =  isWin ? $"WorldMap" : $"Title";
 
@@ -36,15 +37,16 @@ namespace karin
             DataLinkManager.Instance.Coin.Value += coin;
 
             _bg.DOFade(1, _openDuration / 2);
-            _rewardPanel.Fade(1, _openDuration);
-            _rewardPanel.transform.DOMoveY(0, _openDuration);
+            _rewardPanel.Fade(0.85f, _openDuration);
+            _rewardPanel.transform.DOLocalMoveY(0, _openDuration);
         }
 
         public void Close()
         {
-            _bg.DOFade(0, _closeDuration);
-            _rewardPanel.Fade(0, _closeDuration);
-            _rewardPanel.transform.DOMoveY(offsetPanelPosition.y, _closeDuration);
+            gameObject.SetActive(false);
+            _bg.DOFade(0, 0);
+            _rewardPanel.Fade(0, 0);
+            _rewardPanel.transform.DOMoveY(offsetPanelPosition.y, 0);
         }
     }
 }

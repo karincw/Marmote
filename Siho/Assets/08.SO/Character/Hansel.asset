@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Hansel
   m_EditorClassIdentifier: 
   characterName: "\uD5E8\uC824"
+  characterType: 0
   stats:
     maxHp: 15
     hp: 15
-    str: 8
+    str: 15
     def: 5
   skills:
   - {fileID: 11400000, guid: ed84951d3f3ca6d4d854cb5a9f51fb33, type: 2}

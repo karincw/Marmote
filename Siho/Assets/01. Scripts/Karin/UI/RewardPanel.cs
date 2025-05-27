@@ -26,6 +26,11 @@ namespace karin
             _coinText.SetText(coin.ToString());
         }
 
+        public void Init()
+        {
+            _canvasGroup.alpha = 0;
+        }
+
         public void Fade(float value, float duration)
         {
             _canvasGroup.DOFade(value, duration);

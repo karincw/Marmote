@@ -298,6 +298,7 @@ namespace Shy.Unit
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (IsDie()) return;
             Select.SelectManager.Instance.DragBegin(this);
             ExitPress();
         }
