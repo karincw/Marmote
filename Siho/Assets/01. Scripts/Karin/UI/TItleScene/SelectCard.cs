@@ -95,7 +95,7 @@ namespace karin
                 }
                 else
                 {
-                    Shake(0.5f, new Vector3(5, 10), new Vector3(0, 0, 5), DG.Tweening.Ease.OutQuart);
+                    Shake(0.3f, new Vector3(5, 10), new Vector3(0, 0, 5), DG.Tweening.Ease.OutExpo);
                 }
             }
         }

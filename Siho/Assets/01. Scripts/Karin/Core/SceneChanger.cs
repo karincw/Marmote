@@ -39,7 +39,6 @@ namespace karin
                 if (asyncOper.progress >= 0.9f)
                 {
                     asyncOper.allowSceneActivation = true;
-                    yield return _waitDelay;
                 }
                 yield return null;
             }
@@ -56,7 +55,6 @@ namespace karin
                 if (asyncOper.progress >= 0.9f)
                 {
                     asyncOper.allowSceneActivation = true;
-                    yield return _waitDelay;
                 }
                 yield return null;
             }
