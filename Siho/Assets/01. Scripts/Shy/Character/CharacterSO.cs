@@ -1,3 +1,4 @@
+using karin;
 using UnityEngine;
 
 namespace Shy.Unit
@@ -6,6 +7,7 @@ namespace Shy.Unit
     public class CharacterSO : ScriptableObject
     {
         public string characterName;
+        public CharacterType characterType;
 
         public Stat stats;
 

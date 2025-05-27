@@ -2,6 +2,7 @@ using System;
 
 namespace karin
 {
+    [Serializable]
     public class ChangingValue<T> where T : IComparable
     {
         public T Value 
