@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Shy
+namespace Shy.Unit
 {
     public class Buff : MonoBehaviour
     {

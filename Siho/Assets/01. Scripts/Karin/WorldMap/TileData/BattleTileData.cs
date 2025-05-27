@@ -1,7 +1,7 @@
 using karin.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using EnemySO = Shy.EnemySO;
+using EnemySO = Shy.Unit.EnemySO;
 
 namespace karin.worldmap
 {

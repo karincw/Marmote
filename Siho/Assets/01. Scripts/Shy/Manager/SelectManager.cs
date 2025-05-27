@@ -1,54 +1,84 @@
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using DG.Tweening;
+using Shy.Unit;
 
-namespace Shy
+namespace Shy.Select
 {
     public class SelectManager : MonoBehaviour
     {
-        [SerializeField] private Image blackBoard;
-        [SerializeField] private Transform minions;
-        [SerializeField] private Transform enemies;
-
         public static SelectManager Instance;
-        private static UnityAction<Character> act;
+
+        private bool dragState = false;
+        private Character selectedCharacter = null;
+        private Vector3 gizmoPos;
+
+        private Collider2D diceUiCol = null;
 
         private void Awake()
         {
-            if (Instance != null) { Destroy(this); return; }
-            Instance = this;
-
-            blackBoard.color = Color.clear;
-            blackBoard.gameObject.SetActive(false);
+            if(Instance == null)
+            {
+                Instance = this;
+                Input.multiTouchEnabled = false;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
         }
 
-        public void ShowCharacter(Team _targetTeam, UnityAction<Character> _act)
+        public void DragBegin(Character _character)
         {
-            blackBoard.gameObject.SetActive(true);
-            blackBoard.DOFade(0.8f, 0.3f);
+            Debug.Log("Drag Start");
 
-            act = _act;
-            blackBoard.transform.SetAsLastSibling();
-
-            if (_targetTeam != Team.Player) enemies.SetAsLastSibling();
-            if (_targetTeam != Team.Enemy) minions.SetAsLastSibling();
+            dragState = true;
+            selectedCharacter = _character;
         }
 
-        public void SelectCancel()
+        private void DragEnd()
         {
-            SelectCharacter(null);
-        }
+            Debug.Log("Drag End");
 
-        public void SelectCharacter(Character _ch)
-        {
-            if (_ch == null || _ch.IsDie()) act?.Invoke(null);
-            else act?.Invoke(_ch);
+            dragState = false;
 
-            act = null;
+            ChangeDiceUi(diceUiCol);
             BattleManager.Instance.EndCheck();
-            blackBoard.color = Color.clear;
-            blackBoard.gameObject.SetActive(false);
+
+            selectedCharacter = null;
+            diceUiCol = null;
+        }
+
+        private void ChangeDiceUi(Collider2D _hit)
+        {
+            if (_hit == null) return;
+
+            _hit.GetComponent<DiceUi>().SelectUser(selectedCharacter);
+        }
+
+        private void Update()
+        {
+            if (dragState)
+            {
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 10;
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+                gizmoPos = mousePos;
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, LayerMask.GetMask("DiceUi"));
+                if (hit.collider != diceUiCol) diceUiCol = hit.collider;
+
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    DragEnd();
+                }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawCube(gizmoPos, Vector3.one);
         }
     }
 }

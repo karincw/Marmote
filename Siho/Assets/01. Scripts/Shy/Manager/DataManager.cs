@@ -2,6 +2,7 @@ using karin;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Shy.Unit;
 
 namespace Shy
 {

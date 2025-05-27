@@ -1,7 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using karin.worldmap.dice;
-using Shy;
+using Shy.Unit;
 using System;
 using System.Collections;
 using System.Collections.Generic;

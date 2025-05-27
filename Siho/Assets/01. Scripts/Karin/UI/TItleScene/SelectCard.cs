@@ -1,6 +1,7 @@
 using DG.Tweening;
 using karin.Core;
 using Shy;
+using Shy.Unit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
