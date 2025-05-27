@@ -16,22 +16,22 @@ MonoBehaviour:
   eventSprite: {fileID: 0}
   actions:
   - index: 0
-    branchName: qwe
+    branchName: 1 hp p 12
     branchActions:
     - targetStat: 1
       statIncresement: 12
-  - index: 0
-    branchName: qwe
+  - index: 1
+    branchName: 2 def p 31
     branchActions:
     - targetStat: 3
       statIncresement: 31
-  - index: 0
-    branchName: qwe
+  - index: 2
+    branchName: 3 str p 2345
     branchActions:
     - targetStat: 2
       statIncresement: 2345
   - index: 0
-    branchName: qwe
+    branchName: 1 hp p 1245
     branchActions:
     - targetStat: 1
       statIncresement: 1245

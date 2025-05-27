@@ -21,7 +21,7 @@ namespace karin.ui
 
         private void Awake()
         {
-            _characterIcon = transform.Find("CharacterIcon").GetComponent<Image>();
+            _characterIcon = transform.Find("CharacterMask").Find("CharacterIcon").GetComponent<Image>();
             _health = transform.Find("Health").GetComponentInChildren<TMP_Text>();
             _melee = transform.Find("Melee").GetComponentInChildren<TMP_Text>();
             _defence = transform.Find("Defence").GetComponentInChildren<TMP_Text>();
@@ -32,14 +32,13 @@ namespace karin.ui
         public void SetData()
         {
             _data = ShyDataManager.Instance.minions[_index];
-            Debug.Log(_data);
             if (_data == null)
             {
                 //회색처리
                 return;
             }
 
-            _characterIcon.sprite = _data.sprite;
+            _characterIcon.sprite = _data.cardImage;
             _health.text = _data.stats.hp.ToString();
             _melee.text = _data.stats.str.ToString();
             _defence.text = _data.stats.def.ToString();
@@ -48,7 +47,7 @@ namespace karin.ui
         private void OpenDescription()
         {
             OnDescriptionOpen?.Invoke(_data);
-        }
+        } 
 
     }
 }

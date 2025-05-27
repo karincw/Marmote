@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace karin.worldmap
@@ -14,6 +13,7 @@ namespace karin.worldmap
         [SerializeField] private Ease _moveEase;
 
         public int nowIndex = 0;
+        public event Action OnMoveEndEvent;
         private WaitForSeconds _passingDelay;
 
         private bool moveNext = true;
@@ -22,11 +22,6 @@ namespace karin.worldmap
         {
             _passingDelay = new WaitForSeconds(_moveSpeed);
             WorldMapManager.Instance.OnEnterNextStage += SetUpNextStage;
-        }
-
-        private void OnDisable()
-        {
-            WorldMapManager.Instance.OnEnterNextStage -= SetUpNextStage;
         }
 
         public void Move(int value)
@@ -62,6 +57,7 @@ namespace karin.worldmap
             }
             nowIndex += targetTiles.Count;
             targetTiles[targetTiles.Count - 1].EnterAnimation();
+            OnMoveEndEvent?.Invoke();
         }
 
         public void SetTileIndex(int index)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using karin;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -219,7 +220,7 @@ namespace Shy
 
                 if (enemies.Count == 0)
                 {
-                    SceneManager.LoadScene("WorldMap");
+                    SceneChanger.Instance.LoadScene("WorldMap");
                 }
 
                 for (int i = 0; i < dices.Count; i++)

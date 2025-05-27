@@ -13,8 +13,8 @@ namespace karin.worldmap
             var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(Random.Range(2, 4));
             DataStruct<EnemySO> eData = new DataStruct<EnemySO>();
             eData.list = enemys;
-            DataLinkManager.Instance.WriteEnemyData(eData);
-            SceneManager.LoadScene("Battle Proto");
+            DataLinkManager.Instance.SaveEnemyData(eData);
+            SceneChanger.Instance.LoadScene("Battle Proto");
         }
 
     }

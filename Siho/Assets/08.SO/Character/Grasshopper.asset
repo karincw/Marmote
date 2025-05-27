@@ -27,3 +27,6 @@ MonoBehaviour:
   skillAnime: {fileID: 21300000, guid: b7fb7d16f42317447a65c7d2b7abe53c, type: 3}
   skill2Anime: {fileID: 21300000, guid: 53bb81641cad7494aabc5f7ba3fcb506, type: 3}
   hitAnime: {fileID: 21300000, guid: 41f399280a1716b4cb63188fec2c3f8f, type: 3}
+  startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  cardImage: {fileID: -7258245634270147303, guid: 2def757a58497ee4b9c435e7fccee947, type: 3}
+  personalColor: {r: 0.07577027, g: 1.1473808, b: 0.120633624, a: 1}

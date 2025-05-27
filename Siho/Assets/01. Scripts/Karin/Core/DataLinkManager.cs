@@ -1,14 +1,16 @@
 using karin.worldmap;
 using Shy.Unit;
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace karin.Core
 {
-    public class DataLinkManager : MonoSingleton<DataLinkManager>, IHaveSaveData
+    public class DataLinkManager : MonoSingleton<DataLinkManager>
     {
+        public ChangingValue<int> Gem = new();
+        public ChangingValue<int> Coin = new();
+
         [SerializeField] private MapData mapData;
         [SerializeField] private DataStruct<EnemySO> enemyData;
         public event Action<MapData> OnLoadWorldMap;
@@ -24,6 +26,8 @@ namespace karin.Core
 
         private void handleSceneLoad(Scene scene, LoadSceneMode mode)
         {
+            Gem.Update();
+            Coin.Update();
             switch (scene.name)
             {
                 case "WorldMap":
@@ -33,6 +37,8 @@ namespace karin.Core
                         mapData.stageIndex = 0;
                         mapData.positionIndex = 0;
                         mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
+                        Coin.Value = 0;
+                        Debug.Log("货肺款 甘 积己");
                     }
                     OnLoadWorldMap?.Invoke(mapData);
                     break;
@@ -41,23 +47,28 @@ namespace karin.Core
             }
         }
 
+        private void Update()
+        {
+#if UNITY_EDITOR
+            if(Input.GetKeyDown(KeyCode.F1))
+            {
+                Gem.Value += 800;
+            }
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                Gem.Value -= 800;
+            }
+#endif
+        }
+
         public void SaveMap(MapData data)
         {
             mapData = data;
         }
 
-        public void WriteEnemyData(DataStruct<EnemySO> data)
+        public void SaveEnemyData(DataStruct<EnemySO> data)
         {
             enemyData = data;
-        }
-
-        public void GetSaveData(ref SaveData save)
-        {
-            save.theme = (int)mapData.stageTheme;
-            save.stageIndex = mapData.stageIndex;
-            save.stagePosition = mapData.positionIndex;
-            save.tileData = mapData.tileData.Select(t => (int)t.tileType).ToList();
-            save.isBattle = SceneManager.GetActiveScene().name == "WorldMap" ? 0 : 1;
         }
     }
 }
