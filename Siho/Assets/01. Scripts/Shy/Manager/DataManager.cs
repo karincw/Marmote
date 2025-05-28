@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Shy.Unit;
+using UnityEngine.SceneManagement;
+using System;
 
 namespace Shy
 {
@@ -18,7 +20,21 @@ namespace Shy
             if (Instance != null) { Destroy(gameObject); return; }
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += HandleSceneLoad;
+        }
 
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoad;
+        }
+
+        private void HandleSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
+        {
+            if(scene.name == "Title")
+            {
+                minions = new CharacterSO[3];
+                dices= new List<DiceSO>();
+            }
         }
 
         public int InsertMinion(CharacterSO minion)

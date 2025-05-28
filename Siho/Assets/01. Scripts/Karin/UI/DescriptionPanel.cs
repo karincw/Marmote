@@ -35,6 +35,8 @@ namespace karin.ui
 
         public void Open(CharacterSO data)
         {
+            if(data == null) return;
+
             _skillDescriptionPanels[0].SetUpDate(data);
             _skillDescriptionPanels[1].SetUpDate(data);
             _skillDescriptionPanels[2].SetUpDate(data);

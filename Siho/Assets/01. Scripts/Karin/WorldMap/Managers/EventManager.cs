@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using karin.Core;
 using karin.worldmap;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace karin.ui
     {
         private IEvent _statUpEvent;
         private Queue<EventSO> _events;
+        public Queue<EventSO> GetEvents => _events;
 
         [SerializeField] private List<EventSO> _baseEventList;
         [Space(5), SerializeField, SerializedDictionary("Theme", "ThemeEvent")]
@@ -19,13 +21,22 @@ namespace karin.ui
         {
             _statUpEvent = FindFirstObjectByType<StatUpEvent>();
             WorldMapManager.Instance.OnEnterNextStage += HandleStageChange;
+            DataLinkManager.Instance.OnLoadWorldMap += HandleLoadWorldMap;
             _events = new Queue<EventSO>();
-            HandleStageChange(0);
         }
 
         private void OnDestroy()
         {
+            DataLinkManager.Instance.OnLoadWorldMap -= HandleLoadWorldMap;
             WorldMapManager.Instance.OnEnterNextStage -= HandleStageChange;
+        }
+
+        private void HandleLoadWorldMap(MapData mapData)
+        {
+            if (mapData.events == null)
+                HandleStageChange(0);
+            else
+                _events = mapData.events;
         }
 
         private void HandleStageChange(int index)

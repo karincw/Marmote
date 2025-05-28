@@ -1,4 +1,5 @@
 
+using karin.ui;
 using karin.worldmap;
 using Shy;
 using Shy.Unit;
@@ -32,6 +33,7 @@ namespace karin
         public int positionIndex;
         public List<TileDataSO> tileData;
         public Theme stageTheme;
+        public Queue<EventSO> events;
     }
 
     [System.Serializable]

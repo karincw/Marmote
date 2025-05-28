@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using DataLinkManager = karin.Core.DataLinkManager;
+using karin.ui;
+using karin.Core;
 
 namespace karin.worldmap
 {
@@ -83,6 +84,7 @@ namespace karin.worldmap
             mapData.stageIndex = stageIndex;
             mapData.stageTheme = stageTheme;
             mapData.tileData = _tiles.Select(t => t.myTileData).ToList();
+            mapData.events = EventManager.Instance.GetEvents;
             DataLinkManager.Instance.SaveMap(mapData);
         }
 

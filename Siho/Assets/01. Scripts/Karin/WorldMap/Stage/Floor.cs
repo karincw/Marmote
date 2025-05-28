@@ -14,7 +14,7 @@ namespace karin.worldmap
 
         private void Update()
         {
-            if (!resultOut && confirmTime >= 1.5f)
+            if (!resultOut && confirmTime >= 0.75f)
             {
                 resultOut = true;
                 result = beforeFace.CurrntNumber;

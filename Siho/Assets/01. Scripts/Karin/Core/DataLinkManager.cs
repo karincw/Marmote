@@ -1,8 +1,12 @@
+using karin.ui;
 using karin.worldmap;
 using Shy.Unit;
 using System;
+using System.Collections.Generic;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace karin.Core
 {
@@ -39,6 +43,8 @@ namespace karin.Core
                         mapData.stageIndex = 0;
                         mapData.positionIndex = 0;
                         mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
+                        mapData.stageTheme = (Theme)Random.Range(0, 6);
+                        mapData.events = null;
                         Coin.Value = 0;
                         Debug.Log("货肺款 甘 积己");
                         runStartTime = Time.time;

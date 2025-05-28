@@ -54,6 +54,7 @@ namespace karin
             _selectBtn = GetComponentInChildren<SelectBtn>();
             _btnText = _selectBtn.GetComponentInChildren<TMP_Text>();
 
+            SelectCount = 0;
             _selectColor = _currentCharacter.personalColor;
             _transitionBGOriginPos = _transitionBG.transform.localPosition;
             _transitionBG.color = _currentCharacter.personalColor;
