@@ -5,7 +5,7 @@ namespace karin
 
     public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T _instance = null;
+        protected static T _instance = null;
         private static bool IsDestoryed = false;
 
         public static T Instance
@@ -43,7 +43,7 @@ namespace karin
         {
             if (_instance != null && _instance != this)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
         

@@ -1,59 +1,48 @@
 using karin.Core;
-using karin.worldmap;
 using Shy;
 using Shy.Unit;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-
-// PlayTime : 32156
-// Theme : 1
-// StageIndex : 1
-// StagePosition : 1
-// TileData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// Coin : 100
-// 
-// P1 : [0, 10, 0, 0, 0]
-// P2 : [0, 10, 0, 0, 0]
-// P3 : [0, 10, 0, 0, 0]
-// [Type, Health, Strength, MaxHealth, Defence]
-// 
-// IsBattle : 1
-// E1 : [0, 10, 0, 0, 0]
-// E2 : [0, 10, 0, 0, 0]
-// E3 : [0, 10, 0, 0, 0]
-// [Type, Health, Strength, MaxHealth, Defence]
-// 
-// DiceCount : 3
-// D1 : [1, 1, 2, 2, 3, 3]
-// D2 : [1, 1, 2, 2, 3, 3]
-// D3 : [1, 1, 2, 2, 3, 3]
 
 namespace karin
 {
-    public class Save : MonoBehaviour
+    public class Save : MonoSingleton<Save> 
     {
+        public static string RunSaveFolderPath;
+        public static string GameSavePath;
+        public int PlayIndex;
+        public List<string> SavedRuns;
+
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
+            if (Instance == null) { _instance = this; }
+            DontDestroyOnLoad(gameObject);
+            PlayIndex = -1;
+            RunSaveFolderPath = @$"{Application.persistentDataPath}\RunData";
+            GameSavePath = @$"{Application.persistentDataPath}\GameData.txt";
+
+            DirectoryInfo di = new DirectoryInfo(RunSaveFolderPath);
+            if (di.Exists == false)
+                di.Create();
         }
 
-        [ContextMenu("SaveTest")]
-        public void SaveData()
+        [ContextMenu("SaveRunTest")]
+        public void SaveRunData()
         {
             RunSaveData data = new RunSaveData();
 
             DataLinkManager dataLinkManager = DataLinkManager.Instance;
 
-            data.playTime = Time.time - dataLinkManager.runStartTime;
+            data.playTime = (int)Time.time - dataLinkManager.runStartTime;
             data.theme = (int)dataLinkManager.GetMapData.stageTheme;
             data.stageIndex = (int)dataLinkManager.GetMapData.stageIndex;
             data.stagePosition = (int)dataLinkManager.GetMapData.positionIndex;
             data.tileData = dataLinkManager.GetMapData.tileData.Select(t => (int)t.tileType).ToArray();
             data.coin = dataLinkManager.Coin.Value;
-            data.gem = dataLinkManager.Gem.Value;
 
             DataManager dataManager = DataManager.Instance;
 
@@ -83,41 +72,90 @@ namespace karin
                     data.diceDatas.Add(dimenData);
                 }
             }
-            Debug.Log(JsonUtility.ToJson(data));
+
+            data.RunIndex = data.GetHashCode();
+
+            FileStream fs = new FileStream(RunSaveFolderPath + $"\\{data.RunIndex.ToString()}.txt", FileMode.OpenOrCreate);
+            Encoding encoding = Encoding.UTF8;
+            fs.Write(encoding.GetBytes(JsonUtility.ToJson(data)));
+            fs.Close();
+            SavedRuns.Add(data.RunIndex.ToString());
         }
 
-
-
-        [System.Serializable]
-        public struct RunSaveData
+        public void SaveRunData(RunSaveData beforeData)
         {
-            public double playTime;
-            public int theme;
-            public int stageIndex;
-            public int stagePosition;
-            public int[] tileData;
-            public int coin;
-            public int gem;
-            public List<DimensionData> playerMinions;
-            public bool isBattle;
-            public int diceCount;
-            public List<DimensionData> diceDatas;
+            RunSaveData data = beforeData;
+
+            DataLinkManager dataLinkManager = DataLinkManager.Instance;
+
+            data.playTime += (int)Time.time - dataLinkManager.runStartTime;
+            data.theme = (int)dataLinkManager.GetMapData.stageTheme;
+            data.stageIndex = (int)dataLinkManager.GetMapData.stageIndex;
+            data.stagePosition = (int)dataLinkManager.GetMapData.positionIndex;
+            data.tileData = dataLinkManager.GetMapData.tileData.Select(t => (int)t.tileType).ToArray();
+            data.coin = dataLinkManager.Coin.Value;
+
+            DataManager dataManager = DataManager.Instance;
+
+            data.playerMinions = new List<DimensionData>();
+            for (int i = 0; i < 3; i++)
+            {
+                CharacterSO minion = dataManager.minions[i];
+                if (minion != null)
+                {
+                    DimensionData dimenData = new DimensionData();
+                    dimenData.value = new int[5] { (int)minion.characterType, minion.stats.hp, minion.stats.str, minion.stats.maxHp, minion.stats.def };
+                    data.playerMinions.Add(dimenData);
+                }
+            }
+
+            data.isBattle = SceneManager.GetActiveScene().name != "WorldMap";
+
+            data.diceCount = dataManager.dices.Count;
+            data.diceDatas = new List<DimensionData>();
+
+            for (int i = 0; i < dataManager.dices.Count; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    DimensionData dimenData = new DimensionData();
+                    dimenData.value = new int[2] { dataManager.dices[i].eyes[j].value, (int)dataManager.dices[i].eyes[j].attackWay };
+                    data.diceDatas.Add(dimenData);
+                }
+            }
+
+            FileStream fs = new FileStream(RunSaveFolderPath + $"\\{data.RunIndex.ToString()}.txt", FileMode.Truncate);
+            Encoding encoding = Encoding.UTF8;
+            fs.Write(encoding.GetBytes(JsonUtility.ToJson(data)));
+            fs.Close();
+            SavedRuns.Add(data.RunIndex.ToString());
         }
 
-        [System.Serializable]
-        public struct DimensionData
+        [ContextMenu("SaveGameTest")]
+        public void SaveGameData()
         {
-            public int[] value;
-        }
+            GameSaveData data = new GameSaveData();
 
-        public struct GameSaveData
-        {
-            public int gem;
-            public int[] characterLock;
-            public float masterVolume;
-            public float fXVolume;
-            public float effectVolume;
-            public float gameSpeed;
+            DataLinkManager dataLinkManager = DataLinkManager.Instance;
+
+            data.gem = dataLinkManager.Gem.Value;
+            List<SelectCard> cards = FindObjectsByType<SelectCard>(FindObjectsSortMode.None).OrderBy(c => c.SiblingIndex).ToList();
+            data.characterLock = cards.Select(c => c.canPlay).ToArray();
+            data.masterVolume = 100;
+            data.fXVolume = 100;
+            data.effectVolume = 100;
+            data.saves = SavedRuns;
+
+            DataManager dataManager = DataManager.Instance;
+
+            FileInfo file = new FileInfo(GameSavePath);
+            if (file.Exists)
+                file.Delete();
+
+            FileStream fs = new FileStream(GameSavePath, FileMode.CreateNew);
+            Encoding encoding = Encoding.UTF8;
+            fs.Write(encoding.GetBytes(JsonUtility.ToJson(data)));
+            fs.Close();
         }
     }
 }

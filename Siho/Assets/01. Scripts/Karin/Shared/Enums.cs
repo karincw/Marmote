@@ -20,7 +20,7 @@ namespace karin
         RedHood,
         Pinocchio,
         Jack,
-
+        END,
     }
 
     public enum CharacterType

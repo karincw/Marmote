@@ -2488,6 +2488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1084164008}
   - component: {fileID: 1084164009}
+  - component: {fileID: 1084164010}
   m_Layer: 0
   m_Name: SaveAndLoad
   m_TagString: Untagged
@@ -2520,6 +2521,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5560a12327556af47bdc905e6026de8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayIndex: 0
+  SavedRuns: []
+--- !u!114 &1084164010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084164007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a00f7c4c9555c54da2536c400cee191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1098804028

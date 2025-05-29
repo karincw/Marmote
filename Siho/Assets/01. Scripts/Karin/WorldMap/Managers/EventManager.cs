@@ -19,6 +19,7 @@ namespace karin.ui
 
         private void Awake()
         {
+            if (Instance == null) { _instance = this; }
             _statUpEvent = FindFirstObjectByType<StatUpEvent>();
             WorldMapManager.Instance.OnEnterNextStage += HandleStageChange;
             DataLinkManager.Instance.OnLoadWorldMap += HandleLoadWorldMap;

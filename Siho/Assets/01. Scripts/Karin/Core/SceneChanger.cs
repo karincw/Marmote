@@ -14,6 +14,7 @@ namespace karin
 
         private void Awake()
         {
+            if (Instance == null) { _instance = this; }
             _waitDelay = new WaitForSeconds(_delay);
             DontDestroyOnLoad(this.gameObject);
         }

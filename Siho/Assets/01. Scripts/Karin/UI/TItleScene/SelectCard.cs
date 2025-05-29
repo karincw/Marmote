@@ -19,6 +19,7 @@ namespace karin
         private static readonly int _minSelect = 1;
         private static readonly int _maxSelect = 3;
         public static int SelectCount = 0;
+        public int SiblingIndex = default;
 
         public bool canPlay
         {
@@ -64,6 +65,7 @@ namespace karin
 
             _selected = false;
             _selectBtn.onClick.AddListener(HandleSelect);
+            SiblingIndex = transform.GetSiblingIndex();
         }
 
         private void OnDestroy()

@@ -1,9 +1,6 @@
-using karin.ui;
 using karin.worldmap;
 using Shy.Unit;
 using System;
-using System.Collections.Generic;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -22,10 +19,11 @@ namespace karin.Core
         public DataStruct<EnemySO> GetEnemyData => enemyData;
         public MapData GetMapData => mapData;
         private bool isFirstLoading = true;
-        public  double runStartTime;
+        public int runStartTime;
 
         private void Awake()
         {
+            if (Instance == null) { _instance = this; }
             DontDestroyOnLoad(this.gameObject);
             SceneManager.sceneLoaded += handleSceneLoad;
         }
@@ -43,31 +41,17 @@ namespace karin.Core
                         mapData.stageIndex = 0;
                         mapData.positionIndex = 0;
                         mapData.tileData = WorldMapManager.Instance.GetStageTileData(0);
-                        mapData.stageTheme = (Theme)Random.Range(0, 6);
+                        mapData.stageTheme = (Theme)Random.Range(0, (int)Theme.END);
                         mapData.events = null;
                         Coin.Value = 0;
                         Debug.Log("货肺款 甘 积己");
-                        runStartTime = Time.time;
+                        runStartTime = (int)Time.time;
                     }
                     OnLoadWorldMap?.Invoke(mapData);
                     break;
                 case "Battle":
                     break;
             }
-        }
-
-        private void Update()
-        {
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.F1))
-            {
-                Gem.Value += 800;
-            }
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                Gem.Value -= 800;
-            }
-#endif
         }
 
         public void SaveMap(MapData data)

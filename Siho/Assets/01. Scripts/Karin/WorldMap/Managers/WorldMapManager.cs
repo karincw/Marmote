@@ -35,13 +35,14 @@ namespace karin.worldmap
 
         private void Awake()
         {
+            if (Instance == null) { _instance = this; }
             tileCount = _tiles.Count;
             stageIndex = 0;
             _dice = FindFirstObjectByType<Dice>();
             _floor = FindFirstObjectByType<Floor>();
             _symbol = FindFirstObjectByType<Symbol>();
             _mapChangeAnimationDelay = new WaitForSeconds(0.05f);
-            stageTheme = (Theme)Random.Range(0, 5);
+            stageTheme = (Theme)Random.Range(0, (int)Theme.END);
         }
 
         private void OnEnable()
@@ -56,36 +57,11 @@ namespace karin.worldmap
             _floor.OnDiceStopEvent -= HandleDiceStop;
             OnEnterNextStage -= HandleNextStage;
             DataLinkManager.Instance.OnLoadWorldMap -= HandleLoadMap;
-            SaveData();
         }
-#if UNITY_EDITOR
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                RollDice();
-            }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                HandleNextStage(0);
-            }
-        }
-#endif
 
         public void SetNextStage()
         {
             OnEnterNextStage?.Invoke(++stageIndex);
-        }
-
-        public void SaveData()
-        {
-            MapData mapData = new MapData();
-            mapData.positionIndex = _symbol.nowIndex;
-            mapData.stageIndex = stageIndex;
-            mapData.stageTheme = stageTheme;
-            mapData.tileData = _tiles.Select(t => t.myTileData).ToList();
-            mapData.events = EventManager.Instance.GetEvents;
-            DataLinkManager.Instance.SaveMap(mapData);
         }
 
         public List<TileDataSO> GetStageTileData(int index)
@@ -137,7 +113,7 @@ namespace karin.worldmap
         private void HandleNextStage(int stageIndex)
         {
             if (stageIndex % 5 == 0)
-                stageTheme = (Theme)Random.Range(0, 5);
+                stageTheme = (Theme)Random.Range(0, (int)Theme.END);
 
             var tileData = GetStageTileData(stageIndex);
             int halfPoint = Mathf.CeilToInt((tileCount - 1) / 2);

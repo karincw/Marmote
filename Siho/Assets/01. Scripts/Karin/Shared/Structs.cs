@@ -3,7 +3,9 @@ using karin.ui;
 using karin.worldmap;
 using Shy;
 using Shy.Unit;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace karin
@@ -70,6 +72,38 @@ namespace karin
     {
         public int first;
         public int second;
+    }
+
+    [System.Serializable]
+    public struct RunSaveData
+    {
+        public int RunIndex;
+        public int playTime;
+        public int theme;
+        public int stageIndex;
+        public int stagePosition;
+        public int[] tileData;
+        public int coin;
+        public int diceCount;
+        public bool isBattle;
+        public List<DimensionData> playerMinions;
+        public List<DimensionData> diceDatas;
+    }
+    [System.Serializable]
+    public struct GameSaveData
+    {
+        public int gem;
+        public float masterVolume;
+        public float fXVolume;
+        public float effectVolume;
+        public bool[] characterLock;
+        public List<string> saves;
+    }
+
+    [System.Serializable]
+    public struct DimensionData
+    {
+        public int[] value;
     }
 
 }
