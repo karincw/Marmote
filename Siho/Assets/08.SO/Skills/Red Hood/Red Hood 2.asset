@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92797061b5c8aef448488b44fa86a074, type: 3}
+  m_Script: {fileID: 11500000, guid: 492e6558f6a7dd64eb22b8f745abf86f, type: 3}
   m_Name: Red Hood 2
   m_EditorClassIdentifier: 
-  skillName: "\uBB3C\uC5B4"
-  summon: {fileID: 21300000, guid: be6f1f23c1848654297000718b42c4ab, type: 3}
-  summonAnime: {fileID: 21300000, guid: 23b91f9236c915346b738156f5e1afb1, type: 3}
-  motion: 5
+  skillName: 
   explian: 
+  motion: 0
   skills:
   - {fileID: 11400000, guid: 008a2554e0d47a04a801a862461358c0, type: 2}
+  userAnime: {fileID: 0}
+  teamEffect: {fileID: 0}
+  opponentEffect: {fileID: 0}
+  summon: {fileID: 0}
+  summonAnime: {fileID: 0}

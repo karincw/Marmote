@@ -25,6 +25,13 @@ namespace Shy
         Music,
     }
 
+    public enum UpgradeType
+    {
+        Stack,
+        Count,
+        Hp
+    }
+
     public enum StatEnum
     {
         MaxHp,

@@ -24,7 +24,7 @@ namespace Shy
             pet.color = new Color(0,0,0,0);
         }
 
-        public void UseSkill(Character _user, SkillSO _skill)
+        public void UseSkill(Character _user, SkillSOBase _skill)
         {
             #region Set
             Team userTeam = _user.team;
@@ -64,7 +64,7 @@ namespace Shy
                 pet.transform.SetParent(_user.transform);
                 pet.transform.SetAsFirstSibling();
                 pet.transform.rotation = Quaternion.Euler(0, targetTeam == Team.Enemy ? 180 : 0, 0);
-                pet.sprite = _skill.summon;
+                //pet.sprite = _skill.summon;
                 
                 seq.Prepend(DOTween.To(() => 0f, x => { }, 1f, 0.1f).OnStart(() => _user.visualAction?.Invoke()));
                 pet.color = Color.white;
@@ -85,7 +85,7 @@ namespace Shy
             {
                 if (isPet || isSummon)
                 {
-                    pet.sprite = _skill.summonAnime;
+                    //pet.sprite = _skill.summonAnime;
 
                     if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Prepend(ShortDash(pet.transform, 0.1f, userTeam));
                 }

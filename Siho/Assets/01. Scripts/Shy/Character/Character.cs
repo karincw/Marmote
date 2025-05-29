@@ -130,14 +130,8 @@ namespace Shy.Unit
         {
             switch (_value)
             {
-                case 1:
-                    visual.sprite = data.attackAnime;
-                    break;
-                case 2:
-                    visual.sprite = data.skillAnime;
-                    break;
-                case 3:
-                    visual.sprite = data.skill2Anime;
+                case 1: case 2: case 3:
+                    visual.sprite = data.skills[_value - 1].GetSkillMotion();
                     break;
                 case 4:
                     visual.sprite = data.hitAnime;
@@ -157,15 +151,15 @@ namespace Shy.Unit
             else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
         }
 
-        private void AddTarget(Character _ch, SkillSO _skill, int _v)
+        private void AddTarget(Character _ch, SkillEventSO _skill)
         {
             targets.Add(_ch);
-            skillActions += () => _skill.skills[_v].UseSkill(this, _ch);
+            skillActions += () => _skill.UseSkill(this, _ch);
         }
 
         public void SkillUse(int _v, ActionWay _way, Character[] players, Character[] enemies)
         {
-            SkillSO so = data.skills[_v - 1];
+            SkillSOBase so = data.skills[_v - 1];
             targets = new();
             skillActions = visualAction = null;
 
@@ -180,31 +174,30 @@ namespace Shy.Unit
             visualAction += () => VisualUpdate(_v);
             if (!Bool.IsPetMotion(so.motion)) skillActions += visualAction;
 
-            for (int i = 0; i < so.skills.Count; i++)
+            foreach (var item in so.GetSkills())
             {
-                Character[] targets = (so.skills[i].targetTeam == Team.Player) ? players : enemies;
+                Character[] targets = (item.targetTeam == Team.Player) ? players : enemies;
 
-                ActionWay way = so.skills[i].actionWay;
+                ActionWay way = item.actionWay;
                 if (way == ActionWay.None) way = _way;
 
-                int a = i;
                 Character t;
                 switch (way)
                 {
                     case ActionWay.Self:
-                        AddTarget(this, so, a);
+                        AddTarget(this, item);
                         break;
 
                     case ActionWay.Random:
                         t = targets[Random.Range(0, targets.Length)];
-                        AddTarget(t, so, a);
+                        AddTarget(t, item);
                         break;
 
                     case ActionWay.All:
                         for (int j = 0; j < targets.Length; j++)
                         {
                             t = targets[j];
-                            AddTarget(t, so, a);
+                            AddTarget(t, item);
                         }
                         break;
 
@@ -214,7 +207,7 @@ namespace Shy.Unit
                         for (int j = 1; j < targets.Length; j++)
                             if (targets[j].GetStat(StatEnum.Hp) < t.GetStat(StatEnum.Hp)) t = targets[j];
 
-                        AddTarget(t, so, a);
+                        AddTarget(t, item);
                         break;
 
                     case ActionWay.MoreHp:
@@ -222,7 +215,7 @@ namespace Shy.Unit
                         for (int j = 1; j < targets.Length; j++)
                             if (targets[j].GetStat(StatEnum.Hp) > t.GetStat(StatEnum.Hp)) t = targets[j];
 
-                        AddTarget(t, so, a);
+                        AddTarget(t, item);
                         break;
                     #endregion
 

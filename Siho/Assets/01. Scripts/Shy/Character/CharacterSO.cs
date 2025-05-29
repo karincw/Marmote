@@ -11,13 +11,10 @@ namespace Shy.Unit
 
         public Stat stats;
 
-        public SkillSO[] skills = new SkillSO[3];
+        public SkillSOBase[] skills = new SkillSOBase[3];
 
         [Header("Image")]
         public Sprite sprite;
-        public Sprite attackAnime;
-        public Sprite skillAnime;
-        public Sprite skill2Anime;
         public Sprite hitAnime;
 
         [Header("UI-Settings")]

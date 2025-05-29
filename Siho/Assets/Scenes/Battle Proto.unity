@@ -474,7 +474,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minions:
   - {fileID: 11400000, guid: 3c5b69ede8be53b48a128eb1f163053b, type: 2}
-  - {fileID: 11400000, guid: d846e0daa4b134e4a8f2f8db4a2c71c3, type: 2}
   dices:
   - {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
   - {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
@@ -3170,7 +3169,6 @@ MonoBehaviour:
     stageTheme: 0
   enemyData:
     list:
-    - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
     - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
     - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
   runStartTime: 0

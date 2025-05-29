@@ -15,6 +15,9 @@ MonoBehaviour:
   actionWay: 0
   targetTeam: 0
   eventType: 0
-  formula: 
-  getStats: []
+  formula: str
+  getStats:
+  - key: str
+    stat: 2
+    target: 1
   getStacks: []
