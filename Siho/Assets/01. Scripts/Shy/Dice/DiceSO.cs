@@ -7,5 +7,7 @@ namespace Shy
     {
         public EyeSO[] eyes = new EyeSO[6];
         public Color color = Color.white;
+
+        public EyeSO GetEye(int _eye) => eyes[_eye];
     }
 }

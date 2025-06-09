@@ -9,10 +9,9 @@ namespace Shy.Unit
         public string skillName;
         [TextArea]
         public string explian;
-        public AttackMotion motion;
 
-        public abstract SkillEventSO GetSkill(int _v);
-        public abstract List<SkillEventSO> GetSkills();
-        public abstract Sprite GetSkillMotion();
+        public abstract List<SkillEventSO> GetSkills(Character _user);
+        public abstract Sprite GetMotionSprite(Character _user);
+        public abstract SkillMotion GetSkillMotion(Character _user);
     }
 }

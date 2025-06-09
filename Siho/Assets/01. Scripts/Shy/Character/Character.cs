@@ -18,16 +18,18 @@ namespace Shy.Unit
         private CharacterSO data;
 
         internal Team team = Team.None;
-        internal List<Buff> buffs;
-        internal List<Character> targets;
         internal UnityAction skillActions, visualAction;
 
+        internal List<BuffUI> buffs;
         public Transform buffGroup;
+
         private Image visual;
         private Transform parentTrm, uiTrm;
 
         private bool pressing = false, openInfo;
         private float pressStartTime;
+
+        private List<SkillData> skillDatas = new List<SkillData>(3);
         #endregion
 
         #region Get
@@ -53,6 +55,7 @@ namespace Shy.Unit
         public int GetNowStr() => stat.bonusAtk;
         public int GetNowDef() => stat.bonusDef;
         public bool IsDie() => health.isDie;
+        public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
         #endregion
 
         #region Init
@@ -85,22 +88,18 @@ namespace Shy.Unit
             stat.Init(_data.stats);
             health.Init(_data.stats.maxHp, hitEvent);
 
-            buffs = new List<Buff>();
+            buffs = new List<BuffUI>();
 
             //Visual
             VisualUpdate(0);
-            //Transform namePos = transform.Find("Ui").Find("Name");
-            //namePos.GetComponent<TextMeshProUGUI>().text = data.characterName;
-            //namePos.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.characterName;
         }
         #endregion
 
         #region Visual
-        public void HideUi() => uiTrm.gameObject.SetActive(false);
-        public void ShowUi()
+        public void HealthVisibleEvent(bool _show)
         {
-            uiTrm.gameObject.SetActive(true);
-            health.UpdateHealth();
+            uiTrm.gameObject.SetActive(_show);
+            if (_show) health.UpdateHealth();
         }
 
         private IEnumerator HitAnime()
@@ -131,7 +130,7 @@ namespace Shy.Unit
             switch (_value)
             {
                 case 1: case 2: case 3:
-                    visual.sprite = data.skills[_value - 1].GetSkillMotion();
+                    visual.sprite = data.skills[_value - 1].GetMotionSprite(this);
                     break;
                 case 4:
                     visual.sprite = data.hitAnime;
@@ -151,96 +150,35 @@ namespace Shy.Unit
             else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
         }
 
-        private void AddTarget(Character _ch, SkillEventSO _skill)
+        public void OnBuffEvent(BuffEvent _buffEvent)
         {
-            targets.Add(_ch);
-            skillActions += () => _skill.UseSkill(this, _ch);
-        }
-
-        public void SkillUse(int _v, ActionWay _way, Character[] players, Character[] enemies)
-        {
-            SkillSOBase so = data.skills[_v - 1];
-            targets = new();
-            skillActions = visualAction = null;
-
-            //적이면 타겟 반전
-            if(team == Team.Enemy)
+            foreach (var _buff in buffs)
             {
-                Character[] p = players;
-                players = enemies;
-                enemies = p;
-            }
-
-            visualAction += () => VisualUpdate(_v);
-            if (!Bool.IsPetMotion(so.motion)) skillActions += visualAction;
-
-            foreach (var item in so.GetSkills())
-            {
-                Character[] targets = (item.targetTeam == Team.Player) ? players : enemies;
-
-                ActionWay way = item.actionWay;
-                if (way == ActionWay.None) way = _way;
-
-                Character t;
-                switch (way)
+                if(_buff.CheckBuff(_buffEvent.buffData))
                 {
-                    case ActionWay.Self:
-                        AddTarget(this, item);
-                        break;
-
-                    case ActionWay.Random:
-                        t = targets[Random.Range(0, targets.Length)];
-                        AddTarget(t, item);
-                        break;
-
-                    case ActionWay.All:
-                        for (int j = 0; j < targets.Length; j++)
-                        {
-                            t = targets[j];
-                            AddTarget(t, item);
-                        }
-                        break;
-
-                    #region Hp
-                    case ActionWay.LessHp:
-                        t = targets[0];
-                        for (int j = 1; j < targets.Length; j++)
-                            if (targets[j].GetStat(StatEnum.Hp) < t.GetStat(StatEnum.Hp)) t = targets[j];
-
-                        AddTarget(t, item);
-                        break;
-
-                    case ActionWay.MoreHp:
-                        t = targets[0];
-                        for (int j = 1; j < targets.Length; j++)
-                            if (targets[j].GetStat(StatEnum.Hp) > t.GetStat(StatEnum.Hp)) t = targets[j];
-
-                        AddTarget(t, item);
-                        break;
-                    #endregion
-
-                    case ActionWay.Fast:
-                        break;
+                    //중첩 코드
+                    return;
                 }
             }
 
-            SkillMotionManager.Instance.UseSkill(this, so);
+            BuffUI buff = Pooling.Instance.Use(PoolingType.Buff, buffGroup).GetComponent<BuffUI>();
+            buff.Init(this, _buffEvent.buffData, _buffEvent.value);
+            buff.gameObject.SetActive(true);
+
+            buffs.Add(buff);
         }
 
         public void SkillFin()
         {
             VisualUpdate(0);
             ResetParent();
-            for (int i = 0; i < targets.Count; i++) targets[i].ResetParent();
-
-            BattleManager.Instance.NextAction();
         }
-        #endregion
 
         public void BuffCheck()
         {
-            foreach (Buff buff in buffs) buff.CountDown();
+            foreach (BuffUI buff in buffs) buff.CountDown();
         }
+        #endregion
 
         public void BonusStat(StatEnum _stat, int _value)
         {

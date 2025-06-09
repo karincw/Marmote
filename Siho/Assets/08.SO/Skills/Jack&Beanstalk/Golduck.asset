@@ -17,8 +17,6 @@ MonoBehaviour:
   motion: 0
   skills:
   - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}
-  - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}
-  - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}
   userAnime: {fileID: 0}
   teamEffect: {fileID: 0}
   opponentEffect: {fileID: 0}

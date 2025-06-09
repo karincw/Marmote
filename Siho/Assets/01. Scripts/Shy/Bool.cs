@@ -5,25 +5,25 @@ namespace Shy
 {
     public class Bool
     {
-        public static bool IsPetMotion(AttackMotion _motion)
+        public static bool IsPetMotion(SkillMotion _motion)
         {
-            if (_motion == AttackMotion.PetSelf) return true;
-            if (_motion == AttackMotion.PetAndShort) return true;
-            if (_motion == AttackMotion.PetAndLong) return true;
+            if (_motion == SkillMotion.PetSelf) return true;
+            if (_motion == SkillMotion.PetAndShort) return true;
+            if (_motion == SkillMotion.PetAndLong) return true;
             return false;
         }
 
-        internal static bool IsTeamMotion(AttackMotion _motion)
+        internal static bool IsTeamMotion(SkillMotion _motion)
         {
-            if (_motion == AttackMotion.PetSelf) return true;
-            if (_motion == AttackMotion.Self) return true;
+            if (_motion == SkillMotion.PetSelf) return true;
+            if (_motion == SkillMotion.Self) return true;
             return false;
         }
 
-        internal static bool IsSummonMotion(AttackMotion _motion)
+        internal static bool IsSummonMotion(SkillMotion _motion)
         {
-            if (_motion == AttackMotion.SummonAndShort) return true;
-            if (_motion == AttackMotion.SummonAndLong) return true;
+            if (_motion == SkillMotion.SummonAndShort) return true;
+            if (_motion == SkillMotion.SummonAndLong) return true;
             return false;
         }
     }

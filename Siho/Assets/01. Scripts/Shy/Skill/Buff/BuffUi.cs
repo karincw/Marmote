@@ -1,15 +1,15 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Shy.Unit
 {
-    public class Buff : MonoBehaviour
+    public class BuffUI : MonoBehaviour
     {
         //Data
-        private int life = 0;
-        private BuffType buffType;
-        private bool oneTime = false;
+        private int value = 0;
+        private BuffSO buff;
         private Character user;
 
         //Visual
@@ -22,24 +22,28 @@ namespace Shy.Unit
             tmp = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void Init(Character _user, BuffType _ev, int _life)
+        public void Init(Character _user, BuffSO _buff, int _life)
         {
-            buffType = _ev;
-            life = _life;
+            buff = _buff;
+            value = _life;
             user = _user;
 
-            tmp.text = life.ToString();
+            LifeTextUpdate();
 
-            if (buffType == BuffType.Brave)
-            {
-                OnEvent();
-                oneTime = true;
-            }
+            if (buff.useCondition == BuffUseCondition.OnStart) OnEvent();
+        }
+
+        private void LifeTextUpdate()
+        {
+            if (buff.removeCondition != BuffRemoveCondition.Count) return;
+
+            tmp.text = value.ToString();
+            tmp.gameObject.SetActive(true);
         }
 
         private void OnEvent()
         {
-            switch (buffType)
+            switch (buff.buffType)
             {
                 case BuffType.Brave:
                     user.BonusStat(StatEnum.Str, 15);
@@ -57,7 +61,7 @@ namespace Shy.Unit
 
         private void DestroyEvent()
         {
-            switch (buffType)
+            switch (buff.buffType)
             {
                 case BuffType.Brave:
                     user.BonusStat(StatEnum.Str, -15);
@@ -76,28 +80,33 @@ namespace Shy.Unit
         private void Pop()
         {
             DestroyEvent();
-            oneTime = false;
+            tmp.gameObject.SetActive(false);
             Pooling.Instance.Return(gameObject, PoolingType.Buff);
         }
 
         public void CountDown()
         {
-            tmp.text = (--life).ToString();
+            if (buff.removeCondition != BuffRemoveCondition.Count) return;
 
-            if(life == 0)
+            if (--value == 0)
             {
                 Pop();
+                return;
             }
             else
             {
-                if(!oneTime) OnEvent();
+                OnEvent();
             }
+
+            LifeTextUpdate();
         }
 
         public int CheckBuff(BuffType _buff)
         {
-            if (buffType == _buff) return life;
+            //if (buffType == _buff) return value;
             return 0;
         }
+
+        public bool CheckBuff(BuffSO _buff) => buff == _buff;
     }
 }

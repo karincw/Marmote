@@ -7,24 +7,33 @@ namespace Shy.Unit
     public class UpgradableSkillSO : SkillSOBase
     {
         [Header("Upgradable")]
-        private int level;
+        [SerializeField] private UpgradeCondition upgradeCondition;
         public List<NormalSkillSO> so;
-        private UpgradeType upgradeType;
+        [SerializeField] private List<int> values;
 
-        public override SkillEventSO GetSkill(int _num)
+        public override Sprite GetMotionSprite(Character _user) => so[GetLv(_user)].GetMotionSprite(null);
+
+        public override List<SkillEventSO> GetSkills(Character _user) => so[GetLv(_user)].GetSkills(null);
+
+        public override SkillMotion GetSkillMotion(Character _user) => so[GetLv(_user)].GetSkillMotion(null);
+
+        public int GetLv(Character _user)
         {
-            return null;
+            int maxLv = so.Count;
+
+            switch (upgradeCondition)
+            {
+                case UpgradeCondition.SelfStack:
+
+                    break;
+
+                case UpgradeCondition.SelfHp:
+
+                    break;
+            }
+
+            return 0;
         }
 
-        public override List<SkillEventSO> GetSkills()
-        {
-            return null;
-        }
-
-        public override Sprite GetSkillMotion()
-        {
-            return null;
-        }
     }
 }
-

@@ -27,6 +27,8 @@ namespace Shy
         [SerializeField] private GameObject endBtn;
         private UnityAction buffEvent;
         [SerializeField] private RewardCanvas rewardPanel;
+
+        private List<SkillEvent> skillEvents;
         #endregion
 
         #region Init
@@ -135,7 +137,7 @@ namespace Shy
         {
             if (_ch is not Enemy _enemy) return true;
             
-            int useCnt = enDices.Count(_dice => _dice.user == _enemy);
+            int useCnt = enDices.Count(_dice => _dice.CharacterCheck(_enemy));
             return _enemy.actionValue > useCnt;
         }
 
@@ -145,7 +147,7 @@ namespace Shy
 
             foreach (DiceUi _dice in enDices)
             {
-                if (_dice.user == null) return;
+                if (_dice.CharacterCheck(null)) return;
             }
 
             endBtn.SetActive(true);
@@ -156,7 +158,7 @@ namespace Shy
             diceLoop = 0;
 
             for (int i = 0; i < dices.Count; i++)
-                if (dices[i].user == null) dices[i].noUsed.SetActive(true);
+                dices[i].UseCheck();
 
             endBtn.SetActive(false);
             StartCoroutine(DiceDelay());
@@ -172,8 +174,14 @@ namespace Shy
 
         private void UseDice()
         {
-            EyeSO eye = dices[diceLoop].GetEyes();
-            dices[diceLoop].user.SkillUse(eye.value, eye.attackWay, minions.ToArray(), enemies.ToArray());
+            DiceData dData = dices[diceLoop].GetData();
+            SkillSOBase skillSO = dData.user.GetSkill(dData.skillNum - 1);
+
+            skillEvents = new List<SkillEvent>();
+
+            SkillSubscribe(skillSO, dData);
+
+            SkillMotionManager.Instance.UseSkill(dData.user, skillSO.GetSkillMotion(dData.user), skillEvents);
         }
 
         public void NextAction()
@@ -192,7 +200,7 @@ namespace Shy
         {
             yield return new WaitForSeconds(0.18f);
 
-            if (dices[diceLoop].user == null) NextAction();
+            if (dices[diceLoop].CharacterCheck(null)) NextAction();
             else
             {
                 yield return new WaitForSeconds(0.8f);
@@ -201,16 +209,86 @@ namespace Shy
         }
         #endregion
 
-        public void HideHealthUi()
+        #region Skill
+        private void SkillSubscribe(SkillSOBase _skillSO, DiceData _dData)
         {
-            foreach (var item in minions) item.HideUi();
-            foreach (var item in enemies) item.HideUi();
+            var _skill = _skillSO;
+
+            if (_skillSO is NormalSkillSO _nSkill) _skill = _nSkill;
+            else if (_skillSO is UpgradableSkillSO _uSkill) _skill = _uSkill;
+
+            foreach (SkillEventSO _event in _skill.GetSkills(_dData.user))
+            {
+                TargetData _tData = new TargetData(_dData, _event);
+
+                switch (_event)
+                {
+                    case ValueEventSO _vEvent:
+                        skillEvents.Add(new ValueEvent(_tData, _vEvent));
+                        break;
+
+                    case BuffSkillEventSO _bEvent:
+                        skillEvents.Add(new BuffEvent(_tData, _bEvent.life, _bEvent.buff));
+                        break;
+                }
+            }
         }
 
-        public void ShowHealthUi()
+        public List<Character> GetTargets(TargetData _td)
         {
-            foreach (var item in minions) item.ShowUi();
-            foreach (var item in enemies) item.ShowUi();
+            List<Character> targets = new List<Character>();
+
+            Team targetTeam = _td.user.team;
+
+            if (_td.targetTeam == TargetWay.Opponenet)
+            {
+                if (targetTeam == Team.Player) targetTeam = Team.Enemy;
+                else targetTeam = Team.Player;
+            }
+
+            switch (_td.actionWay)
+            {
+                case ActionWay.Self:
+                    targets.Add(_td.user);
+                    break;
+
+                case ActionWay.Opposite:
+                    break;
+
+                case ActionWay.Random:
+                    if (targetTeam == Team.Player) targets.Add(minions[Random.Range(0, minions.Count)]);
+                    else if (targetTeam == Team.Enemy) targets.Add(enemies[Random.Range(0, enemies.Count)]);
+                    break;
+
+                case ActionWay.All:
+                    if (targetTeam == Team.Player) targets = minions;
+                    else if (targetTeam == Team.Enemy) targets = enemies;
+                    break;
+
+                case ActionWay.LessHp:
+                    break;
+
+                case ActionWay.MoreHp:
+                    break;
+
+                case ActionWay.Already:
+                    break;
+
+                case ActionWay.Fast:
+                    break;
+
+                case ActionWay.Slow:
+                    break;
+            }
+
+            return targets;
+        }
+        #endregion
+
+        public void HealthUiVisible(bool _show)
+        {
+            foreach (var item in minions) item.HealthVisibleEvent(_show);
+            foreach (var item in enemies) item.HealthVisibleEvent(_show);
         }
 
         public void CharacterDie(Character _ch)
@@ -227,18 +305,14 @@ namespace Shy
 
             for (int i = 0; i < dices.Count; i++)
             {
-                if (dices[i].user == _ch)
-                {
-                    dices[i].DeleteUser();
-                    dices[i].noUsed.SetActive(true);
-                }
+                dices[i].CharacterDeadCheck(_ch);
             }
 
             if (isEnemy)
             {
                 foreach (DiceUi dice in enemyDiceDic[_ch])
                 {
-                    dice.KillDice();
+                    dice.DiceDie();
                     enDices.Remove(dice);
                 }
             }

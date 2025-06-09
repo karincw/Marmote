@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Normal Atk
   m_EditorClassIdentifier: 
   actionWay: 4
-  targetTeam: 2
+  targetTeam: 1
   eventType: 0
   formula: str
   getStats:

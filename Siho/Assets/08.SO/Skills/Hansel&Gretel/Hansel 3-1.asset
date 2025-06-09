@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hansel 3-1
   m_EditorClassIdentifier: 
   actionWay: 3
-  targetTeam: 2
+  targetTeam: 1
   eventType: 0
   formula: str
   getStats:

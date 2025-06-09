@@ -20,13 +20,10 @@ MonoBehaviour:
     str: 10
     def: 5
   skills:
-  - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
+  - {fileID: 11400000, guid: 9c7a1d7bc4a8a264d815c215db602135, type: 2}
   - {fileID: 11400000, guid: 8531747197874d74f8d7d20423a3953f, type: 2}
   - {fileID: 11400000, guid: 21ce3a331d533e74c9fcde2f90dff1f5, type: 2}
   sprite: {fileID: 21300000, guid: c313c0a951b573048a1b4f2e34e5524a, type: 3}
-  attackAnime: {fileID: 21300000, guid: 8305baeb44547cf41bd9a2dac2a6b773, type: 3}
-  skillAnime: {fileID: 21300000, guid: 1fb61bb62ab6c894dbb8deae594b9d81, type: 3}
-  skill2Anime: {fileID: 21300000, guid: f48afe66e3360d24a80b6638b6662afd, type: 3}
   hitAnime: {fileID: 21300000, guid: 97b800f5939834a42aa4f822dd340a84, type: 3}
   startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
   cardImage: {fileID: -1008724806224199663, guid: a8dd56cc98ec26b4f982a34b65d85706, type: 3}

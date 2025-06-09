@@ -13,7 +13,7 @@ namespace Shy.Unit
         public List<GetStat> getStats;
         public List<GetStack> getStacks;
 
-        public override void UseSkill(Character _user, Character _target)
+        public int GetValue(Character _user, Character _target)
         {
             string data = formula;
 
@@ -35,7 +35,7 @@ namespace Shy.Unit
 
             if (bAtk != 0) value += Mathf.RoundToInt(value * bAtk * 0.01f);
 
-            _target.OnValueEvent(value, eventType);
+            return value;
         }
     }
 }

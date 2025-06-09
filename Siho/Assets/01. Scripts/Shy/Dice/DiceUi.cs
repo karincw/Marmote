@@ -9,11 +9,11 @@ namespace Shy.Unit
     {
         #region Variable
         private Image visual, icon, userIcon;
-        internal GameObject noUsed;
+        private GameObject noUsedIcon;
 
         [SerializeField] private int dNum;
         [SerializeField] private DiceSO data;
-        public Character user;
+        private Character user;
         public Team team;
 
         private bool isDead;
@@ -25,7 +25,7 @@ namespace Shy.Unit
             visual = transform.Find("Visual").GetComponent<Image>();
             icon = transform.Find("Icon").GetComponent<Image>();
             userIcon = transform.Find("UserIcon").GetComponent<Image>();
-            noUsed = transform.Find("None").gameObject;
+            noUsedIcon = transform.Find("None").gameObject;
         }
         
         public void Init(DiceSO _so, Team _team)
@@ -37,20 +37,24 @@ namespace Shy.Unit
             isDead = false;
             HideDice();
         }
-
-        private void HideDice()
-        {
-            visual.gameObject.SetActive(false);
-            icon.gameObject.SetActive(false);
-            DeleteUser();
-            noUsed.SetActive(false);
-        }
-
-        
         #endregion
 
-        #region Kill
-        public void KillDice() => isDead = true;
+        #region Die
+        private void DeleteUser()
+        {
+            user = null;
+            userIcon.sprite = null;
+            userIcon.gameObject.SetActive(false);
+        }
+
+        public void CharacterDeadCheck(Character _user)
+        {
+            if (CharacterCheck(_user)) return;
+            DeleteUser();
+            UseBlock();
+        }
+
+        public void DiceDie() => isDead = true;
 
         public bool DiceDieCheck()
         {
@@ -58,6 +62,14 @@ namespace Shy.Unit
             else HideDice();
 
             return isDead;
+        }
+
+        private void HideDice()
+        {
+            visual.gameObject.SetActive(false);
+            icon.gameObject.SetActive(false);
+            noUsedIcon.SetActive(false);
+            DeleteUser();
         }
         #endregion
 
@@ -81,7 +93,19 @@ namespace Shy.Unit
         #endregion
 
         #region Use
-        public EyeSO GetEyes() => data.eyes[dNum];
+        public bool CharacterCheck(Character _ch) => user == _ch;
+        private void UseBlock() => noUsedIcon.SetActive(true);
+
+        public DiceData GetData()
+        {
+            EyeSO eye = data.GetEye(dNum);
+            DiceData dd;
+            dd.user = user;
+            dd.actionWay = eye.attackWay;
+            dd.team = team;
+            dd.skillNum = eye.value;
+            return dd;
+        }
 
         public void SelectUser(Character _ch)
         {
@@ -93,11 +117,9 @@ namespace Shy.Unit
             userIcon.sprite = _ch.GetIcon();
         }
 
-        public void DeleteUser()
+        public void UseCheck()
         {
-            user = null;
-            userIcon.sprite = null;
-            userIcon.gameObject.SetActive(false);
+            if (user == null) UseBlock();
         }
 
         public void OnPointerClick(PointerEventData eventData)

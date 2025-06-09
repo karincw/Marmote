@@ -4,6 +4,9 @@ using Unity.Cinemachine;
 using System.Collections;
 using UnityEngine.UI;
 using Shy.Unit;
+using UnityEngine.Events;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shy
 {
@@ -24,31 +27,51 @@ namespace Shy
             pet.color = new Color(0,0,0,0);
         }
 
-        public void UseSkill(Character _user, SkillSOBase _skill)
+        private void SkillFinish(List<Character> _ch, Character _user)
+        {
+            _user.SkillFin();
+            for (int i = 0; i < _ch.Count; i++) _ch[i].SkillFin();
+
+            BattleManager.Instance.NextAction();
+        }
+
+        public void UseSkill(Character _user, SkillMotion _motion, List<SkillEvent> _events)
         {
             #region Set
             Team userTeam = _user.team;
             Team targetTeam = (userTeam == Team.Player) ? Team.Enemy : Team.Player;
 
-            bool isPet = Bool.IsPetMotion(_skill.motion), isTeam = Bool.IsTeamMotion(_skill.motion);
-            bool isSummon = Bool.IsSummonMotion(_skill.motion);
+            bool isPet = Bool.IsPetMotion(_motion), isTeam = Bool.IsTeamMotion(_motion);
+            bool isSummon = Bool.IsSummonMotion(_motion);
+
             float time = 0.3f;
 
             battleView.gameObject.SetActive(true);
             Sequence seq = DOTween.Sequence();
+
+            HashSet<Character> targetHash = new HashSet<Character>();
+            foreach (var _event in _events)
+            {
+                foreach (Character _ch in _event.GetTargets())
+                {
+                    targetHash.Add(_ch); // 중복된 항목은 자동으로 무시됨
+                }
+            }
+
+            List<Character> targets = targetHash.ToList();
             #endregion
 
             #region Skill Begin Event
-            for (int i = 0; i < _user.targets.Count; i++)
+            for (int i = 0; i < targets.Count; i++)
             {
-                _user.targets[i].transform.parent = battleView.transform;
+                targets[i].transform.parent = battleView.transform;
             }
             _user.transform.parent = battleView.transform;
 
-            seq.Append(battleView.DOFade(0.7f, 0.2f).OnComplete(()=>BattleManager.Instance.HideHealthUi()));
+            seq.Append(battleView.DOFade(0.7f, 0.2f).OnComplete(()=>BattleManager.Instance.HealthUiVisible(false)));
 
             // Cam
-            if(_skill.motion != AttackMotion.All)
+            if(_motion != SkillMotion.All)
             {
                 seq.Join(CamMove(isTeam ? userTeam : targetTeam, time).OnStart(() => StartCoroutine(CameraZoom(50, time))));
                 if (!isTeam) seq.Join(CamRotate(0.8f, targetTeam, time));
@@ -87,10 +110,10 @@ namespace Shy
                 {
                     //pet.sprite = _skill.summonAnime;
 
-                    if (!isTeam && _skill.motion != AttackMotion.SummonAndLong) seq.Prepend(ShortDash(pet.transform, 0.1f, userTeam));
+                    if (!isTeam && _motion != SkillMotion.SummonAndLong) seq.Prepend(ShortDash(pet.transform, 0.1f, userTeam));
                 }
 
-                _user.skillActions?.Invoke();
+                foreach (var _event in _events) _event.UseEvent();
             }));
             #endregion
 
@@ -103,16 +126,16 @@ namespace Shy
             seq.Join(battleView.DOFade(0, 0.15f).OnComplete(()=>
             {
                 battleView.gameObject.SetActive(false);
-                BattleManager.Instance.ShowHealthUi();
+                BattleManager.Instance.HealthUiVisible(true);
             }));
 
             if(!isPet && !isSummon)
             {
-                seq.Join(CharacterReturn(_user.GetVisual(), time + 0.15f).OnStart(() => _user.SkillFin()));
+                seq.Join(CharacterReturn(_user.GetVisual(), time + 0.15f).OnStart(() => SkillFinish(targets, _user)));
             }
             else
             {
-                seq.Join(CharacterReturn(pet.transform, time + 0.15f).OnStart(() => _user.SkillFin()));
+                seq.Join(CharacterReturn(pet.transform, time + 0.15f).OnStart(() => SkillFinish(targets, _user)));
                 seq.Join(pet.DOFade(0, time).OnComplete(()=>pet.transform.SetParent(null)));
             }
             #endregion

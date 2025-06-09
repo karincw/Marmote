@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
-  m_Name: Hansel 2-1
+  m_Script: {fileID: 11500000, guid: 56b6c62135a45024f98f1a106ab12d5a, type: 3}
+  m_Name: GetBrave
   m_EditorClassIdentifier: 
-  actionWay: 4
+  actionWay: 1
   targetTeam: 1
-  eventType: 0
-  formula: str
-  getStats:
-  - key: str
-    stat: 2
-    target: 1
-  getStacks: []
+  buff: {fileID: 11400000, guid: 072e7556ad66d6545a17c4b2480f10a3, type: 2}
+  life: 3

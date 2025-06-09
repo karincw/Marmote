@@ -7,6 +7,12 @@ namespace Shy
         Enemy
     }
 
+    public enum TargetWay
+    {
+        team, //아군
+        Opponenet //적군
+    }
+
     public enum EventType
     {
         AttackEvent,
@@ -25,11 +31,25 @@ namespace Shy
         Music,
     }
 
-    public enum UpgradeType
+    public enum BuffUseCondition
     {
-        Stack,
+        OnStart,
+        Update,
+        OnEnd,
+        None
+    }
+
+    public enum BuffRemoveCondition
+    {
         Count,
-        Hp
+        Use,
+        Never,
+    }
+
+    public enum UpgradeCondition
+    {
+        SelfStack, // 특정 스택
+        SelfHp // 체력
     }
 
     public enum StatEnum
@@ -61,7 +81,7 @@ namespace Shy
         Slow,
     }
 
-    public enum AttackMotion
+    public enum SkillMotion
     {
         Near = 0,
         Long,

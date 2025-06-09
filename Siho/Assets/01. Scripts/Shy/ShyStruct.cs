@@ -1,3 +1,4 @@
+using Shy.Unit;
 using UnityEngine;
 using Show = System.SerializableAttribute;
 
@@ -86,5 +87,37 @@ namespace Shy
     {
         public int level;
         public DiceSO[] dices;
+    }
+
+    public struct DiceData
+    {
+        public Character user;
+        public ActionWay actionWay;
+        public Team team;
+        public int skillNum;
+    }
+
+    public struct TargetData
+    {
+        public Character user;
+        public ActionWay actionWay;
+        public TargetWay targetTeam;
+
+        public TargetData(DiceData _d, SkillEventSO _s)
+        {
+            user = _d.user;
+            targetTeam = _s.targetTeam;
+
+
+            if (_s.actionWay == ActionWay.None) actionWay = _d.actionWay;
+            else actionWay = _s.actionWay;
+        }
+    }
+
+    struct SkillData
+    {
+        public int count;
+        public Character user;
+
     }
 }
