@@ -8,6 +8,7 @@ namespace Shy
     {
         private TextMeshProUGUI tmp;
         private Sequence seq;
+        private float pos = 0.3f;
 
         private void Awake()
         {
@@ -17,7 +18,7 @@ namespace Shy
             seq.SetAutoKill(false);
 
             seq.AppendInterval(0.2f);
-            seq.Append(transform.DOLocalMoveY(20, 0.3f));
+            seq.Append(transform.DOLocalMoveY(20, pos));
             seq.Insert(0.3f, tmp.DOFade(0, 0.2f).OnComplete(() => Pooling.Instance.Return(gameObject, PoolingType.DmgText)));
 
             seq.Pause();
@@ -31,6 +32,14 @@ namespace Shy
             gameObject.SetActive(true);
 
             seq.Restart();
+
+            pos = 0.3f;
+        }
+
+        public void Use(string _mes, float _y)
+        {
+            pos += _y;
+            Use(_mes);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Shy
             _user.SkillFin();
             for (int i = 0; i < _ch.Count; i++) _ch[i].SkillFin();
 
-            BattleManager.Instance.NextAction();
+            StartCoroutine(BattleManager.Instance.NextAction());
         }
 
         public void UseSkill(Character _user, SkillMotion _motion, List<SkillEvent> _events)
@@ -52,10 +52,7 @@ namespace Shy
             HashSet<Character> targetHash = new HashSet<Character>();
             foreach (var _event in _events)
             {
-                foreach (Character _ch in _event.GetTargets())
-                {
-                    targetHash.Add(_ch); // 중복된 항목은 자동으로 무시됨
-                }
+                foreach (Character _ch in _event.GetTargets()) targetHash.Add(_ch);
             }
 
             List<Character> targets = targetHash.ToList();
@@ -64,9 +61,9 @@ namespace Shy
             #region Skill Begin Event
             for (int i = 0; i < targets.Count; i++)
             {
-                targets[i].transform.parent = battleView.transform;
+                targets[i].transform.SetParent(battleView.transform);
             }
-            _user.transform.parent = battleView.transform;
+            _user.transform.SetParent(battleView.transform);
 
             seq.Append(battleView.DOFade(0.7f, 0.2f).OnComplete(()=>BattleManager.Instance.HealthUiVisible(false)));
 
@@ -110,7 +107,7 @@ namespace Shy
                 {
                     //pet.sprite = _skill.summonAnime;
 
-                    if (!isTeam && _motion != SkillMotion.SummonAndLong) seq.Prepend(ShortDash(pet.transform, 0.1f, userTeam));
+                    if (!isTeam && _motion != SkillMotion.SummonAndLong) seq.Join(ShortDash(pet.transform, 0.1f, userTeam));
                 }
 
                 foreach (var _event in _events) _event.UseEvent();

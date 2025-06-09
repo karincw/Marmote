@@ -30,7 +30,7 @@ namespace Shy.Unit
             foreach (Character _target in targets)
             {
                 int _value = eventSO.GetValue(targetData.user, _target);
-                _target.OnValueEvent(_value, eventSO.eventType);
+                _target.OnValueEvent(_value, eventSO.eventType, false);
             }
         }
     }

@@ -56,6 +56,8 @@ namespace Shy.Unit
         public int GetNowDef() => stat.bonusDef;
         public bool IsDie() => health.isDie;
         public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
+
+        private int GetDamage(int _baseDamage) => _baseDamage - (int)(GetNowDef() * 0.5f);
         #endregion
 
         #region Init
@@ -68,7 +70,7 @@ namespace Shy.Unit
             parentTrm = transform.parent;
         }
 
-        private void ResetParent() => transform.parent = parentTrm;
+        private void ResetParent() => transform.SetParent(parentTrm);
 
         public void Init(Team _team, CharacterSO _data)
         {
@@ -143,11 +145,20 @@ namespace Shy.Unit
         #endregion
 
         #region Skill
-        public void OnValueEvent(int _value, EventType _type)
+        public void OnValueEvent(int _value, EventType _type, bool _igonoreDef)
         {
-            if(_type == EventType.AttackEvent) health.OnDamageEvent(_value - stat.GetDef());
-            else if (_type == EventType.HealEvent) health.OnHealEvent(_value);
-            else if (_type == EventType.ShieldEvent) health.OnShieldEvent(_value);
+            switch (_type)
+            {
+                case EventType.AttackEvent:
+                    StartCoroutine(health.OnDamageEvent(_igonoreDef ? _value : GetDamage(_value)));
+                    break;
+                case EventType.ShieldEvent:
+                    health.OnShieldEvent(_value);
+                    break;
+                case EventType.HealEvent:
+                    health.OnHealEvent(_value);
+                    break;
+            }
         }
 
         public void OnBuffEvent(BuffEvent _buffEvent)
@@ -171,6 +182,7 @@ namespace Shy.Unit
         public void SkillFin()
         {
             VisualUpdate(0);
+            health.cnt = 0;
             ResetParent();
         }
 

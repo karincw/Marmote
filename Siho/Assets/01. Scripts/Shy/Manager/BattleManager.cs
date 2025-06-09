@@ -77,7 +77,7 @@ namespace Shy
             }
 
             endBtn.SetActive(false);
-            buffEvent += () => StartCoroutine(TurnStart(0.7f));
+            buffEvent += () => StartCoroutine(TurnStart(1f));
             StartCoroutine(TurnStart(0));
         }
 
@@ -184,23 +184,24 @@ namespace Shy
             SkillMotionManager.Instance.UseSkill(dData.user, skillSO.GetSkillMotion(dData.user), skillEvents);
         }
 
-        public void NextAction()
+        public IEnumerator NextAction()
         {
             if(++diceLoop >= dices.Count)
             {
-                Debug.Log("모든 다이스 종료");
+                yield return new WaitForSeconds(0.65f);
                 buffEvent.Invoke();
-                return;
             }
-
-            StartCoroutine(DiceDelay());
+            else
+            {
+                StartCoroutine(DiceDelay());
+            }
         }
 
         private IEnumerator DiceDelay()
         {
             yield return new WaitForSeconds(0.18f);
 
-            if (dices[diceLoop].CharacterCheck(null)) NextAction();
+            if (dices[diceLoop].CharacterCheck(null)) StartCoroutine(NextAction());
             else
             {
                 yield return new WaitForSeconds(0.8f);

@@ -8,7 +8,7 @@ namespace Shy
     public struct Stat
     {
         public int maxHp;
-        public int hp;
+        [HideInInspector] public int hp;
         public int str;
         public int def;
 
@@ -56,7 +56,7 @@ namespace Shy
     {
         public string key;
         public StatEnum stat;
-        public ActionWay target;
+        public bool self;
     }
 
     [Show]

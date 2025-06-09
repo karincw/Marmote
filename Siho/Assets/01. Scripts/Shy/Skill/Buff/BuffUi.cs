@@ -27,6 +27,7 @@ namespace Shy.Unit
             buff = _buff;
             value = _life;
             user = _user;
+            img.sprite = _buff.sprite;
 
             LifeTextUpdate();
 
@@ -50,11 +51,18 @@ namespace Shy.Unit
                     break;
                 case BuffType.Bleeding:
                     break;
-                case BuffType.Bondage:
+                case BuffType.Gingerbread:
                     break;
                 case BuffType.Crumbs:
                     break;
-                case BuffType.Gingerbread:
+                case BuffType.Bondage:
+                    break;
+                case BuffType.Burn:
+                    user.OnValueEvent(value * 2, EventType.AttackEvent, true);
+                    break;
+                case BuffType.Music:
+                    break;
+                case BuffType.Confusion:
                     break;
             }
         }

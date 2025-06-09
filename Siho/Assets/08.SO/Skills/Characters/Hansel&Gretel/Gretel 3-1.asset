@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
-  m_Name: Normal Atk
+  m_Name: Gretel 3-1
   m_EditorClassIdentifier: 
-  actionWay: 4
-  targetTeam: 1
-  eventType: 0
-  formula: str
+  actionWay: 1
+  targetTeam: 0
+  eventType: 2
+  formula: maxHp - curHp * 0.52 + maxHp * 0.1
   getStats:
-  - key: str
-    stat: 2
-    self: 1
+  - key: maxHp
+    stat: 1
+    self: 0
+  - key: curHp
+    stat: 1
+    self: 0
   getStacks: []

@@ -8,7 +8,7 @@ namespace Shy.Unit
     {
         [Header("Data")]
         public EventType eventType;
-        public string formula;
+        [TextArea()]public string formula;
 
         public List<GetStat> getStats;
         public List<GetStack> getStacks;
@@ -20,7 +20,7 @@ namespace Shy.Unit
             //stat을 얻고
             foreach (GetStat stat in getStats)
             {
-                Character c = (stat.target == ActionWay.Self) ? _user : _target;
+                Character c = (stat.self) ? _user : _target;
                 data = data.Replace(stat.key, c.GetStat(stat.stat).ToString());
             }
 
@@ -33,7 +33,7 @@ namespace Shy.Unit
             //구현해놓은 Formula에서 값 설정
             int value = int.Parse(Formula.GetFormula(data)), bAtk = _user.GetNowStr();
 
-            if (bAtk != 0) value += Mathf.RoundToInt(value * bAtk * 0.01f);
+            if (eventType == EventType.AttackEvent && bAtk != 0) value += Mathf.RoundToInt(value * bAtk * 0.01f);
 
             return value;
         }

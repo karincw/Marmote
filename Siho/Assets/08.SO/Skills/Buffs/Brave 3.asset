@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
-  m_Name: Gretel 3-1
+  m_Script: {fileID: 11500000, guid: 8c80a2fb8dc64a04cb2a59f22a36cb5d, type: 3}
+  m_Name: Brave 3
   m_EditorClassIdentifier: 
-  actionWay: 3
-  targetTeam: 1
-  eventType: 0
-  formula: str
-  getStats:
-  - key: str
-    stat: 2
-    target: 1
-  getStacks: []
+  itemName: "\uC6A9\uAE30"
+  explain: 
+  buffType: 0
+  sprite: {fileID: 0}
+  useCondition: 0
+  removeCondition: 0

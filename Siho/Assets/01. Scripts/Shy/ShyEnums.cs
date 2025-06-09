@@ -25,10 +25,12 @@ namespace Shy
     {
         Brave = 0,
         Bleeding,
-        Bondage,
-        Crumbs,
         Gingerbread,
+        Crumbs,
+        Bondage,
+        Burn,
         Music,
+        Confusion,
     }
 
     public enum BuffUseCondition

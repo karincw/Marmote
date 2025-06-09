@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 namespace Shy.Unit
 {
@@ -12,39 +13,44 @@ namespace Shy.Unit
         [SerializeField] private Transform dmgTxtPos;
 
         internal bool isDie = false;
+        internal float cnt;
 
         private UnityAction hitEvent;
 
-        private float getHpPer() => hp / (float)maxHp;
+        private float GetHpPer() => hp / (float)maxHp;
 
         public void Init(int _hp, UnityAction _action)
         {
             maxHp = hp = _hp;
             hitEvent = _action;
 
-            float healthPer = getHpPer();
+            float healthPer = GetHpPer();
             healthGuage.fillAmount = healthPer;
             effectGuage.fillAmount = healthPer;
         }
 
-        public void OnDamageEvent(int _value)
+        public IEnumerator OnDamageEvent(int _value)
         {
-            if (_value <= 0) return;
-
-            _value -= shield;
-
-            if(_value > 0)
+            if (_value > 0)
             {
-                Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>().Use(_value.ToString());
+                _value -= shield;
 
-                hitEvent?.Invoke();
-                hp -= _value;
-            }
+                if (_value > 0)
+                {
+                    yield return new WaitForSeconds(0.2f * cnt++);
 
-            if (hp <= 0)
-            {
-                isDie = true;
-                hp = 0;
+                    Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>()
+                        .Use(_value.ToString());
+
+                    hitEvent?.Invoke();
+                    hp -= _value;
+                }
+
+                if (hp <= 0)
+                {
+                    isDie = true;
+                    hp = 0;
+                }
             }
         }
 
@@ -66,7 +72,7 @@ namespace Shy.Unit
 
         public void UpdateHealth()
         {
-            float healthPer = getHpPer();
+            float healthPer = GetHpPer();
             healthGuage.fillAmount = healthPer;
             effectGuage.DOFillAmount(healthPer, 0.35f);
         }
