@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
   m_Name: Hansel 3-1
   m_EditorClassIdentifier: 
-  actionWay: 3
-  targetTeam: 1
-  eventType: 0
-  formula: str
+  actionWay: 1
+  targetTeam: 0
+  eventType: 1
+  formula: hp * 0.3 + 5
+  ignoreDefPer: 0
   getStats:
-  - key: str
-    stat: 2
-    target: 1
+  - key: hp
+    stat: 0
+    self: 1
   getStacks: []

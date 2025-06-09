@@ -20,7 +20,7 @@ MonoBehaviour:
     str: 8
     def: 5
   skills:
-  - {fileID: 11400000, guid: 9c7a1d7bc4a8a264d815c215db602135, type: 2}
+  - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
   - {fileID: 11400000, guid: 8531747197874d74f8d7d20423a3953f, type: 2}
   - {fileID: 11400000, guid: 21ce3a331d533e74c9fcde2f90dff1f5, type: 2}
   sprite: {fileID: 21300000, guid: c313c0a951b573048a1b4f2e34e5524a, type: 3}

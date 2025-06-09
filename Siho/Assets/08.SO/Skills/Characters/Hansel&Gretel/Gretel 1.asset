@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: 
   explian: 
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: 64d35bb96f73c234eb5b81596a510987, type: 2}
   motion: 0
   userAnime: {fileID: 0}
   teamEffect: {fileID: 0}

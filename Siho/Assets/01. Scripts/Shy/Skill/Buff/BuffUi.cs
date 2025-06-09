@@ -1,7 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 namespace Shy.Unit
 {
@@ -15,6 +14,18 @@ namespace Shy.Unit
         //Visual
         private Image img;
         private TextMeshProUGUI tmp;
+
+        #region Get
+        public BuffType GetBuffType() => buff.buffType;
+        public int GetCount() => value;
+        public int GetBuffCount(BuffType _buff)
+        {
+            if (buff.buffType == _buff) return value;
+            return 0;
+        }
+        #endregion
+
+        public bool CheckBuff(BuffType _buff) => buff.buffType == _buff;
 
         private void Awake()
         {
@@ -31,7 +42,7 @@ namespace Shy.Unit
 
             LifeTextUpdate();
 
-            if (buff.useCondition == BuffUseCondition.OnStart) OnEvent();
+            BuffManager.Instance.OnBuffEvent(BuffUseCondition.OnStart, buff.buffType, user, value);
         }
 
         private void LifeTextUpdate()
@@ -42,58 +53,17 @@ namespace Shy.Unit
             tmp.gameObject.SetActive(true);
         }
 
-        private void OnEvent()
-        {
-            switch (buff.buffType)
-            {
-                case BuffType.Brave:
-                    user.BonusStat(StatEnum.Str, 15);
-                    break;
-                case BuffType.Bleeding:
-                    break;
-                case BuffType.Gingerbread:
-                    break;
-                case BuffType.Crumbs:
-                    break;
-                case BuffType.Bondage:
-                    break;
-                case BuffType.Burn:
-                    user.OnValueEvent(value * 2, EventType.AttackEvent, true);
-                    break;
-                case BuffType.Music:
-                    break;
-                case BuffType.Confusion:
-                    break;
-            }
-        }
-
-        private void DestroyEvent()
-        {
-            switch (buff.buffType)
-            {
-                case BuffType.Brave:
-                    user.BonusStat(StatEnum.Str, -15);
-                    break;
-                case BuffType.Bleeding:
-                    break;
-                case BuffType.Bondage:
-                    break;
-                case BuffType.Crumbs:
-                    break;
-                case BuffType.Gingerbread:
-                    break;
-            }
-        }
-
         private void Pop()
         {
-            DestroyEvent();
+            BuffManager.Instance.OnBuffEvent(BuffUseCondition.OnEnd, buff.buffType, user, value);
             tmp.gameObject.SetActive(false);
             Pooling.Instance.Return(gameObject, PoolingType.Buff);
         }
 
         public void CountDown()
         {
+            BuffManager.Instance.OnBuffEvent(BuffUseCondition.Update, buff.buffType, user, value);
+
             if (buff.removeCondition != BuffRemoveCondition.Count) return;
 
             if (--value == 0)
@@ -101,20 +71,8 @@ namespace Shy.Unit
                 Pop();
                 return;
             }
-            else
-            {
-                OnEvent();
-            }
 
             LifeTextUpdate();
         }
-
-        public int CheckBuff(BuffType _buff)
-        {
-            //if (buffType == _buff) return value;
-            return 0;
-        }
-
-        public bool CheckBuff(BuffSO _buff) => buff == _buff;
     }
 }

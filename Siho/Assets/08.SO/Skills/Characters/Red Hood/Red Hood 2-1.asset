@@ -15,7 +15,7 @@ MonoBehaviour:
   actionWay: 4
   targetTeam: 1
   eventType: 0
-  formula: str * 0.3 + 5
+  formula: str * 1.2
   getStats:
   - key: str
     stat: 2

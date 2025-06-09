@@ -105,20 +105,16 @@ namespace Shy
         {
             yield return new WaitForSeconds(_delay);
 
-            //초기화
             for (int i = 0; i < dices.Count;)
             {
                 if (dices[i].DiceDieCheck()) dices.RemoveAt(i);
                 else i++;
             }
-
-            //섞기
+            
             for (int i = 0; i < 10; i++)
             {
                 int rand = Random.Range(0, dices.Count);
-                DiceUi temp = dices[0];
-                dices[0] = dices[rand];
-                dices[rand] = temp;
+                (dices[0], dices[rand]) = (dices[rand], dices[0]);
             }
 
             for (int i = 0; i < dices.Count; i++) dices[i].transform.SetSiblingIndex(i);
@@ -157,8 +153,7 @@ namespace Shy
         {
             diceLoop = 0;
 
-            for (int i = 0; i < dices.Count; i++)
-                dices[i].UseCheck();
+            for (int i = 0; i < dices.Count; i++) dices[i].UseCheck();
 
             endBtn.SetActive(false);
             StartCoroutine(DiceDelay());
@@ -229,7 +224,7 @@ namespace Shy
                         break;
 
                     case BuffSkillEventSO _bEvent:
-                        skillEvents.Add(new BuffEvent(_tData, _bEvent.life, _bEvent.buff));
+                        skillEvents.Add(new BuffEvent(_tData, _bEvent.life, _bEvent.bufftype));
                         break;
                 }
             }
@@ -286,6 +281,15 @@ namespace Shy
         }
         #endregion
 
+        public int SetDamage(int _baseDamage, Character _target, int _defPer)
+        {
+            // defPer = 방어력 무시률
+            float def = _target.GetNowStat(StatEnum.Def) * (1 - _defPer * 0.01f);
+            float damage = _baseDamage - def * 0.5f;
+            damage = damage * (1 - _target.GetBonusStat(StatEnum.ReductionDmg) * 0.01f);
+            return Mathf.RoundToInt(damage);
+        }
+
         public void HealthUiVisible(bool _show)
         {
             foreach (var item in minions) item.HealthVisibleEvent(_show);
@@ -299,15 +303,9 @@ namespace Shy
             if (isEnemy) enemies.Remove(_ch);
             else minions.Remove(_ch);
 
-            if(enemies.Count == 0 || minions.Count == 0)
-            {
-                rewardPanel.Open(isEnemy, 10, 10);
-            }
+            if(enemies.Count == 0 || minions.Count == 0) rewardPanel.Open(isEnemy, 10, 10);
 
-            for (int i = 0; i < dices.Count; i++)
-            {
-                dices[i].CharacterDeadCheck(_ch);
-            }
+            for (int i = 0; i < dices.Count; i++) dices[i].CharacterDeadCheck(_ch);
 
             if (isEnemy)
             {

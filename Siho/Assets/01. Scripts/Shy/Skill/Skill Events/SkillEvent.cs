@@ -30,21 +30,21 @@ namespace Shy.Unit
             foreach (Character _target in targets)
             {
                 int _value = eventSO.GetValue(targetData.user, _target);
-                _target.OnValueEvent(_value, eventSO.eventType, false);
+                _target.OnValueEvent(_value, eventSO.eventType, eventSO.ignoreDefPer);
             }
         }
     }
 
     public class BuffEvent : SkillEvent
     {
-        public BuffSO buffData;
+        public BuffType buffType;
         public int value;
 
-        public BuffEvent(TargetData _t, int _v, BuffSO _b)
+        public BuffEvent(TargetData _t, int _v, BuffType _b)
         {
             targetData = _t;
             value = _v;
-            buffData = _b;
+            buffType = _b;
         }
 
         public override void UseEvent()

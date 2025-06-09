@@ -15,9 +15,16 @@ MonoBehaviour:
   actionWay: 0
   targetTeam: 1
   eventType: 0
-  formula: str
+  formula: str * 0.1 + def * 0.7
+  ignoreDefPer: 100
   getStats:
   - key: str
     stat: 2
-    target: 1
+    self: 1
+  - key: def
+    stat: 3
+    self: 1
+  - key: eDef
+    stat: 3
+    self: 0
   getStacks: []

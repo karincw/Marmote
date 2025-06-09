@@ -38,6 +38,8 @@ namespace Shy
         OnStart,
         Update,
         OnEnd,
+        OnAttack,
+        OnHit,
         None
     }
 
@@ -59,7 +61,9 @@ namespace Shy
         MaxHp,
         Hp,
         Str,
-        Def
+        Def,
+        AdditionalDmg,
+        ReductionDmg
     }
 
     public enum PoolingType

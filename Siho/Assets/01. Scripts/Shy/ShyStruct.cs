@@ -67,14 +67,6 @@ namespace Shy
     }
 
     [Show]
-    public struct BuffItem
-    {
-        public BuffType buff;
-        public bool canCountDown;
-        public Sprite sprite;
-    }
-
-    [Show]
     public struct PoolItem
     {
         public GameObject obj;
@@ -112,12 +104,5 @@ namespace Shy
             if (_s.actionWay == ActionWay.None) actionWay = _d.actionWay;
             else actionWay = _s.actionWay;
         }
-    }
-
-    struct SkillData
-    {
-        public int count;
-        public Character user;
-
     }
 }

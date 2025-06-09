@@ -15,9 +15,11 @@ MonoBehaviour:
   actionWay: 0
   targetTeam: 1
   eventType: 0
-  formula: str
+  formula: 'str * 1.2
+
+'
   getStats:
   - key: str
     stat: 2
-    target: 1
+    self: 1
   getStacks: []

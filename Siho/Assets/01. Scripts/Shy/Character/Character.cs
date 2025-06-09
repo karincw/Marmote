@@ -13,12 +13,12 @@ namespace Shy.Unit
     public class Character : MonoBehaviour, IPress, IBeginDragHandler, IDragHandler
     {
         #region 변수
-        private HealthCompo health;
-        private StatCompo stat;
+        private HealthCompo healthCompo;
+        private StatCompo statCompo;
         private CharacterSO data;
 
         internal Team team = Team.None;
-        internal UnityAction skillActions, visualAction;
+        internal UnityAction visualAction;
 
         internal List<BuffUI> buffs;
         public Transform buffGroup;
@@ -28,43 +28,42 @@ namespace Shy.Unit
 
         private bool pressing = false, openInfo;
         private float pressStartTime;
-
-        private List<SkillData> skillDatas = new List<SkillData>(3);
         #endregion
 
         #region Get
         public Sprite GetIcon() => data.sprite;
         public Transform GetVisual() => visual.transform;
-        public int GetStat(StatEnum _stat)
+        public bool IsDie() => healthCompo.isDie;
+        public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
+        public void SetBonusStat(StatEnum _stat, int _value) => statCompo.UpdateBonusStat(_stat, _value);
+        public int GetBaseStat(StatEnum _stat)
         {
-            if (_stat == StatEnum.Str) return stat.GetStr();
-            if (_stat == StatEnum.Def) return stat.GetDef();
-            if (_stat == StatEnum.MaxHp) return health.GetMaxHealth();
-            if (_stat == StatEnum.Hp) return health.GetHealth();
-            Debug.LogError("Not Found"); return 0;
+            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
+            return statCompo.GetBaseStat(_stat);
+        }
+        public int GetBonusStat(StatEnum _stat)
+        {
+            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
+            return statCompo.GetBonusStat(_stat);
+        }
+        public int GetNowStat(StatEnum _stat)
+        {
+            if (_stat == StatEnum.Hp) return healthCompo.GetHealth();
+            return statCompo.GetApplyStat(_stat);
         }
         public int GetStackCnt(BuffType _type)
         {
-            for (int i = 0; i < buffs.Count; i++)
-            {
-                int n = buffs[i].CheckBuff(_type);
-                if(n != 0) return n;
-            }
-            Debug.LogError("Not Found"); return 0;
+            int _total = 0;
+            foreach (var _buff in buffs) _total += _buff.GetBuffCount(_type);
+            return _total;
         }
-        public int GetNowStr() => stat.bonusAtk;
-        public int GetNowDef() => stat.bonusDef;
-        public bool IsDie() => health.isDie;
-        public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
-
-        private int GetDamage(int _baseDamage) => _baseDamage - (int)(GetNowDef() * 0.5f);
         #endregion
 
         #region Init
         public virtual void Awake()
         {
-            health = GetComponent<HealthCompo>();
-            stat = GetComponent<StatCompo>();
+            healthCompo = GetComponent<HealthCompo>();
+            statCompo = GetComponent<StatCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
             uiTrm = transform.Find("Ui");
             parentTrm = transform.parent;
@@ -86,9 +85,10 @@ namespace Shy.Unit
             UnityAction hitEvent = null;
             hitEvent += () => VisualUpdate(4);
             hitEvent += () => StartCoroutine(HitAnime());
+            hitEvent += () => HitBuffEvent();
 
-            stat.Init(_data.stats);
-            health.Init(_data.stats.maxHp, hitEvent);
+            statCompo.Init(_data.stats);
+            healthCompo.Init(_data.stats.maxHp, hitEvent);
 
             buffs = new List<BuffUI>();
 
@@ -101,7 +101,7 @@ namespace Shy.Unit
         public void HealthVisibleEvent(bool _show)
         {
             uiTrm.gameObject.SetActive(_show);
-            if (_show) health.UpdateHealth();
+            if (_show) healthCompo.UpdateHealth();
         }
 
         private IEnumerator HitAnime()
@@ -145,27 +145,34 @@ namespace Shy.Unit
         #endregion
 
         #region Skill
-        public void OnValueEvent(int _value, EventType _type, bool _igonoreDef)
+        public void SkillFin()
+        {
+            VisualUpdate(0);
+            healthCompo.cnt = 0;
+            ResetParent();
+        }
+
+        public void OnValueEvent(int _value, EventType _type, int _ignoreDefPer)
         {
             switch (_type)
             {
                 case EventType.AttackEvent:
-                    StartCoroutine(health.OnDamageEvent(_igonoreDef ? _value : GetDamage(_value)));
+                    StartCoroutine(healthCompo.OnDamageEvent(BattleManager.Instance.SetDamage(_value, this, _ignoreDefPer)));
                     break;
                 case EventType.ShieldEvent:
-                    health.OnShieldEvent(_value);
+                    healthCompo.OnShieldEvent(_value);
                     break;
                 case EventType.HealEvent:
-                    health.OnHealEvent(_value);
+                    healthCompo.OnHealEvent(_value);
                     break;
             }
         }
 
-        public void OnBuffEvent(BuffEvent _buffEvent)
+        public void OnBuffEvent(int _value, BuffType _buffType)
         {
             foreach (var _buff in buffs)
             {
-                if(_buff.CheckBuff(_buffEvent.buffData))
+                if (_buff.CheckBuff(_buffType))
                 {
                     //중첩 코드
                     return;
@@ -173,17 +180,17 @@ namespace Shy.Unit
             }
 
             BuffUI buff = Pooling.Instance.Use(PoolingType.Buff, buffGroup).GetComponent<BuffUI>();
-            buff.Init(this, _buffEvent.buffData, _buffEvent.value);
+            buff.Init(this, BuffManager.Instance.GetBuff(_buffType), _value);
             buff.gameObject.SetActive(true);
 
             buffs.Add(buff);
         }
 
-        public void SkillFin()
+        public void OnBuffEvent(BuffEvent _buffEvent) => OnBuffEvent(_buffEvent.value, _buffEvent.buffType);
+
+        private void HitBuffEvent()
         {
-            VisualUpdate(0);
-            health.cnt = 0;
-            ResetParent();
+            foreach (var _buff in buffs) BuffManager.Instance.OnBuffEvent(BuffUseCondition.OnHit, _buff, this);
         }
 
         public void BuffCheck()
@@ -191,12 +198,6 @@ namespace Shy.Unit
             foreach (BuffUI buff in buffs) buff.CountDown();
         }
         #endregion
-
-        public void BonusStat(StatEnum _stat, int _value)
-        {
-            if (_stat == StatEnum.Str) stat.bonusAtk += _value;
-            if (_stat == StatEnum.Def) stat.bonusDef += _value;
-        }
 
         #region Press
         public void OnPointerDown(PointerEventData eventData)

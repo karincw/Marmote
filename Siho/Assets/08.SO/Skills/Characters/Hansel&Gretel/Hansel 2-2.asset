@@ -9,19 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
-  m_Name: Hansel 2-1
+  m_Script: {fileID: 11500000, guid: 56b6c62135a45024f98f1a106ab12d5a, type: 3}
+  m_Name: Hansel 2-2
   m_EditorClassIdentifier: 
-  actionWay: 0
-  targetTeam: 1
-  eventType: 0
-  formula: str * 0.7 + hp * 0.3
-  ignoreDefPer: 0
-  getStats:
-  - key: str
-    stat: 2
-    self: 1
-  - key: hp
-    stat: 0
-    self: 1
-  getStacks: []
+  actionWay: 1
+  targetTeam: 0
+  bufftype: 3
+  life: 1
