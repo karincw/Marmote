@@ -100,4 +100,12 @@ namespace Shy
         SummonAndLong,
         DropAttack,
     }
+
+    public enum InfoType
+    {
+        Minion,
+        Enemy,
+        Buff,
+        Dice
+    }
 }

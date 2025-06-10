@@ -4,11 +4,10 @@ using Unity.Cinemachine;
 using System.Collections;
 using UnityEngine.UI;
 using Shy.Unit;
-using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shy
+namespace Shy.Anime
 {
     public class SkillMotionManager : MonoBehaviour
     {
@@ -41,8 +40,8 @@ namespace Shy
             Team userTeam = _user.team;
             Team targetTeam = (userTeam == Team.Player) ? Team.Enemy : Team.Player;
 
-            bool isPet = Bool.IsPetMotion(_motion), isTeam = Bool.IsTeamMotion(_motion);
-            bool isSummon = Bool.IsSummonMotion(_motion);
+            bool isPet = AnimeBool.IsPetMotion(_motion), isTeam = AnimeBool.IsTeamMotion(_motion);
+            bool isSummon = AnimeBool.IsSummonMotion(_motion);
 
             float time = 0.3f;
 

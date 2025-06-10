@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Shy.Anime;
 using Shy.Unit;
 
 namespace Shy
@@ -56,24 +57,26 @@ namespace Shy
             CharacterInit(Team.Player, DataManager.Instance.minions);
             CharacterInit(Team.Enemy, enemyDatas.Select(enemy => enemy.data).ToArray());
 
-            for (int i = 0; i < _diceList.Count; i++)
+            foreach (var _dice in _diceList)
             {
-                DiceUi dUi = Instantiate(dicePrefab, spawn);
-                dices.Add(dUi);
-                dUi.Init(_diceList[i], Team.Player);
+                DiceUi _dUi = Instantiate(dicePrefab, spawn);
+                dices.Add(_dUi);
+                _dUi.Init(_dice, Team.Player);
             }
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                List<DiceUi> dUiList = new List<DiceUi>();
+                List<DiceUi> _enemyDiceList = new List<DiceUi>();
+
                 foreach (DiceSO dice in enemyDatas[i].GetDices())
                 {
-                    DiceUi dUi = Instantiate(dicePrefab, spawn);
-                    enDices.Add(dUi); dices.Add(dUi);
-                    dUi.Init(dice, Team.Enemy);
-                    dUiList.Add(dUi);
+                    DiceUi _dUi = Instantiate(dicePrefab, spawn);
+                    enDices.Add(_dUi);
+                    dices.Add(_dUi);
+                    _dUi.Init(dice, Team.Enemy);
+                    _enemyDiceList.Add(_dUi);
                 }
-                enemyDiceDic.Add(enemies[i], dUiList);
+                enemyDiceDic.Add(enemies[i], _enemyDiceList);
             }
 
             endBtn.SetActive(false);
@@ -82,20 +85,20 @@ namespace Shy
         }
 
         private void CharacterInit(Team _team, CharacterSO[] _so)
-        {
-            List<Character> characterList = (_team == Team.Player ? minions : enemies);
+        {List<Character> characterList = (_team == Team.Player ? minions : enemies);
 
-            for (int i = 0; i < characterList.Count; i++)
+            for (int i = 0; i < characterList.Count;)
             {
                 if (i >= _so.Length || _so[i] == null)
                 {
                     characterList[i].Init(_team, null);
-                    characterList.RemoveAt(i--);
+                    characterList.RemoveAt(i);
                     continue;
                 }
 
                 characterList[i].Init(_team, _so[i]);
                 buffEvent += characterList[i].BuffCheck;
+                i++;
             }
         }
         #endregion
@@ -139,8 +142,6 @@ namespace Shy
 
         public void EndCheck()
         {
-            Debug.Log("End Check");
-
             foreach (DiceUi _dice in enDices)
             {
                 if (_dice.CharacterCheck(null)) return;
@@ -161,10 +162,11 @@ namespace Shy
         #endregion
 
         #region Dice
+        public int GetEnemyDiceCount(Character _ch) => enemyDiceDic[_ch].Count;
+
         public void CheckDiceAllFin(DiceUi _dice)
         {
             if (_dice != dices[dices.Count - 1]) return;
-            CanInteract.interact = true;
         }
 
         private void UseDice()
@@ -260,21 +262,6 @@ namespace Shy
                     if (targetTeam == Team.Player) targets = minions;
                     else if (targetTeam == Team.Enemy) targets = enemies;
                     break;
-
-                case ActionWay.LessHp:
-                    break;
-
-                case ActionWay.MoreHp:
-                    break;
-
-                case ActionWay.Already:
-                    break;
-
-                case ActionWay.Fast:
-                    break;
-
-                case ActionWay.Slow:
-                    break;
             }
 
             return targets;
@@ -300,12 +287,23 @@ namespace Shy
         {
             bool isEnemy = enemies.Contains(_ch);
 
-            if (isEnemy) enemies.Remove(_ch);
-            else minions.Remove(_ch);
+            if (isEnemy)
+            {
+                enemies.Remove(_ch);
+            }
+            else
+            {
+                minions.Remove(_ch);
+            }
+
+            buffEvent -= _ch.BuffCheck;
 
             if(enemies.Count == 0 || minions.Count == 0) rewardPanel.Open(isEnemy, 10, 10);
 
-            for (int i = 0; i < dices.Count; i++) dices[i].CharacterDeadCheck(_ch);
+            for (int i = 0; i < dices.Count; i++)
+            {
+                dices[i].CharacterDeadCheck(_ch);
+            }
 
             if (isEnemy)
             {

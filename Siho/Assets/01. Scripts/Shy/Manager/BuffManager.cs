@@ -21,9 +21,11 @@ namespace Shy
         }
 
         private bool GetRand(int _per) => _per > Random.Range(0, 100);
+
         public BuffSO GetBuff(BuffType _buffType) => buffDictionary[_buffType];
 
         public void OnBuffEvent(BuffUseCondition _c, BuffUI _b, Character _t) => OnBuffEvent(_c, _b.GetBuffType(), _t, _b.GetCount());
+
         public void OnBuffEvent(BuffUseCondition _condition, BuffType _buffType, Character _target, int _value)
         {
             BuffUseCondition condition = GetBuff(_buffType).useCondition;
@@ -42,8 +44,10 @@ namespace Shy
                     OnEndEvent(_buffType, _target, _value);
                     break;
                 case BuffUseCondition.OnAttack:
+                    OnBeginEvent(_buffType, _target, _value);
                     break;
                 case BuffUseCondition.OnHit:
+                    OnHitEvent(_buffType, _target, _value);
                     break;
             }
         }
@@ -54,7 +58,7 @@ namespace Shy
             switch (_buffType)
             {
                 case BuffType.Brave:
-                    _target.SetBonusStat(StatEnum.Str, 15);
+                    _target.SetBonusStat(StatEnum.AdditionalDmg, 15);
                     break;
                 case BuffType.Gingerbread:
                     //피감량
@@ -82,7 +86,7 @@ namespace Shy
             switch (_buffType)
             {
                 case BuffType.Brave:
-                    _target.SetBonusStat(StatEnum.Str, -15);
+                    _target.SetBonusStat(StatEnum.AdditionalDmg, -15);
                     break;
                 case BuffType.Gingerbread:
                     //피감량 감소

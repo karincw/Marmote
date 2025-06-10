@@ -8,7 +8,7 @@ namespace Shy.Unit
     public class DiceUi : MonoBehaviour, IPointerClickHandler
     {
         #region Variable
-        private Image visual, icon, userIcon;
+        private Image visual, skillIcon, targetIcon, userIcon;
         private GameObject noUsedIcon;
 
         [SerializeField] private int dNum;
@@ -23,8 +23,8 @@ namespace Shy.Unit
         private void Awake()
         {
             visual = transform.Find("Visual").GetComponent<Image>();
-            icon = transform.Find("Icon").GetComponent<Image>();
-            userIcon = transform.Find("UserIcon").GetComponent<Image>();
+            skillIcon = transform.Find("Skill Icon").GetComponent<Image>();
+            userIcon = transform.Find("User Icon").GetComponent<Image>();
             noUsedIcon = transform.Find("None").gameObject;
         }
         
@@ -67,7 +67,7 @@ namespace Shy.Unit
         private void HideDice()
         {
             visual.gameObject.SetActive(false);
-            icon.gameObject.SetActive(false);
+            skillIcon.gameObject.SetActive(false);
             noUsedIcon.SetActive(false);
             DeleteUser();
         }
@@ -79,7 +79,7 @@ namespace Shy.Unit
             transform.localScale = Vector3.one;
             visual.gameObject.SetActive(true);
             dNum = Random.Range(0, 6);
-            icon.sprite = data.eyes[dNum].icon;
+            skillIcon.sprite = data.eyes[dNum].icon;
 
             //나중에 애니메이션으로 이동
             RollFin();
@@ -87,7 +87,7 @@ namespace Shy.Unit
 
         private void RollFin()
         {
-            icon.gameObject.SetActive(true);
+            skillIcon.gameObject.SetActive(true);
             BattleManager.Instance.CheckDiceAllFin(this);
         }
         #endregion

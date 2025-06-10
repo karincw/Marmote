@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 5306755105752521306}
   - component: {fileID: 6481565237355160971}
   - component: {fileID: 88658820645620503}
-  - component: {fileID: 6334665540111189133}
   - component: {fileID: 8844639389476046298}
   - component: {fileID: 5749050901819756789}
   m_Layer: 5
@@ -188,20 +187,6 @@ MonoBehaviour:
   healthGuage: {fileID: 4118900611917636570}
   effectGuage: {fileID: 5579517009831594864}
   dmgTxtPos: {fileID: 1590426556907016065}
---- !u!114 &6334665540111189133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291845407359286607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d8938d721f9b74996440b854f70556, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusAtk: 0
-  bonusDef: 0
 --- !u!222 &8844639389476046298
 CanvasRenderer:
   m_ObjectHideFlags: 0

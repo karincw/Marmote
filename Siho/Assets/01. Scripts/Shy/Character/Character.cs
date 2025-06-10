@@ -9,11 +9,12 @@ using UnityEngine.UI;
 
 namespace Shy.Unit
 {
-    [RequireComponent(typeof(HealthCompo), typeof(StatCompo))]
-    public class Character : MonoBehaviour, IPress, IBeginDragHandler, IDragHandler
+    [RequireComponent(typeof(HealthCompo), typeof(PressCompo))]
+    public abstract class Character : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         #region º¯¼ö
         private HealthCompo healthCompo;
+        protected PressCompo pressCompo;
         private StatCompo statCompo;
         private CharacterSO data;
 
@@ -25,9 +26,6 @@ namespace Shy.Unit
 
         private Image visual;
         private Transform parentTrm, uiTrm;
-
-        private bool pressing = false, openInfo;
-        private float pressStartTime;
         #endregion
 
         #region Get
@@ -63,15 +61,13 @@ namespace Shy.Unit
         public virtual void Awake()
         {
             healthCompo = GetComponent<HealthCompo>();
-            statCompo = GetComponent<StatCompo>();
+            pressCompo = GetComponent<PressCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
             uiTrm = transform.Find("Ui");
             parentTrm = transform.parent;
         }
 
-        private void ResetParent() => transform.SetParent(parentTrm);
-
-        public void Init(Team _team, CharacterSO _data)
+        public virtual void Init(Team _team, CharacterSO _data)
         {
             if (_data == null)
             {
@@ -87,12 +83,10 @@ namespace Shy.Unit
             hitEvent += () => StartCoroutine(HitAnime());
             hitEvent += () => HitBuffEvent();
 
-            statCompo.Init(_data.stats);
+            statCompo = new StatCompo(data.stats);
             healthCompo.Init(_data.stats.maxHp, hitEvent);
-
             buffs = new List<BuffUI>();
 
-            //Visual
             VisualUpdate(0);
         }
         #endregion
@@ -149,7 +143,7 @@ namespace Shy.Unit
         {
             VisualUpdate(0);
             healthCompo.cnt = 0;
-            ResetParent();
+            transform.SetParent(parentTrm);
         }
 
         public void OnValueEvent(int _value, EventType _type, int _ignoreDefPer)
@@ -199,52 +193,12 @@ namespace Shy.Unit
         }
         #endregion
 
-        #region Press
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (IsDie()) return;
-
-            pressing = true;
-            pressStartTime = Time.time;
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (IsDie()) return;
-
-            ExitPress();
-        }
-
-        public void ExitPress()
-        {
-            if (pressing)
-            {
-                InfoManager.Instance.CloseInfoPanel(this);
-                pressing = false;
-                openInfo = false;
-            }
-        }
-
-        public void LongPress()
-        {
-            Debug.Log("Long Press");
-            openInfo = true;
-            InfoManager.Instance.OpenInfoPanel(transform, this, data);
-        }
-
-        private void Update()
-        {
-            if(pressing && !openInfo)
-            {
-                if(Time.time - pressStartTime >= 1) LongPress();
-            }
-        }
-
+        #region Drag
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (IsDie()) return;
             Select.SelectManager.Instance.DragBegin(this);
-            ExitPress();
+            pressCompo.ExitPress();
         }
 
         public void OnDrag(PointerEventData eventData) { }

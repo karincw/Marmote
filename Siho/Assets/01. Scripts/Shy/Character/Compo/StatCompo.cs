@@ -7,7 +7,7 @@ public class StatCompo
     private Stat baseStat, bonusStat;
     [Range(0, 100)] private int reductionDmg = 0, additionalDmg = 0;
 
-    public void Init(Stat _stats)
+    public StatCompo(Stat _stats)
     {
         baseStat = _stats;
     }
@@ -33,11 +33,24 @@ public class StatCompo
     {
         switch (_stat)
         {
-            case StatEnum.MaxHp: bonusStat.maxHp += _value;
+            case StatEnum.MaxHp: 
+                bonusStat.maxHp += _value; 
                 break;
-            case StatEnum.Str: bonusStat.str += _value;
+
+            case StatEnum.Str:
+                bonusStat.str += _value;
                 break;
-            case StatEnum.Def: bonusStat.def += _value;
+
+            case StatEnum.Def:
+                bonusStat.def += _value;
+                break;
+
+            case StatEnum.AdditionalDmg:
+                additionalDmg += _value;
+                break;
+
+            case StatEnum.ReductionDmg:
+                reductionDmg += _value;
                 break;
         }
     }

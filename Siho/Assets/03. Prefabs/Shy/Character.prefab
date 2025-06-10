@@ -121,9 +121,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5073200837132628318}
+  - component: {fileID: 8658110111160845633}
   - component: {fileID: 3585603733716867462}
-  - component: {fileID: 5626284147956596930}
-  - component: {fileID: 3639703816268652447}
+  - component: {fileID: 3649269930317831765}
   - component: {fileID: 5360751797259787046}
   - component: {fileID: 2614860042086048590}
   m_Layer: 5
@@ -155,6 +155,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8658110111160845633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732855243611819123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a463d6224333248b401c49db7f6598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffGroup: {fileID: 2509873891216064086}
 --- !u!114 &3585603733716867462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +186,7 @@ MonoBehaviour:
   healthGuage: {fileID: 8697336861996818192}
   effectGuage: {fileID: 1763002010765346593}
   dmgTxtPos: {fileID: 1734780890926500370}
---- !u!114 &5626284147956596930
+--- !u!114 &3649269930317831765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,24 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732855243611819123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d45b14a6001530498500a9aae8507d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 445d194506d41cc43baaf2d5d02e5296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffGroup: {fileID: 2509873891216064086}
---- !u!114 &3639703816268652447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732855243611819123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d8938d721f9b74996440b854f70556, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusAtk: 0
-  bonusDef: 0
+  canPress: 1
+  pressing: 0
+  pressType: 0
 --- !u!222 &5360751797259787046
 CanvasRenderer:
   m_ObjectHideFlags: 0

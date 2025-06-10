@@ -105,4 +105,33 @@ namespace Shy
             else actionWay = _s.actionWay;
         }
     }
+
+    namespace Info
+    {
+        public struct CharacterInfo : IInfoData
+        {
+            public CharacterSO so;
+            public Character character;
+
+            public CharacterInfo(Character _ch, CharacterSO _d)
+            {
+                character = _ch;
+                so = _d;
+            }
+        }
+
+        public struct DiceInfo : IInfoData
+        {
+            public void SetData(Transform _panel)
+            {
+            }
+        }
+
+        public struct BuffInfo : IInfoData
+        {
+            public void SetData(Transform _panel)
+            {
+            }
+        }
+    }
 }

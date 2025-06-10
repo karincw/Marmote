@@ -1,9 +1,6 @@
-using System;
-using UnityEngine;
-
-namespace Shy
+namespace Shy.Anime
 {
-    public class Bool
+    public class AnimeBool
     {
         public static bool IsPetMotion(SkillMotion _motion)
         {

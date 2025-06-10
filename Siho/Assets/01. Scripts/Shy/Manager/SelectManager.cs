@@ -29,16 +29,12 @@ namespace Shy.Select
 
         public void DragBegin(Character _character)
         {
-            Debug.Log("Drag Start");
-
             dragState = true;
             selectedCharacter = _character;
         }
 
         private void DragEnd()
         {
-            Debug.Log("Drag End");
-
             dragState = false;
 
             ChangeDiceUi(diceUiCol);
