@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Shy.Target;
+using System.Collections.Generic;
 
 namespace Shy.Unit
 {
@@ -10,7 +11,7 @@ namespace Shy.Unit
         public abstract void UseEvent();
         public List<Character> GetTargets()
         {
-            targets = BattleManager.Instance.GetTargets(targetData);
+            targets = TargetManager.Instance.GetTargets(targetData);
             return targets;
         }
     }

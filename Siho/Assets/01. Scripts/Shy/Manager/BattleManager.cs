@@ -208,6 +208,8 @@ namespace Shy
         #endregion
 
         #region Skill
+        public List<Character> GetCharacters(Team _team) => (_team == Team.Player) ? minions : enemies;
+        
         private void SkillSubscribe(SkillSOBase _skillSO, DiceData _dData)
         {
             var _skill = _skillSO;
@@ -230,41 +232,6 @@ namespace Shy
                         break;
                 }
             }
-        }
-
-        public List<Character> GetTargets(TargetData _td)
-        {
-            List<Character> targets = new List<Character>();
-
-            Team targetTeam = _td.user.team;
-
-            if (_td.targetTeam == TargetWay.Opponenet)
-            {
-                if (targetTeam == Team.Player) targetTeam = Team.Enemy;
-                else targetTeam = Team.Player;
-            }
-
-            switch (_td.actionWay)
-            {
-                case ActionWay.Self:
-                    targets.Add(_td.user);
-                    break;
-
-                case ActionWay.Opposite:
-                    break;
-
-                case ActionWay.Random:
-                    if (targetTeam == Team.Player) targets.Add(minions[Random.Range(0, minions.Count)]);
-                    else if (targetTeam == Team.Enemy) targets.Add(enemies[Random.Range(0, enemies.Count)]);
-                    break;
-
-                case ActionWay.All:
-                    if (targetTeam == Team.Player) targets = minions;
-                    else if (targetTeam == Team.Enemy) targets = enemies;
-                    break;
-            }
-
-            return targets;
         }
         #endregion
 

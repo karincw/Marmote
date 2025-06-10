@@ -1,14 +1,16 @@
+using Shy.Target;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Shy.Unit
 {
     public class DiceUi : MonoBehaviour, IPointerClickHandler
     {
         #region Variable
-        private Image visual, skillIcon, targetIcon, userIcon;
+        private Image visual, targetIcon, userIcon;
+        private TextMeshProUGUI skillTmp;
         private GameObject noUsedIcon;
 
         [SerializeField] private int dNum;
@@ -23,8 +25,9 @@ namespace Shy.Unit
         private void Awake()
         {
             visual = transform.Find("Visual").GetComponent<Image>();
-            skillIcon = transform.Find("Skill Icon").GetComponent<Image>();
-            userIcon = transform.Find("User Icon").GetComponent<Image>();
+            userIcon = visual.transform.GetChild(0).GetComponent<Image>();
+            targetIcon = transform.Find("Target Sign").GetChild(0).GetComponent<Image>();
+            skillTmp = transform.Find("Skill Num").GetComponent<TextMeshProUGUI>();
             noUsedIcon = transform.Find("None").gameObject;
         }
         
@@ -40,6 +43,8 @@ namespace Shy.Unit
         #endregion
 
         #region Die
+        public void DiceDie() => isDead = true;
+
         private void DeleteUser()
         {
             user = null;
@@ -54,8 +59,6 @@ namespace Shy.Unit
             UseBlock();
         }
 
-        public void DiceDie() => isDead = true;
-
         public bool DiceDieCheck()
         {
             if (isDead) Destroy(gameObject);
@@ -67,8 +70,9 @@ namespace Shy.Unit
         private void HideDice()
         {
             visual.gameObject.SetActive(false);
-            skillIcon.gameObject.SetActive(false);
+            skillTmp.gameObject.SetActive(false);
             noUsedIcon.SetActive(false);
+
             DeleteUser();
         }
         #endregion
@@ -79,7 +83,10 @@ namespace Shy.Unit
             transform.localScale = Vector3.one;
             visual.gameObject.SetActive(true);
             dNum = Random.Range(0, 6);
-            skillIcon.sprite = data.eyes[dNum].icon;
+
+            var eye = data.GetEye(dNum);
+            skillTmp.SetText(eye.value.ToString());
+            //targetIcon.sprite =  TargetManager.Instance.GetIcon(eye.attackWay);
 
             //나중에 애니메이션으로 이동
             RollFin();
@@ -87,7 +94,7 @@ namespace Shy.Unit
 
         private void RollFin()
         {
-            skillIcon.gameObject.SetActive(true);
+            skillTmp.gameObject.SetActive(true);
             BattleManager.Instance.CheckDiceAllFin(this);
         }
         #endregion

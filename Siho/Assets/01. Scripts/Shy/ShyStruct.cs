@@ -134,4 +134,14 @@ namespace Shy
             }
         }
     }
+
+    namespace Target
+    {
+        [Show]
+        struct ActionTarget
+        {
+            public ActionWay way;
+            public Sprite icon;
+        }
+    }
 }
