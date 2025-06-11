@@ -15,7 +15,7 @@ namespace Shy.Info
         {
             if (_data is not CharacterInfo _cInfo) return;
 
-            nameTmp.SetText("");
+            nameTmp.SetText(_cInfo.so.characterName);
 
             hp.SetText(_cInfo.character.GetNowStat(StatEnum.Hp) + "/" + GetStatString(_cInfo.character, StatEnum.MaxHp));
             atk.SetText(GetStatString(_cInfo.character, StatEnum.Str));

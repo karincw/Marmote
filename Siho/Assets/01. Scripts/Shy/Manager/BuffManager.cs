@@ -13,11 +13,14 @@ namespace Shy
 
         private void Awake()
         {
+            if (Instance != null) { Destroy(gameObject); return; }
+            Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            if (Instance != null) { Destroy(gameObject); return; }
-
-            foreach (var _buff in buffs) buffDictionary.Add(_buff.buffType, _buff);
+            foreach (var _buff in buffs)
+            {
+                buffDictionary.Add(_buff.buffType, _buff);
+            }
         }
 
         private bool GetRand(int _per) => _per > Random.Range(0, 100);
@@ -50,6 +53,8 @@ namespace Shy
                     OnHitEvent(_buffType, _target, _value);
                     break;
             }
+
+            _target.HealthVisibleEvent(true);
         }
 
         #region Time

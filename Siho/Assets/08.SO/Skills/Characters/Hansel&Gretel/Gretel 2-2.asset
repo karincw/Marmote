@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionWay: 4
   targetTeam: 1
-  buff: {fileID: 11400000, guid: 614b0a0132c8e2b48ab924887918c9d5, type: 2}
+  bufftype: 5
   life: 3

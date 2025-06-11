@@ -25,7 +25,7 @@ namespace Shy.Target
 
             foreach (var _action in list)
             {
-                dic.Add(_action.way, _action.icon);
+                //dic.Add(_action.way, _action.icon);
             }
         }
 
