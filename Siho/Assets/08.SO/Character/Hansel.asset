@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hansel
   m_EditorClassIdentifier: 
   characterName: "\uD5E8\uC824"
-  characterType: 0
+  characterType: 3
   stats:
     maxHp: 15
     hp: 15

@@ -9,11 +9,11 @@ namespace karin.worldmap
 
         public override void Play()
         {
-            if (tileType.HasFlag(TileType.ChangeStage))
+            if (tileType == TileType.ChangeStage)
             {
                 WorldMapManager.Instance.SetNextStage();
             }
-            else if (tileType.HasFlag(TileType.Event))
+            else if (tileType == TileType.Event)
             {
                 EventManager.Instance.StatUpEvent();
             }

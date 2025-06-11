@@ -1,4 +1,5 @@
 using DG.Tweening;
+using karin.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,6 +57,7 @@ namespace karin.worldmap
                 yield return new WaitUntil(() => moveNext);
             }
             nowIndex += targetTiles.Count;
+            DataLinkManager.Instance.mapData.positionIndex = nowIndex;
             targetTiles[targetTiles.Count - 1].EnterAnimation();
             OnMoveEndEvent?.Invoke();
         }

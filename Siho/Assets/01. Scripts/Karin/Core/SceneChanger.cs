@@ -71,6 +71,7 @@ namespace karin
         }
         private void LoadingStart()
         {
+            Debug.Log("SceneLoadingStart");
             _group.DOFade(1, 0.5f);
             _group.interactable = true;
             _group.blocksRaycasts = true;

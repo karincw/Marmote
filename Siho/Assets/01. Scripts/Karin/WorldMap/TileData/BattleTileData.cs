@@ -10,7 +10,7 @@ namespace karin.worldmap
     {
         public override void Play()
         {
-            var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(Random.Range(2, 4));
+            var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(Random.Range(1, 4));
             DataStruct<EnemySO> eData = new DataStruct<EnemySO>();
             eData.list = enemys;
             DataLinkManager.Instance.SaveEnemyData(eData);

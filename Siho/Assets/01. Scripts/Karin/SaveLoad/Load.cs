@@ -1,5 +1,8 @@
+using karin.Core;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -13,18 +16,32 @@ namespace karin
             DontDestroyOnLoad(gameObject);
         }
 
-        [ContextMenu("LoadRunTest")]
-        public void LoadRunData()
+        protected override void Start()
         {
-            FileStream fs = new FileStream(Save.RunSaveFolderPath + @$"\{Save.Instance.SavedRuns[0]}.txt", FileMode.Open);
-            Encoding encoding = Encoding.UTF8;
-            byte[] readByte = new byte[1024];
-            fs.Read(readByte, 0, 1024);
-            string loadData = encoding.GetString(readByte);
-            RunSaveData data = JsonUtility.FromJson<RunSaveData>(loadData);
+            base.Start();
+            LoadGameData();
+        }
 
-            Debug.Log(JsonUtility.ToJson(data));
-            fs.Close();
+        [ContextMenu("LoadRunTest")]
+        public RunSaveData? LoadRunData(int loadIdx = 0)
+        {
+            RunSaveData? data = null;
+            try
+            {
+                FileStream fs = new FileStream(Save.RunSaveFolderPath + @$"\{Save.Instance.SavedRuns[loadIdx]}.txt", FileMode.Open);
+                Encoding encoding = Encoding.UTF8;
+                byte[] readByte = new byte[1024];
+                fs.Read(readByte, 0, 1024);
+                string loadData = encoding.GetString(readByte);
+                data = JsonUtility.FromJson<RunSaveData>(loadData);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex.Message);
+            }
+
+            return data;
         }
 
         [ContextMenu("LoadGameTest")]
@@ -36,9 +53,15 @@ namespace karin
             fs.Read(readByte, 0, 1024);
             string loadData = encoding.GetString(readByte);
             GameSaveData data = JsonUtility.FromJson<GameSaveData>(loadData);
-
-            Debug.Log(JsonUtility.ToJson(data));
             fs.Close();
+
+            Save.Instance.SavedRuns = data.saves;
+            DataLinkManager.Instance.Gem.Value = data.gem;
+            List<SelectCard> cards = FindObjectsByType<SelectCard>(FindObjectsSortMode.None).OrderBy(c => c.SiblingIndex).ToList();
+            for (int i = 0; i < data.characterLock.Length; i++)
+            {
+                cards[i].canPlay = data.characterLock[i];
+            }
         }
     }
 }

@@ -3,9 +3,7 @@ using karin.ui;
 using karin.worldmap;
 using Shy;
 using Shy.Unit;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace karin
@@ -33,7 +31,7 @@ namespace karin
     {
         public int stageIndex;
         public int positionIndex;
-        public List<TileDataSO> tileData;
+        public List<int> tileData;
         public Theme stageTheme;
         public Queue<EventSO> events;
     }
@@ -84,6 +82,7 @@ namespace karin
         public int stagePosition;
         public int[] tileData;
         public int coin;
+        public int minionCount;
         public int diceCount;
         public bool isBattle;
         public List<DimensionData> playerMinions;

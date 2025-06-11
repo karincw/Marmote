@@ -26,7 +26,7 @@ namespace karin.ui
             _events = new Queue<EventSO>();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             DataLinkManager.Instance.OnLoadWorldMap -= HandleLoadWorldMap;
             WorldMapManager.Instance.OnEnterNextStage -= HandleStageChange;

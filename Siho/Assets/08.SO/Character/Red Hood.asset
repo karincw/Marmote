@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Red Hood
   m_EditorClassIdentifier: 
   characterName: "\uBE68\uAC04 \uB9DD\uD1A0"
+  characterType: 1
   stats:
     maxHp: 15
     hp: 15

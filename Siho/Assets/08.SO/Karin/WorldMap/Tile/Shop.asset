@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a549a72a4106782459d1e192cee46f72, type: 3}
   m_Name: Shop
   m_EditorClassIdentifier: 
-  tileType: 4
+  tileType: 3
   tileColor: {r: 0.05885833, g: 0.6037736, b: 0.30277896, a: 1}
+  iconTexture: {fileID: 0}

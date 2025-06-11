@@ -34,7 +34,7 @@ namespace karin
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             IsDestoryed = true;
         }

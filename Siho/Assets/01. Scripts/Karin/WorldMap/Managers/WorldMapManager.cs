@@ -19,6 +19,8 @@ namespace karin.worldmap
         [SerializeField] private List<StageDataSO> _stageDatas;
         [Space(5)]
         [SerializeField, SerializedDictionary("Theme", "Theme Enemys")] private SerializedDictionary<Theme, StageEnemyList> _themeToEnemyList;
+        [Space(5)]
+        [SerializeField, SerializedDictionary("Type", "Tile")] private SerializedDictionary<TileType, TileDataSO> _typeToTileList;
 
         [Space(5)]
         public int tileCount = 0;
@@ -77,7 +79,7 @@ namespace karin.worldmap
             stageTheme = data.stageTheme;
             for (int i = 0; i < _tiles.Count; i++)
             {
-                _tiles[i].TileChange(data.tileData[i]);
+                _tiles[i].TileChange(_typeToTileList[(TileType)data.tileData[i]]);
             }
         }
 
