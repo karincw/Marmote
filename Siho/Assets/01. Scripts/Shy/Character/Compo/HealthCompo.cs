@@ -3,32 +3,34 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
+using System;
 
 namespace Shy.Unit
 {
     public class HealthCompo : MonoBehaviour
     {
-        [SerializeField] private int maxHp, hp, shield;
+        private int maxHp;
+        [SerializeField] private int hp, shield;
         [SerializeField] private Image healthGuage, effectGuage;
         [SerializeField] private Transform dmgTxtPos;
 
         internal bool isDie = false;
-        internal float cnt;
+        internal int cnt;
 
         private UnityAction hitEvent;
 
         private float GetHpPer() => hp / (float)maxHp;
 
-        public void Init(int _hp, UnityAction _action)
+        public void Init(int _maxHp, int _hp, UnityAction _action)
         {
-            maxHp = hp = _hp;
+            maxHp = hp = _maxHp;
+            //hp = _hp;
             hitEvent = _action;
 
-            float healthPer = GetHpPer();
-            healthGuage.fillAmount = healthPer;
-            effectGuage.fillAmount = healthPer;
+            UpdateHealth(0);
         }
 
+        #region Event
         public IEnumerator OnDamageEvent(int _value)
         {
             if (_value > 0)
@@ -66,15 +68,21 @@ namespace Shy.Unit
         {
             shield += _value;
         }
+        #endregion
 
         public int GetHealth() => hp;
-        public int GetMaxHealth() => maxHp;
 
-        public void UpdateHealth()
+        public void UpdateHealth(float _time = 0.35f)
         {
             float healthPer = GetHpPer();
             healthGuage.fillAmount = healthPer;
-            effectGuage.DOFillAmount(healthPer, 0.35f);
+            effectGuage.DOFillAmount(healthPer, _time);
+        }
+
+        public void SetMaxHp(int _hp)
+        {
+            maxHp = _hp;
+            if (maxHp < hp) hp = maxHp;
         }
     }
 }

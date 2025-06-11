@@ -1,5 +1,6 @@
 using UnityEngine;
 using Shy.Unit;
+using Shy.Dice;
 
 namespace Shy.Select
 {
@@ -7,11 +8,11 @@ namespace Shy.Select
     {
         public static SelectManager Instance;
 
-        private bool dragState = false;
-        private Character selectedCharacter = null;
+        private bool dragState = false, canDrag = true;
+        private DiceUi selectedDice = null;
         private Vector3 gizmoPos;
 
-        private Collider2D diceUiCol = null;
+        private Collider2D characterCol = null;
 
         private void Awake()
         {
@@ -25,32 +26,42 @@ namespace Shy.Select
                 Destroy(gameObject);
                 return;
             }
+
+            DontDestroyOnLoad(gameObject);
         }
 
-        public void DragBegin(Character _character)
+        public void DragSet(bool _drag) => canDrag = _drag;
+
+        #region Drag Event
+        public void DragBegin(DiceUi _dice)
         {
+            if (dragState || !canDrag) return;
+
             dragState = true;
-            selectedCharacter = _character;
+            selectedDice = _dice;
         }
 
         private void DragEnd()
         {
             dragState = false;
 
-            ChangeDiceUi(diceUiCol);
+            if(characterCol != null)
+            {
+                var _user = characterCol.GetComponentInParent<Character>();
+                if(_user.team == selectedDice.team)
+                {
+                    selectedDice.SelectUser(_user);
+                }
+            }
+
             BattleManager.Instance.EndCheck();
 
-            selectedCharacter = null;
-            diceUiCol = null;
+            selectedDice = null;
+            characterCol = null;
         }
+        #endregion
 
-        private void ChangeDiceUi(Collider2D _hit)
-        {
-            if (_hit == null) return;
-
-            _hit.GetComponent<DiceUi>().SelectUser(selectedCharacter);
-        }
-
+        #region Ray
         private void Update()
         {
             if (dragState)
@@ -60,8 +71,8 @@ namespace Shy.Select
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                 gizmoPos = mousePos;
 
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, LayerMask.GetMask("DiceUi"));
-                if (hit.collider != diceUiCol) diceUiCol = hit.collider;
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.one * 0.7f, 0, LayerMask.GetMask("Character"));
+                if (hit.collider != characterCol) characterCol = hit.collider;
 
                 Touch touch = Input.GetTouch(0);
                 if (touch.phase == TouchPhase.Ended)
@@ -74,7 +85,8 @@ namespace Shy.Select
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawCube(gizmoPos, Vector3.one);
+            Gizmos.DrawCube(gizmoPos, Vector2.one * 0.7f);
         }
+        #endregion
     }
 }

@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: "\uD654\uC0C1"
   explain: "(\uC2A4\uD0DD * 2)\uB9CC\uD07C\uC758 \uD53C\uD574"
   buffType: 5
-  sprite: {fileID: 21300000, guid: 6c801baec2bf30a48a30f9f34a1b38c3, type: 3}
+  sprite: {fileID: 21300000, guid: 60adf702b6cf3184d8bd62418126abf2, type: 3}
   useCondition: 1
   removeCondition: 0

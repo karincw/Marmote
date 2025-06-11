@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Shy.Anime;
 using Shy.Unit;
+using Shy.Dice;
 
 namespace Shy
 {
@@ -91,12 +92,12 @@ namespace Shy
             {
                 if (i >= _so.Length || _so[i] == null)
                 {
-                    characterList[i].Init(_team, null);
+                    characterList[i].Init(null);
                     characterList.RemoveAt(i);
                     continue;
                 }
 
-                characterList[i].Init(_team, _so[i]);
+                characterList[i].Init(_so[i]);
                 buffEvent += characterList[i].BuffCheck;
                 i++;
             }
@@ -144,7 +145,11 @@ namespace Shy
         {
             foreach (DiceUi _dice in enDices)
             {
-                if (_dice.CharacterCheck(null)) return;
+                if (_dice.CharacterCheck(null))
+                {
+                    endBtn.SetActive(false);
+                    return;
+                }
             }
 
             endBtn.SetActive(true);
@@ -154,7 +159,7 @@ namespace Shy
         {
             diceLoop = 0;
 
-            for (int i = 0; i < dices.Count; i++) dices[i].UseCheck();
+            for (int i = 0; i < dices.Count; i++) dices[i].UserCheck();
 
             endBtn.SetActive(false);
             StartCoroutine(DiceDelay());

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1787845927054902237}
   - component: {fileID: 5917231222254489788}
   - component: {fileID: 4998331822043096402}
-  m_Layer: 5
+  - component: {fileID: 2650269907686966523}
+  m_Layer: 14
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,6 +76,52 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!61 &2650269907686966523
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262410460941185237}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 250, y: 250}
+  m_EdgeRadius: 0
 --- !u!1 &1048758583902849827
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +171,7 @@ GameObject:
   - component: {fileID: 5306755105752521306}
   - component: {fileID: 6481565237355160971}
   - component: {fileID: 88658820645620503}
+  - component: {fileID: 7754054073890090476}
   - component: {fileID: 8844639389476046298}
   - component: {fileID: 5749050901819756789}
   m_Layer: 5
@@ -153,7 +201,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 250}
+  m_SizeDelta: {x: 350, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6481565237355160971
 MonoBehaviour:
@@ -167,7 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c64c425f662334390e5d50058bebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 2
   buffGroup: {fileID: 2090660360906120669}
+  posColor: {r: 0, g: 0, b: 0, a: 1}
   actSign: {fileID: 2558487368498495249}
 --- !u!114 &88658820645620503
 MonoBehaviour:
@@ -181,12 +231,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d48208e27529440b1550d1d6e22d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 0
   hp: 0
   shield: 0
   healthGuage: {fileID: 4118900611917636570}
   effectGuage: {fileID: 5579517009831594864}
   dmgTxtPos: {fileID: 1590426556907016065}
+--- !u!114 &7754054073890090476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291845407359286607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445d194506d41cc43baaf2d5d02e5296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPress: 1
+  pressing: 0
+  pressType: 0
 --- !u!222 &8844639389476046298
 CanvasRenderer:
   m_ObjectHideFlags: 0

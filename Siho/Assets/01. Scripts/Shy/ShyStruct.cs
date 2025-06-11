@@ -1,5 +1,6 @@
 using Shy.Unit;
 using UnityEngine;
+using UnityEngine.UI;
 using Show = System.SerializableAttribute;
 
 namespace Shy
@@ -142,6 +143,40 @@ namespace Shy
         {
             public ActionWay way;
             public Sprite icon;
+        }
+    }
+
+    namespace Dice
+    {
+        struct UserIcon
+        {
+            public Image userIcon, userMask, maskPaint;
+            public void SetVariable(Transform _visual)
+            {
+                userIcon = _visual.Find("User Icon").GetComponent<Image>();
+                userMask = _visual.Find("User Mask").GetComponent<Image>();
+                maskPaint = userMask.transform.Find("Paint").GetComponent<Image>();
+            }
+
+            public void UpdateUser(Character _ch)
+            {
+                userIcon.sprite = userMask.sprite = _ch.GetIcon();
+                maskPaint.color = _ch.posColor;
+
+                IconVisible(true);
+            }
+
+            public void DeleteUser()
+            {
+                userIcon.sprite = userMask.sprite = null;
+                IconVisible(false);
+            }
+
+            private void IconVisible(bool _show)
+            {
+                userIcon.gameObject.SetActive(_show);
+                userMask.gameObject.SetActive(_show);
+            }
         }
     }
 }

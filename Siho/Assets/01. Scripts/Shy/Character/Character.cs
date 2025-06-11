@@ -4,13 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Shy.Unit
 {
     [RequireComponent(typeof(HealthCompo), typeof(PressCompo))]
-    public abstract class Character : MonoBehaviour, IBeginDragHandler, IDragHandler
+    public abstract class Character : MonoBehaviour
     {
         #region º¯¼ö
         private HealthCompo healthCompo;
@@ -18,7 +17,7 @@ namespace Shy.Unit
         private StatCompo statCompo;
         private CharacterSO data;
 
-        internal Team team = Team.None;
+        public Team team = Team.None;
         internal UnityAction visualAction;
 
         internal List<BuffUI> buffs;
@@ -26,6 +25,8 @@ namespace Shy.Unit
 
         private Image visual;
         private Transform parentTrm, uiTrm;
+
+        public Color posColor;
         #endregion
 
         #region Get
@@ -33,22 +34,7 @@ namespace Shy.Unit
         public Transform GetVisual() => visual.transform;
         public bool IsDie() => healthCompo.isDie;
         public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
-        public void SetBonusStat(StatEnum _stat, int _value) => statCompo.UpdateBonusStat(_stat, _value);
-        public int GetBaseStat(StatEnum _stat)
-        {
-            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
-            return statCompo.GetBaseStat(_stat);
-        }
-        public int GetBonusStat(StatEnum _stat)
-        {
-            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
-            return statCompo.GetBonusStat(_stat);
-        }
-        public int GetNowStat(StatEnum _stat)
-        {
-            if (_stat == StatEnum.Hp) return healthCompo.GetHealth();
-            return statCompo.GetApplyStat(_stat);
-        }
+        
         public int GetStackCnt(BuffType _type)
         {
             int _total = 0;
@@ -67,7 +53,7 @@ namespace Shy.Unit
             parentTrm = transform.parent;
         }
 
-        public virtual void Init(Team _team, CharacterSO _data)
+        public virtual void Init(CharacterSO _data)
         {
             if (_data == null)
             {
@@ -76,7 +62,6 @@ namespace Shy.Unit
             }
 
             data = _data;
-            team = _team;
 
             UnityAction hitEvent = null;
             hitEvent += () => VisualUpdate(4);
@@ -84,7 +69,7 @@ namespace Shy.Unit
             hitEvent += () => HitBuffEvent();
 
             statCompo = new StatCompo(data.stats);
-            healthCompo.Init(_data.stats.maxHp, hitEvent);
+            healthCompo.Init(_data.stats.maxHp, _data.stats.hp, hitEvent);
             buffs = new List<BuffUI>();
 
             VisualUpdate(0);
@@ -193,15 +178,28 @@ namespace Shy.Unit
         }
         #endregion
 
-        #region Drag
-        public void OnBeginDrag(PointerEventData eventData)
+        #region Stat
+        public void SetBonusStat(StatEnum _stat, int _value)
         {
-            if (IsDie()) return;
-            Select.SelectManager.Instance.DragBegin(this);
-            pressCompo.ExitPress();
+            statCompo.UpdateBonusStat(_stat, _value);
+            if (_stat == StatEnum.Hp) healthCompo.SetMaxHp(GetNowStat(StatEnum.Hp));
         }
 
-        public void OnDrag(PointerEventData eventData) { }
+        public int GetBaseStat(StatEnum _stat)
+        {
+            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
+            return statCompo.GetBaseStat(_stat);
+        }
+        public int GetBonusStat(StatEnum _stat)
+        {
+            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
+            return statCompo.GetBonusStat(_stat);
+        }
+        public int GetNowStat(StatEnum _stat)
+        {
+            if (_stat == StatEnum.Hp) return healthCompo.GetHealth();
+            return statCompo.GetApplyStat(_stat);
+        }
         #endregion
     }
 }

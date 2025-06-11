@@ -15,9 +15,9 @@ namespace Shy.Unit
             actSign.gameObject.SetActive(false);
         }
 
-        public override void Init(Team _team, CharacterSO _data)
+        public override void Init(CharacterSO _data)
         {
-            base.Init(_team, _data);
+            base.Init(_data);
             pressCompo.Init(InfoType.Enemy, () =>
             {
                 InfoManager.Instance.OpenPanel(InfoType.Enemy, new Info.CharacterInfo(this, _data));

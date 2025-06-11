@@ -1,17 +1,19 @@
-using Shy.Target;
+using Shy.Unit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Shy.Unit
+namespace Shy.Dice
 {
-    public class DiceUi : MonoBehaviour, IPointerClickHandler
+    public class DiceUi : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler
     {
         #region Variable
-        private Image visual, targetIcon, userIcon;
+        private Transform visual;
+        private Image targetIcon;
         private TextMeshProUGUI skillTmp;
         private GameObject noUsedIcon;
+        private UserIcon userIcon;
 
         [SerializeField] private int dNum;
         [SerializeField] private DiceSO data;
@@ -24,8 +26,8 @@ namespace Shy.Unit
         #region Init
         private void Awake()
         {
-            visual = transform.Find("Visual").GetComponent<Image>();
-            userIcon = visual.transform.GetChild(0).GetComponent<Image>();
+            visual = transform.Find("Visual");
+            userIcon.SetVariable(visual);
             targetIcon = transform.Find("Target Sign").GetChild(0).GetComponent<Image>();
             skillTmp = transform.Find("Skill Num").GetComponent<TextMeshProUGUI>();
             noUsedIcon = transform.Find("None").gameObject;
@@ -35,21 +37,20 @@ namespace Shy.Unit
         {
             gameObject.SetActive(true);
             data = _so;
-            visual.color = data.color;
+            visual.GetComponent<Image>().color = data.color;
             team = _team;
             isDead = false;
             HideDice();
         }
         #endregion
 
-        #region Die
+        #region Delete
         public void DiceDie() => isDead = true;
 
         private void DeleteUser()
         {
             user = null;
-            userIcon.sprite = null;
-            userIcon.gameObject.SetActive(false);
+            userIcon.DeleteUser();
         }
 
         public void CharacterDeadCheck(Character _user)
@@ -61,8 +62,14 @@ namespace Shy.Unit
 
         public bool DiceDieCheck()
         {
-            if (isDead) Destroy(gameObject);
-            else HideDice();
+            if (isDead)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                HideDice();
+            }
 
             return isDead;
         }
@@ -72,6 +79,7 @@ namespace Shy.Unit
             visual.gameObject.SetActive(false);
             skillTmp.gameObject.SetActive(false);
             noUsedIcon.SetActive(false);
+            targetIcon.transform.parent.gameObject.SetActive(false);
 
             DeleteUser();
         }
@@ -95,6 +103,7 @@ namespace Shy.Unit
         private void RollFin()
         {
             skillTmp.gameObject.SetActive(true);
+            targetIcon.transform.parent.gameObject.SetActive(true);
             BattleManager.Instance.CheckDiceAllFin(this);
         }
         #endregion
@@ -120,19 +129,26 @@ namespace Shy.Unit
             if (!BattleManager.Instance.CanSelectChacter(_ch)) return;
 
             user = _ch;
-            userIcon.gameObject.SetActive(true);
-            userIcon.sprite = _ch.GetIcon();
+            userIcon.UpdateUser(_ch);
         }
 
-        public void UseCheck()
+        public void UserCheck()
         {
             if (user == null) UseBlock();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (team == Team.Enemy) BattleManager.Instance.EndCheck();
             DeleteUser();
         }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            Select.SelectManager.Instance.DragBegin(this);
+        }
+
+        public void OnDrag(PointerEventData eventData) { }
         #endregion
     }
 }
