@@ -6,12 +6,15 @@ namespace karin
     [RequireComponent(typeof(CanvasGroup))]
     public class CanvasFadeObject : MonoBehaviour
     {
-        private CanvasGroup _canvasGroup;
-        [SerializeField] private float fadeTime;
+        protected CanvasGroup _canvasGroup;
+        [SerializeField] protected float fadeTime;
 
         protected virtual void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
         }
 
         public virtual void Open()

@@ -3,18 +3,18 @@ using Shy;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace karin
 {
     public class LoadButton : CanvasFadeObject
     {
-        [SerializeField] private int loadIndex;
+        [SerializeField] private int _loadIndex;
 
         private TMP_Text _titleText;
         private TMP_Text _minionText;
         private TMP_Text _stageText;
         private RunSaveData? _runData;
-        private CanvasGroup _canvasGroup;
 
         protected override void Awake()
         {
@@ -22,34 +22,37 @@ namespace karin
             _titleText = transform.Find("Title").GetComponent<TMP_Text>();
             _stageText = transform.Find("StageText").GetComponent<TMP_Text>();
             _minionText = transform.Find("MinionText").GetComponent<TMP_Text>();
-            _canvasGroup = GetComponent<CanvasGroup>();
-
+            _canvasGroup.alpha = 1;
         }
 
+        private void Start()
+        {
+            Button b = GetComponent<Button>();
+            b.onClick.AddListener(() => Save.Instance.SaveGameData());
+        }
 
         public void PlayAgain()
         {
             DataLinkManager.Instance.SetLoadData(_runData.Value);
             DataManager.Instance.SetLoadData(_runData.Value);
             //data.isBattle = SceneManager.GetActiveScene().name != "WorldMap";
-            Save.Instance.PlayIndex = loadIndex;
             SceneChanger.Instance.LoadScene("WorldMap");
         }
 
         public void SetUpViewData()
         {
-            _runData = Load.Instance.LoadRunData(loadIndex);
+            _runData = Load.Instance.LoadRunData(_loadIndex);
             if (!_runData.HasValue)
             {
                 _minionText.text = "";
                 _stageText.text = "";
-                _titleText.text = "Save does not exist";
+                _titleText.text = "Empty Save";
                 Fade(false);
                 return;
             }
             Fade(true);
 
-            _titleText.text = $"Save {loadIndex}";
+            _titleText.text = $"Save {_loadIndex}";
             _stageText.text = $"Stage : {_runData.Value.stageIndex + 1}";
             StringBuilder sb = new StringBuilder();
             sb.Append("Minions : ");

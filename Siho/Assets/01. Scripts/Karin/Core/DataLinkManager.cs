@@ -54,6 +54,13 @@ namespace karin.Core
             }
         }
 
+        public void SetMapData()
+        {
+            mapData.stageIndex = WorldMapManager.Instance.stageIndex;
+            mapData.tileData = WorldMapManager.Instance.GetStageTileData(0).Select(t => (int)t.tileType).ToList();
+            mapData.stageTheme = WorldMapManager.Instance.stageTheme;
+        }
+
         public void SetLoadData(RunSaveData data)
         {
             mapData.stageTheme = (Theme)data.theme;
@@ -61,8 +68,13 @@ namespace karin.Core
             mapData.positionIndex = data.stagePosition;
             mapData.tileData = data.tileData.ToList();
             Coin.Value = data.coin;
+            isFirstLoading = false;
         }
 
+        public void ResetGame()
+        {
+            isFirstLoading = true;
+        }
 
         public void SaveEnemyData(DataStruct<EnemySO> data)
         {

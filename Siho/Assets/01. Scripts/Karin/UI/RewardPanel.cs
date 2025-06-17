@@ -1,4 +1,5 @@
 using DG.Tweening;
+using karin.Core;
 using TMPro;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace karin
             _titleText.text = isWin ? "Win" : "Defeat";
             _gemText.SetText(gem.ToString());
             _coinText.SetText(coin.ToString());
+            if(!isWin) DataLinkManager.Instance.ResetGame();
         }
 
         public void Init()

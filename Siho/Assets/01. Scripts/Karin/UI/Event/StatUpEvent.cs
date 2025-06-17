@@ -36,6 +36,7 @@ namespace karin.ui
             //_eventImage.sprite = eventData.eventSprite;
             _eventText.text = eventData.EventChat;
             currentEvent = eventData as StatUpEventSO;
+            Debug.Log(eventData.name);
 
             var currentbtns = _selectPanel.SetUp(eventData.branchCount);
 

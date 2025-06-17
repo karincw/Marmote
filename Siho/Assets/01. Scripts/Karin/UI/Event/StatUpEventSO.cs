@@ -13,6 +13,7 @@ namespace karin.ui
         {
             var targetAction = actions[index];
             var target = ShyDataManager.Instance.minions[actions[index].index];
+            if (target == null) return;
             foreach (var change in targetAction.branchActions)
             {
                 target.stats[change.targetStat] += change.statIncresement;

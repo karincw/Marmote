@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace karin
 {
@@ -35,7 +36,7 @@ namespace karin
                 string loadData = encoding.GetString(readByte);
                 data = JsonUtility.FromJson<RunSaveData>(loadData);
                 fs.Close();
-            }
+            }   
             catch (Exception ex)
             {
                 Debug.LogError(ex.Message);
@@ -55,7 +56,7 @@ namespace karin
             GameSaveData data = JsonUtility.FromJson<GameSaveData>(loadData);
             fs.Close();
 
-            Save.Instance.SavedRuns = data.saves;
+            Save.Instance.SavedRuns = data.saves.ToArray();
             DataLinkManager.Instance.Gem.Value = data.gem;
             List<SelectCard> cards = FindObjectsByType<SelectCard>(FindObjectsSortMode.None).OrderBy(c => c.SiblingIndex).ToList();
             for (int i = 0; i < data.characterLock.Length; i++)

@@ -11,7 +11,7 @@ namespace karin
         [SerializeField] private float _closeDuration;
 
         private RewardPanel _rewardPanel;
-        private SceneChangeBtn _sceneBtn;
+        private MoveButton _sceneBtn;
         private Image _bg;
         private Color _bgAlphaZero;
         private readonly Vector2 offsetPanelPosition = new Vector2(0, 1500);
@@ -20,7 +20,7 @@ namespace karin
         {
             _rewardPanel = GetComponentInChildren<RewardPanel>();
             _bg = transform.Find("BG").GetComponent<Image>();
-            _sceneBtn = GetComponentInChildren<SceneChangeBtn>();
+            _sceneBtn = GetComponentInChildren<MoveButton>();
             _bgAlphaZero = _bg.color;
             _bgAlphaZero.a = 0;
             _bg.color = _bgAlphaZero;

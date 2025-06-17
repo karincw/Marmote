@@ -15,7 +15,7 @@ namespace karin.worldmap
             }
             else if (tileType == TileType.Event)
             {
-                EventManager.Instance.StatUpEvent();
+                EventManager.Instance.OpenEvent();
             }
         }
     }

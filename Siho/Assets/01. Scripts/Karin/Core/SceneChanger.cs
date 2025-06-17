@@ -45,6 +45,8 @@ namespace karin
             }
             yield return _waitDelay;
             LoadingComplete();
+            if (sceneName == "Title")
+                Load.Instance.LoadGameData();
         }
         private IEnumerator LoadSceneAsync(int sceneIdx)
         {

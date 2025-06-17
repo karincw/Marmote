@@ -1,6 +1,8 @@
 using karin.Core;
+using karin.worldmap;
 using Shy;
 using Shy.Unit;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,15 +16,13 @@ namespace karin
     {
         public static string RunSaveFolderPath;
         public static string GameSavePath;
-        public int PlayIndex;
-        public List<string> SavedRuns;
+        public string[] SavedRuns;
         private GameSaveData _titleData;
 
         private void Awake()
         {
             if (Instance == null) { _instance = this; }
             DontDestroyOnLoad(gameObject);
-            PlayIndex = -1;
             RunSaveFolderPath = @$"{Application.persistentDataPath}\RunData";
             GameSavePath = @$"{Application.persistentDataPath}\GameData.txt";
 
@@ -30,9 +30,20 @@ namespace karin
             if (di.Exists == false)
                 di.Create();
             _titleData = new();
+            SavedRuns = new string[3];
         }
 
         private void OnDisable()
+        {
+            SaveGameData();
+        }
+
+        private void OnDestroy()
+        {
+            SaveGameData();
+        }
+
+        private void OnApplicationQuit()
         {
             SaveGameData();
         }
@@ -45,17 +56,18 @@ namespace karin
         }
 
         [ContextMenu("SaveRunTest")]
-        public void SaveRunData()
+        public void SaveRunData(int saveIndex)
         {
             RunSaveData data = new RunSaveData();
 
             DataLinkManager dataLinkManager = DataLinkManager.Instance;
+            
 
             data.playTime = (int)Time.time - dataLinkManager.runStartTime;
-            data.theme = (int)dataLinkManager.mapData.stageTheme;
-            data.stageIndex = (int)dataLinkManager.mapData.stageIndex;
+            data.theme = (int)WorldMapManager.Instance.stageTheme;
+            data.stageIndex = WorldMapManager.Instance.stageIndex;
             data.stagePosition = (int)dataLinkManager.mapData.positionIndex;
-            data.tileData = dataLinkManager.mapData.tileData.ToArray();
+            data.tileData = WorldMapManager.Instance.GetStageTileData(0).Select(t => (int)t.tileType).ToArray();
             data.coin = dataLinkManager.Coin.Value;
 
             DataManager dataManager = DataManager.Instance;
@@ -88,23 +100,25 @@ namespace karin
                 }
             }
 
+            data.RunIndex = saveIndex;
+            if (File.Exists(Path.Combine(RunSaveFolderPath + @$"\{data.RunIndex.ToString()}.txt")))
+            {
+                try
+                {
+                    File.Delete(Path.Combine(RunSaveFolderPath + @$"\{data.RunIndex.ToString()}.txt"));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("파일 삭제 중 오류 발생: " + ex.Message);
+                }
+            }
+
             FileStream fs;
-            if (PlayIndex == -1)
-            {
-                //data.RunIndex = SavedRuns.Count;
-                data.RunIndex = 0;
-                fs = new FileStream(RunSaveFolderPath + @$"\{data.RunIndex.ToString()}.txt", FileMode.OpenOrCreate);
-                SavedRuns.Add(data.RunIndex.ToString());
-            }
-            else
-            {
-                data.RunIndex = PlayIndex;
-                fs = new FileStream(RunSaveFolderPath + $@"\{data.RunIndex.ToString()}.txt", FileMode.Truncate);
-            }
+            fs = new FileStream(Path.Combine(RunSaveFolderPath + @$"\{data.RunIndex.ToString()}.txt"), FileMode.Create);
             Encoding encoding = Encoding.UTF8;
             fs.Write(encoding.GetBytes(JsonUtility.ToJson(data)));
-            PlayIndex = data.RunIndex;
             fs.Close();
+            SavedRuns[data.RunIndex] = data.RunIndex.ToString();
         }
 
         [ContextMenu("SaveGameTest")]
@@ -116,7 +130,7 @@ namespace karin
             data.masterVolume = 100;
             data.fXVolume = 100;
             data.effectVolume = 100;
-            data.saves = SavedRuns;
+            data.saves = SavedRuns.ToList();
             if (SceneManager.GetActiveScene().name == "Title")
                 SaveCharacterLockData();
             data.characterLock = _titleData.characterLock;
