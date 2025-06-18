@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,9 @@ namespace karin
         private int _fadeHash = Shader.PropertyToID("_Radius");
         private float _currentFade;
 
+        public static Action<string> OnSceneChange;
+        public static Action<string> OnSceneChanged;
+
         private void Awake()
         {
             if (Instance == null) { _instance = this; }
@@ -27,8 +31,9 @@ namespace karin
 
         public void LoadScene(string sceneName)
         {
-            //Debug.LogWarning("æ¿ ¿Ãµø ∏∑¿Ω");
-            //return;
+            OnSceneChange?.Invoke(sceneName);
+            Debug.LogWarning("æ¿ ¿Ãµø ∏∑¿Ω");
+            return;
             LoadingStart();
             StartCoroutine("LoadSceneAsync", sceneName);
         }
@@ -45,7 +50,10 @@ namespace karin
                     asyncOper.allowSceneActivation = true;
                 }
                 yield return null;
+                _sp.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
+                _sp.transform.rotation = Camera.main.transform.rotation;
             }
+            OnSceneChanged?.Invoke(sceneName);
             yield return _waitDelay;
             LoadingComplete();
         }

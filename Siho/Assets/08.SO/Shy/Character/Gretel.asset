@@ -15,10 +15,10 @@ MonoBehaviour:
   characterName: "\uADF8\uB808\uD154"
   characterType: 4
   stats:
-    maxHp: 15
-    hp: 27
-    str: 56
-    def: 5
+    maxHp: 50
+    hp: 50
+    str: 50
+    def: 10
   skills:
   - {fileID: 11400000, guid: 4bb6434884f28044696024d2d9366d7c, type: 2}
   - {fileID: 11400000, guid: 38ac93c446bdad74ebc00a28e31fe2a2, type: 2}
@@ -28,6 +28,6 @@ MonoBehaviour:
   skillAnime: {fileID: 21300000, guid: 71db3e4893f8fa4459c4d836c2dd597f, type: 3}
   skill2Anime: {fileID: 21300000, guid: 32c532683dccb3b41a681ada7115cf26, type: 3}
   hitAnime: {fileID: 21300000, guid: bb842f4db4017574a81b0af018014f70, type: 3}
-  startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  DiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
   cardImage: {fileID: -1214597918652890836, guid: 869bb2380103a2745a57374b2dbe9cf0, type: 3}
   personalColor: {r: 1.3252692, g: 1.0793939, b: 0.41258368, a: 1}

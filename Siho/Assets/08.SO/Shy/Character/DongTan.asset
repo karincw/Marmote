@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: DongTan
   m_EditorClassIdentifier: 
   characterName: "\uB3D9\uD0C4 \uB9DD\uD1A0"
+  characterType: 1
   stats:
-    maxHp: 15
-    hp: 15
-    str: 10
-    def: 5
+    maxHp: 9999
+    hp: 9999
+    str: 9999
+    def: 9999
   skills:
   - {fileID: 11400000, guid: 5b69c789060f68440b33f608524ef2d9, type: 2}
   - {fileID: 11400000, guid: 03ab5b3aafd7a5b429a2b4da4956b258, type: 2}
@@ -27,6 +28,6 @@ MonoBehaviour:
   skillAnime: {fileID: 1586033734661383559, guid: eef654b38a35ed146a2d1fede234b69b, type: 3}
   skill2Anime: {fileID: 1586033734661383559, guid: eef654b38a35ed146a2d1fede234b69b, type: 3}
   hitAnime: {fileID: 1586033734661383559, guid: eef654b38a35ed146a2d1fede234b69b, type: 3}
-  startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  DiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
   cardImage: {fileID: 1586033734661383559, guid: eef654b38a35ed146a2d1fede234b69b, type: 3}
   personalColor: {r: 0.94280887, g: 0.94280887, b: 0.94280887, a: 1}

@@ -21,7 +21,7 @@ namespace Shy.Unit
         public Sprite hitAnime;
 
         [Header("UI-Settings")]
-        public DiceSO startDiceSO;
+        public DiceSO DiceSO;
         public Sprite cardImage;
         [ColorUsage(true)] public Color personalColor;
     }

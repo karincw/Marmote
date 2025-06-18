@@ -32,7 +32,7 @@ namespace karin
         [ContextMenu("DiceRoll")]
         public void DiceRoll()
         {
-            Vector3 targetRotation = transform.localEulerAngles + _faceRotations[0] * Random.Range(-4, 4) + _faceRotations[1] * Random.Range(-4, 4) + _faceRotations[2] * Random.Range(-4, 4);
+            Vector3 targetRotation = transform.localEulerAngles + _faceRotations[0] * Random.Range(-2, 2) + _faceRotations[1] * Random.Range(-2, 2) + _faceRotations[2] * Random.Range(-2, 2);
             _floor.resultOut = false;
             transform.DOJump(new Vector3(0, 0), _rollThrowPower, 1, _rollThrowDuration).SetEase(_throwCurve);
             transform.DOLocalRotate(targetRotation, _rollThrowDuration * 0.95f, RotateMode.FastBeyond360).SetEase(Ease.Linear);

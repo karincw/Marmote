@@ -2,6 +2,7 @@ using AYellowpaper.SerializedCollections;
 using karin;
 using Shy.Unit;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Shy
@@ -12,6 +13,7 @@ namespace Shy
         [SerializeField] public CharacterSO[] minions = new CharacterSO[3];
         public List<DiceSO> dices;
         [SerializeField, SerializedDictionary("Type", "CharacterSO")] private SerializedDictionary<CharacterType, CharacterSO> _typeToCharacterList;
+        public int GetMinionCount => minions.Where(t => t != null).Count();
 
         private void Awake()
         {
@@ -26,7 +28,7 @@ namespace Shy
             {
                 if (minions[i] == null)
                 {
-                    minions[i] = minion;
+                    minions[i] = Instantiate(minion);
                     return i;
                 }
             }

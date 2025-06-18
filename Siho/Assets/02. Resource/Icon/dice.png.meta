@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ca09994235155e540a3386b02c72dbb9
+guid: 10b49790e5ae6034fa5278be7332a027
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3358933203163112000
-    second: settings_0
+      213: 6820224859929651857
+    second: dice-cube-outline_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: settings_0
+      name: dice-cube-outline_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 512
+        width: 508
         height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0cd92315c0ca261d0800000000000000
-      internalID: -3358933203163112000
+      spriteID: 19a2560006e46ae50800000000000000
+      internalID: 6820224859929651857
       vertices: []
       indices: 
       edges: []
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dice-cube-outline_0: 6820224859929651857
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
