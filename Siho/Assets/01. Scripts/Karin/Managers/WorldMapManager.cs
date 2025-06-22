@@ -25,6 +25,7 @@ namespace karin
         public int tileCount => _tiles.Count;
         public int stageIndex { get; private set; } = 0;
         public Theme stageTheme;
+        public int positionIndex;
 
         public event Action<int> OnEnterNextStage;
 
@@ -39,8 +40,21 @@ namespace karin
             _floor = FindFirstObjectByType<Floor>();
             _symbol = FindFirstObjectByType<Symbol>();
             _mapChangeDelayWait = new WaitForSeconds(MapChangeDelay);
-            stageTheme = GetRandomTheme();
-            HandleNextStage(stageIndex);
+            Init();
+        }
+
+        private void Init()
+        {
+            if (Load.Instance.saveRunDatas[Save.Instance.slotIndex].load)
+            { //데이터가 있음
+                stageTheme = Load.Instance.saveRunDatas[Save.Instance.slotIndex].stageTheme;
+                HandleNextStage(Load.Instance.saveRunDatas[Save.Instance.slotIndex].stageIndex);
+            }
+            else
+            { //데이터가 없음
+                stageTheme = GetRandomTheme();
+                HandleNextStage(stageIndex);
+            }
         }
 
         private void OnEnable()
@@ -58,7 +72,7 @@ namespace karin
         }
 
         private void HandleMoveEnd()
-        { 
+        {
             rollBtn.interactable = true;
         }
 

@@ -43,13 +43,6 @@ namespace karin
     }
 
     [System.Serializable]
-    public struct Pair<T>
-    {
-        public T first;
-        public T Second;
-    }
-
-    [System.Serializable]
     public struct EventStatBranchData
     {
         public string branchName;
@@ -90,12 +83,15 @@ namespace karin
     [System.Serializable]
     public struct SaveRunData
     {
+        public bool load;
+        public int runIndex;
         ///스테이지 인덱스
         public int stageIndex;
+        public Theme stageTheme;
         ///위치 정보
         public int position;
         ///타일 정보
-        public int[] tileData;
+        public TileType[] tileData;
         ///코인
         public int coin;
         ///캐릭터

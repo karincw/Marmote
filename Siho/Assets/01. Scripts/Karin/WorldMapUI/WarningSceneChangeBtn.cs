@@ -7,7 +7,7 @@ namespace karin
     public class WarningSceneChangeBtn : MonoBehaviour
     {
         [SerializeField] private WarningPanel _warningPanel;
-        [SerializeField] private string _warningText;
+        [SerializeField] private string _warningText = "경고 : 저장하지 않은 데이터는 사라집니다.";
         [SerializeField] private string _targetSceneName;
         private Button _button;
 

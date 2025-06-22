@@ -56,7 +56,7 @@ namespace karin
                 yield return new WaitUntil(() => moveNext);
             }
             nowIndex += targetTiles.Count;
-            //DataLinkManager.Instance.mapData.positionIndex = nowIndex;
+            WorldMapManager.Instance.positionIndex = nowIndex;
             targetTiles[targetTiles.Count - 1].EnterAnimation();
             OnMoveEndEvent?.Invoke();
         }
@@ -64,7 +64,7 @@ namespace karin
         public void SetTileIndex(int index)
         {
             nowIndex = index;
-            //transform.position = WorldMapManager.Instance.GetTiles(index, 1).First().transform.position;
+            transform.position = WorldMapManager.Instance.GetTiles(index, 1).First().transform.position;
         }
 
         public void SetUpNextStage(int stageIndex)

@@ -32,8 +32,6 @@ namespace karin
         public void LoadScene(string sceneName)
         {
             OnSceneChange?.Invoke(sceneName);
-            Debug.LogWarning("æ¿ ¿Ãµø ∏∑¿Ω");
-            return;
             LoadingStart();
             StartCoroutine("LoadSceneAsync", sceneName);
         }

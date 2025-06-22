@@ -28,10 +28,7 @@ namespace karin
         private Color _selectColor;
         private bool _selected;
         private int _selectIdx;
-
-        public static int SelectCount = 0;
-        private static readonly int MaxSelect = 3;
-        private static readonly int MinSelect = 1;
+        private StartingPanel _startingPanel;
 
         public int SiblingIndex { get; private set; }
 
@@ -77,12 +74,12 @@ namespace karin
             _transitionFace = previewTrm.Find("TransitionFace").GetComponent<Image>();
             _previewImage = previewTrm.Find("Preview").GetComponent<Image>();
             _selectBtn = GetComponentInChildren<SelectBtn>();
+            _startingPanel = FindFirstObjectByType<StartingPanel>();
             _btnText = _selectBtn.GetComponentInChildren<TMP_Text>();
         }
 
         private void InitVisuals()
         {
-            SelectCount = 0;
             _selected = false;
             _selectColor = _currentCharacter.personalColor;
 
@@ -113,7 +110,7 @@ namespace karin
                 return;
             }
 
-            if (!_selected && !CanSelect()) return;
+            if (!_selected && !_startingPanel.CanAdd()) return;
 
             _selected = !_selected;
             if (_selected)
@@ -127,7 +124,7 @@ namespace karin
             PlayTransition();
             _selectBtn.ChangeColor(_selectColor);
             _selectIdx = DataManager.Instance.InsertMinion(_currentCharacter);
-            SelectCount++;
+            _startingPanel.Add();
         }
 
         private void Deselect()
@@ -135,10 +132,8 @@ namespace karin
             ResetTransition();
             _selectBtn.ChangeColor(Color.white);
             DataManager.Instance.minions[_selectIdx] = null;
-            SelectCount--;
+            _startingPanel.Remove();
         }
-
-        private bool CanSelect() => SelectCount < MaxSelect;
 
         private void TryUnlock()
         {

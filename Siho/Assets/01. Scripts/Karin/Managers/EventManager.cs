@@ -16,7 +16,23 @@ namespace karin
         private void Awake()
         {
             _eventPanel = FindFirstObjectByType<EventPanel>();
-            SetUpEvent();
+        }
+        protected override void Start()
+        {            
+            base.Start();
+            Init();
+        }
+
+        private void Init()
+        {
+            if (Load.Instance.saveRunDatas[Save.Instance.slotIndex].load)
+            { //데이터가 있음
+                SetUpEvent();
+            }
+            else
+            { //데이터가 없음
+                SetUpEvent();
+            }
         }
 
         private void SetUpEvent()
