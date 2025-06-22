@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: 
   explian: 
-  motion: 0
   skills:
   - {fileID: 11400000, guid: 008a2554e0d47a04a801a862461358c0, type: 2}
-  userAnime: {fileID: 0}
+  motion: 2
+  userAnime: {fileID: 21300000, guid: b5efa7a670abee5408a8a8b8bd4e6a5e, type: 3}
   teamEffect: {fileID: 0}
   opponentEffect: {fileID: 0}
-  summon: {fileID: 0}
-  summonAnime: {fileID: 0}
+  summon: {fileID: 21300000, guid: be6f1f23c1848654297000718b42c4ab, type: 3}
+  summonAnime: {fileID: 21300000, guid: a120f51593824b04d8c6d24946b0aade, type: 3}

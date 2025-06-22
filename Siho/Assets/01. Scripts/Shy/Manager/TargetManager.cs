@@ -52,6 +52,10 @@ namespace Shy.Target
                 case ActionWay.Opposite:
                     break;
 
+                case ActionWay.LessHp:
+
+                    break;
+
                 case ActionWay.Random:
                     var c = BattleManager.Instance.GetCharacters(targetTeam);
                     targets.Add(c[Random.Range(0, c.Count)]);

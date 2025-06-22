@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: 
   explian: 
-  motion: 0
   skills:
   - {fileID: 11400000, guid: 81e87d8bd51a78f469412f404be7c4a4, type: 2}
-  userAnime: {fileID: 0}
+  motion: 0
+  userAnime: {fileID: 21300000, guid: 0c59644cffcba484b9370bbbe67845cd, type: 3}
   teamEffect: {fileID: 0}
   opponentEffect: {fileID: 0}
   summon: {fileID: 0}

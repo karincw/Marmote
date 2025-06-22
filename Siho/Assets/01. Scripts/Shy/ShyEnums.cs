@@ -89,16 +89,20 @@ namespace Shy
 
     public enum SkillMotion
     {
-        Near = 0,
-        Long,
-        All,
-        Self,
-        PetSelf,
-        PetAndShort,
-        PetAndLong,
-        SummonAndShort,
-        SummonAndLong,
-        DropAttack,
+        AttackNear = 0,
+        AttackLong,
+        PetAttackNear,
+        PetAttackLong,
+        TeamBySelf,
+        TeamByPet,
+        EveryOne,
+    }
+
+    public enum PetSpawnWay
+    {
+        Normal,
+        Create,
+        Drop
     }
 
     public enum InfoType
@@ -107,5 +111,17 @@ namespace Shy
         Enemy,
         Buff,
         Dice
+    }
+
+    namespace Anime
+    {
+        public enum AnimeType
+        {
+            UserAnime,
+            TeamEffect,
+            OpponentEffect,
+            SummonVisual,
+            SummonAnime
+        }
     }
 }

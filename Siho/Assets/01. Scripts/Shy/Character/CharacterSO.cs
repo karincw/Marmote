@@ -17,6 +17,8 @@ namespace Shy.Unit
         public Sprite sprite;
         public Sprite hitAnime;
 
+        public void Init() => stats.hp = stats.maxHp;
+
         [Header("UI-Settings")]
         public DiceSO startDiceSO;
         public Sprite cardImage;

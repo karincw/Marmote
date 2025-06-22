@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Shy.Anime;
 
 namespace Shy.Unit
 {
@@ -11,7 +12,7 @@ namespace Shy.Unit
         public string explian;
 
         public abstract List<SkillEventSO> GetSkills(Character _user);
-        public abstract Sprite GetMotionSprite(Character _user);
+        public abstract Sprite GetMotionSprite(AnimeType _type, Character _user);
         public abstract SkillMotion GetSkillMotion(Character _user);
     }
 }

@@ -126,7 +126,7 @@ namespace Shy.Dice
         public void SelectUser(Character _ch)
         {
             if (_ch.team != team) return;
-            if (!BattleManager.Instance.CanSelectChacter(_ch)) return;
+            if (!BattleManager.Instance.CanEnemySelectDice(_ch)) return;
 
             user = _ch;
             userIcon.UpdateUser(_ch);
@@ -145,7 +145,7 @@ namespace Shy.Dice
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Select.SelectManager.Instance.DragBegin(this);
+            Select.DiceDragManager.Instance.DragBegin(this);
         }
 
         public void OnDrag(PointerEventData eventData) { }

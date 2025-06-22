@@ -16,6 +16,7 @@ MonoBehaviour:
   targetTeam: 1
   eventType: 0
   formula: str
+  ignoreDefPer: 0
   getStats:
   - key: str
     stat: 2

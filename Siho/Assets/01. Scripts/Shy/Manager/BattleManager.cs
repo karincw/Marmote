@@ -23,7 +23,7 @@ namespace Shy
         [SerializeField] private DiceUi dicePrefab;
         private int diceLoop;
         private List<DiceUi> dices = new(), enDices = new();
-        [SerializeField] private RectTransform hand, handVisual;
+        [SerializeField] private RectTransform hand;
 
         [Header("Other")]
         [SerializeField] private GameObject endBtn;
@@ -53,7 +53,6 @@ namespace Shy
             Transform spawn = hand.Find("Groups");
 
             buffEvent = null;
-            handVisual.sizeDelta = Vector2.zero;
 
             CharacterInit(Team.Player, DataManager.Instance.minions);
             CharacterInit(Team.Enemy, enemyDatas.Select(enemy => enemy.data).ToArray());
@@ -123,7 +122,7 @@ namespace Shy
 
             for (int i = 0; i < dices.Count; i++) dices[i].transform.SetSiblingIndex(i);
 
-            hand.sizeDelta = new Vector2(60 + 180 * dices.Count, 200);
+            hand.sizeDelta = new Vector2(180 + 180 * dices.Count, 200);
             float sec = 0.065f / dices.Count;
 
             for (int i = 0; i <= dices.Count * 10; i++)
@@ -133,7 +132,7 @@ namespace Shy
             }
         }
 
-        public bool CanSelectChacter(Character _ch)
+        public bool CanEnemySelectDice(Character _ch)
         {
             if (_ch is not Enemy _enemy) return true;
             
@@ -178,12 +177,15 @@ namespace Shy
         {
             DiceData dData = dices[diceLoop].GetData();
             SkillSOBase skillSO = dData.user.GetSkill(dData.skillNum - 1);
+            dData.user.SetSkillAnime(dData.skillNum);
 
             skillEvents = new List<SkillEvent>();
 
             SkillSubscribe(skillSO, dData);
 
-            SkillMotionManager.Instance.UseSkill(dData.user, skillSO.GetSkillMotion(dData.user), skillEvents);
+            AnimeData _anime = new AnimeData(dData.user, skillSO, skillEvents.ToArray());
+
+            SkillMotionManager.Instance.UseSkill(_anime);
         }
 
         public IEnumerator NextAction()

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fa147bca1d1b74eaad42be0ae864e0, type: 3}
   m_Name: Red Hood 1-1
   m_EditorClassIdentifier: 
-  actionWay: 0
+  actionWay: 4
   targetTeam: 1
   eventType: 0
   formula: str * 1.35
+  ignoreDefPer: 0
   getStats:
   - key: str
     stat: 2

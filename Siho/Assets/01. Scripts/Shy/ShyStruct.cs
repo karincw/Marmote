@@ -107,6 +107,28 @@ namespace Shy
         }
     }
 
+    namespace Anime
+    {
+        public struct AnimeData
+        {
+            public Character user;
+            public SkillSOBase skillSO;
+            public SkillEvent[] events;
+
+
+            public AnimeData(Character _d, SkillSOBase _s, SkillEvent[] _e)
+            {
+                user = _d;
+                skillSO = _s;
+                events = _e;
+            }
+
+            public Sprite GetMotion(AnimeType _anime) => skillSO.GetMotionSprite(_anime, user);
+            public SkillMotion GetSkillMotion() => skillSO.GetSkillMotion(user);
+        }
+
+    }
+
     namespace Info
     {
         public struct CharacterInfo : IInfoData

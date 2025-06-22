@@ -74,6 +74,8 @@ namespace Shy.Unit
 
             VisualUpdate(0);
         }
+
+        public void ReturnParent() => transform.SetParent(parentTrm);
         #endregion
 
         #region Visual
@@ -111,7 +113,7 @@ namespace Shy.Unit
             switch (_value)
             {
                 case 1: case 2: case 3:
-                    visual.sprite = data.skills[_value - 1].GetMotionSprite(this);
+                    visual.sprite = data.skills[_value - 1].GetMotionSprite(Anime.AnimeType.UserAnime, this);
                     break;
                 case 4:
                     visual.sprite = data.hitAnime;
@@ -128,8 +130,10 @@ namespace Shy.Unit
         {
             VisualUpdate(0);
             healthCompo.cnt = 0;
-            transform.SetParent(parentTrm);
+            //ReturnParent();
         }
+
+        public void SetSkillAnime(int _value) => visualAction += () => VisualUpdate(_value);
 
         public void OnValueEvent(int _value, EventType _type, int _ignoreDefPer)
         {

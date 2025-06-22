@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Shy.Anime;
 
 namespace Shy.Unit
 {
@@ -11,7 +12,7 @@ namespace Shy.Unit
         public List<NormalSkillSO> so;
         [SerializeField] private List<int> values;
 
-        public override Sprite GetMotionSprite(Character _user) => so[GetLv(_user)].GetMotionSprite(null);
+        public override Sprite GetMotionSprite(AnimeType _anime, Character _user) => so[GetLv(_user)].GetMotionSprite(_anime);
 
         public override List<SkillEventSO> GetSkills(Character _user) => so[GetLv(_user)].GetSkills(null);
 

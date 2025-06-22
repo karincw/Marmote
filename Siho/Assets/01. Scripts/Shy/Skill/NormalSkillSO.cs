@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Shy.Anime;
 
 namespace Shy.Unit
 {
@@ -22,7 +23,18 @@ namespace Shy.Unit
 
         public override List<SkillEventSO> GetSkills(Character _user) => skills;
 
-        public override Sprite GetMotionSprite(Character _user) => userAnime;
+        public override Sprite GetMotionSprite(AnimeType _type, Character _user = null)
+        {
+            switch (_type)
+            {
+                case AnimeType.UserAnime:       return userAnime;
+                case AnimeType.TeamEffect:      return teamEffect;
+                case AnimeType.OpponentEffect:  return opponentEffect;
+                case AnimeType.SummonVisual:    return summon;
+                case AnimeType.SummonAnime:     return summonAnime;
+            }
+            return null;
+        }
 
         public override SkillMotion GetSkillMotion(Character _user) => motion;
     }
