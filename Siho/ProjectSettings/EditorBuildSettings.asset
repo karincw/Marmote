@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Battle Proto.unity
-    guid: c03f63205464ac04e92ba48f7043e731
-  - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: a5b13021b14f2f940afc213d9ddba497
+  - enabled: 1
+    path: Assets/Scenes/Battle Proto.unity
+    guid: c03f63205464ac04e92ba48f7043e731
   - enabled: 1
     path: Assets/Scenes/WorldMap.unity
     guid: ac645c4f562064345abc71a385944638

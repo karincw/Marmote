@@ -3,7 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
- 
+
 using ShyDataManager = Shy.DataManager;
 
 namespace karin.ui
@@ -12,7 +12,7 @@ namespace karin.ui
     {
         private Image _characterIcon;
         private TMP_Text _health;
-        private TMP_Text _melee; 
+        private TMP_Text _melee;
         private TMP_Text _defence;
         private CharacterSO _data;
         [SerializeField] private int _index;
@@ -34,10 +34,13 @@ namespace karin.ui
             _data = ShyDataManager.Instance.minions[_index];
             if (_data == null)
             {
-                //회색처리
+                _characterIcon.transform.localPosition += new Vector3(-1000, _characterIcon.transform.localPosition.y);
+                _health.text = "";
+                _melee.text = "";
+                _defence.text = "";
                 return;
             }
-
+            _characterIcon.transform.localPosition = new Vector3(0, _characterIcon.transform.localPosition.y);
             _characterIcon.sprite = _data.cardImage;
             _health.text = _data.stats.hp.ToString();
             _melee.text = _data.stats.str.ToString();
@@ -47,7 +50,7 @@ namespace karin.ui
         private void OpenDescription()
         {
             OnDescriptionOpen?.Invoke(_data);
-        } 
+        }
 
     }
 }
