@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584b72c94b524f84d9f61cd34fdcd407, type: 3}
+  m_Name: Hansel
+  m_EditorClassIdentifier: 
+  characterName: "\uD5E8\uC824"
+  characterType: 3
+  stats:
+    maxHp: 15
+    hp: 15
+    str: 15
+    def: 5
+  skills:
+  - {fileID: 11400000, guid: 10a817c20e968af42954ae9921270d57, type: 2}
+  - {fileID: 11400000, guid: c5dda575451fe7d418cf8da866953ddd, type: 2}
+  - {fileID: 11400000, guid: a6fde599b11989c438987512d61af9a6, type: 2}
+  sprite: {fileID: 21300000, guid: d96377319539d1f4f9029695c3e6f36d, type: 3}
+  hitAnime: {fileID: 21300000, guid: 6a54ccb2e78bbbe458fd9ccbf555734d, type: 3}
+  DiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  cardImage: {fileID: -7188501465739912369, guid: 2939c35b706b73f4b8c88993d66f4759, type: 3}
+  personalColor: {r: 1.2807972, g: 0.80316204, b: 0.1893001, a: 1}

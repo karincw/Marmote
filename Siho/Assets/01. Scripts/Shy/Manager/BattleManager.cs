@@ -48,7 +48,8 @@ namespace Shy
 
         public void Init()
         {
-            EnemySO[] enemyDatas = karin.Core.DataLinkManager.Instance.GetEnemyData.list.ToArray();
+            EnemySO[] enemyDatas = null;
+            //EnemySO[] enemyDatas = karin.DataLinkManager.Instance.GetEnemyData.list.ToArray();
             List<DiceSO> _diceList = DataManager.Instance.dices;
             Transform spawn = hand.Find("Groups");
 

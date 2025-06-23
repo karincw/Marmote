@@ -29,19 +29,6 @@ namespace Shy.Info
             CloseAllPanel();
         }
 
-        public void OpenInfoPanel(Transform _targetPos, Character _character, CharacterSO _so)
-        {
-            float x = distance;
-            if(_targetPos.position.x > 0) x = -distance;
-
-            Vector3 addPos = new Vector3(x, -0.9f);
-
-
-            //infoPanel.transform.position = _targetPos.position + addPos;
-            //
-            //infoPanel.gameObject.SetActive(true);
-        }
-
         public void OpenPanel(InfoType _infoType, IInfoData _infoData)
         {
             InfoPanel _panel = panels[_infoType];

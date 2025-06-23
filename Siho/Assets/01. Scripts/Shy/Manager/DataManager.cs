@@ -1,24 +1,25 @@
+using AYellowpaper.SerializedCollections;
 using karin;
+using Shy.Unit;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Shy.Unit;
 
 namespace Shy
 {
     public class DataManager : MonoBehaviour
     {
         public static DataManager Instance;
-
         [SerializeField] public CharacterSO[] minions = new CharacterSO[3];
         public List<DiceSO> dices;
+        [SerializeField, SerializedDictionary("Type", "CharacterSO")] private SerializedDictionary<CharacterType, CharacterSO> _typeToCharacterList;
+        public int GetMinionCount => minions.Where(t => t != null).Count();
 
         private void Awake()
         {
             if (Instance != null) { Destroy(gameObject); return; }
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
 
         public int InsertMinion(CharacterSO minion)
@@ -27,22 +28,11 @@ namespace Shy
             {
                 if (minions[i] == null)
                 {
-                    minions[i] = minion;
+                    minions[i] = Instantiate(minion);
                     return i;
                 }
             }
             return -1;
-        }
-
-        public void MakeDice()
-        {
-            dices = new List<DiceSO>();
-            minions = minions.ToList().OrderBy(m => m == null ? 1 : 0).ToArray();
-
-            for (int i = 0; i < SelectCard.SelectCount; i++)
-            {
-                dices.Add(minions[i].startDiceSO);
-            }
         }
 
     }

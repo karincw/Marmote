@@ -1,4 +1,5 @@
 using Shy.Unit;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using Show = System.SerializableAttribute;
@@ -23,43 +24,17 @@ namespace Shy
         public int str;
         public int def;
 
-        public int this[StatEnum stat]
+        public static Stat operator +(Stat s1, Stat s2)
         {
-            get
+            return new Stat
             {
-                switch (stat)
-                {
-                    case StatEnum.MaxHp:
-                        return maxHp;
-                    case StatEnum.Hp:
-                        return hp;
-                    case StatEnum.Str:
-                        return str;
-                    case StatEnum.Def:
-                        return def;
-                    default:
-                        return default;
-                }
-            }
-            set
-            {
-                switch (stat)
-                {
-                    case StatEnum.MaxHp:
-                        maxHp = value;
-                        break;
-                    case StatEnum.Hp:
-                        hp = value;
-                        break;
-                    case StatEnum.Str:
-                        str = value;
-                        break;
-                    case StatEnum.Def:
-                        def = value;
-                        break;
-                }
-            }
+                maxHp = s1.maxHp + s2.maxHp,
+                hp = s1.hp + s2.hp,
+                str = s1.str + s2.str,
+                def = s1.def + s2.def
+            };
         }
+        public override string ToString() => $"[MaxHP : {maxHp} | Hp : {hp} | Strength : {str} | Defence : {def}]";
     }
 
     [Show]
