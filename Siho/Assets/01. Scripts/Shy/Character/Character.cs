@@ -162,7 +162,7 @@ namespace Shy.Unit
             {
                 if (_buff.CheckBuff(_buffType))
                 {
-                    //ÁßÃ¸ ÄÚµå
+                    _buff.Add(_value);
                     return;
                 }
             }

@@ -60,6 +60,8 @@ namespace Shy
 
             foreach (var _character in _characterDatas)
             {
+                if (_character == null) return;
+
                 DiceUi _dUi = Instantiate(dicePrefab, spawn);
                 dices.Add(_dUi);
                 _dUi.Init(_character.DiceSO, Team.Player);

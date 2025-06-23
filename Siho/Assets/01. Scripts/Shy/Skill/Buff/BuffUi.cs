@@ -53,6 +53,11 @@ namespace Shy.Unit
             BuffManager.Instance.OnBuffEvent(BuffUseCondition.OnStart, buff.buffType, user, value);
         }
 
+        public void Add(int _value)
+        {
+            value += _value;
+        }
+
         private void LifeTextUpdate()
         {
             if (buff.removeCondition != BuffRemoveCondition.Count) return;
