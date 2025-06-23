@@ -70,10 +70,9 @@ namespace karin
     }
 
     [System.Serializable]
-    public struct SaveGameData
+    public struct GameData
     {
-        ///세이브 슬롯 데이터
-        public List<int> saveData;
+        public bool load;
         ///잼
         public int Gem;
         ///카드 해금
@@ -81,7 +80,7 @@ namespace karin
     }
 
     [System.Serializable]
-    public struct SaveRunData
+    public struct RunData
     {
         public bool load;
         public int runIndex;

@@ -1,4 +1,5 @@
 using Shy.Unit;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,9 +20,19 @@ namespace karin
             DontDestroyOnLoad(gameObject);
         }
 
-        public void SaveEnemyData(List<EnemySO> enemys)
+        private void Start()
+        {
+            Gem = Load.Instance.GetGameData().Gem;
+        }
+
+        public void SetEnemyData(List<EnemySO> enemys)
         {
             EnemyData = enemys;
+        }
+
+        public void setData(RunData data)
+        {
+            Coin = data.coin;
         }
     }
 }

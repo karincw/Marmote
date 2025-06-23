@@ -234,7 +234,7 @@ namespace Shy
                     dices[i].noUsed.SetActive(true);
                 }
             }
-
+             
             if (isEnemy)
             {
                 foreach (DiceUi dice in enemyDiceDic[_ch])

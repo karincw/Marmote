@@ -35,23 +35,24 @@ namespace karin
         public void ViewDescription(int runIndex)
         {
             _openIndex = runIndex;
-            SaveRunData data = Load.Instance.saveRunDatas[runIndex];
-            if (!data.load)
+            RunData? runData = Load.Instance.GetRunData(runIndex);
+            if (!runData.HasValue || !runData.Value.load)
             {
                 _curtainText.text = "슬롯에 데이터가 없어요";
                 OpenGroup(_curtain);
                 return;
             }
-
+            RunData data = runData.Value;
             _curtainText.text = "슬롯을 선택해 주세요";
             OpenGroup(_descriptionLayout);
             StringBuilder sb = new StringBuilder();
             sb.Append($"Slot{data.runIndex}\n");
-            sb.Append($"Stage:{data.stageIndex}Theme:{data.stageTheme}");
-            sb.Append($"Coin:{data.coin}");
-            for (int i = 0; i < data.characterType.Length; i++)
+            sb.Append($"Stage:{data.stageIndex}\nTheme:{data.stageTheme}\n");
+            sb.Append($"Coin:{data.coin}\n");
+            sb.Append($"Characters:{data.characterType[0].type}");
+            for (int i = 1; i < data.characterType.Length; i++)
             {
-                sb.Append($"Characters:{data.characterType[i].type}");
+                sb.Append($", {data.characterType[i].type}");
             }
             _descriptions.text = sb.ToString();
         }
@@ -86,11 +87,17 @@ namespace karin
             _loadButton.onClick.AddListener(() =>
             {
                 Save.Instance.slotIndex = _openIndex;
-                Load.Instance.GetRunData(_openIndex);
+                Load.Instance.LoadAndApplyGame(_openIndex);
+                StartingPanel sp = FindFirstObjectByType<StartingPanel>();
+                Load.Instance.gameData.cardLockData = sp.GetCardLockData();
                 SceneChanger.Instance.LoadScene("WorldMap");
             });
             _deleteButton.gameObject.SetActive(true);
-            _deleteButton.onClick.AddListener(() => { Save.Instance.RemoveFile(_openIndex); });
+            _deleteButton.onClick.AddListener(() =>
+            {
+                Save.Instance.RemoveFile(_openIndex);
+                ViewDescription(_openIndex);
+            });
         }
         public void NewPlayMode()
         {
@@ -102,11 +109,17 @@ namespace karin
             _saveButton.onClick.AddListener(() =>
             {
                 Save.Instance.slotIndex = _openIndex;
+                StartingPanel sp = FindFirstObjectByType<StartingPanel>();
+                Load.Instance.gameData.cardLockData = sp.GetCardLockData();
                 SceneChanger.Instance.LoadScene("WorldMap");
             });
             _loadButton.gameObject.SetActive(false);
             _deleteButton.gameObject.SetActive(true);
-            _deleteButton.onClick.AddListener(() => { Save.Instance.RemoveFile(_openIndex); });
+            _deleteButton.onClick.AddListener(() =>
+            {
+                Save.Instance.RemoveFile(_openIndex);
+                ViewDescription(_openIndex);
+            });
         }
         public void LoadPlayMode()
         {
@@ -119,11 +132,17 @@ namespace karin
             _loadButton.onClick.AddListener(() =>
             {
                 Save.Instance.slotIndex = _openIndex;
-                Load.Instance.GetRunData(_openIndex);
+                Load.Instance.LoadAndApplyGame(_openIndex);
+                StartingPanel sp = FindFirstObjectByType<StartingPanel>();
+                Load.Instance.gameData.cardLockData = sp.GetCardLockData();
                 SceneChanger.Instance.LoadScene("WorldMap");
             });
             _deleteButton.gameObject.SetActive(true);
-            _deleteButton.onClick.AddListener(() => { Save.Instance.RemoveFile(_openIndex); });
+            _deleteButton.onClick.AddListener(() =>
+            {
+                Save.Instance.RemoveFile(_openIndex);
+                ViewDescription(_openIndex);
+            });
         }
     }
 }

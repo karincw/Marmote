@@ -24,6 +24,11 @@ namespace karin
             WorldMapManager.Instance.OnEnterNextStage += SetUpNextStage;
         }
 
+        private void Start()
+        {
+            SetTileIndex(WorldMapManager.Instance.positionIndex);
+        }
+
         public void Move(int value)
         {
             WorldMapManager wmm = WorldMapManager.Instance;
