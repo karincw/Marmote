@@ -41,8 +41,7 @@ namespace Shy.Unit
                 {
                     yield return new WaitForSeconds(0.2f * cnt++);
 
-                    Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>()
-                        .Use(_value.ToString());
+                    Pooling.Instance.Use(PoolingType.DmgText, dmgTxtPos).GetComponent<DamageText>().Use(_value.ToString());
 
                     hitEvent?.Invoke();
                     hp -= _value;

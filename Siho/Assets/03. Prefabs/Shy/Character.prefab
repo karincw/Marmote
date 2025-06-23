@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 5073200837132628318}
   - component: {fileID: 8658110111160845633}
   - component: {fileID: 3585603733716867462}
-  - component: {fileID: 3649269930317831765}
   - component: {fileID: 5360751797259787046}
   - component: {fileID: 2614860042086048590}
   m_Layer: 5
@@ -187,21 +186,6 @@ MonoBehaviour:
   healthGuage: {fileID: 8697336861996818192}
   effectGuage: {fileID: 1763002010765346593}
   dmgTxtPos: {fileID: 1734780890926500370}
---- !u!114 &3649269930317831765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732855243611819123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445d194506d41cc43baaf2d5d02e5296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canPress: 1
-  pressing: 0
-  pressType: 0
 --- !u!222 &5360751797259787046
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -327,6 +311,7 @@ GameObject:
   - component: {fileID: 1758864164386969956}
   - component: {fileID: 7342181222857753234}
   - component: {fileID: 7810739807288782251}
+  - component: {fileID: 4119079687596978475}
   m_Layer: 14
   m_Name: Visual
   m_TagString: Untagged
@@ -437,6 +422,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 150, y: 200}
   m_EdgeRadius: 0
+--- !u!114 &4119079687596978475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010155553628183056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445d194506d41cc43baaf2d5d02e5296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPress: 1
+  pressing: 0
+  pressType: 0
 --- !u!1 &3252439556112017522
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0.000030517578, y: 3}
   m_SizeDelta: {x: 0, y: 35}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6634509690828798406
@@ -532,15 +532,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 4
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 6
   m_StartCorner: 2
   m_StartAxis: 0
-  m_CellSize: {x: 38, y: 38}
-  m_Spacing: {x: 5, y: 0}
+  m_CellSize: {x: 35, y: 35}
+  m_Spacing: {x: 7, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &6254468173719534730

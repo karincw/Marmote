@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Shy.Unit
 {
-    [RequireComponent(typeof(HealthCompo), typeof(PressCompo))]
+    [RequireComponent(typeof(HealthCompo))]
     public abstract class Character : MonoBehaviour
     {
         #region º¯¼ö
@@ -48,7 +48,7 @@ namespace Shy.Unit
         public virtual void Awake()
         {
             healthCompo = GetComponent<HealthCompo>();
-            pressCompo = GetComponent<PressCompo>();
+            pressCompo = GetComponentInChildren<PressCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
             uiTrm = transform.Find("Ui");
             parentTrm = transform.parent;
@@ -157,7 +157,6 @@ namespace Shy.Unit
 
         public void OnBuffEvent(int _value, BuffType _buffType)
         {
-            Debug.Log(_buffType);
             foreach (var _buff in buffs)
             {
                 if (_buff.CheckBuff(_buffType))
@@ -166,7 +165,6 @@ namespace Shy.Unit
                     return;
                 }
             }
-            Debug.Log("Get Buff");
 
             BuffUI buff = Pooling.Instance.Use(PoolingType.Buff, buffGroup).GetComponent<BuffUI>();
             buff.Init(this, BuffManager.Instance.GetBuff(_buffType), _value);
@@ -184,7 +182,20 @@ namespace Shy.Unit
 
         public void BuffCheck()
         {
-            foreach (BuffUI buff in buffs) buff.CountDown();
+            List<BuffUI> _removeBuffs = new List<BuffUI>();
+
+            foreach (BuffUI _buff in buffs)
+            {
+                var _result = _buff.CountDown();
+                if (_result != null) _removeBuffs.Add(_result);
+            }
+
+            //HealthVisibleEvent(true);
+
+            foreach (var _buff in _removeBuffs)
+            {
+                buffs.Remove(_buff);
+            }
         }
         #endregion
 

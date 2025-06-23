@@ -61,14 +61,10 @@ namespace Shy.Target
                     {
                         if (_lessTargets[i].GetNowStat(StatEnum.Hp) > _currentTarget.GetNowStat(StatEnum.Hp))
                         {
-                            _targets.Remove(_currentTarget);
                             _currentTarget = _lessTargets[i];
                         }
-                        else
-                        {
-                            _targets.Remove(_lessTargets[i]);
-                        }
                     }
+                    _targets.Add(_currentTarget);
                     break;
 
                 case ActionWay.MoreHp:
@@ -79,14 +75,10 @@ namespace Shy.Target
                     {
                         if (_moreTargets[i].GetNowStat(StatEnum.Hp) > _currentTarget.GetNowStat(StatEnum.Hp))
                         {
-                            _targets.Remove(_currentTarget);
                             _currentTarget = _moreTargets[i];
                         }
-                        else
-                        {
-                            _targets.Remove(_moreTargets[i]);
-                        }
                     }
+                    _targets.Add(_currentTarget);
                     break;
 
                 case ActionWay.Random:

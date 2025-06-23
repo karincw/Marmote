@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1584396496681768533}
   - component: {fileID: 8112504825843960992}
   - component: {fileID: 4307726449921673100}
+  - component: {fileID: 2291983624783982681}
   m_Layer: 5
   m_Name: Buff
   m_TagString: Untagged
@@ -89,6 +90,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040c6204ef5cfd041a6bb7e6accabde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2291983624783982681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4397699511448613472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445d194506d41cc43baaf2d5d02e5296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPress: 1
+  pressing: 0
+  pressType: 2
 --- !u!1 &5610885158130469890
 GameObject:
   m_ObjectHideFlags: 0

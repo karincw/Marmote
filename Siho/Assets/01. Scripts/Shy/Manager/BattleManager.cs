@@ -246,8 +246,13 @@ namespace Shy
         public int SetDamage(int _baseDamage, Character _target, int _defPer)
         {
             // defPer = 방어력 무시률
-            float def = _target.GetNowStat(StatEnum.Def) * (1 - _defPer * 0.01f);
-            float damage = _baseDamage - def * 0.5f;
+            float def = _target.GetNowStat(StatEnum.Def) * (1 - _defPer * 0.01f), 
+                damage = _baseDamage - def * 0.5f;
+
+            //추가 피해량
+            damage += damage * _target.GetBonusStat(StatEnum.AdditionalDmg) * 0.01f;
+
+            //피해감소량
             damage = damage * (1 - _target.GetBonusStat(StatEnum.ReductionDmg) * 0.01f);
             return Mathf.RoundToInt(damage);
         }

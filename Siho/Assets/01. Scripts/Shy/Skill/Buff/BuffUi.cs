@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Shy.Info;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ namespace Shy.Unit
         //Visual
         private Image img;
         private TextMeshProUGUI tmp;
+        private PressCompo pressCompo;
 
         #region Get
         public BuffType GetBuffType() => buff.buffType;
@@ -31,6 +33,7 @@ namespace Shy.Unit
         {
             img = GetComponent<Image>();
             tmp = GetComponentInChildren<TextMeshProUGUI>();
+            pressCompo = GetComponent<PressCompo>();
         }
 
         public void Init(Character _user, BuffSO _buff, int _life)
@@ -41,6 +44,11 @@ namespace Shy.Unit
             img.sprite = _buff.sprite;
 
             LifeTextUpdate();
+
+            pressCompo.Init(InfoType.Buff, () =>
+            {
+                InfoManager.Instance.OpenPanel(InfoType.Buff, new BuffInfo(_buff.buffType, _user.buffGroup));
+            });
 
             BuffManager.Instance.OnBuffEvent(BuffUseCondition.OnStart, buff.buffType, user, value);
         }
@@ -60,19 +68,20 @@ namespace Shy.Unit
             Pooling.Instance.Return(gameObject, PoolingType.Buff);
         }
 
-        public void CountDown()
+        public BuffUI CountDown()
         {
             BuffManager.Instance.OnBuffEvent(BuffUseCondition.Update, buff.buffType, user, value);
 
-            if (buff.removeCondition != BuffRemoveCondition.Count) return;
+            if (buff.removeCondition != BuffRemoveCondition.Count) return null;
 
             if (--value == 0)
             {
                 Pop();
-                return;
+                return this;
             }
 
             LifeTextUpdate();
+            return null;
         }
     }
 }

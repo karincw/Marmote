@@ -32,9 +32,7 @@ namespace Shy.Unit
             }
 
             //구현해놓은 Formula에서 값 설정
-            float value = float.Parse(Formula.GetFormula(data)), bAtk = _user.GetBonusStat(StatEnum.AdditionalDmg);
-
-            if (eventType == EventType.AttackEvent && bAtk != 0) value += value * bAtk * 0.01f;
+            float value = float.Parse(Formula.GetFormula(data));
 
             return Mathf.RoundToInt(value);
         }

@@ -15,4 +15,4 @@ MonoBehaviour:
   actionWay: 0
   targetTeam: 1
   bufftype: 1
-  life: 1
+  life: 2

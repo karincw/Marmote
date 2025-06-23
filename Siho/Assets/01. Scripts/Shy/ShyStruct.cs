@@ -114,6 +114,8 @@ namespace Shy
 
             if (_s.actionWay == ActionWay.None) actionWay = _d.actionWay;
             else actionWay = _s.actionWay;
+
+            Debug.Log(actionWay);
         }
     }
 
@@ -162,8 +164,13 @@ namespace Shy
 
         public struct BuffInfo : IInfoData
         {
-            public void SetData(Transform _panel)
+            public Transform trm;
+            public BuffType buffType;
+
+            public BuffInfo(BuffType _buffType, Transform _trm)
             {
+                buffType = _buffType;
+                trm = _trm;
             }
         }
     }

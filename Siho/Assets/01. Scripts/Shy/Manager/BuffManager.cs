@@ -63,7 +63,7 @@ namespace Shy
             switch (_buffType)
             {
                 case BuffType.Brave:
-                    _target.SetBonusStat(StatEnum.AdditionalDmg, 15);
+                    _target.SetBonusStat(StatEnum.AdditionalDmg, 20);
                     break;
                 case BuffType.Gingerbread:
                     //피감량
@@ -79,13 +79,17 @@ namespace Shy
                     float _lessHp = _target.GetNowStat(StatEnum.MaxHp) - _target.GetNowStat(StatEnum.Hp);
                     _target.OnValueEvent(Mathf.RoundToInt(_lessHp * 0.1f), EventType.AttackEvent, 100);
                     break;
+
                 case BuffType.Crumbs:
                     
                     break;
+
                 case BuffType.Burn:
                     _target.OnValueEvent(_value * 2, EventType.AttackEvent, 100);
                     break;
             }
+
+
         }
 
         private void OnEndEvent(BuffType _buffType, Character _target, int _value)
@@ -93,7 +97,7 @@ namespace Shy
             switch (_buffType)
             {
                 case BuffType.Brave:
-                    _target.SetBonusStat(StatEnum.AdditionalDmg, -15);
+                    _target.SetBonusStat(StatEnum.AdditionalDmg, -20);
                     break;
                 case BuffType.Gingerbread:
                     //피감량 감소
