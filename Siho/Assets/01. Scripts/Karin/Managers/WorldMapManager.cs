@@ -60,6 +60,12 @@ namespace karin
             }
         }
 
+        protected override void Start()
+        {
+            Save.Instance.AutoSave();
+            base.Start();
+        }
+
         private void OnEnable()
         {
             _floor.OnDiceStopEvent += HandleDiceStop;
@@ -89,6 +95,11 @@ namespace karin
             return _stageDatas[index].GetTileDatas()
                 .Select(type => _typeToTileList[type])
                 .ToList();
+        }
+
+        public List<TileType> GetTileData()
+        {
+            return _tiles.Select(t => t.myTileData.tileType).ToList();
         }
 
         public List<EnemySO> GetBattleEnemyDatas(int count)

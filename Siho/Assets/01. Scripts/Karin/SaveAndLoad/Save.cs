@@ -45,10 +45,8 @@ namespace karin
         {
             RunData data = default;
             string path = GetRunSavePath(saveIndex);
-            if (Load.Instance.saveRunDatas[saveIndex].load) //이미 로드되어있음
-            {
-                RemoveFile(path);
-            }
+
+            RemoveFile(path);
 
             try
             {
@@ -58,7 +56,7 @@ namespace karin
                 data.stageIndex = worldMapManager.stageIndex;
                 data.stageTheme = worldMapManager.stageTheme;
                 data.position = worldMapManager.positionIndex;
-                data.tileData = worldMapManager.GetStageTileData(data.stageIndex).Select(t => t.tileType).ToArray();
+                data.tileData = worldMapManager.GetTileData().ToArray();
                 data.coin = DataLinkManager.Instance.Coin;
                 data.characterType = new SaveChartacterData[3];
                 for (int i = 0; i < 3; i++)
@@ -136,6 +134,7 @@ namespace karin
         }
         public void RemoveFile(int fileIndex)
         {
+            Load.Instance.saveRunDatas[fileIndex] = default;
             RemoveFile(GetRunSavePath(fileIndex));
         }
 

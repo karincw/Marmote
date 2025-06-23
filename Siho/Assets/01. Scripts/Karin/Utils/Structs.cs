@@ -72,7 +72,6 @@ namespace karin
     [System.Serializable]
     public struct GameData
     {
-        public bool load;
         ///잼
         public int Gem;
         ///카드 해금

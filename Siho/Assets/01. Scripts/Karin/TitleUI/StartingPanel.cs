@@ -9,7 +9,6 @@ namespace karin
     {
         public int SelectCount = 0;
         private readonly int MaxSelect = 3;
-        private readonly int MinSelect = 1;
 
         [SerializeField] private Button _playBtn;
         private List<SelectCard> _selectCards;

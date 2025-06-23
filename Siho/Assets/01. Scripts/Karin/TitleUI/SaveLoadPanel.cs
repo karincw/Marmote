@@ -31,9 +31,5 @@ namespace karin
         {
             _infoView.LoadPlayMode();
         }
-        public void WorldMapMode()
-        {
-            _infoView.WorldMapMode();
-        }
     }
 }

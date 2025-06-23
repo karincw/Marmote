@@ -126,7 +126,7 @@ namespace karin
         {
             RunData? d = GetRunData(index);
             if (!d.HasValue) return;
-            RunData data = d.Value; ;
+            RunData data = d.Value;
 
             DataManager.Instance.setData(data);
             DataLinkManager.Instance.setData(data);

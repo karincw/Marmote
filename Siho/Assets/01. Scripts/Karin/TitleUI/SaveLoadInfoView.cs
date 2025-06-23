@@ -70,35 +70,6 @@ namespace karin
             OpenGroup(_curtain);
         }
 
-        public void WorldMapMode()
-        {
-            _saveButton.onClick.RemoveAllListeners();
-            _loadButton.onClick.RemoveAllListeners();
-            _deleteButton.onClick.RemoveAllListeners();
-
-            _saveButton.gameObject.SetActive(true);
-            _saveButton.onClick.AddListener(() =>
-            {
-                Save.Instance.AutoSave();
-                Load.Instance.GetRunData(_openIndex);
-                ViewDescription(_openIndex);
-            });
-            _loadButton.gameObject.SetActive(true);
-            _loadButton.onClick.AddListener(() =>
-            {
-                Save.Instance.slotIndex = _openIndex;
-                Load.Instance.LoadAndApplyGame(_openIndex);
-                StartingPanel sp = FindFirstObjectByType<StartingPanel>();
-                Load.Instance.gameData.cardLockData = sp.GetCardLockData();
-                SceneChanger.Instance.LoadScene("WorldMap");
-            });
-            _deleteButton.gameObject.SetActive(true);
-            _deleteButton.onClick.AddListener(() =>
-            {
-                Save.Instance.RemoveFile(_openIndex);
-                ViewDescription(_openIndex);
-            });
-        }
         public void NewPlayMode()
         {
             _saveButton.onClick.RemoveAllListeners();
@@ -111,6 +82,7 @@ namespace karin
                 Save.Instance.slotIndex = _openIndex;
                 StartingPanel sp = FindFirstObjectByType<StartingPanel>();
                 Load.Instance.gameData.cardLockData = sp.GetCardLockData();
+                Load.Instance.saveRunDatas[_openIndex] = default;
                 SceneChanger.Instance.LoadScene("WorldMap");
             });
             _loadButton.gameObject.SetActive(false);
