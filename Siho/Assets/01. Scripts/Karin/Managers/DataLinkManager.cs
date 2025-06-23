@@ -10,6 +10,9 @@ namespace karin
         public int Gem;
         public int Coin;
 
+        [SerializeField, Header("Shy Tester")] private bool testMode = false;
+        [SerializeField] private List<EnemySO> testEnemyDatas;
+
         public List<EnemySO> EnemyData { get; private set; }
 
         private void Awake()
@@ -17,6 +20,8 @@ namespace karin
             if (Instance != null) { Destroy(gameObject); return; }
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            if (testMode) EnemyData = testEnemyDatas;
         }
 
         public void SaveEnemyData(List<EnemySO> enemys)

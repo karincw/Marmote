@@ -45,7 +45,7 @@ namespace karin
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append($"{current.name}의 {i+1}번째 면 정보\n");
-                sb.Append(current.DiceSO.eyes[i].explain);
+                //sb.Append(current.DiceSO.eyes[i].exlpain);
                 _diceDescriptions[i].text = sb.ToString();
             }
         }

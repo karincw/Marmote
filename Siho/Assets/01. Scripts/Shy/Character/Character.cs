@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Shy.Dice;
 using Shy.Info;
 using System;
 using System.Collections;

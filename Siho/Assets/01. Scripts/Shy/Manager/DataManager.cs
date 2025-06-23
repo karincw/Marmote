@@ -11,7 +11,6 @@ namespace Shy
     {
         public static DataManager Instance;
         [SerializeField] public CharacterSO[] minions = new CharacterSO[3];
-        public List<DiceSO> dices;
         [SerializeField, SerializedDictionary("Type", "CharacterSO")] private SerializedDictionary<CharacterType, CharacterSO> _typeToCharacterList;
         public int GetMinionCount => minions.Where(t => t != null).Count();
 

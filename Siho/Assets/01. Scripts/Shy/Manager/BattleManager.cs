@@ -48,9 +48,9 @@ namespace Shy
 
         public void Init()
         {
-            EnemySO[] enemyDatas = null;
-            //EnemySO[] enemyDatas = karin.DataLinkManager.Instance.GetEnemyData.list.ToArray();
-            List<DiceSO> _diceList = DataManager.Instance.dices;
+            var enemyDatas = DataLinkManager.Instance.EnemyData.ToArray();
+            var _characterDatas = DataManager.Instance.minions;
+
             Transform spawn = hand.Find("Groups");
 
             buffEvent = null;
@@ -58,11 +58,11 @@ namespace Shy
             CharacterInit(Team.Player, DataManager.Instance.minions);
             CharacterInit(Team.Enemy, enemyDatas.Select(enemy => enemy.data).ToArray());
 
-            foreach (var _dice in _diceList)
+            foreach (var _character in _characterDatas)
             {
                 DiceUi _dUi = Instantiate(dicePrefab, spawn);
                 dices.Add(_dUi);
-                _dUi.Init(_dice, Team.Player);
+                _dUi.Init(_character.DiceSO, Team.Player);
             }
 
             for (int i = 0; i < enemies.Count; i++)

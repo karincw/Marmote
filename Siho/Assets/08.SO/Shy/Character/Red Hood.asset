@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Red Hood
   m_EditorClassIdentifier: 
   characterName: "\uBE68\uAC04 \uB9DD\uD1A0"
-  characterType: 0
+  characterType: 1
   stats:
     maxHp: 15
-    hp: 15
     str: 8
     def: 5
   skills:
@@ -25,6 +24,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21ce3a331d533e74c9fcde2f90dff1f5, type: 2}
   sprite: {fileID: 21300000, guid: a72bfeaa03cc56a41b16479dcfe1d378, type: 3}
   hitAnime: {fileID: 21300000, guid: 97b800f5939834a42aa4f822dd340a84, type: 3}
-  startDiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
+  DiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
   cardImage: {fileID: -1008724806224199663, guid: a8dd56cc98ec26b4f982a34b65d85706, type: 3}
   personalColor: {r: 1.2630082, g: 0.26610526, b: 0.26610526, a: 1}
