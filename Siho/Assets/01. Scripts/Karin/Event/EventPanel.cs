@@ -76,7 +76,11 @@ namespace karin
             TMP_Text text = btn.GetComponentInChildren<TMP_Text>();
 
             text.text = "³¡³»±â";
-            btn.onClick.AddListener(() => Close());
+            btn.onClick.AddListener(() =>
+            {
+                Save.Instance.AutoSave();
+                Close();
+            });
             _previousButtons.Add(btn.gameObject);
         }
 

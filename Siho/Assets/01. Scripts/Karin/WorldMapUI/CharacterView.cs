@@ -67,7 +67,7 @@ namespace karin
             }
             Utils.FadeCanvasGroup(_curtain, true, 0);
             _portraitImage.DOFade(1, 0);
-            _nameText.text = _current.name;
+            _nameText.text = _current.name.Replace(" (clone)","");
             _portraitImage.sprite = _current.cardImage;
             _healthText.text = _current.stats.maxHp.ToString();
             _strengthText.text = _current.stats.str.ToString();

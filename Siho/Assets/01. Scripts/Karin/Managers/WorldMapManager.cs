@@ -45,16 +45,25 @@ namespace karin
 
         private void Init()
         {
-            if (Load.Instance.saveRunDatas[Save.Instance.slotIndex].load)
+            var loadedData = Load.Instance.saveRunDatas[Save.Instance.slotIndex];
+            if (loadedData.load)
             { //데이터가 있음
-                stageTheme = Load.Instance.saveRunDatas[Save.Instance.slotIndex].stageTheme;
-                HandleNextStage(Load.Instance.saveRunDatas[Save.Instance.slotIndex].stageIndex);
+                stageTheme = loadedData.stageTheme;
+                stageIndex = loadedData.stageIndex;
+                SetStageLoad(loadedData.tileData);
+                positionIndex = loadedData.position;
             }
             else
             { //데이터가 없음
                 stageTheme = GetRandomTheme();
                 HandleNextStage(stageIndex);
             }
+        }
+
+        protected override void Start()
+        {
+            Save.Instance.AutoSave();
+            base.Start();
         }
 
         private void OnEnable()
@@ -88,6 +97,11 @@ namespace karin
                 .ToList();
         }
 
+        public List<TileType> GetTileData()
+        {
+            return _tiles.Select(t => t.myTileData.tileType).ToList();
+        }
+
         public List<EnemySO> GetBattleEnemyDatas(int count)
         {
             var list = _themeToEnemyList[stageTheme].list;
@@ -111,6 +125,26 @@ namespace karin
                 stageTheme = GetRandomTheme();
 
             var tileData = GetStageTileData(stageIdx);
+
+            int half = Mathf.CeilToInt((tileCount - 1) / 2);
+            var leftTiles = _tiles.GetRange(0, half);
+            var rightTiles = _tiles.GetRange(half, tileCount - half);
+
+            var leftChanges = tileData.GetRange(0, half);
+            var rightChanges = tileData.GetRange(half, tileCount - half);
+
+            rightTiles.Reverse();
+            rightChanges.Reverse();
+
+            DOTween.Complete(2); // 중복 애니메이션 방지
+
+            StartCoroutine(TileAnimationCoroutine(leftTiles, leftChanges));
+            StartCoroutine(TileAnimationCoroutine(rightTiles, rightChanges));
+        }
+
+        private void SetStageLoad(TileType[] tiles)
+        {
+            var tileData = tiles.Select(type => _typeToTileList[type]).ToList();
 
             int half = Mathf.CeilToInt((tileCount - 1) / 2);
             var leftTiles = _tiles.GetRange(0, half);

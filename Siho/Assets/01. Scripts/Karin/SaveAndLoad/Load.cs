@@ -1,3 +1,4 @@
+using Shy;
 using System;
 using System.IO;
 using System.Text;
@@ -14,7 +15,8 @@ namespace karin
         private string _gameSavePath;
         public string GetGameLoadPath() => _gameSavePath;
 
-        public SaveRunData[] saveRunDatas = new SaveRunData[3];
+        public RunData[] saveRunDatas = new RunData[3];
+        public GameData gameData = new GameData();
 
         private void Awake()
         {
@@ -30,15 +32,19 @@ namespace karin
             }
         }
 
+        private void Start()
+        {
+            LoadGameData();
+        }
+
         public void ResetGame()
         {
-            saveRunDatas = new SaveRunData[3];
+            saveRunDatas = new RunData[3];
         }
 
         private bool LoadRunData(int loadIndex)
         {
-            Debug.LogWarning($"Load Run Data > path:{GetRunLoadPath(loadIndex)}");
-            SaveRunData data = default;
+            RunData data = default;
             string path = GetRunLoadPath(loadIndex);
             try
             {
@@ -47,11 +53,11 @@ namespace karin
                 fs.Read(readBuffer);
                 fs.Close();
                 Encoding encoding = Encoding.UTF8;
-                data = JsonUtility.FromJson<SaveRunData>(encoding.GetString(readBuffer));
+                data = JsonUtility.FromJson<RunData>(encoding.GetString(readBuffer));
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Open FIle Error : {ex.Message}");
+                Debug.LogWarning($"Open FIle Error {loadIndex} : {ex.Message}");
                 return false;
             }
             saveRunDatas[loadIndex] = data;
@@ -59,11 +65,11 @@ namespace karin
             return true;
         }
 
-        public SaveRunData? GetRunData(int loadIndex)
+        public RunData? GetRunData(int loadIndex)
         {
             if (!saveRunDatas[loadIndex].load)
             {
-                if(LoadRunData(loadIndex))
+                if (LoadRunData(loadIndex))
                 {
                     return saveRunDatas[loadIndex];
                 }
@@ -75,19 +81,55 @@ namespace karin
             }
         }
 
-        public void LoadGameData()
+        public bool LoadGameData()
         {
             Debug.LogWarning($"Load Run Data > path:{GetGameLoadPath()}");
-            Debug.LogWarning($"데이터 로드 막아둠");
 
-
+            GameData data = default;
+            string path = GetGameLoadPath();
+            try
+            {
+                FileStream fs = new FileStream(path, FileMode.Open);
+                byte[] readBuffer = new byte[1024];
+                fs.Read(readBuffer);
+                fs.Close();
+                Encoding encoding = Encoding.UTF8;
+                data = JsonUtility.FromJson<GameData>(encoding.GetString(readBuffer));
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"File Open Error : {ex.Message}");
+                return false;
+            }
+            gameData = data;
+            return true;
         }
+
+        public GameData GetGameData()
+        {
+            if (LoadGameData())
+            {
+                return gameData;
+            }
+            return default;
+        }
+
         public void LoadAllRunData()
         {
             for (int i = 0; i < 3; i++)
             {
                 LoadRunData(i);
             }
+        }
+
+        public void LoadAndApplyGame(int index)
+        {
+            RunData? d = GetRunData(index);
+            if (!d.HasValue) return;
+            RunData data = d.Value;
+
+            DataManager.Instance.setData(data);
+            DataLinkManager.Instance.setData(data);
         }
     }
 }

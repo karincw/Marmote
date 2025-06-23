@@ -1,3 +1,4 @@
+using DG.Tweening.Plugins.Core.PathCore;
 using Shy;
 using System;
 using System.Data;
@@ -30,6 +31,11 @@ namespace karin
 
         }
 
+        private void OnDisable()
+        {
+            SaveGameData();
+        }
+
         public void ResetGame()
         {
             slotIndex = -1;
@@ -37,12 +43,10 @@ namespace karin
 
         public void SaveRunData(int saveIndex)
         {
-            SaveRunData data = default;
+            RunData data = default;
             string path = GetRunSavePath(saveIndex);
-            if (Load.Instance.saveRunDatas[saveIndex].load) //이미 로드되어있음
-            {
-                RemoveFile(path);
-            }
+
+            RemoveFile(path);
 
             try
             {
@@ -52,7 +56,7 @@ namespace karin
                 data.stageIndex = worldMapManager.stageIndex;
                 data.stageTheme = worldMapManager.stageTheme;
                 data.position = worldMapManager.positionIndex;
-                data.tileData = worldMapManager.GetStageTileData(data.stageIndex).Select(t => t.tileType).ToArray();
+                data.tileData = worldMapManager.GetTileData().ToArray();
                 data.coin = DataLinkManager.Instance.Coin;
                 data.characterType = new SaveChartacterData[3];
                 for (int i = 0; i < 3; i++)
@@ -76,7 +80,6 @@ namespace karin
             }
             catch (Exception ex)
             {
-                //에러남
                 Debug.LogWarning($"File Save Error : {ex.Message}");
             }
             finally
@@ -92,7 +95,27 @@ namespace karin
 
         public void SaveGameData()
         {
+            GameData data = default;
+            string path = GetGameSavePath();
 
+            data.Gem = DataLinkManager.Instance.Gem;
+            StartingPanel sp = FindFirstObjectByType<StartingPanel>();
+            if (sp != null)
+                data.cardLockData = sp.GetCardLockData();
+            else
+                data.cardLockData = Load.Instance.gameData.cardLockData;
+
+            FileStream fs;
+            if (File.Exists(GetGameSavePath()))
+                fs = new FileStream(path, FileMode.Truncate);
+            else
+                fs = new FileStream(path, FileMode.CreateNew);
+
+            byte[] buffer = new byte[1024];
+            Encoding encoding = Encoding.UTF8;
+            buffer = encoding.GetBytes(JsonUtility.ToJson(data));
+            fs.Write(buffer);
+            fs.Close();
         }
 
         public void RemoveFile(string fileName)
@@ -111,6 +134,7 @@ namespace karin
         }
         public void RemoveFile(int fileIndex)
         {
+            Load.Instance.saveRunDatas[fileIndex] = default;
             RemoveFile(GetRunSavePath(fileIndex));
         }
 

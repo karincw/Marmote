@@ -293,7 +293,7 @@ namespace Shy
             {
                 dices[i].CharacterDeadCheck(_ch);
             }
-
+             
             if (isEnemy)
             {
                 foreach (DiceUi dice in enemyDiceDic[_ch])

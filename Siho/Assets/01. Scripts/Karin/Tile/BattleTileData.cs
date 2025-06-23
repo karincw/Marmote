@@ -9,7 +9,7 @@ namespace karin.worldmap
         public override void Play()
         {
             var enemys = WorldMapManager.Instance.GetBattleEnemyDatas(enemyCount);
-            DataLinkManager.Instance.SaveEnemyData(enemys);
+            DataLinkManager.Instance.SetEnemyData(enemys);
             SceneChanger.Instance.LoadScene("Battle Proto");
         }
     }

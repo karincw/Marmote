@@ -14,9 +14,9 @@ namespace karin
             switch (tileType)
             {
                 case TileType.None:
+                    Save.Instance.AutoSave();
                     break;
                 default:
-                    Debug.LogError("asd");
                     break;
             }
         }

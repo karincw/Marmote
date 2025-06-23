@@ -2510,6 +2510,7 @@ GameObject:
   - component: {fileID: 512474744}
   - component: {fileID: 512474748}
   - component: {fileID: 512474747}
+  - component: {fileID: 512474749}
   m_Layer: 5
   m_Name: GemDisplay
   m_TagString: Untagged
@@ -2635,6 +2636,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512474743}
   m_CullTransparentMesh: 1
+--- !u!114 &512474749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512474743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396ce63dd3047ba4da14246fab121b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 512474747}
 --- !u!1 &560223371
 GameObject:
   m_ObjectHideFlags: 0

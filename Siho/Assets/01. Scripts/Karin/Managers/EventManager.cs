@@ -25,14 +25,7 @@ namespace karin
 
         private void Init()
         {
-            if (Load.Instance.saveRunDatas[Save.Instance.slotIndex].load)
-            { //데이터가 있음
-                SetUpEvent();
-            }
-            else
-            { //데이터가 없음
-                SetUpEvent();
-            }
+            SetUpEvent();
         }
 
         private void SetUpEvent()
@@ -53,6 +46,7 @@ namespace karin
             EventSO evt = _currentEvents.Dequeue();
             _eventPanel.SetEvent(evt);
             _eventPanel.Open();
+            _eventPanel.Setup();
         }
 
         public void SendFeedback(string message)

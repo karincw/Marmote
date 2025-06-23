@@ -14,7 +14,7 @@ namespace karin
             }
             else if (tileType == TileType.Event)
             {
-                Debug.LogWarning("이벤트 실행");
+                EventManager.Instance.PlayEvent();
             }
         }
     }
