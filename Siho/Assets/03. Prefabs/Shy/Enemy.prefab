@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 2
-  buffGroup: {fileID: 0}
+  buffGroup: {fileID: 3943869485580069255}
   posColor: {r: 0, g: 0, b: 0, a: 1}
   actSign: {fileID: 2558487368498495249}
 --- !u!114 &88658820645620503

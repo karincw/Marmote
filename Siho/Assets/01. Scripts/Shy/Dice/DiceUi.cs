@@ -55,7 +55,7 @@ namespace Shy.Dice
 
         public void CharacterDeadCheck(Character _user)
         {
-            if (CharacterCheck(_user)) return;
+            if (!CharacterCheck(_user)) return;
             DeleteUser();
             UseBlock();
         }

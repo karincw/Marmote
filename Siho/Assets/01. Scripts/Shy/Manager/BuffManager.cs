@@ -76,6 +76,8 @@ namespace Shy
             switch (_buffType)
             {
                 case BuffType.Bleeding:
+                    float _lessHp = _target.GetNowStat(StatEnum.MaxHp) - _target.GetNowStat(StatEnum.Hp);
+                    _target.OnValueEvent(Mathf.RoundToInt(_lessHp * 0.1f), EventType.AttackEvent, 100);
                     break;
                 case BuffType.Crumbs:
                     

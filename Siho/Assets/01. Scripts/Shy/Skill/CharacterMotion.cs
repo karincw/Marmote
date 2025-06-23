@@ -12,7 +12,7 @@ namespace Shy.Anime
         public Tween PetSpawn(Transform _user, Image _pet, Sprite _petVisual, float _t)
         {
             _pet.transform.SetParent(_user);
-            _pet.transform.localPosition = Vector2.zero;
+            _pet.transform.localPosition = Vector2.zero + Vector2.down * 10;
             _pet.sprite = _petVisual;
 
             return _pet.DOFade(1, _t);

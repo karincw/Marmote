@@ -47,7 +47,6 @@ namespace Shy.Info
             InfoPanel _panel = panels[_infoType];
 
             _panel.UpdatePanelData(_infoData);
-            _panel.gameObject.SetActive(true);
         }
 
         private void CloseAllPanel()

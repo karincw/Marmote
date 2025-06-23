@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Red Hood 1
   m_EditorClassIdentifier: 
   skillName: 
-  explian: 
+  explian: "\uC801\uC5D0\uAC8C (\uACF5\uACA9\uB825\uC758 135%)\uB9CC\uD07C \uD53C\uD574\uB97C
+    \uC90D\uB2C8\uB2E4."
   skills:
   - {fileID: 11400000, guid: 63eb26d1b685102469a3300c6df2cc50, type: 2}
-  motion: 2
+  motion: 1
   userAnime: {fileID: 21300000, guid: b5efa7a670abee5408a8a8b8bd4e6a5e, type: 3}
   teamEffect: {fileID: 0}
   opponentEffect: {fileID: 0}

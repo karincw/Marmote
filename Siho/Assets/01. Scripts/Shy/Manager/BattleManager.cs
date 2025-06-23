@@ -85,7 +85,8 @@ namespace Shy
         }
 
         private void CharacterInit(Team _team, CharacterSO[] _so)
-        {List<Character> characterList = (_team == Team.Player ? minions : enemies);
+        {
+            List<Character> characterList = (_team == Team.Player ? minions : enemies);
 
             for (int i = 0; i < characterList.Count;)
             {
@@ -272,7 +273,15 @@ namespace Shy
 
             buffEvent -= _ch.BuffCheck;
 
-            if(enemies.Count == 0 || minions.Count == 0) rewardPanel.Open(isEnemy, 10, 10);
+            if(enemies.Count == 0 || minions.Count == 0)
+            {
+                Debug.Log("Battle Finish");
+                foreach (var _minion in minions)
+                {
+                    _minion.BattleFinish();
+                }
+                rewardPanel.Open(isEnemy, 10, 10);
+            }
 
             for (int i = 0; i < dices.Count; i++)
             {

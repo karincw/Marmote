@@ -15,13 +15,16 @@ namespace Shy.Unit
             actSign.gameObject.SetActive(false);
         }
 
-        public override void Init(CharacterSO _data)
+        public override bool Init(CharacterSO _data)
         {
-            base.Init(_data);
+            if (!base.Init(_data)) return false;
+
+            _data.Init();
             pressCompo.Init(InfoType.Enemy, () =>
             {
                 InfoManager.Instance.OpenPanel(InfoType.Enemy, new Info.CharacterInfo(this, _data));
             });
+            return true;
         }
     }
 }

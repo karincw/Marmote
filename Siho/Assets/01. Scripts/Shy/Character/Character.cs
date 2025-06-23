@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Shy.Info;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,12 +54,12 @@ namespace Shy.Unit
             parentTrm = transform.parent;
         }
 
-        public virtual void Init(CharacterSO _data)
+        public virtual bool Init(CharacterSO _data)
         {
             if (_data == null)
             {
                 gameObject.SetActive(false);
-                return;
+                return false;
             }
 
             data = _data;
@@ -73,6 +74,8 @@ namespace Shy.Unit
             buffs = new List<BuffUI>();
 
             VisualUpdate(0);
+
+            return true;
         }
 
         public void ReturnParent() => transform.SetParent(parentTrm);
@@ -99,6 +102,7 @@ namespace Shy.Unit
 
             seq.OnStart(() =>
             {
+                Debug.Log(gameObject.name + " Die");
                 BattleManager.Instance.CharacterDie(this);
             });
             seq.Append(visual.DOColor(new Color(0.25f, 0.25f, 0.25f), 0.3f));
@@ -153,6 +157,7 @@ namespace Shy.Unit
 
         public void OnBuffEvent(int _value, BuffType _buffType)
         {
+            Debug.Log(_buffType);
             foreach (var _buff in buffs)
             {
                 if (_buff.CheckBuff(_buffType))
@@ -161,6 +166,7 @@ namespace Shy.Unit
                     return;
                 }
             }
+            Debug.Log("Get Buff");
 
             BuffUI buff = Pooling.Instance.Use(PoolingType.Buff, buffGroup).GetComponent<BuffUI>();
             buff.Init(this, BuffManager.Instance.GetBuff(_buffType), _value);
@@ -203,6 +209,11 @@ namespace Shy.Unit
         {
             if (_stat == StatEnum.Hp) return healthCompo.GetHealth();
             return statCompo.GetApplyStat(_stat);
+        }
+
+        internal void BattleFinish()
+        {
+            data.stats.hp = GetNowStat(StatEnum.Hp);
         }
         #endregion
     }

@@ -9,7 +9,17 @@ namespace Shy
     public struct Stat
     {
         public int maxHp;
-        [HideInInspector] public int hp;
+        [HideInInspector] public int hp
+        {
+            get => Hp;
+            set
+            {
+                if (value < 0) value = 0;
+                if (value > maxHp) value = maxHp;
+                Hp = value;
+            }
+        }
+        private int Hp;
         public int str;
         public int def;
 

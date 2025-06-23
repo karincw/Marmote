@@ -13,7 +13,6 @@ namespace Shy.Anime
         private IEnumerator CameraZoom(float _lastValue, float _t)
         {
             float startValue = cam.Lens.FieldOfView, elapsed = 0f;
-            Debug.Log(startValue);
 
             while (elapsed < _t)
             {

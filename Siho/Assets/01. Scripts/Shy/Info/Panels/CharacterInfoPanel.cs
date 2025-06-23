@@ -23,8 +23,11 @@ namespace Shy.Info
 
             for (int i = 0; i < 3; i++)
             {
-                skills[i].SetText("");
+                skills[i].SetText(_cInfo.so.skills[i].explian);
             }
+
+            transform.position = _cInfo.character.transform.position + new Vector3(4, 0);
+            gameObject.SetActive(true);
         }
     }
 }

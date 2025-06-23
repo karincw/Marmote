@@ -14,6 +14,8 @@ namespace Shy.Info
             dice.SetText(BattleManager.Instance.GetEnemyDiceCount(_cInfo.character).ToString());
 
             base.UpdatePanelData(_data);
+
+            transform.position = _cInfo.character.transform.position + new Vector3(-4, 0);
         }
     }
 }

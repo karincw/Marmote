@@ -33,40 +33,73 @@ namespace Shy.Target
 
         public List<Character> GetTargets(TargetData _td)
         {
-            List<Character> targets = new List<Character>();
+            var _targets = new List<Character>();
+            Character _currentTarget = null;
 
-            Team targetTeam = _td.user.team;
+            Team _targetTeam = _td.user.team;
 
             if (_td.targetTeam == TargetWay.Opponenet)
             {
-                if (targetTeam == Team.Player) targetTeam = Team.Enemy;
-                else targetTeam = Team.Player;
+                if (_targetTeam == Team.Player) _targetTeam = Team.Enemy;
+                else _targetTeam = Team.Player;
             }
 
             switch (_td.actionWay)
             {
                 case ActionWay.Self:
-                    targets.Add(_td.user);
+                    _targets.Add(_td.user);
                     break;
 
                 case ActionWay.Opposite:
                     break;
 
                 case ActionWay.LessHp:
+                    var _lessTargets = BattleManager.Instance.GetCharacters(_targetTeam);
+                    _currentTarget = _lessTargets[0];
 
+                    for (int i = 1; i < _lessTargets.Count; i++)
+                    {
+                        if (_lessTargets[i].GetNowStat(StatEnum.Hp) > _currentTarget.GetNowStat(StatEnum.Hp))
+                        {
+                            _targets.Remove(_currentTarget);
+                            _currentTarget = _lessTargets[i];
+                        }
+                        else
+                        {
+                            _targets.Remove(_lessTargets[i]);
+                        }
+                    }
+                    break;
+
+                case ActionWay.MoreHp:
+                    var _moreTargets = BattleManager.Instance.GetCharacters(_targetTeam);
+                    _currentTarget = _moreTargets[0];
+
+                    for (int i = 1; i < _moreTargets.Count; i++)
+                    {
+                        if (_moreTargets[i].GetNowStat(StatEnum.Hp) > _currentTarget.GetNowStat(StatEnum.Hp))
+                        {
+                            _targets.Remove(_currentTarget);
+                            _currentTarget = _moreTargets[i];
+                        }
+                        else
+                        {
+                            _targets.Remove(_moreTargets[i]);
+                        }
+                    }
                     break;
 
                 case ActionWay.Random:
-                    var c = BattleManager.Instance.GetCharacters(targetTeam);
-                    targets.Add(c[Random.Range(0, c.Count)]);
+                    var c = BattleManager.Instance.GetCharacters(_targetTeam);
+                    _targets.Add(c[Random.Range(0, c.Count)]);
                     break;
 
                 case ActionWay.All:
-                    targets = BattleManager.Instance.GetCharacters(targetTeam);
+                    _targets = BattleManager.Instance.GetCharacters(_targetTeam);
                     break;
             }
 
-            return targets;
+            return _targets;
         }
     }
 }
