@@ -1,5 +1,4 @@
 using karin;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 namespace Shy.Unit

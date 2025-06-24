@@ -20,9 +20,11 @@ namespace karin
 
             dataManager.minions[characterIndex].stats += currentBranch.statModify;
 
-            currentBranch.feedbackScript +=
-                $"\nSelect : {currentBranch.branchName}\nChange : {currentBranch.statModify.ToString()}";
-            EventManager.Instance.SendFeedback(currentBranch.feedbackScript);
+            string feedbackText = "";
+            feedbackText += $"당신은 [{currentBranch.branchName}]를 선택했습니다.\n";
+            feedbackText += currentBranch.feedbackScript;
+            feedbackText += $"\n\nChange : {currentBranch.statModify.ToString()}";
+            EventManager.Instance.SendFeedback(feedbackText);
         }
 
         public override int GetBranchCount() => branchs.Count;
