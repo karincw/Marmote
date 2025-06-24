@@ -19,7 +19,7 @@ MonoBehaviour:
   - branchName: "\uC8FD\uC778\uB2E4"
     usedByRandomCharacterIndex: 1
     characterIndex: 0
-    usedByRandomEyeIndex: 1
+    usedByRandomEyeIndex: 0
     eyeIndex: 0
     wayModify: 5
     feedbackScript: "\uC774\uBBF8 \uC8FD\uC740\uAC70\uAC19\uB2E4.\n\uC544\uBB34\uAC83\uB3C4

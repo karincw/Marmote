@@ -31,9 +31,13 @@ namespace karin
             OpenGroup(_skillLayout);
             for (int i = 0; i < _skillDescriptions.Count; i++)
             {
+                if (i == 0)
+                {
+                    _skillDescriptions[i].text = $"{current.name}의 스킬 정보";
+                    continue;
+                }
                 StringBuilder sb = new StringBuilder();
-                sb.Append($"{current.name}의 {i+1}번 스킬 정보\n");
-                sb.Append(current.skills[i].explian);
+                sb.Append(current.skills[i - 1].explian);
                 _skillDescriptions[i].text = sb.ToString();
             }
         }
@@ -43,9 +47,13 @@ namespace karin
             OpenGroup(_diceLayout);
             for (int i = 0; i < _diceDescriptions.Count; i++)
             {
+                if (i == 0)
+                {
+                    _skillDescriptions[i].text = $"{current.name}의 눈금 정보";
+                    continue;
+                }
                 StringBuilder sb = new StringBuilder();
-                sb.Append($"{current.name}의 {i+1}번째 면 정보\n");
-                //sb.Append(current.DiceSO.eyes[i].exlpain);
+                sb.Append(current.DiceSO.eyes[i-1].attackWay);
                 _diceDescriptions[i].text = sb.ToString();
             }
         }

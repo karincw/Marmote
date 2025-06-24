@@ -45,18 +45,19 @@ namespace karin
 
         private void Init()
         {
-            var loadedData = Load.Instance.saveRunDatas[Save.Instance.slotIndex];
-            if (loadedData.load)
+            var loadedData = Load.Instance.GetRunData(Save.Instance.slotIndex);
+            if (loadedData.HasValue &&loadedData.Value.load)
             { //데이터가 있음
-                stageTheme = loadedData.stageTheme;
-                stageIndex = loadedData.stageIndex;
-                SetStageLoad(loadedData.tileData);
-                positionIndex = loadedData.position;
+                stageTheme = loadedData.Value.stageTheme;
+                stageIndex = loadedData.Value.stageIndex;
+                SetStageLoad(loadedData.Value.tileData);
+                positionIndex = loadedData.Value.position;
             }
             else
             { //데이터가 없음
-                stageTheme = GetRandomTheme();
+                stageTheme = Theme.OZ;
                 HandleNextStage(stageIndex);
+                Load.Instance.saveRunDatas[Save.Instance.slotIndex].load = true;
             }
         }
 

@@ -15,8 +15,14 @@ namespace karin
         public int nowIndex = 0;
         public event Action OnMoveEndEvent;
         private WaitForSeconds _passingDelay;
+        private SpriteRenderer _spriteRenderer;
 
         private bool moveNext = true;
+
+        private void Awake()
+        {
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
+        }
 
         private void OnEnable()
         {
@@ -55,13 +61,19 @@ namespace karin
         {
             foreach (Tile tile in targetTiles)
             {
-                moveNext = false;
-                transform.DOMove(tile.transform.position, _moveSpeed).SetEase(_moveEase)
+                moveNext = false; 
+                if(tile.transform.position.x - transform.position.x < 0)
+                    _spriteRenderer.flipX = false;
+                else
+                    _spriteRenderer.flipX = true;
+                transform.DOJump(tile.transform.position, 0.6f, 1, _moveSpeed).SetEase(_moveEase)
+                //transform.DOMove(tile.transform.position, _moveSpeed).SetEase(_moveEase)
                     .OnComplete(() => { moveNext = true; });
                 yield return new WaitUntil(() => moveNext);
             }
             nowIndex += targetTiles.Count;
             WorldMapManager.Instance.positionIndex = nowIndex;
+            Save.Instance.AutoSave();
             targetTiles[targetTiles.Count - 1].EnterAnimation();
             OnMoveEndEvent?.Invoke();
         }

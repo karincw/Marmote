@@ -28,7 +28,7 @@ namespace Shy
         [Header("Other")]
         [SerializeField] private GameObject endBtn;
         private UnityAction buffEvent;
-        [SerializeField] private RewardCanvas rewardPanel;
+        [SerializeField] private RewardPanel _rewardPanel;
 
         private List<SkillEvent> skillEvents;
         #endregion
@@ -42,7 +42,6 @@ namespace Shy
 
         private void Start()
         {
-            rewardPanel.Close();
             Init();
         }
 
@@ -291,7 +290,8 @@ namespace Shy
                         _minion.BattleFinish();
                     }
                 }
-                rewardPanel.Open(isEnemy, 10, 10);
+                _rewardPanel.SetData(isEnemy, 10, 10); 
+                _rewardPanel.Open();
             }
 
             for (int i = 0; i < dices.Count; i++)
@@ -306,7 +306,7 @@ namespace Shy
                     dice.DiceDie();
                     enDices.Remove(dice);
                 }
-            }
+            } 
         }
     }
 }
