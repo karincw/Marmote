@@ -1,3 +1,4 @@
+using Shy;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,7 @@ namespace karin
                 int index = Save.Instance.slotIndex;
                 Load.Instance.saveRunDatas[index] = default;
                 Save.Instance.RemoveFile(index);
+                Load.Instance.ResetGame();
                 _button.onClick.AddListener(() => SceneChanger.Instance.LoadScene("Title"));
             }
 

@@ -55,7 +55,7 @@ namespace karin
             }
             else
             { //데이터가 없음
-                stageTheme = GetRandomTheme();
+                stageTheme = Theme.OZ;
                 HandleNextStage(stageIndex);
                 Load.Instance.saveRunDatas[Save.Instance.slotIndex].load = true;
             }

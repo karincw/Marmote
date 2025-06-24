@@ -1,3 +1,4 @@
+using Shy;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,7 +25,9 @@ namespace karin
         protected override void Start()
         {
             base.Start();
+            DataManager.Instance.minions = new Shy.Unit.CharacterSO[3];
             SetCardLock(Load.Instance.GetGameData().cardLockData);
+            _selectCards[0].canPlay = true;
         }
 
         public bool CanAdd()
