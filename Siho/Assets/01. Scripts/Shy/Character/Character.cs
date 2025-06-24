@@ -86,7 +86,7 @@ namespace Shy.Unit
         public void HealthVisibleEvent(bool _show)
         {
             uiTrm.gameObject.SetActive(_show);
-            if (_show) healthCompo.UpdateHealth();
+            healthCompo.UpdateHealth();
         }
 
         private IEnumerator HitAnime()

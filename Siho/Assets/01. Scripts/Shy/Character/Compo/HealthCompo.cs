@@ -53,6 +53,8 @@ namespace Shy.Unit
                     hp = 0;
                 }
             }
+
+            UpdateHealth();
         }
 
         public void OnHealEvent(int _value)
@@ -73,6 +75,8 @@ namespace Shy.Unit
 
         public void UpdateHealth(float _time = 0.35f)
         {
+            if (!healthGuage.gameObject.activeInHierarchy) return;
+
             float healthPer = GetHpPer();
             healthGuage.fillAmount = healthPer;
             effectGuage.DOFillAmount(healthPer, _time);

@@ -117,10 +117,9 @@ namespace Shy.Anime
             _camSeq.AppendCallback(() => camMotion.CamZoom(40, 0.45f));
             _camSeq.Append(camMotion.CamMove(_user.transform, _team, 0.45f));
 
-            _camSeq.AppendCallback(() => camMotion.CamZoom(30, 1f));
-            _camSeq.Append(camMotion.CamMove(_target.transform, _team,  _isLong, 1f));
-            _camSeq.Join(camMotion.CamRotate(1.8f, _team, 1f).SetEase(Ease.OutCubic));
-            _camSeq.AppendInterval(0.1f);
+            _camSeq.AppendCallback(() => camMotion.CamZoom(30, 1.1f));
+            _camSeq.Append(camMotion.CamMove(_target.transform, _team,  _isLong, 1.1f));
+            _camSeq.Join(camMotion.CamRotate(1.8f, _team, 1.1f).SetEase(Ease.OutCubic));
 
             _camSeq.Append(camMotion.CamReturn());
             _camSeq.Join(camMotion.CamRotate(0, _team, 0.5f));
