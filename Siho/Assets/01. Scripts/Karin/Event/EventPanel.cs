@@ -56,13 +56,11 @@ namespace karin
 
                 text.text = _currentEvent.GetBranchName(i);
 
-                var buttonObject = btn.gameObject;
                 var index = i;
                 btn.onClick.AddListener(() =>
                 {
-                    _previousButtons.Where(t => t != buttonObject).ToList().ForEach(btn => Destroy(btn));
-                    _previousButtons = _previousButtons.Where(t => t != null).ToList();
-                    buttonObject.GetComponent<Button>().interactable = false;
+                    _previousButtons.ForEach(btn => Destroy(btn));
+                    _previousButtons.Clear();
                     _currentEvent.Play(index);
                 });
                 _previousButtons.Add(btn.gameObject);
@@ -78,6 +76,8 @@ namespace karin
             text.text = "³¡³»±â";
             btn.onClick.AddListener(() =>
             {
+                _previousButtons.ForEach(btn => Destroy(btn));
+                _previousButtons.Clear();
                 Save.Instance.AutoSave();
                 Close();
             });

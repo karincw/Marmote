@@ -23,9 +23,12 @@ namespace karin
 
             var priviousWay = dataManager.minions[characterIndex].DiceSO.eyes[eyeIndex].attackWay;
             dataManager.minions[characterIndex].DiceSO.eyes[eyeIndex].attackWay = currentBranch.wayModify;
-            currentBranch.feedbackScript +=
-                $"\nSelect : {currentBranch.branchName}\nChange : Dice[{eyeIndex}]({priviousWay}) > Dice[{eyeIndex}]({currentBranch.wayModify})";
-            EventManager.Instance.SendFeedback(currentBranch.feedbackScript);
+
+            string feedbackText = "";
+            feedbackText += $"당신은 [{currentBranch.branchName}]를 선택했습니다.\n";
+            feedbackText += currentBranch.feedbackScript;
+            feedbackText += $"\n\nChange : Dice[{eyeIndex}]({priviousWay}) > Dice[{eyeIndex}]({currentBranch.wayModify})";
+            EventManager.Instance.SendFeedback(feedbackText);
         }
 
         public override int GetBranchCount() => branchs.Count;

@@ -25,8 +25,8 @@ namespace karin
         public void SetData(bool isWin, int gem, int coin)
         {
             _titleText.text = isWin ? "Win" : "Defeat";
-            _gemText.SetText(gem.ToString());
-            _coinText.SetText(coin.ToString());
+            _gemText.SetText($"Gem : {gem.ToString()}");
+            _coinText.SetText($"Coin : {coin.ToString()}");
             if (isWin)
                 _button.onClick.AddListener(() => SceneChanger.Instance.LoadScene("WorldMap"));
             else
