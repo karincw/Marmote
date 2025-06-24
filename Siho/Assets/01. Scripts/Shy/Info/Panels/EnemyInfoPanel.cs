@@ -11,9 +11,8 @@ namespace Shy.Info
         {
             if (_data is not CharacterInfo _cInfo) return;
 
-            dice.SetText(BattleManager.Instance.GetEnemyDiceCount(_cInfo.character).ToString());
-
             base.UpdatePanelData(_data);
+            dice.SetText(BattleManager.Instance.GetEnemyDiceCount(_cInfo.character).ToString());
 
             transform.position = _cInfo.character.transform.position + new Vector3(-4, 0);
         }

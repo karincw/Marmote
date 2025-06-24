@@ -31,6 +31,7 @@ namespace Shy.Info
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            Debug.Log("1");
             if (!canPress) return;
 
             pressing = true;

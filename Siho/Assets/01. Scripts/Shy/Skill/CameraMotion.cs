@@ -54,15 +54,11 @@ namespace Shy.Anime
             if (_team == Team.Player) _x = -_x;
             return cam.transform.DOMoveX(_x, _t).SetRelative();
         }
-
-        public Tween CamMove(Team _team, float _t = 0.2f)
-        {
-            float _x = ((_team == Team.Enemy) ? 3.15f : -3.15f);
-            Vector2 _result = new Vector2(_x, -0.13f);
-
-            return cam.transform.DOMove(_result, _t);
-        }
-
         
+        public Tween CamMove(Vector2 _value, Team _team, float _t)
+        {
+            if (_team == Team.Player) _value.x = -_value.x;
+            return cam.transform.DOMove(_value, _t);
+        }
     }
 }

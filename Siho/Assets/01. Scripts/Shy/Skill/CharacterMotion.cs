@@ -9,11 +9,11 @@ namespace Shy.Anime
     {
         public Tween CharacterDrop(Transform _target, float _t) => _target.DOMoveY(0.5f, _t);
 
-        public Tween PetSpawn(Transform _user, Image _pet, Sprite _petVisual, float _t)
+        public Tween PetSpawn(AnimeData _data, Image _pet, float _t)
         {
-            _pet.transform.SetParent(_user);
+            _pet.transform.SetParent(_data.user.transform);
             _pet.transform.localPosition = Vector2.zero + Vector2.down * 10;
-            _pet.sprite = _petVisual;
+            _pet.sprite = _data.GetMotion(AnimeType.SummonVisual);
 
             return _pet.DOFade(1, _t);
         }
@@ -27,10 +27,10 @@ namespace Shy.Anime
             return _user.DOMove(_result, _t);
         }
 
-        public Tween CharacterMove(Transform _user, Team _team, float _t = 0.2f)
+        public Tween CharacterMove(Transform _user, Team _team, Vector2 _vec, float _t = 0.2f)
         {
-            float _x = ((_team == Team.Enemy) ? 1.5f : -1.5f);
-            Vector3 _result = new Vector3(_x, -0.3f, _user.position.z);
+            if (_team == Team.Player) _vec.x = -_vec.x;
+            Vector3 _result = new Vector3(_vec.x, _vec.y, _user.position.z);
             return _user.DOMove(_result, _t);
         }
 

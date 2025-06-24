@@ -11,6 +11,7 @@ namespace Shy.Unit
 
         [Header("User")]
         public SkillMotion motion;
+        public Sprite userVisual;
         public Sprite userAnime;
         public Sprite teamEffect;
 
@@ -27,6 +28,7 @@ namespace Shy.Unit
         {
             switch (_type)
             {
+                case AnimeType.UserVisual:      return userVisual;
                 case AnimeType.UserAnime:       return userAnime;
                 case AnimeType.TeamEffect:      return teamEffect;
                 case AnimeType.OpponentEffect:  return opponentEffect;

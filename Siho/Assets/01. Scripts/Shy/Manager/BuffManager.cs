@@ -47,7 +47,7 @@ namespace Shy
                     OnEndEvent(_buffType, _target, _value);
                     break;
                 case BuffUseCondition.OnAttack:
-                    OnBeginEvent(_buffType, _target, _value);
+                    OnAttackEvent(_buffType, _target, _value);
                     break;
                 case BuffUseCondition.OnHit:
                     OnHitEvent(_buffType, _target, _value);
@@ -65,6 +65,9 @@ namespace Shy
                 case BuffType.Brave:
                     _target.SetBonusStat(StatEnum.AdditionalDmg, 20);
                     break;
+                case BuffType.Shield:
+                    _target.SetBonusStat(StatEnum.ReductionDmg, 10);
+                    break;
                 case BuffType.Gingerbread:
                     //피감량
                     break;
@@ -79,6 +82,7 @@ namespace Shy
                     float _lessHp = _target.GetNowStat(StatEnum.MaxHp) - _target.GetNowStat(StatEnum.Hp);
                     _target.OnValueEvent(Mathf.RoundToInt(_lessHp * 0.1f), EventType.AttackEvent, 100);
                     break;
+
 
                 case BuffType.Crumbs:
                     
@@ -101,6 +105,9 @@ namespace Shy
                     break;
                 case BuffType.Gingerbread:
                     //피감량 감소
+                    break;
+                case BuffType.Shield:
+                    _target.SetBonusStat(StatEnum.ReductionDmg, -10);
                     break;
                 case BuffType.Bondage:
                     break;

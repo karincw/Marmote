@@ -20,8 +20,7 @@ namespace Shy.Unit
         private CharacterSO data;
 
         public Team team = Team.None;
-        internal UnityAction visualAction;
-
+        
         internal List<BuffUI> buffs;
         public Transform buffGroup;
 
@@ -32,7 +31,7 @@ namespace Shy.Unit
         #endregion
 
         #region Get
-        public Sprite GetIcon() => data.sprite;
+        public Sprite GetIcon() => data.cardImage;
         public Transform GetVisual() => visual.transform;
         public bool IsDie() => healthCompo.isDie;
         public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
@@ -118,7 +117,7 @@ namespace Shy.Unit
             switch (_value)
             {
                 case 1: case 2: case 3:
-                    visual.sprite = data.skills[_value - 1].GetMotionSprite(Anime.AnimeType.UserAnime, this);
+                    visual.sprite = data.skills[_value - 1].GetMotionSprite(Anime.AnimeType.UserVisual, this);
                     break;
                 case 4:
                     visual.sprite = data.hitAnime;
@@ -127,6 +126,12 @@ namespace Shy.Unit
                     visual.sprite = data.sprite;
                     break;
             }
+        }
+
+        public void VisualUpdate(Sprite _sprite)
+        {
+            if (_sprite == null) return;
+            visual.sprite = _sprite;
         }
         #endregion
 
@@ -137,8 +142,6 @@ namespace Shy.Unit
             healthCompo.cnt = 0;
             //ReturnParent();
         }
-
-        public void SetSkillAnime(int _value) => visualAction += () => VisualUpdate(_value);
 
         public void OnValueEvent(int _value, EventType _type, int _ignoreDefPer)
         {
