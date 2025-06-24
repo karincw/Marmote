@@ -12,14 +12,29 @@ namespace karin
         private TMP_Text _coinText;
         private Button _button;
         private CanvasGroup _canvasGroup;
+        [SerializeField] private float _fadeTime = 0.4f;
 
+        private float _fadePosY;
+        private RectTransform rt;
+
+        protected virtual void Start()
+        {
+            Utils.FadeCanvasGroup(_canvasGroup, true, 0);
+        }
         private void Awake()
         {
+            rt = transform as RectTransform;
+            _fadePosY = Camera.main.pixelHeight;
+            rt.localPosition = new Vector2(0, _fadePosY);
+            rt = transform as RectTransform;
+            _fadePosY = Camera.main.pixelHeight;
+            rt.localPosition = new Vector2(0, _fadePosY);
             _titleText = transform.Find("Title").GetComponent<TMP_Text>();
             _gemText = transform.Find("GemText").GetComponent<TMP_Text>();
             _coinText = transform.Find("CoinText").GetComponent<TMP_Text>();
             _button = transform.Find("ExitBtn").GetComponent<Button>();
-            _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup = GetComponent<CanvasGroup>(); 
+            Utils.FadeCanvasGroup(_canvasGroup, true, 0);
         }
 
         public void SetData(bool isWin, int gem, int coin)
@@ -39,14 +54,16 @@ namespace karin
 
         }
 
-        public void Init()
+        public virtual void Open()
         {
-            _canvasGroup.alpha = 0;
+            rt.DOLocalMoveY(0, _fadeTime).SetEase(Ease.Linear);
+            Utils.FadeCanvasGroup(_canvasGroup, false, _fadeTime);
         }
 
-        public void Fade(float value, float duration)
+        public virtual void Close()
         {
-            _canvasGroup.DOFade(value, duration);
+            rt.DOLocalMoveY(_fadePosY, _fadeTime).SetEase(Ease.Linear);
+            Utils.FadeCanvasGroup(_canvasGroup, true, _fadeTime);
         }
 
     }

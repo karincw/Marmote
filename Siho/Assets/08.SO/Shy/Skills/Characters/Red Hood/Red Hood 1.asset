@@ -18,6 +18,7 @@ MonoBehaviour:
   skills:
   - {fileID: 11400000, guid: 63eb26d1b685102469a3300c6df2cc50, type: 2}
   motion: 1
+  userVisual: {fileID: 21300000, guid: 506edb02a11b5934fa526fc907b32956, type: 3}
   userAnime: {fileID: 21300000, guid: b5efa7a670abee5408a8a8b8bd4e6a5e, type: 3}
   teamEffect: {fileID: 0}
   opponentEffect: {fileID: 0}

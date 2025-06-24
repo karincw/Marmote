@@ -31,6 +31,7 @@ namespace Shy
         Burn,
         Music,
         Confusion,
+        Shield,
     }
 
     public enum BuffUseCondition
@@ -117,6 +118,7 @@ namespace Shy
     {
         public enum AnimeType
         {
+            UserVisual,
             UserAnime,
             TeamEffect,
             OpponentEffect,

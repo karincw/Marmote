@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using Unity.Cinemachine;
 using UnityEngine.UI;
 using Shy.Unit;
 using System.Collections.Generic;
@@ -67,6 +66,7 @@ namespace Shy.Anime
                     targetHash.Add(_ch);
                 }
             }
+
             List<Character> _targets = targetHash.ToList();
             _targets.Remove(_animeData.user);
             int _targetCnt = _targets.Count;
@@ -91,6 +91,7 @@ namespace Shy.Anime
                 case SkillMotion.TeamBySelf:
                     break;
                 case SkillMotion.TeamByPet:
+                    TeamEffectPet(_animeData, _targets);
 
                     break;
                 case SkillMotion.EveryOne:
@@ -100,11 +101,40 @@ namespace Shy.Anime
 
         private void TeamEffectPet(AnimeData _animeData, List<Character> _targets)
         {
-            Sequence _seq = DOTween.Sequence(), _subSeq, _camSeq = DOTween.Sequence();
-            Team _team = _targets[0].team;
+            Sequence _seq = DOTween.Sequence(), _camSeq = DOTween.Sequence();
             var _user = _animeData.user;
+            Team _team = _user.team;
 
-            //_camSeq.AppendCallback();
+            _camSeq.AppendCallback(()=>camMotion.CamZoom(45, 0.5f));
+            _camSeq.Append(camMotion.CamMove(new Vector2(3.85f, 0.2f), _team, 0.5f));
+
+            _camSeq.Append(camMotion.CamReturn());
+            _camSeq.JoinCallback(() => camMotion.CamZoom());
+
+            _seq.AppendInterval(0.1f);
+            _seq.AppendCallback(() =>
+            {
+                BattleManager.Instance.HealthUiVisible(false);
+                DarkManager.Instance.PanelOpen(_user, _targets);
+                _user.VisualUpdate(_animeData.GetMotion(AnimeType.UserVisual));
+            });
+            _seq.Append(chMotion.PetSpawn(_animeData, pet, 0.2f));
+            _seq.AppendInterval(0.1f);
+            _seq.Append(chMotion.CharacterMove(pet.transform, _team, Vector2.zero, 0.3f));
+            _seq.AppendInterval(0.15f);
+            _seq.AppendCallback(()=>
+            {
+                pet.sprite = _animeData.GetMotion(AnimeType.SummonAnime);
+
+                foreach (var _event in _animeData.events) _event.UseEvent();
+            });
+
+            _seq.AppendInterval(0.2f);
+
+            _seq.Append(chMotion.CharacterReturn(pet.transform));
+            _seq.AppendInterval(0.1f);
+            _seq.AppendCallback(() => DarkManager.Instance.PanelOff());
+            _seq.JoinCallback(() => SkillFinish(_targets, _user));
         }
 
         private void SingleAttackPetAnime(AnimeData _animeData, Character _target)
@@ -131,9 +161,9 @@ namespace Shy.Anime
             {
                 BattleManager.Instance.HealthUiVisible(false);
                 DarkManager.Instance.PanelOpen(_user, _target);
-                _user.visualAction?.Invoke();
+                _user.VisualUpdate(_animeData.GetMotion(AnimeType.UserVisual));
             });
-            _seq.Append(chMotion.PetSpawn(_user.transform, pet, _animeData.GetMotion(AnimeType.SummonVisual), 0.25f));
+            _seq.Append(chMotion.PetSpawn(_animeData, pet, 0.25f));
             _seq.AppendInterval(0.1f);
             _seq.Append(chMotion.CharacterMove(_target.GetVisual(), pet.transform, _team, _isLong, 0.4f));
             _seq.AppendInterval(0.2f);
@@ -177,15 +207,19 @@ namespace Shy.Anime
 
             //Begin
             _seq.AppendInterval(0.1f); //0~0.1s
-            _seq.AppendCallback(() => BattleManager.Instance.HealthUiVisible(false));
-            _seq.AppendCallback(() => DarkManager.Instance.PanelOpen(_user, _target));
+            _seq.AppendCallback(() => 
+            {
+                BattleManager.Instance.HealthUiVisible(false);
+                DarkManager.Instance.PanelOpen(_user, _target);
+                _user.VisualUpdate(_animeData.GetMotion(AnimeType.UserVisual));
+            });
             _seq.Append(chMotion.CharacterMove(_target.transform, _user.GetVisual(), _team, _isLong)); //0.1~0.32s
             _seq.AppendInterval(0.3f); //0.32~0.62s
 
             _subSeq = DOTween.Sequence();
             _subSeq.AppendCallback(() =>
             {
-                _user.visualAction?.Invoke();
+                _user.VisualUpdate(_animeData.GetMotion(AnimeType.UserAnime));
                 foreach (var _event in _animeData.events) _event.UseEvent();
             });
             _subSeq.AppendInterval(0.07f);

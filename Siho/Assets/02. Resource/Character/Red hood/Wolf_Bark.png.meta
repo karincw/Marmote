@@ -5,21 +5,6 @@ TextureImporter:
   - first:
       213: -8790607820871134144
     second: Wolf_Bark_0
-  - first:
-      213: 2851902152654721431
-    second: Wolf_Bark_1
-  - first:
-      213: -8998840660593153061
-    second: Wolf_Bark_2
-  - first:
-      213: -84414234907147338
-    second: Wolf_Bark_3
-  - first:
-      213: 7017592861112665778
-    second: Wolf_Bark_4
-  - first:
-      213: 4248308793353816762
-    second: Wolf_Bark_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -131,10 +116,10 @@ TextureImporter:
       name: Wolf_Bark_0
       rect:
         serializedVersion: 2
-        x: 199
-        y: 681
-        width: 118
-        height: 73
+        x: 332
+        y: 369
+        width: 577
+        height: 462
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,116 +130,6 @@ TextureImporter:
       bones: []
       spriteID: 0449435f2cc710680800000000000000
       internalID: -8790607820871134144
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_1
-      rect:
-        serializedVersion: 2
-        x: 343
-        y: 692
-        width: 12
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7911827d5edf39720800000000000000
-      internalID: 2851902152654721431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_2
-      rect:
-        serializedVersion: 2
-        x: 346
-        y: 368
-        width: 546
-        height: 472
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bdbe00bd812bd1380800000000000000
-      internalID: -8998840660593153061
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_3
-      rect:
-        serializedVersion: 2
-        x: 149
-        y: 586
-        width: 129
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b38f5a53b914def0800000000000000
-      internalID: -84414234907147338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_4
-      rect:
-        serializedVersion: 2
-        x: 238
-        y: 536
-        width: 93
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2b600f0c68f736160800000000000000
-      internalID: 7017592861112665778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wolf_Bark_5
-      rect:
-        serializedVersion: 2
-        x: 589
-        y: 367
-        width: 12
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: abac50cc65605fa30800000000000000
-      internalID: 4248308793353816762
       vertices: []
       indices: 
       edges: []
@@ -274,11 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Wolf_Bark_0: -8790607820871134144
-      Wolf_Bark_1: 2851902152654721431
-      Wolf_Bark_2: -8998840660593153061
-      Wolf_Bark_3: -84414234907147338
-      Wolf_Bark_4: 7017592861112665778
-      Wolf_Bark_5: 4248308793353816762
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

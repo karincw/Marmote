@@ -28,6 +28,7 @@ namespace karin
 
         public void Open(bool isWin, int gem, int coin)
         {
+            Debug.Log("asd");
             gameObject.SetActive(true);
             _rewardPanel.SetData(isWin, gem, coin);
             if (isWin)
@@ -39,7 +40,7 @@ namespace karin
             DataLinkManager.Instance.Coin += coin;
 
             _bg.DOFade(1, _openDuration / 2);
-            _rewardPanel.Fade(0.85f, _openDuration);
+            _rewardPanel.Open();
             _rewardPanel.transform.DOLocalMoveY(0, _openDuration);
         }
 
@@ -47,7 +48,7 @@ namespace karin
         {
             gameObject.SetActive(false);
             _bg.DOFade(0, 0);
-            _rewardPanel.Fade(0, 0);
+            _rewardPanel.Close();
             _rewardPanel.transform.DOMoveY(offsetPanelPosition.y, 0);
         }
     }

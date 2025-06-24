@@ -15,10 +15,9 @@ MonoBehaviour:
   characterName: "\uD669\uAE08 \uAC70\uC704"
   characterType: 0
   stats:
-    maxHp: 10
-    hp: 10
-    str: 5
-    def: 3
+    maxHp: 22
+    str: 6
+    def: 4
   skills:
   - {fileID: 11400000, guid: baa208fcffbe0374dab724243703f952, type: 2}
   - {fileID: 11400000, guid: baa208fcffbe0374dab724243703f952, type: 2}
@@ -26,5 +25,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 0019d9e209bfa124fa54905a5a67a505, type: 3}
   hitAnime: {fileID: 21300000, guid: 97fd0599f0df0d445933c1fe843a9ac2, type: 3}
   DiceSO: {fileID: 11400000, guid: 3665e8c5d12963c4d849501ac113a822, type: 2}
-  cardImage: {fileID: -3342839029305718241, guid: 530f8c279edef5c47b87844dc99ffed9, type: 3}
+  cardImage: {fileID: 21300000, guid: 8d553a03d1cfa2b48bfaebf24e843007, type: 3}
   personalColor: {r: 1.4142135, g: 1.4142135, b: 1.4142135, a: 1}

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eyes:
   - {fileID: 11400000, guid: 042ce121cb4bb444db25e0cecd23f6d1, type: 2}
-  - {fileID: 11400000, guid: 042ce121cb4bb444db25e0cecd23f6d1, type: 2}
+  - {fileID: 11400000, guid: 0036da971f6f0d04d9e0b63b0ef40964, type: 2}
   - {fileID: 11400000, guid: 7b8dd6bbd8629524a86e5132b4690fad, type: 2}
-  - {fileID: 11400000, guid: 7b8dd6bbd8629524a86e5132b4690fad, type: 2}
+  - {fileID: 11400000, guid: eaa1d859e514255459b002a4112b3370, type: 2}
   - {fileID: 11400000, guid: 3817e7558bb08974bb3207b7962a9316, type: 2}
-  - {fileID: 11400000, guid: 3817e7558bb08974bb3207b7962a9316, type: 2}
+  - {fileID: 11400000, guid: fd9123a9d3049ec4b9f4b0ccac5b61ac, type: 2}
   color: {r: 1, g: 1, b: 1, a: 1}

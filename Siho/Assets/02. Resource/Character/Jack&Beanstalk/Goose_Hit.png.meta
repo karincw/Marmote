@@ -116,10 +116,10 @@ TextureImporter:
       name: Goose_Hit_0
       rect:
         serializedVersion: 2
-        x: 328
-        y: 58
-        width: 823
-        height: 979
+        x: 297
+        y: 78
+        width: 818
+        height: 1052
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -31,6 +31,7 @@ namespace karin
         Grasshopper,
         Hansel,
         Gretel,
+        DiamondKnight
     }
 
 }

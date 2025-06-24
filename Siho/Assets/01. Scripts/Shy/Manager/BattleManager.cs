@@ -181,7 +181,6 @@ namespace Shy
         {
             DiceData dData = dices[diceLoop].GetData();
             SkillSOBase skillSO = dData.user.GetSkill(dData.skillNum - 1);
-            dData.user.SetSkillAnime(dData.skillNum);
 
             skillEvents = new List<SkillEvent>();
 
@@ -284,9 +283,13 @@ namespace Shy
             if(enemies.Count == 0 || minions.Count == 0)
             {
                 Debug.Log("Battle Finish");
-                foreach (var _minion in minions)
+
+                if(minions.Count != 0)
                 {
-                    _minion.BattleFinish();
+                    foreach (var _minion in minions)
+                    {
+                        _minion.BattleFinish();
+                    }
                 }
                 rewardPanel.Open(isEnemy, 10, 10);
             }
