@@ -73,6 +73,7 @@ namespace karin
             }
             nowIndex += targetTiles.Count;
             WorldMapManager.Instance.positionIndex = nowIndex;
+            Save.Instance.AutoSave();
             targetTiles[targetTiles.Count - 1].EnterAnimation();
             OnMoveEndEvent?.Invoke();
         }

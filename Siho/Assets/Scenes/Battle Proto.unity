@@ -5031,7 +5031,7 @@ MonoBehaviour:
   dicePrefab: {fileID: 2080085241229499784, guid: 4e4bc8dc2295aa147944aa8be92f0783, type: 3}
   hand: {fileID: 1712977911}
   endBtn: {fileID: 189291795}
-  _rewardPanel: {fileID: 0}
+  _rewardPanel: {fileID: 1816163289}
 --- !u!1 &873285486
 GameObject:
   m_ObjectHideFlags: 0
