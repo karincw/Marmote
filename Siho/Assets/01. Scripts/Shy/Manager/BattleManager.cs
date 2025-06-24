@@ -290,7 +290,7 @@ namespace Shy
                         _minion.BattleFinish();
                     }
                 }
-                _rewardPanel.SetData(isEnemy, 10, 10); 
+                _rewardPanel.SetData(isEnemy, 100000, 10); 
                 _rewardPanel.Open();
             }
 
