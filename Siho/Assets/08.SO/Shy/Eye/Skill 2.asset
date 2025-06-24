@@ -12,8 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5caca3c33ffe44581b5274f07bf239, type: 3}
   m_Name: Skill 2
   m_EditorClassIdentifier: 
-  eyeName: 
-  explain: 
-  icon: {fileID: 21300000, guid: 60e7c7e6221c78543a0622fcfc6bca4e, type: 3}
   value: 2
   attackWay: 5

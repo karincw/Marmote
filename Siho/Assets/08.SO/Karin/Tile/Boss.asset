@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce9734c65eba9d74190e1c68dfa22fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: d33874041ce4c904880b73c31966884e, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
   tileType: 4
-  tileColor: {r: 0.40392157, g: 0.009137265, b: 0.023761852, a: 1}
+  tileColor: {r: 0.3018868, g: 0.04271979, b: 0.04271979, a: 1}
   iconTexture: {fileID: 0}
-  enemyCount: 1
+  _boss:
+  - {fileID: 0}

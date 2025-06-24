@@ -16,9 +16,9 @@ MonoBehaviour:
   - ChangeTile: 1
     changeCount: 3
   - ChangeTile: 2
-    changeCount: 3
+    changeCount: 2
   - ChangeTile: 3
-    changeCount: 3
+    changeCount: 1
   - ChangeTile: 6
     changeCount: 2
   _isBossStage: 0

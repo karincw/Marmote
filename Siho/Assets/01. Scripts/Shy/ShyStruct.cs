@@ -10,7 +10,8 @@ namespace Shy
     public struct Stat
     {
         public int maxHp;
-        [HideInInspector] public int hp
+        [HideInInspector]
+        public int hp
         {
             get => Hp;
             set
@@ -20,7 +21,7 @@ namespace Shy
                 Hp = value;
             }
         }
-        private int Hp;
+        [SerializeField] private int Hp;
         public int str;
         public int def;
 
