@@ -6,11 +6,11 @@ namespace karin
     [RequireComponent(typeof(CanvasGroup))]
     public class FadableUI : MonoBehaviour
     {
-        private CanvasGroup _canvasGroup;
+        protected CanvasGroup _canvasGroup;
         [SerializeField] private float _fadeTime = 0.4f;
 
-        private float _fadePosY;
-        private RectTransform rt;
+        protected float _fadePosY = 0;
+        protected RectTransform rt;
 
         protected virtual void Awake()
         {
