@@ -6613,31 +6613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _themeToEnemyList:
     _serializedList:
-    - Key: 0
-      Value:
-        list:
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
     - Key: 1
-      Value:
-        list:
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-    - Key: 2
-      Value:
-        list:
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-    - Key: 3
-      Value:
-        list:
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-    - Key: 4
       Value:
         list:
         - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
@@ -6702,20 +6678,7 @@ MonoBehaviour:
   _stageDatas:
   - {fileID: 11400000, guid: d195b346747c4294c85fe49fc5448625, type: 2}
   - {fileID: 11400000, guid: 17baa93340266bc4484d1cee85622359, type: 2}
-  - {fileID: 11400000, guid: fc098825022ad8749816704b7606be58, type: 2}
-  - {fileID: 11400000, guid: d93d2687b67a04643b598af4d4a50857, type: 2}
-  - {fileID: 11400000, guid: 4604769da89d57e4180d32c46d7bf747, type: 2}
-  - {fileID: 11400000, guid: a25e30674fb59974f9efbffe307172fd, type: 2}
-  - {fileID: 11400000, guid: f69c2d0f87b3a224ca377f9398c9b0d6, type: 2}
-  - {fileID: 11400000, guid: cf72775f7d90eaa47a5064062963154e, type: 2}
-  - {fileID: 11400000, guid: 53f05282f23a80644a7a470baed674af, type: 2}
-  - {fileID: 11400000, guid: 6dc5f1b4704a86c41a4f22311aaab872, type: 2}
-  - {fileID: 11400000, guid: f17d207338d239144bbeec381d91188b, type: 2}
-  - {fileID: 11400000, guid: 4afee633aa27e0341a95d70f8e8c27cb, type: 2}
-  - {fileID: 11400000, guid: b6df206e955277a4ba7d58b8b4a229f4, type: 2}
-  - {fileID: 11400000, guid: b3233f6dffef0e24da08e9d14b4bdfbd, type: 2}
-  - {fileID: 11400000, guid: 0bc785a134e5f26498d5e32522b8c697, type: 2}
-  stageTheme: 0
+  stageTheme: 1
   positionIndex: 0
   rollBtn: {fileID: 81494310}
 --- !u!4 &1087696877
@@ -10664,30 +10627,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _alwaysEvent:
-  - {fileID: 11400000, guid: dc06c337917add04e93d7929a0c7b766, type: 2}
   - {fileID: 11400000, guid: 07024b466ea05364aa5d0fc9e88b531b, type: 2}
+  - {fileID: 11400000, guid: c10dcd8196665f348b87cfc02df4acab, type: 2}
   _themeToEvent:
     _serializedList:
-    - Key: 0
-      Value:
-        list:
-        - {fileID: 11400000, guid: 247d0ae5843a6ea46b70a44fd45b9993, type: 2}
-        - {fileID: 11400000, guid: 1ecf7ef9971f56a4498a3d316abfcb21, type: 2}
     - Key: 1
       Value:
         list:
-        - {fileID: 11400000, guid: ba7398099e2b6cf49901da60110968d1, type: 2}
         - {fileID: 11400000, guid: bd9fb1afbc355874a977d91b43e55298, type: 2}
-    - Key: 2
-      Value:
-        list:
-        - {fileID: 11400000, guid: c0a74aad50d8d8347b9a552ced620048, type: 2}
-        - {fileID: 11400000, guid: 09a099753bc690b47996cbe082cacd60, type: 2}
-    - Key: 3
-      Value:
-        list:
-        - {fileID: 11400000, guid: 05629fdbda5a61b43b07f73b64b017b7, type: 2}
-        - {fileID: 11400000, guid: a62c4c842d26a43498251629f8e2c669, type: 2}
+        - {fileID: 11400000, guid: ac62af4ea1fae7a4ba0ab57ba10f0ab2, type: 2}
 --- !u!1 &1977428405
 GameObject:
   m_ObjectHideFlags: 0

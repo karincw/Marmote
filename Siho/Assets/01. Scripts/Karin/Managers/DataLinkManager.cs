@@ -13,6 +13,7 @@ namespace karin
 
         [SerializeField, Header("Shy Tester")] private bool testMode = false;
         [SerializeField] private List<EnemySO> testEnemyDatas;
+        public bool isBossStage = false;
 
         public List<EnemySO> EnemyData { get; private set; }
 

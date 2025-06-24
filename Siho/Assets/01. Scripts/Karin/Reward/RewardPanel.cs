@@ -1,4 +1,5 @@
 using Shy;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,17 @@ namespace karin
 
         public void SetData(bool isWin, int gem, int coin)
         {
+            if(DataLinkManager.Instance.isBossStage)
+            {
+                _titleText.text = isWin ? "Clear" : "Defeat";
+                _gemText.SetText($"Gem : {gem.ToString()}");
+                _coinText.SetText($"Coin : {coin.ToString()}");
+                int index = Save.Instance.slotIndex;
+                Save.Instance.RemoveFile(index);
+                Load.Instance.ResetGame();
+                _button.onClick.AddListener(() => SceneChanger.Instance.LoadScene("Title"));
+                return;
+            }
             _titleText.text = isWin ? "Win" : "Defeat";
             _gemText.SetText($"Gem : {gem.ToString()}");
             _coinText.SetText($"Coin : {coin.ToString()}");
@@ -33,7 +45,6 @@ namespace karin
             else
             {
                 int index = Save.Instance.slotIndex;
-                Load.Instance.saveRunDatas[index] = default;
                 Save.Instance.RemoveFile(index);
                 Load.Instance.ResetGame();
                 _button.onClick.AddListener(() => SceneChanger.Instance.LoadScene("Title"));

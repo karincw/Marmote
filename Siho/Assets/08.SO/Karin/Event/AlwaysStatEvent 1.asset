@@ -10,28 +10,29 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe9f84c92ad40744fb74f96878d6aa0f, type: 3}
-  m_Name: OZStat
+  m_Name: AlwaysStatEvent 1
   m_EditorClassIdentifier: 
-  eventScript: "\uB2CC\uC790\uAC00 \uB098\uD0C0\uB0AC\uB2E4."
+  eventScript: "\uAE38\uC744\uAC00\uB2E4\uAC00 \uACF5\uC911\uC5D0 \uBE44\uD589\uC811\uC2DC\uB97C
+    \uBC1C\uACAC\uD588\uB2E4."
   eventImage: {fileID: 0}
   branchs:
-  - branchName: "\uACF5\uACA9\uD55C\uB2E4."
+  - branchName: "\uCD1D\uC73C\uB85C \uC704\uD611\uD55C\uB2E4."
     usedByRandomCharacterIndex: 1
     characterIndex: 0
     statModify:
       maxHp: 0
       Hp: 0
-      str: 0
+      str: 1
       def: 0
-    feedbackScript: "\uB2CC\uC790\uAC00 \uB3C4\uB9DD\uCCE4\uB2E4.\n\uC544\uBB34\uC77C\uB3C4
-      \uC77C\uC5B4\uB098\uC9C0 \uC54A\uC558\uB2E4."
-  - branchName: "\uD0C8\uC8FC\uD55C\uB2E4."
+    feedbackScript: "\uC6B0\uC8FC\uC120\uC774 \uB3C4\uB9DD\uAC14\uB2E4. \n\uC790\uC2E0\uAC10(\uD798)\uC774
+      1 \uC62C\uB790\uB2E4."
+  - branchName: "\uB3C4\uB9DD\uCE5C\uB2E4."
     usedByRandomCharacterIndex: 1
     characterIndex: 1
     statModify:
       maxHp: 0
       Hp: 0
       str: 0
-      def: 0
-    feedbackScript: "\uB2CC\uC790\uB294 \uCAD2\uC544\uC624\uC9C0 \uC54A\uB294\uB2E4.\n\uC544\uBB34\uC77C\uB3C4
-      \uC77C\uC5B4\uB098\uC9C0 \uC54A\uC558\uB2E4."
+      def: -2
+    feedbackScript: "\uC6B0\uC8FC\uC120\uC774 \uC3DC \uBE54\uC5D0 \uB9DE\uC558\uB2E4.\n\uBC29\uC5B4\uB825\uC774
+      2 \uB5A8\uC5B4\uC84C\uB2E4."

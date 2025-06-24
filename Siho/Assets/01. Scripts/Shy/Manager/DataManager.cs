@@ -29,6 +29,7 @@ namespace Shy
                 if (minions[i] == null)
                 {
                     minions[i] = Instantiate(minion);
+                    minions[i].DiceSO = Instantiate(minions[i].DiceSO);
                     minions[i].Init();
                     return i;
                 }
