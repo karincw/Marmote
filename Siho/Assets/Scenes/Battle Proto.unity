@@ -4651,6 +4651,7 @@ MonoBehaviour:
   testMode: 1
   testEnemyDatas:
   - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+  isBossStage: 0
 --- !u!4 &740639913
 Transform:
   m_ObjectHideFlags: 0
