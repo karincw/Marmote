@@ -858,8 +858,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1538.75, y: -75}
-  m_SizeDelta: {x: 942.5, y: 110}
+  m_AnchoredPosition: {x: 1223.75, y: -75}
+  m_SizeDelta: {x: 732.5, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &97844321
 MonoBehaviour:
@@ -6616,9 +6616,9 @@ MonoBehaviour:
     - Key: 1
       Value:
         list:
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
-        - {fileID: 11400000, guid: 7986c21c7f34fd04c88f79842480473b, type: 2}
+        - {fileID: 11400000, guid: ee7dab479ac366c44bd6f188ce42a8cd, type: 2}
+        - {fileID: 11400000, guid: ee7dab479ac366c44bd6f188ce42a8cd, type: 2}
+        - {fileID: 11400000, guid: ee7dab479ac366c44bd6f188ce42a8cd, type: 2}
   _typeToTileList:
     _serializedList:
     - Key: 0
@@ -9295,8 +9295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 521.25, y: -75}
-  m_SizeDelta: {x: 942.5, y: 110}
+  m_AnchoredPosition: {x: 416.25, y: -75}
+  m_SizeDelta: {x: 732.5, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1693894781
 MonoBehaviour:

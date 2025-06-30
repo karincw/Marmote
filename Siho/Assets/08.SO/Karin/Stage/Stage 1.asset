@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileChangeDatas:
   - ChangeTile: 1
-    changeCount: 3
+    changeCount: 5
   - ChangeTile: 2
-    changeCount: 2
-  - ChangeTile: 3
     changeCount: 1
+  - ChangeTile: 3
+    changeCount: 0
   - ChangeTile: 6
     changeCount: 2
   _isBossStage: 0
