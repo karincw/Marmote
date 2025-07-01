@@ -34,10 +34,10 @@ public class FadeUI : MonoBehaviour
                 position = new Vector2(-Screen.width, 0);
                 break;
             case FadePosition.Up:
-                position = new Vector2(0, Screen.width);
+                position = new Vector2(0, Screen.height);
                 break;
             case FadePosition.Down:
-                position = new Vector2(0, -Screen.width);
+                position = new Vector2(0, -Screen.height);
                 break;
             case FadePosition.Right:
                 position = new Vector2(Screen.width, 0);
