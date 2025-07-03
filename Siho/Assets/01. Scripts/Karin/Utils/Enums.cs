@@ -1,4 +1,6 @@
 
+using System;
+
 public enum FadePosition
 {
     None,
@@ -6,4 +8,17 @@ public enum FadePosition
     Up,
     Down,
     Right,
+}
+
+public enum TileType
+{
+    None,
+
+    Enemy,
+    Shop,
+}
+
+public enum EventType
+{
+    crain
 }
