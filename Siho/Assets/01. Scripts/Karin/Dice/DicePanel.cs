@@ -23,25 +23,6 @@ public class DicePanel : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _resultText = GetComponentInChildren<TMP_Text>();
-        OnDiceRollEnd += HandleDiceEnd;
-    }
-
-    private void OnDestroy()
-    {
-        OnDiceRollEnd -= HandleDiceEnd;
-    }
-
-    private void HandleDiceEnd(int obj)
-    {
-        Debug.Log(obj);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Roll();
-        }
     }
 
     public void Roll()

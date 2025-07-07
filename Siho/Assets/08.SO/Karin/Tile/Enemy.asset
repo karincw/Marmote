@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4873a6417f3dcf64ab972818b6f41cb0, type: 3}
-  m_Name: StageChange
+  m_Script: {fileID: 11500000, guid: 2cab1efd2651ddb4291a78615ff7ed2e, type: 3}
+  m_Name: Enemy
   m_EditorClassIdentifier: 
-  tileType: 7
-  tileColor: {r: 0.49721125, g: 0.17443919, b: 0.8805031, a: 1}
-  iconTexture: {fileID: 0}
+  imageTexture: {fileID: 2800000, guid: 6c801baec2bf30a48a30f9f34a1b38c3, type: 3}

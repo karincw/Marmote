@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class AnimationButton : Button
     [SerializeField, ColorUsage(true)] private Color _pressedColor;
     [SerializeField] private Sprite _pressedImage;
     [SerializeField, ColorUsage(true)] private Color _disabledColor;
+    [SerializeField] private UnityEvent _pressedEvent;
 
     private Image _image;
 
@@ -34,6 +36,7 @@ public class AnimationButton : Button
 
         _image.color = _pressedColor;
         _image.sprite = _pressedImage;
+        _pressedEvent?.Invoke();
     }
 
     protected override void OnDisable()
