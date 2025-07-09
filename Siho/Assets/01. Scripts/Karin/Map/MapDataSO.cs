@@ -6,7 +6,7 @@ using UnityEngine;
 public class MapDataSO : ScriptableObject
 {
     [SerializeField] private List<TilesData> _tiles;
-    private static readonly int MapMaxCount = 40;
+    private static readonly int MapMaxCount = 36;
 
     public List<TileType> GetMapData()
     {
@@ -19,7 +19,12 @@ public class MapDataSO : ScriptableObject
         {
             mapData.Add(TileType.None);
         }
+        mapData = mapData.OrderBy(t => Random.value).ToList();
+        mapData.Insert(0, TileType.NextStage);
+        mapData.Insert(10, TileType.Event1);
+        mapData.Insert(20, TileType.Event1);
+        mapData.Insert(30, TileType.Event1);
 
-        return mapData.OrderBy(t => Random.value).ToList();
+        return mapData;
     }
 }

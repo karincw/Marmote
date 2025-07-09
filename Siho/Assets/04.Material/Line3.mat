@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_TileShader
+  m_Name: Line3
   m_Shader: {fileID: -6465566751694194690, guid: 8aa345e386052f743b1da58fd26f5c8b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,9 +79,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Angle: 45
-    - _Fade: -1
-    - _FadeLineAngle: 135
+    - _Angle: 180
+    - _Fade: 2
+    - _FadeLineAngle: 0
     - _FadeLineSize: 0.7
     - _OutLineSize: 0.07
     - _QueueControl: 0
@@ -91,7 +91,7 @@ Material:
     m_Colors:
     - _FadeLineColor: {r: 47.93725, g: 1.0421141, b: 1.0421141, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Scale: {r: 1, g: 1, b: 0, a: 0}
+    - _Scale: {r: 0.9, g: 1.2, b: 0, a: 0}
     - _Scale_1: {r: 0.9, g: 1.2, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

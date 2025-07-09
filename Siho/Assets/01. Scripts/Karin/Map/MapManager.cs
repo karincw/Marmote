@@ -2,7 +2,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -22,31 +21,80 @@ public class MapManager : MonoBehaviour
     [SerializeField] private int _currentMapIndex = 0;
 
     private int _tileCount;
+    public Symbol symbol;
+    private int _mapIndex;
 
     private void Awake()
     {
         if (instance != null) Destroy(gameObject);
         instance = this;
 
+        symbol = FindFirstObjectByType<Symbol>();
         _mapChangeDelayWait = new WaitForSeconds(_mapChangeDelay);
         _tileCount = _tiles.Count;
+        Symbol.OnMoveEndEvent += HandleMoveEnd;
+        Symbol.OnMoveEndEvent += SetTileNumbers;
     }
 
     private void Start()
     {
-        MakeMap(0);
+        _mapIndex = 0;
+        MakeMap();
+        SetTileNumbers(0);
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if (Input.GetMouseButtonDown(0))
+        Symbol.OnMoveEndEvent -= HandleMoveEnd;
+        Symbol.OnMoveEndEvent -= SetTileNumbers;
+    }
+
+    public void HandleMoveEnd(int index)
+    {
+        index %= 40;
+        _tiles[index].OnEnterEvent?.Invoke();
+    }
+
+    public List<Tile> GetMoveMap(int now, int count)
+    {
+        now %= 40;
+        if (_tileCount < now + count)
         {
-            MakeMap(0);
+            var split = _tileCount - now;
+            var result = _tiles.GetRange(now, split);
+            result.AddRange(_tiles.GetRange(0, count - split));
+            return result;
+        }
+        return _tiles.GetRange(now, count);
+    }
+
+    public void SetTileNumbers(int index)
+    {
+        index %= 40;
+        if (index + 12 > _tileCount)
+        {
+            int lastI = 0;
+            for (int i = -index; i < _tileCount - index; i++)
+            {
+                _tiles[i + index].SetTileNumber(i);
+                lastI = i;
+            }
+            for (int i = 0; i <= index + 12 - _tileCount; i++)
+            {
+                _tiles[i].SetTileNumber(++lastI);
+            }
+            return;
+        }
+        for (int i = -index; i < _tileCount - index; i++)
+        {
+            _tiles[i + index].SetTileNumber(i);
         }
     }
-    public void MakeMap(int index)
+
+    public void MakeMap()
     {
-        var tileData = _mapDatas[index].GetMapData();
+        CameraControler.instance.ZoomOut();
+        var tileData = _mapDatas[_mapIndex++].GetMapData();
         MapChangeAnimation(tileData);
     }
 
@@ -63,16 +111,24 @@ public class MapManager : MonoBehaviour
         rightChanges.Reverse();
 
         DOTween.Complete(2);
-        StartCoroutine(MapChangeCoroutine(leftTiles, leftChanges, false));
+        StartCoroutine(MapChangeCoroutine(leftTiles, leftChanges));
         StartCoroutine(MapChangeCoroutine(rightTiles, rightChanges, true));
     }
 
-    private IEnumerator MapChangeCoroutine(List<Tile> targetTiles, List<TileType> changes, bool isRight)
+    private IEnumerator MapChangeCoroutine(List<Tile> targetTiles, List<TileType> changes, bool isEnd = false)
     {
         for (int i = 0; i < targetTiles.Count; i++)
         {
             yield return _mapChangeDelayWait;
-            targetTiles[i].SetTileAnimation(changes[i], isRight);
+            targetTiles[i].SetTileAnimation(changes[i]);
+        }
+        if (isEnd && symbol.sequence != null)
+        {
+
+            yield return new WaitForSeconds(1f);
+            CameraControler.instance.ZoomIn();
+            yield return new WaitForSeconds(0.3f);
+            symbol.sequence.Play();
         }
     }
 }

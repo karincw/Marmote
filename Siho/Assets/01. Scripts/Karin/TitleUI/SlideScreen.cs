@@ -7,7 +7,6 @@ public class SlideScreen : MonoBehaviour
 {
     [SerializeField] private List<CanvasGroup> _screenList;
     [SerializeField] private List<Button> _screenBtns;
-    [SerializeField] private int _startIndex;
     private int _nowIndex;
     private float _screenWidth;
     private RectTransform _screenLayoutTrm;
@@ -21,8 +20,8 @@ public class SlideScreen : MonoBehaviour
         _screenWidth = Screen.width;
         _screenLayoutTrm = transform.Find("ScreenLayout") as RectTransform;
         SetUp();
-        _screenLayoutTrm.localPosition = new Vector2(-_screenWidth * _startIndex, 0);
-        _nowIndex = _startIndex;
+        _nowIndex = 2;
+        Move(_nowIndex);
     }
 
     private void SetUp()

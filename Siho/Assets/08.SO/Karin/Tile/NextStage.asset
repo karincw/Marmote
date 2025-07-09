@@ -9,16 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6422943fb8b8e5d48a1366d96cf92b43, type: 3}
-  m_Name: Stage 1
+  m_Script: {fileID: 11500000, guid: b607e340282ce0a4781f345211a04708, type: 3}
+  m_Name: NextStage
   m_EditorClassIdentifier: 
-  TileChangeDatas:
-  - ChangeTile: 1
-    changeCount: 5
-  - ChangeTile: 2
-    changeCount: 1
-  - ChangeTile: 3
-    changeCount: 0
-  - ChangeTile: 6
-    changeCount: 2
-  _isBossStage: 0
+  imageTexture: {fileID: 2800000, guid: b26f4f0a19554514496915a8caf253be, type: 3}

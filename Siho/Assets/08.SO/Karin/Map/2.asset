@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb6d42d1c955b044873185bd24c3f8e, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: 6f997b39dc2f4dc42a03802d528c978c, type: 3}
+  m_Name: 2
   m_EditorClassIdentifier: 
-  imageTexture: {fileID: 2800000, guid: 60adf702b6cf3184d8bd62418126abf2, type: 3}
+  _tiles:
+  - count: 30
+    tileType: 6

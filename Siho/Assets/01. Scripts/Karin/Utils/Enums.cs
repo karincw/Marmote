@@ -20,4 +20,11 @@ public enum TileType
     Event5,
     Enemy,
     Shop,
+    NextStage
+}
+
+public enum EventType
+{
+    PinBall,
+
 }
