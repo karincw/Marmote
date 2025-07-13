@@ -80,9 +80,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _Angle: 180
-    - _Fade: 2
+    - _Fade: -1
     - _FadeLineAngle: 0
-    - _FadeLineSize: 0.7
+    - _FadeLineSize: 1
     - _OutLineSize: 0.07
     - _QueueControl: 0
     - _QueueOffset: 0

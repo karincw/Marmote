@@ -56,7 +56,7 @@ public class FadeUI : MonoBehaviour
         Utils.FadeGroup(_canvasGroup, 0, false);
     }
 
-    public void Open()
+    public virtual void Open()
     {
         if (_isOpen) return;
         _isOpen = true;
@@ -64,7 +64,7 @@ public class FadeUI : MonoBehaviour
         Utils.FadeGroup(_canvasGroup, _fadeTime, true, _tweenEase);
     }
 
-    public void Close()
+    public virtual void Close()
     {
         if (!_isOpen) return;
         _isOpen = false;

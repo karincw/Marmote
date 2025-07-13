@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -14,13 +15,20 @@ public class AnimationButton : Button
     [SerializeField] private UnityEvent _pressedEvent;
 
     private Image _image;
+    private TMP_Text _text;
 
     protected override void Awake()
     {
         base.Awake();
+        _text = GetComponentInChildren<TMP_Text>();
         _image = GetComponent<Image>();
         _image.sprite = _baseImage;
         _image.color = _baseColor;
+    }
+
+    public void SetText(string text)
+    {
+        _text.text = text;
     }
 
     public override void OnPointerUp(PointerEventData eventData)

@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_TileShader
+  m_Name: Square
   m_Shader: {fileID: -6465566751694194690, guid: 8aa345e386052f743b1da58fd26f5c8b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -82,7 +82,7 @@ Material:
     - _Angle: 45
     - _Fade: -1
     - _FadeLineAngle: 135
-    - _FadeLineSize: 0.7
+    - _FadeLineSize: 1
     - _OutLineSize: 0.07
     - _QueueControl: 0
     - _QueueOffset: 0

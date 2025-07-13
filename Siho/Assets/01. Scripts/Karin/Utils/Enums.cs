@@ -28,3 +28,14 @@ public enum EventType
     PinBall,
 
 }
+
+public enum ItemType
+{
+    None,
+    Red_Injecter,
+    Blue_Injecter,
+    Yellow_Injecter,
+    Purple_Injecter,
+    Green_Injecter,
+    Grey_Injecter,
+}
