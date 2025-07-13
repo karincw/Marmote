@@ -2,128 +2,77 @@ namespace Shy
 {
     public enum Team
     {
-        None,
+        All,
         Player,
         Enemy
     }
 
-    public enum TargetWay
+    public enum Target
     {
-        team, //아군
-        Opponenet //적군
-    }
-
-    public enum EventType
-    {
-        AttackEvent,
-        ShieldEvent,
-        HealEvent,
-        BuffEvent
-    }
-
-    public enum BuffType
-    {
-        Brave = 0,
-        Bleeding,
-        Gingerbread,
-        Crumbs,
-        Bondage,
-        Burn,
-        Music,
-        Confusion,
-        Shield,
-    }
-
-    public enum BuffUseCondition
-    {
-        OnStart,
-        Update,
-        OnEnd,
-        OnAttack,
-        OnHit,
-        None
-    }
-
-    public enum BuffRemoveCondition
-    {
-        Count,
-        Use,
-        Never,
-    }
-
-    public enum UpgradeCondition
-    {
-        SelfStack, // 특정 스택
-        SelfHp // 체력
-    }
-
-    public enum StatEnum
-    {
-        MaxHp,
-        Hp,
-        Str,
-        Def,
-        AdditionalDmg,
-        ReductionDmg
-    }
-
-    public enum PoolingType
-    {
-       Buff,
-       DmgText,
-       end
-    }
-
-    public enum ActionWay
-    {
-        None,
         Self,
-        Opposite,//맞은편
-        Random, //무작위
-        All, //전체
-        LessHp,
-        MoreHp,
-        Already,
-        Fast,
-        Slow,
+        Opponent,
+        All
     }
 
-    public enum SkillMotion
+    public enum AttackResult
     {
-        AttackNear = 0,
-        AttackLong,
-        PetAttackNear,
-        PetAttackLong,
-        TeamBySelf,
-        TeamByPet,
-        EveryOne,
+        Normal = 0,
+        Critical,
+        Dodge,
+        Block
     }
 
-    public enum PetSpawnWay
+    public enum MainStatEnum
     {
-        Normal,
-        Create,
-        Drop
+        Str,
+        Dex,
+        Hp,
+        Int
     }
 
-    public enum InfoType
+    public enum SubStatEnum
     {
-        Minion,
-        Enemy,
-        Buff,
-        Dice
+        MaxHp, Hp, Def,
+        Atk, AtkSpd, Regen,
+        CriChance, CriDmg,
+        HitChance, DodgeChance,
+        AddDmg, RedDmg,
+        TrueDmg, Drain, Counter
     }
 
-    namespace Anime
+    public enum CharacteristicEnum
     {
-        public enum AnimeType
+        NotBlood, IsNotBlood,
+    }
+
+    public enum SynergyType
+    {
+        ChangeSubStat
+    }
+
+    public enum Calculate
+    {
+        Plus,
+        Minus,
+        Multiply,
+        Divide,
+        Change
+    }
+
+    public enum PoolType
+    {
+        Dice,
+        Synergy,
+        DmgText
+    }
+
+    namespace Event
+    {
+        public enum BattleEvent
         {
-            UserVisual,
-            UserAnime,
-            TeamEffect,
-            OpponentEffect,
-            SummonVisual,
-            SummonAnime
+            Run,
+            Surprise,
+            Talk
         }
     }
 }

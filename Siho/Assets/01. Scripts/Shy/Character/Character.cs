@@ -1,234 +1,197 @@
-using DG.Tweening;
-using Shy.Dice;
-using Shy.Info;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
+using Shy.Pooling;
+using DG.Tweening;
+using TMPro;
 
-namespace Shy.Unit
+namespace Shy
 {
-    [RequireComponent(typeof(HealthCompo))]
-    public abstract class Character : MonoBehaviour
+    public class Character : MonoBehaviour
     {
-        #region º¯¼ö
-        private HealthCompo healthCompo;
-        protected PressCompo pressCompo;
-        private StatCompo statCompo;
-        private CharacterSO data;
+        public Team team;
+        [SerializeField] private MainStat mainStats;
+        [SerializeField] private SubStat subStats;
+        internal Characteristic characteristic;
 
-        public Team team = Team.None;
-        
-        internal List<BuffUI> buffs;
-        public Transform buffGroup;
+        private Transform dmgTxtPos;
 
-        private Image visual;
-        private Transform parentTrm, uiTrm;
+        private HealthGuageCompo healthCompo;
+        private Image visual, hitVisual;
+        private Sprite idle, attack;
 
-        public Color posColor;
-        #endregion
+        [SerializeField] private Transform synergyParent;
+        private Dictionary<SynergySO, Synergy> synergies = new();
 
-        #region Get
-        public Sprite GetIcon() => data.cardImage;
-        public Transform GetVisual() => visual.transform;
-        public bool IsDie() => healthCompo.isDie;
-        public SkillSOBase GetSkill(int _idx) => data.skills[_idx];
-        
-        public int GetStackCnt(BuffType _type)
+        private void Awake()
         {
-            int _total = 0;
-            foreach (var _buff in buffs) _total += _buff.GetBuffCount(_type);
-            return _total;
-        }
-        #endregion
-
-        #region Init
-        public virtual void Awake()
-        {
-            healthCompo = GetComponent<HealthCompo>();
-            pressCompo = GetComponentInChildren<PressCompo>();
+            healthCompo = GetComponent<HealthGuageCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
-            uiTrm = transform.Find("Ui");
-            parentTrm = transform.parent;
+            dmgTxtPos = transform.Find("DmgTxtPos");
+            hitVisual = visual.transform.GetChild(0).GetComponent<Image>();   
+            subStats.hp = subStats.maxHp;
         }
 
-        public virtual bool Init(CharacterSO _data)
+        public void Init(CharacterDataSO _so)
         {
-            if (_data == null)
+            characteristic = new();
+
+            mainStats = _so.mainStat;
+            subStats = StatSystem.ChangeSubStat(mainStats);
+
+            if (EditorModeCheck.isEditorMode)
             {
-                gameObject.SetActive(false);
-                return false;
+                Awake();
             }
 
-            data = _data;
+            idle = _so.visual;
+            attack = _so.attackAnime;
+            VisualUpdate(true);
 
-            UnityAction hitEvent = null;
-            hitEvent += () => VisualUpdate(4);
-            hitEvent += () => StartCoroutine(HitAnime());
-            hitEvent += () => HitBuffEvent();
+            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
 
-            statCompo = new StatCompo(data.stats);
-            healthCompo.Init(_data.stats.maxHp, _data.stats.hp, hitEvent);
-            buffs = new List<BuffUI>();
-
-            VisualUpdate(0);
-
-            return true;
-        }
-
-        public void ReturnParent() => transform.SetParent(parentTrm);
-        #endregion
-
-        #region Visual
-        public void HealthVisibleEvent(bool _show)
-        {
-            uiTrm.gameObject.SetActive(_show);
-            healthCompo.UpdateHealth();
-        }
-
-        private IEnumerator HitAnime()
-        {
-            yield return new WaitForSeconds(0.6f);
-
-            if(!IsDie()) VisualUpdate(0);
-            else DeadAnime();
-        }
-
-        protected virtual void DeadAnime()
-        {
-            Sequence seq = DOTween.Sequence();
-
-            seq.OnStart(() =>
+            if(EditorModeCheck.isEditorMode == false)
             {
-                Debug.Log(gameObject.name + " Die");
-                BattleManager.Instance.CharacterDie(this);
-            });
-            seq.Append(visual.DOColor(new Color(0.25f, 0.25f, 0.25f), 0.3f));
-            seq.OnComplete(() =>
-            {
-                VisualUpdate(0);
-            });
-        }
-
-        private void VisualUpdate(int _value)
-        {
-            switch (_value)
-            {
-                case 1: case 2: case 3:
-                    visual.sprite = data.skills[_value - 1].GetMotionSprite(Anime.AnimeType.UserVisual, this);
-                    break;
-                case 4:
-                    visual.sprite = data.hitAnime;
-                    break;
-                default:
-                    visual.sprite = data.sprite;
-                    break;
-            }
-        }
-
-        public void VisualUpdate(Sprite _sprite)
-        {
-            if (_sprite == null) return;
-            visual.sprite = _sprite;
-        }
-        #endregion
-
-        #region Skill
-        public void SkillFin()
-        {
-            VisualUpdate(0);
-            healthCompo.cnt = 0;
-            //ReturnParent();
-        }
-
-        public void OnValueEvent(int _value, EventType _type, int _ignoreDefPer)
-        {
-            switch (_type)
-            {
-                case EventType.AttackEvent:
-                    StartCoroutine(healthCompo.OnDamageEvent(BattleManager.Instance.SetDamage(_value, this, _ignoreDefPer)));
-                    break;
-                case EventType.ShieldEvent:
-                    healthCompo.OnShieldEvent(_value);
-                    break;
-                case EventType.HealEvent:
-                    healthCompo.OnHealEvent(_value);
-                    break;
-            }
-        }
-
-        public void OnBuffEvent(int _value, BuffType _buffType)
-        {
-            foreach (var _buff in buffs)
-            {
-                if (_buff.CheckBuff(_buffType))
+                foreach (var _synergySO in _so.synergies)
                 {
-                    _buff.Add(_value);
-                    return;
+                    GetSynergy(_synergySO);
                 }
             }
-
-            BuffUI buff = Pooling.Instance.Use(PoolingType.Buff, buffGroup).GetComponent<BuffUI>();
-            buff.Init(this, BuffManager.Instance.GetBuff(_buffType), _value);
-            buff.gameObject.SetActive(true);
-
-            buffs.Add(buff);
         }
 
-        public void OnBuffEvent(BuffEvent _buffEvent) => OnBuffEvent(_buffEvent.value, _buffEvent.buffType);
-
-        private void HitBuffEvent()
+        #region Synergy
+        public void UseSynergy()
         {
-            foreach (var _buff in buffs) BuffManager.Instance.OnBuffEvent(BuffUseCondition.OnHit, _buff, this);
+            foreach (var _synergy in synergies.Values)
+            {
+                _synergy.UseSynergy();
+            }
         }
 
-        public void BuffCheck()
+        private void GetSynergy(SynergySO _so)
         {
-            List<BuffUI> _removeBuffs = new List<BuffUI>();
+            Synergy _synergy;
 
-            foreach (BuffUI _buff in buffs)
+            if(synergies.ContainsKey(_so))
             {
-                var _result = _buff.CountDown();
-                if (_result != null) _removeBuffs.Add(_result);
+                _synergy = synergies[_so];
+            }
+            else
+            {
+                _synergy = PoolingManager.Instance.Pop(PoolType.Synergy).GetComponent<Synergy>();
+                _synergy.transform.SetParent(synergyParent);
+                _synergy.Init(_so, team);
+
+                synergies.Add(_so, _synergy);
             }
 
-            //HealthVisibleEvent(true);
-
-            foreach (var _buff in _removeBuffs)
-            {
-                buffs.Remove(_buff);
-            }
+            _synergy.SetValue();
+            _synergy.gameObject.SetActive(true);
         }
         #endregion
 
-        #region Stat
-        public void SetBonusStat(StatEnum _stat, int _value)
+        #region Editor
+        internal void DataSave()
         {
-            statCompo.UpdateBonusStat(_stat, _value);
-            if (_stat == StatEnum.Hp) healthCompo.SetMaxHp(GetNowStat(StatEnum.Hp));
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+            UnityEditor.EditorUtility.SetDirty(visual);
+#endif
+        }
+        #endregion
+
+        private float CalcValue(float _oldValue, float _newValue, Calculate _calc)
+        {
+            if (_calc == Calculate.Plus) return _oldValue + _newValue;
+            if (_calc == Calculate.Minus) return _oldValue - _newValue;
+            if (_calc == Calculate.Multiply) return _oldValue * _newValue;
+            if (_calc == Calculate.Divide) return _oldValue / _newValue;
+            if (_calc == Calculate.Change) return _newValue;
+            return 0;
         }
 
-        public int GetBaseStat(StatEnum _stat)
+        public float GetNowStat(SubStatEnum _stat) => StatSystem.GetSubStatRef(ref subStats, _stat);
+        public int GetNowStat(MainStatEnum _stat) => StatSystem.GetMainStatRef(ref mainStats, _stat);
+
+        public void AddStat(float _value, Calculate _calc, SubStatEnum _statEnum)
         {
-            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
-            return statCompo.GetBaseStat(_stat);
-        }
-        public int GetBonusStat(StatEnum _stat)
-        {
-            if (_stat == StatEnum.Hp) _stat = StatEnum.MaxHp;
-            return statCompo.GetBonusStat(_stat);
-        }
-        public int GetNowStat(StatEnum _stat)
-        {
-            if (_stat == StatEnum.Hp) return healthCompo.GetHealth();
-            return statCompo.GetApplyStat(_stat);
+            ref float _stat = ref StatSystem.GetSubStatRef(ref subStats, _statEnum);
+            _stat = CalcValue(_stat, _value, _calc);
         }
 
-        internal void BattleFinish()
+        public void ChangeCharacteristic(CharacteristicEnum _enum)
         {
-            data.stats.hp = GetNowStat(StatEnum.Hp);
+            switch (_enum)
+            {
+                case CharacteristicEnum.NotBlood: characteristic.notBlood = true;
+                    break;
+
+                case CharacteristicEnum.IsNotBlood: characteristic.isNotBlood = true;
+                    break;
+            }
+        }
+
+        #region Character Action
+        public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
+
+        private void HealEvent(float _value)
+        {
+            if (_value <= 0) return;
+
+            subStats.hp += _value;
+
+            var _item = PoolingManager.Instance.Pop(PoolType.DmgText).GetComponent<DamageText>();
+            _item.transform.SetParent(dmgTxtPos);
+            _item.Use(_value, new Color(0.4f, 1, 0));
+
+            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+        }
+
+        public void Drain(float _dmg)
+        {
+            float _value = _dmg * subStats.drain * 0.01f;
+            HealEvent(_value);
+        }
+
+        public void Regeneration()
+        {
+            HealEvent(subStats.regen);
+        }
+
+        public bool Counter()
+        {
+            return UnityEngine.Random.Range(0, 100f) <= subStats.counter;
+        }
+
+        public void HitEvent(Attack _result)
+        {
+            if(_result.dmg > 0)
+            {
+                subStats.hp -= _result.dmg;
+
+                Sequence seq = DOTween.Sequence();
+                seq.Append(hitVisual.DOFade(0.8f, 0.2f));
+                seq.Append(hitVisual.DOFade(0f, 0.5f));
+
+                var _item = PoolingManager.Instance.Pop(PoolType.DmgText).GetComponent<DamageText>();
+                _item.transform.SetParent(dmgTxtPos);
+
+                _item.Use(_result);
+            }
+
+            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+        }
+
+        private void DieEvent()
+        {
+            Debug.Log(gameObject.name + " »ç¸Á");
+        }
+
+        public bool DieCheck()
+        {
+            bool _isDie = subStats.hp <= 0;
+            if (_isDie) DieEvent();
+            return _isDie;
         }
         #endregion
     }
