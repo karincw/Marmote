@@ -19,7 +19,7 @@ MonoBehaviour:
   synergies:
   - level: 1
     synergyEvents:
-    - {fileID: 11400000, guid: 96c864aed71615d4da5dd60eace081b4, type: 2}
+    - {fileID: 11400000, guid: f53ba0c0caeae8a458d4b1542a2dfe09, type: 2}
   - level: 2
     synergyEvents:
     - {fileID: 11400000, guid: d070d339590ae4f4a8543169dcd3b5ca, type: 2}
