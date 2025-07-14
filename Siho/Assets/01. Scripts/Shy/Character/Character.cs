@@ -22,7 +22,7 @@ namespace Shy
         private Sprite idle, attack;
 
         [SerializeField] private Transform synergyParent;
-        private Dictionary<SynergySO, Synergy> synergies = new();
+        private Dictionary<SynergySO, Synergy> synergies;
 
         private void Awake()
         {
@@ -47,6 +47,16 @@ namespace Shy
             VisualUpdate(true);
 
             healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
+
+            if(synergies != null)
+            {
+                foreach (var item in synergies.Values)
+                {
+                    PoolingManager.Instance.Push(PoolType.Synergy, item.gameObject);
+                }
+            }
+
+            synergies = new();
 
             foreach (var _synergySO in _so.synergies)
             {

@@ -47,10 +47,9 @@ namespace Shy
             }
             else if (_v > 20 - eventPercent.y)
             {
-
-                EventManager.Instance.ShowMessage("갑작스럽게 튀어나온 적에게 공격당했다.");
-                StartCoroutine(Delay(() => SurpriseAttack(enemy, player), 1.5f));
-                StartCoroutine(Delay(EventManager.Instance.HideMessage, 2.3f));
+                EventManager.Instance.ShowMessage("갑작스럽게 튀어나온\n적에게 공격당했다.");
+                GameMakeTool.Instance.Delay(() => SurpriseAttack(enemy, player), 1.5f);
+                GameMakeTool.Instance.Delay(EventManager.Instance.HideMessage, 2.3f);
             }
             else
             {
@@ -69,12 +68,12 @@ namespace Shy
                     if (_success)
                     {
                         EventManager.Instance.ShowMessage("적이 알아차리기 전에\n자리를 피했다.");
-                        StartCoroutine(Delay(EndBattle, 0.5f));
+                        GameMakeTool.Instance.Delay(EndBattle, 0.5f);
                     }
                     else
                     {
                         EventManager.Instance.ShowMessage("도망칠 길을 찾던 중\n적에게 발각되었다.");
-                        StartCoroutine(Delay(() => BeginBattle(), 2f));
+                        GameMakeTool.Instance.Delay(BeginBattle, 2f);
                     }
                     break;
 
@@ -82,12 +81,12 @@ namespace Shy
                     if (_success)
                     {
                         EventManager.Instance.ShowMessage("재빠른 몸놀림으로 적이\n알아차리기 전에 공격했다.");
-                        StartCoroutine(Delay(() => SurpriseAttack(player, enemy), 1.1f));
+                        GameMakeTool.Instance.Delay(() => SurpriseAttack(player, enemy), 2f);
                     }
                     else
                     {
                         EventManager.Instance.ShowMessage("공격하였지만 적이 재빠른 움직임으로 피했다.");
-                        StartCoroutine(Delay(BeginBattle, 1.5f));
+                        GameMakeTool.Instance.Delay(BeginBattle, 1.5f);
                     }
                     break;
 
@@ -98,19 +97,19 @@ namespace Shy
                         {
                             //종료
                             EventManager.Instance.ShowMessage("적은 겁을 먹고\n도망쳤다.");
-                            StartCoroutine(Delay(EndBattle, 0.5f));
+                            GameMakeTool.Instance.Delay(EndBattle, 0.5f);
                         }
                         else
                         {
                             //기습
                             EventManager.Instance.ShowMessage("굳어있는 상대에게\n강한 공격을 가했다.");
-                            StartCoroutine(Delay(() => SurpriseAttack(player, enemy), 1.1f));
+                            GameMakeTool.Instance.Delay(() => SurpriseAttack(player, enemy), 1.1f);
                         }
                     }
                     else
                     {
                         EventManager.Instance.ShowMessage("적을 위협 하였지만\n가소로운듯 웃기만 했다.");
-                        StartCoroutine(Delay(() => BeginBattle(), 2f));
+                        GameMakeTool.Instance.Delay(() => BeginBattle(), 2f);
                     }
                     break;
             }
@@ -132,7 +131,7 @@ namespace Shy
             UnityEvent<int> _diceEvent = new();
             _diceEvent.AddListener((int _v) => StartCoroutine(CheckEvent(_v)));
 
-            StartCoroutine(Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1.5f));
+            GameMakeTool.Instance.Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1.5f);
         }
 
         private void BeginBattle()
@@ -200,7 +199,7 @@ namespace Shy
             Attack result = new();
 
             _user.VisualUpdate(false);
-            StartCoroutine(Delay(() => _user.VisualUpdate(true), 0.35f));
+            GameMakeTool.Instance.Delay(() => _user.VisualUpdate(true), 0.35f);
             result.dmg = GetDamage(_user, _target);
 
             _target.HitEvent(result);
@@ -273,7 +272,7 @@ namespace Shy
         {
             Attack result = GetAttackData(_user, _target);
             _user.VisualUpdate(false);
-            StartCoroutine(Delay(() => _user.VisualUpdate(true), 0.5f));
+            GameMakeTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
 
             _target.HitEvent(result);
 
@@ -297,11 +296,5 @@ namespace Shy
             SetNextAttackTime(_user.team);
         }
         #endregion
-
-        private IEnumerator Delay(UnityAction _action, float _delay)
-        {
-            yield return new WaitForSeconds(_delay);
-            _action.Invoke();
-        }
     }
 }

@@ -37,16 +37,7 @@ namespace Shy
             seq.Append(_enemy.DOLocalMove(new Vector2(-250, 0), 0.5f));
             seq.Join(_enemy.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.5f));
 
-            StartCoroutine(DeadAnime(_enemy));
-        }
-
-        private IEnumerator DeadAnime(Transform _enemy)
-        {
-            while (deadCanvasGroup.alpha < 1)
-            {
-                yield return new WaitForSeconds(0.01f);
-                deadCanvasGroup.alpha += 0.02f;
-            }
+            GameMakeTool.Instance.DOFadeCanvasGroup(deadCanvasGroup, 0.5f);
         }
 
         public void GoToTitle()
