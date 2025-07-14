@@ -20,7 +20,8 @@ public enum TileType
     Event5,
     Enemy,
     Shop,
-    NextStage
+    NextStage,
+    End
 }
 
 public enum EventType

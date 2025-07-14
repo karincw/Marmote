@@ -12,4 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f997b39dc2f4dc42a03802d528c978c, type: 3}
   m_Name: Map
   m_EditorClassIdentifier: 
-  _tiles: []
+  _tiles:
+  - count: 1
+    tileType: 1
+  - count: 1
+    tileType: 2
+  - count: 1
+    tileType: 3
+  - count: 1
+    tileType: 4
+  - count: 1
+    tileType: 5
+  - count: 15
+    tileType: 6
+  - count: 1
+    tileType: 7
