@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Shy.Pooling
 {
-    public class Synergy : MonoBehaviour
+    public class Synergy : MonoBehaviour, IPointerClickHandler
     {
         public SynergySO so;
         private int value = 0;
@@ -15,8 +16,9 @@ namespace Shy.Pooling
 
         private void Awake()
         {
-            outline = GetComponent<Image>();
-            icon = transform.Find("IconBack").Find("Icon").GetComponent<Image>();
+            //outline = GetComponent<Image>();
+            icon = GetComponent<Image>();
+            //icon = transform.Find("IconBack").Find("Icon").GetComponent<Image>();
             numTmp = GetComponentInChildren<TextMeshProUGUI>();
         }
 
@@ -25,7 +27,7 @@ namespace Shy.Pooling
             so = _so;
             userTeam = _team;
 
-            outline.color = _so.outlineColor;
+            //outline.color = _so.outlineColor;
             icon.sprite = _so.icon;
 
             numTmp.gameObject.SetActive(_so.showNum);
@@ -87,6 +89,11 @@ namespace Shy.Pooling
                     }
                 }
             }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            SynergyTooltipManager.Instance.Use(this);
         }
     }
 }

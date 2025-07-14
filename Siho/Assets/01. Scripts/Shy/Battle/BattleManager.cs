@@ -11,7 +11,7 @@ namespace Shy
 
         public Character player, enemy;
         private float playerCurrentTime, enemyCurrentTime, regenerationTimer;
-        [SerializeField] private GameObject battlePanel;
+        [SerializeField] private CanvasGroup battlePanel;
         [Tooltip("x : player / y : enemy")]
         [SerializeField] private Vector2Int eventPercent;
 
@@ -23,12 +23,10 @@ namespace Shy
             else
             {
                 Destroy(gameObject);
+                return;
             }
-        }
 
-        private void Start()
-        {
-            battlePanel.SetActive(false);
+            battlePanel.gameObject.SetActive(false);
         }
 
         #region Characters
@@ -120,7 +118,8 @@ namespace Shy
         #region Battle
         public void InitBattle(CharacterDataSO _player, CharacterDataSO _enemy)
         {
-            battlePanel.SetActive(true);
+            battlePanel.gameObject.SetActive(true);
+            battlePanel.alpha = 0;
 
             player.Init(_player);
             enemy.Init(_enemy.Init());
@@ -128,10 +127,15 @@ namespace Shy
             player.UseSynergy();
             enemy.UseSynergy();
 
+            SynergyTooltipManager.Instance.Init();
+
             UnityEvent<int> _diceEvent = new();
             _diceEvent.AddListener((int _v) => StartCoroutine(CheckEvent(_v)));
 
-            GameMakeTool.Instance.Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1.5f);
+            GameMakeTool.Instance.DOFadeCanvasGroup(battlePanel, 0.5f, () =>
+            {
+                GameMakeTool.Instance.Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1.5f);
+            });
         }
 
         private void BeginBattle()
@@ -167,7 +171,7 @@ namespace Shy
         {
             yield return new WaitForSeconds(3f);
 
-            battlePanel.SetActive(false);
+            battlePanel.gameObject.SetActive(false);
         }
 
         private void Update()
