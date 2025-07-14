@@ -9,19 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<<< HEAD:Siho/Assets/08.SO/Karin/Item/Injecter 6.asset
   m_Script: {fileID: 11500000, guid: eddc4d8e63d2128488f260dd3df39ea5, type: 3}
   m_Name: Injecter 6
   m_EditorClassIdentifier: 
-  itemName: Red Injecter
+  itemName: Red_Injecter
   ItemType: 1
   image: {fileID: 4745490319196197936, guid: aa77b0b4ca8a5c84b8ef45d2cd9fb066, type: 3}
   price: 12
-========
-  m_Script: {fileID: 11500000, guid: 3b88bbd54931e68458b8c44e12176a39, type: 3}
-  m_Name: Syn01-1
-  m_EditorClassIdentifier: 
-  target: 0
-  subStat: 13
-  value: 10
->>>>>>>> Shy:Siho/Assets/08.SO/Shy/Synergy/Events/Syn01-1.asset
