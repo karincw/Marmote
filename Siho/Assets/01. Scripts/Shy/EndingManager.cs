@@ -43,7 +43,7 @@ namespace Shy
         public void GoToTitle()
         {
             if (deadCanvasGroup.alpha < 1) return;
-            //±¸Çö ÁÖ
+            SceneChanger.instance.LoadScene("Title");
         }
     }
 }

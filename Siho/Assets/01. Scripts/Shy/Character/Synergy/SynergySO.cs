@@ -7,6 +7,8 @@ namespace Shy
     public class SynergySO : ScriptableObject
     {
         public string synergyName;
+        [TextArea()]
+        public string explain;
         public Sprite icon;
         public Color outlineColor = Color.white;
         public bool showNum = false;

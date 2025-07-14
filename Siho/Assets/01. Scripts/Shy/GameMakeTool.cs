@@ -22,9 +22,10 @@ namespace Shy
             _endEvent?.Invoke();
         }
 
-        public void DOFadeCanvasGroup(CanvasGroup _canvas, float _useTime) => StartCoroutine(FadeCanvasGroup(_canvas, _useTime));
+        public void DOFadeCanvasGroup(CanvasGroup _canvas, float _useTime) => StartCoroutine(FadeCanvasGroup(_canvas, _useTime, null));
+        public void DOFadeCanvasGroup(CanvasGroup _canvas, float _useTime, UnityAction _endAction) => StartCoroutine(FadeCanvasGroup(_canvas, _useTime, _endAction));
 
-        public IEnumerator FadeCanvasGroup(CanvasGroup _canvas, float _useTime)
+        public IEnumerator FadeCanvasGroup(CanvasGroup _canvas, float _useTime, UnityAction _endAction)
         {
             _canvas.alpha = 0;
             float delay = _useTime * 0.01f;
@@ -34,6 +35,8 @@ namespace Shy
                 yield return new WaitForSeconds(delay);
                 _canvas.alpha += 0.01f;
             }
+
+            _endAction?.Invoke();
         }
     }
 }

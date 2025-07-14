@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Syn04
   m_EditorClassIdentifier: 
   synergyName: "\uCC99\uCD94\uBC18\uC0AC"
-  icon: {fileID: 21300000, guid: 6430b074a1362874a9b7952a7d27e1e9, type: 3}
+  explain: "\uD53C\uD574\uB97C \uBC1B\uC744 \uC2DC (20/40)% \uD655\uB960\uB85C \uBC14\uB85C
+    \uACF5\uACA9\uD569\uB2C8\uB2E4."
+  icon: {fileID: 21300000, guid: 49e5b03294afefe45b184a8c1de024ef, type: 3}
   outlineColor: {r: 1, g: 0.24213827, b: 0.24213827, a: 1}
   showNum: 1
   synergies:
   - level: 1
     synergyEvents:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: c9367ddae4c8be841b114cf5a192b158, type: 2}
   - level: 2
     synergyEvents:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: fe592665ceff6cc4287d2c3869d58861, type: 2}

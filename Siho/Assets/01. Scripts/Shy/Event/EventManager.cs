@@ -13,11 +13,9 @@ namespace Shy.Event
         private UnityEvent<int> currentEvent;
 
         [Header("Text Event Variables")]
-        [SerializeField] private GameObject eventPanel;
+        [SerializeField] private CanvasGroup eventPanel;
         [SerializeField] private TextMeshProUGUI textEventTmp;
         [SerializeField] private EventSelector[] selectors;
-
-
 
         [Header("Battle Event Variables")]
         [SerializeField] private RollingDice dice;
@@ -32,7 +30,7 @@ namespace Shy.Event
 
         private void Start()
         {
-            eventPanel.SetActive(false);
+            eventPanel.gameObject.SetActive(false);
 
             UnityEvent<BattleEvent, int> _uBE = new();
             _uBE.AddListener(BattleManager.Instance.UserBattleEvent);
@@ -104,6 +102,7 @@ namespace Shy.Event
 
             textEventTmp.text = "";
             eventPanel.gameObject.SetActive(true);
+            eventPanel.alpha = 0;
 
             for (int i = 0; i < selectors.Length; i++)
             {
@@ -117,7 +116,10 @@ namespace Shy.Event
                 }
             }
 
-            StartCoroutine(SetMessageDelay(_eventSO.explain, ShowSelectors));
+            GameMakeTool.Instance.DOFadeCanvasGroup(eventPanel, 0.5f, () =>
+            {
+                StartCoroutine(SetMessageDelay(_eventSO.explain, ShowSelectors));
+            });
         }
 
         private void HideSelectors()
@@ -192,7 +194,7 @@ namespace Shy.Event
         private IEnumerator EndEvent()
         {
             yield return new WaitForSeconds(3.5f);
-            eventPanel.SetActive(false);
+            eventPanel.gameObject.SetActive(false);
         }
         #endregion
     }

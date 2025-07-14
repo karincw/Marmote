@@ -18,7 +18,7 @@ MonoBehaviour:
   mainStat:
     STR: 7
     DEX: 7
-    HP: 4
+    HP: 7
     INT: 7
   synergies:
   - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
