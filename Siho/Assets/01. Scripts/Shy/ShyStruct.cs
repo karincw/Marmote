@@ -11,6 +11,17 @@ namespace Shy
         public int DEX;
         public int HP;
         public int INT;
+
+        public static MainStat operator +(MainStat left, MainStat right)
+        => new MainStat(left.STR + right.STR, left.DEX + right.DEX, left.HP + right.HP, left.INT + right.INT);
+
+        public MainStat(int s, int d, int e, int f)
+        {
+            STR = s;
+            DEX = d;
+            HP = e;
+            INT = f;
+        }
     }
 
     [Show]
@@ -23,7 +34,7 @@ namespace Shy
             set
             {
                 MaxHp = value;
-                if(Hp > MaxHp) Hp = MaxHp;
+                if (Hp > MaxHp) Hp = MaxHp;
             }
         }
         public float hp
@@ -88,7 +99,7 @@ namespace Shy
                 for (int i = 0; i < results.Count; i++)
                 {
                     value -= results[i].chance;
-                    if(value <= 0)
+                    if (value <= 0)
                     {
                         return results[i];
                     }
@@ -108,7 +119,7 @@ namespace Shy
             public float chance;
         }
     }
-    
+
     namespace Pooling
     {
         [Show]

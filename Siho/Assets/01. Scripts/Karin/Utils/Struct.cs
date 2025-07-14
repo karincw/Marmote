@@ -1,5 +1,7 @@
 
+using Shy;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,4 +17,11 @@ public struct TilesData
             tiles.Add(tileType);
         return tiles;
     }
+}
+
+[System.Serializable]
+public struct StatIncreaseData
+{
+    public SubStatEnum type;
+    public float multiplier;
 }

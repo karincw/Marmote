@@ -7,6 +7,7 @@ namespace Shy
     public class SynergySO : ScriptableObject
     {
         public string synergyName;
+        public SynergyType synergyType;
         [TextArea()]
         public string explain;
         public Sprite icon;

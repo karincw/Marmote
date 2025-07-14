@@ -47,7 +47,13 @@ namespace Shy
 
     public enum SynergyType
     {
-        ChangeSubStat
+        Blood,
+        String,
+        Fear,
+        Spine,
+        Cool,
+        Steel
+
     }
 
     public enum Calculate

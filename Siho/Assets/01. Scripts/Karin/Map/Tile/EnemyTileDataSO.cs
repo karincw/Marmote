@@ -5,6 +5,6 @@ public class EnemyTileDataSO : TileDataSO
 {
     public override void EnterEvent()
     {
-        Debug.Log("æ¿ ¿Ãµø");
+        SceneChanger.instance.LoadScene("New Battle");
     }
 }

@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: ab74233bb54e2d5419d796517d30af78
+guid: d5e37129f615d3042b04041d1dee75dd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1445536987241439016
-    second: "\uB79C\uB364_0"
-  - first:
-      213: 1095346926909298101
-    second: "\uB79C\uB364_1"
+      213: -482669246866416319
+    second: Strong_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uB79C\uB364_0"
+      name: Strong_0
       rect:
         serializedVersion: 2
-        x: 70
-        y: 76
-        width: 110
-        height: 144
+        x: 34
+        y: 34
+        width: 957
+        height: 957
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 82fd63a2b349f0410800000000000000
-      internalID: 1445536987241439016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uB79C\uB364_1"
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 29
-        width: 44
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5b59e340a34733f00800000000000000
-      internalID: 1095346926909298101
+      spriteID: 14d958490e63d49f0800000000000000
+      internalID: -482669246866416319
       vertices: []
       indices: 
       edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uB79C\uB364_0": 1445536987241439016
-      "\uB79C\uB364_1": 1095346926909298101
+      Strong_0: -482669246866416319
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
