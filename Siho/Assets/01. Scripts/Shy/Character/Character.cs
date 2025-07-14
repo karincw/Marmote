@@ -155,7 +155,7 @@ namespace Shy
 
         public bool Counter()
         {
-            return UnityEngine.Random.Range(0, 100f) <= subStats.counter;
+            return Random.Range(0, 100f) <= subStats.counter;
         }
 
         public void HitEvent(Attack _result)

@@ -7,10 +7,11 @@ namespace Shy
 
     public class GameTester : MonoBehaviour
     {
-        [Header("Battle")]
-        public CharacterDataSO player, enemy;
+        [Header("Battle : Q")]
+        public CharacterDataSO player;
+        public CharacterDataSO enemy;
 
-        [Header("Event")]
+        [Header("Event : W")]
         public EventSO eventSO;
 
         private void Start()

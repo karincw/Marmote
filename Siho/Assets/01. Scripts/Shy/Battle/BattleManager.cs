@@ -143,14 +143,28 @@ namespace Shy
             nowFight = true;
             regenerationTimer = Time.time + 1;
         }
-
-        public void EndBattle()
+        
+        private void EndBattle(Team _winner)
         {
             nowFight = false;
-            StartCoroutine(BattleResult());
+
+            if (_winner == Team.Player)
+            {
+                EndBattle();
+            }
+            else
+            {
+                EndingManager.Instance.PlayerDead(enemy.transform);
+            }
         }
 
-        private IEnumerator BattleResult()
+        private void EndBattle()
+        {
+            nowFight = false;
+            StartCoroutine(BattlePanelOff());
+        }
+
+        private IEnumerator BattlePanelOff()
         {
             yield return new WaitForSeconds(3f);
 
@@ -193,7 +207,7 @@ namespace Shy
 
             if (_target.DieCheck())
             {
-                EndBattle();
+                EndBattle(_user.team);
             }
             else
             {
@@ -203,7 +217,7 @@ namespace Shy
 
         public void SetNextAttackTime(Team _team)
         {
-            if (_team != Team.Player) enemyCurrentTime = Time.time + (1 / enemy.GetNowStat(SubStatEnum.AtkSpd)) + Random.Range(0, 0.05f);
+            if (_team != Team.Player) enemyCurrentTime = Time.time + (1 / enemy.GetNowStat(SubStatEnum.AtkSpd));
             if (_team != Team.Enemy) playerCurrentTime = Time.time + (1 / player.GetNowStat(SubStatEnum.AtkSpd));
         }
 
@@ -265,7 +279,7 @@ namespace Shy
 
             if(!_target.characteristic.isNotBlood) _user.Drain(result.dmg);
 
-            if (_target.DieCheck()) EndBattle();
+            if (_target.DieCheck()) EndBattle(_user.team);
 
             if(_target.Counter())
             {
