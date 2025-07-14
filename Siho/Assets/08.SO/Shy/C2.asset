@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06350f3f7673bc240b08d92a52e6ce35, type: 3}
-  m_Name: Test Player
+  m_Name: C2
   m_EditorClassIdentifier: 
-  itemName: "\uBAA8\uB974\uBAA8\uD2B8"
-  visual: {fileID: 21300000, guid: d687795f5b2f00d4bba43848625d9acd, type: 3}
-  attackAnime: {fileID: 21300000, guid: 7ab373f3d0e91664497ad627da2d200d, type: 3}
+  itemName: "\uB178\uB791"
+  visual: {fileID: 21300000, guid: f3ad95a993b7f3b41a13b053476fc135, type: 3}
+  attackAnime: {fileID: 21300000, guid: 9c7557b7a016e094a975a2c614b6bf0d, type: 3}
   mainStat:
     STR: 7
     DEX: 7
     HP: 7
     INT: 7
-  synergies:
-  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
-  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
+  synergies: []

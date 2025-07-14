@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06350f3f7673bc240b08d92a52e6ce35, type: 3}
-  m_Name: Test Enemy
+  m_Name: C1
   m_EditorClassIdentifier: 
-  itemName: "\uC544\uC2DC\uB294\uAD6C\uB098"
-  visual: {fileID: 21300000, guid: 18e96a0cac7e979488eddada312dde73, type: 3}
-  attackAnime: {fileID: 21300000, guid: 564d4027d9377134b8aa43510c9b5137, type: 3}
+  itemName: "\uAC80\uC815"
+  visual: {fileID: 21300000, guid: b84b37e0b0b76bb4c89bdc017aabf072, type: 3}
+  attackAnime: {fileID: 21300000, guid: e539676a81ee3044b82441adfbad6f41, type: 3}
   mainStat:
     STR: 7
     DEX: 7

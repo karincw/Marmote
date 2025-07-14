@@ -3421,7 +3421,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 0}
-  enemys: []
+  enemys:
+  - {fileID: 11400000, guid: dff70e70ed906c34fa49c85e821a8043, type: 2}
+  - {fileID: 11400000, guid: b96bb549f827ae34cad6d2ede213e737, type: 2}
+  - {fileID: 11400000, guid: a8123ee977a381d4c8b028320b157134, type: 2}
+  - {fileID: 11400000, guid: 0cdd3d5f3b077a149990dc31ba01ebbf, type: 2}
+  - {fileID: 11400000, guid: 932211b77acb43445940b70d4f331c89, type: 2}
 --- !u!4 &1551385017
 Transform:
   m_ObjectHideFlags: 0
