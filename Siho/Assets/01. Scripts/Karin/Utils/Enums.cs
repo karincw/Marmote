@@ -25,7 +25,6 @@ public enum TileType
 
 public enum EventType
 {
-    PinBall,
 
 }
 
