@@ -6,6 +6,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public TileDataSO tileData;
+    public bool isFlipTile;
 
     [Header("Animation-Setting")]
     [SerializeField] private float _tweenTime;
@@ -64,6 +65,8 @@ public class Tile : MonoBehaviour
 
     private void ThrowEvent()
     {
+        if (isFlipTile)
+            Symbol.OnFlipEvent.Invoke();
         tileData.ThrowEvent();
     }
 }

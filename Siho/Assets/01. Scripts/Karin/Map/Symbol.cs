@@ -12,20 +12,31 @@ public class Symbol : MonoBehaviour
 
     public int index;
     public static Action<int> OnMoveEndEvent;
+    public static Action OnFlipEvent;
     public Sequence sequence;
 
     [SerializeField] private Transform _camViewPos;
 
+    private SpriteRenderer _sp;
+
     private void Awake()
     {
+        _sp = GetComponentInChildren<SpriteRenderer>();
         index = 0;
         sequence = null;
         DicePanel.OnDiceRollEndEvent += Move;
+        OnFlipEvent += HandleFlip;
     }
 
     private void OnDestroy()
     {
         DicePanel.OnDiceRollEndEvent -= Move;
+        OnFlipEvent -= HandleFlip;
+    }
+
+    private void HandleFlip()
+    {
+        _sp.flipX = !_sp.flipX;
     }
 
     public void Move(int count)
