@@ -9,6 +9,7 @@ namespace Shy
 {
     public class Character : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI characterName;
         public Team team;
         [SerializeField] private MainStat mainStats;
         [SerializeField] private SubStat subStats;
@@ -34,15 +35,12 @@ namespace Shy
 
         public void Init(CharacterDataSO _so)
         {
+            characterName.SetText(_so.itemName);
+
             characteristic = new();
 
             mainStats = _so.mainStat;
             subStats = StatSystem.ChangeSubStat(mainStats);
-
-            if (EditorModeCheck.isEditorMode)
-            {
-                Awake();
-            }
 
             idle = _so.visual;
             attack = _so.attackAnime;
@@ -50,12 +48,9 @@ namespace Shy
 
             healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
 
-            if(EditorModeCheck.isEditorMode == false)
+            foreach (var _synergySO in _so.synergies)
             {
-                foreach (var _synergySO in _so.synergies)
-                {
-                    GetSynergy(_synergySO);
-                }
+                GetSynergy(_synergySO);
             }
         }
 

@@ -121,18 +121,18 @@ namespace Shy
         #region Battle
         public void InitBattle(CharacterDataSO _player, CharacterDataSO _enemy)
         {
+            battlePanel.SetActive(true);
+
             player.Init(_player);
             enemy.Init(_enemy.Init());
 
             player.UseSynergy();
             enemy.UseSynergy();
 
-            battlePanel.SetActive(true);
-
             UnityEvent<int> _diceEvent = new();
             _diceEvent.AddListener((int _v) => StartCoroutine(CheckEvent(_v)));
 
-            StartCoroutine(Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1f));
+            StartCoroutine(Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1.5f));
         }
 
         private void BeginBattle()
@@ -203,7 +203,7 @@ namespace Shy
 
         public void SetNextAttackTime(Team _team)
         {
-            if (_team != Team.Player) enemyCurrentTime = Time.time + (1 / enemy.GetNowStat(SubStatEnum.AtkSpd));
+            if (_team != Team.Player) enemyCurrentTime = Time.time + (1 / enemy.GetNowStat(SubStatEnum.AtkSpd)) + Random.Range(0, 0.05f);
             if (_team != Team.Enemy) playerCurrentTime = Time.time + (1 / player.GetNowStat(SubStatEnum.AtkSpd));
         }
 

@@ -78,9 +78,34 @@ namespace Shy
         {
             public string eventExplain;
             public Sprite sprite;
-            public EventResultSO result;
+            public List<RandomResult> results;
+
+            public RandomResult GetResult()
+            {
+                float value = Random.Range(0, 100f);
+                int n = 0;
+
+                for (int i = 0; i < results.Count; i++)
+                {
+                    value -= results[i].chance;
+                    if(value <= 0)
+                    {
+                        return results[i];
+                    }
+                }
+
+                Debug.LogError("최종 값이 100이 되지 않습니다. by => " + eventExplain
+                    + "\nSo, Return to num 0 result");
+                return results[0];
+            }
+        }
+
+        [Show]
+        public struct RandomResult
+        {
+            public EventResultSO resultSO;
             [Range(0, 100f)]
-            public float successChance;
+            public float chance;
         }
     }
     

@@ -12,7 +12,6 @@ namespace Shy
         public MainStat mainStat;
         public List<SynergySO> synergies = new();
 
-
         public virtual CharacterDataSO Init()
         {
             var _so = CreateInstance<CharacterDataSO>();
