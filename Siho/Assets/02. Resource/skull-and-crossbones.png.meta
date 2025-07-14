@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: ab74233bb54e2d5419d796517d30af78
+guid: 26e55804887b4404f95fc65b89ea3ce2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1445536987241439016
-    second: "\uB79C\uB364_0"
+      213: -7627566424061463162
+    second: skull-and-crossbones_0
   - first:
-      213: 1095346926909298101
-    second: "\uB79C\uB364_1"
+      213: 6102839884316476465
+    second: skull-and-crossbones_1
+  - first:
+      213: 6831397991062405281
+    second: skull-and-crossbones_2
+  - first:
+      213: -1312070174218860509
+    second: skull-and-crossbones_3
+  - first:
+      213: -608918036836369102
+    second: skull-and-crossbones_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +84,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -116,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uB79C\uB364_0"
+      name: skull-and-crossbones_0
       rect:
         serializedVersion: 2
-        x: 70
-        y: 76
-        width: 110
-        height: 144
+        x: 0
+        y: 357
+        width: 129
+        height: 134
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 82fd63a2b349f0410800000000000000
-      internalID: 1445536987241439016
+      spriteID: 685be19ffb0752690800000000000000
+      internalID: -7627566424061463162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB79C\uB364_1"
+      name: skull-and-crossbones_1
       rect:
         serializedVersion: 2
-        x: 103
-        y: 29
-        width: 44
-        height: 44
+        x: 82
+        y: 55
+        width: 348
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +162,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b59e340a34733f00800000000000000
-      internalID: 1095346926909298101
+      spriteID: 13405c16a84a1b450800000000000000
+      internalID: 6102839884316476465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skull-and-crossbones_2
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 357
+        width: 129
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a0879057400ece50800000000000000
+      internalID: 6831397991062405281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skull-and-crossbones_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21
+        width: 138
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 328cc41d0279acde0800000000000000
+      internalID: -1312070174218860509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skull-and-crossbones_4
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 21
+        width: 138
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23d3a0d8540bc87f0800000000000000
+      internalID: -608918036836369102
       vertices: []
       indices: 
       edges: []
@@ -173,8 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uB79C\uB364_0": 1445536987241439016
-      "\uB79C\uB364_1": 1095346926909298101
+      skull-and-crossbones_0: -7627566424061463162
+      skull-and-crossbones_1: 6102839884316476465
+      skull-and-crossbones_2: 6831397991062405281
+      skull-and-crossbones_3: -1312070174218860509
+      skull-and-crossbones_4: -608918036836369102
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
