@@ -687,7 +687,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b53843d10250a954e83a45f04ecb9b86, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB300\uD654"
+  m_text: "\uD611\uBC15"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ada54ddf1e4cd9742b61a493cf71f38d, type: 2}
   m_sharedMaterial: {fileID: -5641944376256270622, guid: ada54ddf1e4cd9742b61a493cf71f38d, type: 2}
@@ -3160,7 +3160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ec95e7b362265ee41860230a7c8e6607, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3348,7 +3348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8f4b50a6614677e4cbacf360ce71439b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4041,7 +4041,7 @@ PrefabInstance:
     - target: {fileID: 6973558213773853479, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3d8f970eda025d44683f2d9056d0b047, type: 3}
+      objectReference: {fileID: 21300000, guid: b84b37e0b0b76bb4c89bdc017aabf072, type: 3}
     - target: {fileID: 6973558213773853479, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -7475,7 +7475,7 @@ PrefabInstance:
     - target: {fileID: 6973558213773853479, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e96a0cac7e979488eddada312dde73, type: 3}
+      objectReference: {fileID: 21300000, guid: d687795f5b2f00d4bba43848625d9acd, type: 3}
     - target: {fileID: 8205516614237097439, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: team
       value: 1
