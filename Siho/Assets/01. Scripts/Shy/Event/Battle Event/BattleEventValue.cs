@@ -2,19 +2,27 @@ namespace Shy.Event
 {
     public static class BattleEventValue
     {
-        public static readonly int[] RunValue = new int[5]
+        public static int GetPercent(BattleEvent _event, Character _p, Character _e)
         {
-            999, 55, 46, 40, 35
-        };
+            int _value = 0;
+            switch (_event)
+            {
+                case BattleEvent.Run:
+                    _value = 60 + (_p.GetNowStat(MainStatEnum.Int) - _e.GetNowStat(MainStatEnum.Int)) * 5;
+                    break;
 
-        public static readonly int[] SurpriseValue = new int[5]
-        {
-            999, 85, 79, 74, 70
-        };
+                case BattleEvent.Surprise:
+                    _value = 80 + (_p.GetNowStat(MainStatEnum.Dex) - _e.GetNowStat(MainStatEnum.Dex)) * 3;
+                    break;
 
-        public static readonly int[] TalkValue = new int[5]
-        {
-            999, 77, 66, 57, 50
-        };
+                case BattleEvent.Talk:
+                    _value = 40 + (_p.GetNowStat(MainStatEnum.Str) - _e.GetNowStat(MainStatEnum.Str)) * 3;
+                    break;
+            }
+
+            _value /= 5;
+
+            return (_value > 20) ? 20 : (_value < 1) ? 1 : _value;
+        }
     }
 }

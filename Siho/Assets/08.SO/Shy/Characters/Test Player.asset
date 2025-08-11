@@ -20,4 +20,7 @@ MonoBehaviour:
     DEX: 7
     HP: 7
     INT: 7
-  synergies: []
+  synergies:
+  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
+  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
+  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}

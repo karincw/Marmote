@@ -37,7 +37,8 @@ namespace Shy
         CriChance, CriDmg,
         HitChance, DodgeChance,
         AddDmg, RedDmg,
-        TrueDmg, Drain, Counter
+        TrueDmg, Drain, Counter,
+        FirstAtkBonus
     }
 
     public enum CharacteristicEnum

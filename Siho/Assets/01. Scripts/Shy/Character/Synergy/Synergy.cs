@@ -9,16 +9,14 @@ namespace Shy.Pooling
     {
         public SynergySO so;
         private int value = 0;
-
-        private Image outline, icon;
-        private TextMeshProUGUI numTmp;
         private Team userTeam;
+
+        private Image icon;
+        private TextMeshProUGUI numTmp;
 
         private void Awake()
         {
-            //outline = GetComponent<Image>();
             icon = GetComponent<Image>();
-            //icon = transform.Find("IconBack").Find("Icon").GetComponent<Image>();
             numTmp = GetComponentInChildren<TextMeshProUGUI>();
         }
 
@@ -27,9 +25,7 @@ namespace Shy.Pooling
             so = _so;
             userTeam = _team;
 
-            //outline.color = _so.outlineColor;
             icon.sprite = _so.icon;
-
             numTmp.gameObject.SetActive(_so.showNum);
 
             transform.localScale = Vector3.one;
@@ -67,12 +63,12 @@ namespace Shy.Pooling
                     if (_targetEnum != Target.Self)
                     {
                         var _target = BattleManager.Instance.GetCharacter(_opponentTeam);
-                        _target.AddStat(_statEvent.value, Calculate.Plus, _statEvent.subStat);
+                        _target.AddStat(_statEvent.value, _statEvent.calculate, _statEvent.subStat);
                     }
                     if (_targetEnum != Target.Opponent)
                     {
                         var _target = BattleManager.Instance.GetCharacter(userTeam);
-                        _target.AddStat(_statEvent.value, Calculate.Plus, _statEvent.subStat);
+                        _target.AddStat(_statEvent.value, _statEvent.calculate, _statEvent.subStat);
                     }
                 }
                 else if (_event is SpecialEventSO _specialEvent)

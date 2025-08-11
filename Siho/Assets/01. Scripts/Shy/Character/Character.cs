@@ -95,16 +95,7 @@ namespace Shy
         }
         #endregion
 
-        #region Editor
-        internal void DataSave()
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
-            UnityEditor.EditorUtility.SetDirty(visual);
-#endif
-        }
-        #endregion
-
+        #region Stat & Characteristic
         private float CalcValue(float _oldValue, float _newValue, Calculate _calc)
         {
             if (_calc == Calculate.Plus) return _oldValue + _newValue;
@@ -135,6 +126,7 @@ namespace Shy
                     break;
             }
         }
+        #endregion
 
         #region Character Action
         public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
@@ -163,16 +155,16 @@ namespace Shy
             HealEvent(subStats.regen);
         }
 
-        public bool Counter()
-        {
-            return Random.Range(0, 100f) <= subStats.counter;
-        }
+        public bool Counter() => Random.Range(0, 100f) <= subStats.counter;
 
         public void HitEvent(Attack _result)
         {
-            if(_result.dmg > 0)
+            if(_result.dmg >= 0)
             {
                 subStats.hp -= _result.dmg;
+
+                Debug.Log("Hit Event");
+                Debug.Log(_result + " -> " + _result.attackResult);
 
                 Sequence seq = DOTween.Sequence();
                 seq.Append(hitVisual.DOFade(0.8f, 0.2f));

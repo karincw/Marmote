@@ -43,7 +43,7 @@ namespace Shy
                 nameTmp.text = _synergy.so.synergyName;
                 explainTmp.text = _synergy.so.explain;
 
-                tooltipBox.transform.position = new Vector3(0, _synergy.transform.position.y - 1);
+                tooltipBox.transform.position = new Vector3(0, _synergy.transform.position.y - 1, tooltipBox.transform.position.z);
                 tooltipBox.SetActive(true);
             }
         }

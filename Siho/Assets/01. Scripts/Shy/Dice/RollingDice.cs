@@ -22,7 +22,6 @@ namespace Shy.Event
 
         public void EndRoll()
         {
-
             int _value = Random.Range(diceRnage.x, diceRnage.y + 1);
             tmp.SetText(_value.ToString());
             tmp.gameObject.SetActive(true);

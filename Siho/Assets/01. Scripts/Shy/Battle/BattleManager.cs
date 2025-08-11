@@ -10,8 +10,9 @@ namespace Shy
         public static BattleManager Instance;
 
         public Character player, enemy;
-        private float playerCurrentTime, enemyCurrentTime, regenerationTimer;
+        private float playerCurrentTime, enemyCurrentTime, regenerationTime;
         [SerializeField] private CanvasGroup battlePanel;
+
         [Tooltip("x : player / y : enemy")]
         [SerializeField] private Vector2Int eventPercent;
 
@@ -41,7 +42,7 @@ namespace Shy
 
             if (_v <= eventPercent.x)
             {
-                EventManager.Instance.SetBattleEvent(_v);
+                //EventManager.Instance.SetBattleEvent(_v);
             }
             else if (_v > 20 - eventPercent.y)
             {
@@ -56,9 +57,9 @@ namespace Shy
             }
         }
 
-        public void UserBattleEvent(BattleEvent _bEvent, int _per)
+        public void UserBattleEvent(BattleEvent _bEvent, int _per, int _result)
         {
-            bool _success = Random.Range(0, 101) <= _per;
+            bool _success = _per >= _result;
 
             switch (_bEvent)
             {
@@ -91,18 +92,6 @@ namespace Shy
                 case BattleEvent.Talk:
                     if (_success)
                     {
-                        if (Random.Range(0, 10) < 3)
-                        {
-                            //종료
-                            EventManager.Instance.ShowMessage("적은 겁을 먹고\n도망쳤다.");
-                            GameMakeTool.Instance.Delay(EndBattle, 0.5f);
-                        }
-                        else
-                        {
-                            //기습
-                            EventManager.Instance.ShowMessage("굳어있는 상대에게\n강한 공격을 가했다.");
-                            GameMakeTool.Instance.Delay(() => SurpriseAttack(player, enemy), 1.1f);
-                        }
                     }
                     else
                     {
@@ -127,14 +116,15 @@ namespace Shy
             player.UseSynergy();
             enemy.UseSynergy();
 
+            EventManager.Instance.HideAllPanel();
             SynergyTooltipManager.Instance.Init();
 
-            UnityEvent<int> _diceEvent = new();
-            _diceEvent.AddListener((int _v) => StartCoroutine(CheckEvent(_v)));
+            //UnityEvent<int> _diceEvent = new();
+            //_diceEvent.AddListener((int _v) => StartCoroutine(CheckEvent(_v)));
 
             GameMakeTool.Instance.DOFadeCanvasGroup(battlePanel, 0.5f, () =>
             {
-                GameMakeTool.Instance.Delay(() => EventManager.Instance.DiceRoll(_diceEvent), 1.5f);
+                GameMakeTool.Instance.Delay(EventManager.Instance.SetBattleEvent, 0.5f);
             });
         }
 
@@ -144,7 +134,7 @@ namespace Shy
 
             SetNextAttackTime(Team.All);
             nowFight = true;
-            regenerationTimer = Time.time + 1;
+            regenerationTime = Time.time + 1;
         }
         
         private void EndBattle(Team _winner)
@@ -187,11 +177,11 @@ namespace Shy
                     Attack(enemy, player);
                 }
 
-                if (nowFight && Time.time > regenerationTimer)
+                if (nowFight && Time.time > regenerationTime)
                 {
                     player.Regeneration();
                     enemy.Regeneration();
-                    regenerationTimer = Time.time + 1;
+                    regenerationTime = Time.time + 1;
                 }
             }
         }
@@ -248,7 +238,7 @@ namespace Shy
 
             float hitValue = _user.GetNowStat(SubStatEnum.HitChance) - _target.GetNowStat(SubStatEnum.DodgeChance);
 
-            if(Random.Range(0, 10000) < hitValue * 100)
+            if(Random.Range(0, 100f) < hitValue)
             {
                 result.attackResult = AttackResult.Dodge;
                 return result;
@@ -262,12 +252,13 @@ namespace Shy
                 return result;
             }
 
-            if(Random.Range(0, 10000) < _user.GetNowStat(SubStatEnum.CriChance) * 100)
+            if(Random.Range(0, 100f) < _user.GetNowStat(SubStatEnum.CriChance))
             {
                 result.attackResult = AttackResult.Critical;
-                dmg *= (1 + _user.GetNowStat(SubStatEnum.CriDmg));
+                dmg *= _user.GetNowStat(SubStatEnum.CriDmg) * 0.01f;
             }
 
+            result.attackResult = AttackResult.Normal;
             result.dmg = dmg;
             return result;
         }
@@ -275,6 +266,7 @@ namespace Shy
         private void Attack(Character _user, Character _target)
         {
             Attack result = GetAttackData(_user, _target);
+
             _user.VisualUpdate(false);
             GameMakeTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
 

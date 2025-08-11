@@ -33,8 +33,16 @@ namespace Shy.Event
             eventPanel.gameObject.SetActive(false);
 
             UnityEvent<BattleEvent, int> _uBE = new();
-            _uBE.AddListener(BattleManager.Instance.UserBattleEvent);
+            UnityEvent<int> _diceEvent = new();
+
             _uBE.AddListener((BattleEvent _e, int _i) => HideEventUis());
+            _uBE.AddListener((BattleEvent _e, int _i) =>
+            {
+                _diceEvent.AddListener((int _v) => 
+                GameMakeTool.Instance.Delay(()=>
+                BattleManager.Instance.UserBattleEvent(_e, _i, _v), 1.5f));
+                DiceRoll(_diceEvent);
+            });
 
             foreach (var _event in bEventUis) _event.clickEvent = _uBE;
         }
@@ -45,6 +53,7 @@ namespace Shy.Event
         {
             currentEvent = _event;
             dice.gameObject.SetActive(true);
+
             dice.Roll();
         }
 
@@ -60,13 +69,13 @@ namespace Shy.Event
         #endregion
 
         #region EventUi
-        public void SetBattleEvent(int _dValue)
+        public void SetBattleEvent()
         {
             HideDice();
 
             foreach (var _ui in bEventUis)
             {
-                _ui.SetPercent(BattleManager.Instance.GetCharacters(), _dValue);
+                _ui.SetPercent(BattleManager.Instance.GetCharacters());
                 _ui.gameObject.SetActive(true);
             }
         }

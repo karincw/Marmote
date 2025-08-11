@@ -61,6 +61,7 @@ namespace Shy
         public float drain;
         [Range(0, 100f)]
         public float counter;
+        public float firstAttackBonus;
     }
 
     public struct Characteristic
@@ -106,7 +107,7 @@ namespace Shy
                 }
 
                 Debug.LogError("최종 값이 100이 되지 않습니다. by => " + eventExplain
-                    + "\nSo, Return to num 0 result");
+                    + "\nSo, Return to number 0 result");
                 return results[0];
             }
         }

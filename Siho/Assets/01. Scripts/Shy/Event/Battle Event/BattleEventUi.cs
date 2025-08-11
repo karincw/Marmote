@@ -13,51 +13,14 @@ namespace Shy.Event
         internal UnityEvent<BattleEvent, int> clickEvent;
 
         #region Percent
-        private int GetDefGap(Character[] _chs) => Mathf.RoundToInt(
-            _chs[0].GetNowStat(MainStatEnum.Dex) - _chs[1].GetNowStat(MainStatEnum.Dex));
-
-        private int GetIntGap(Character[] _chs) => Mathf.RoundToInt(
-            _chs[0].GetNowStat(MainStatEnum.Int) - _chs[1].GetNowStat(MainStatEnum.Int));
-
-        //_dValue = 1~5
-        public void SetPercent(Character[] _characters, int _dValue)
+        public void SetPercent(Character[] _characters)
         {
-            int _per = 0, _def, _int;
+            int _per = 0;
 
-            switch (eventType)
-            {
-                case BattleEvent.Run:
-                    _per = BattleEventValue.RunValue[_dValue - 1];
-
-                    _def = GetDefGap(_characters);
-                    _def *= (_def >= 0) ? 8: 5;
-                    _per += _def;
-
-                    _int = GetIntGap(_characters);
-                    _int *= (_int >= 0) ? 5 : 3;
-                    _per += _int;
-                    break;
-
-                case BattleEvent.Surprise:
-                    _per = BattleEventValue.SurpriseValue[_dValue - 1];
-
-                    _def = GetDefGap(_characters);
-                    _def *= (_def >= 0) ? 5 : 4;
-                    _per += _def;
-                    break;
-
-                case BattleEvent.Talk:
-                    _per = BattleEventValue.TalkValue[_dValue - 1];
-
-                    _int = GetIntGap(_characters);
-                    _int *= (_int >= 0) ? 10 : 0;
-                    _per += _int;
-                    break;
-            }
-
-            if (_per > 100) _per = 100;
+            _per = BattleEventValue.GetPercent(eventType, _characters[0], _characters[1]);
             currentPer = _per;
-            tmp.SetText("성공확률 : " + _per.ToString());
+
+            tmp.SetText("성공 조건 : " + _per.ToString() + " 이하");
         }
         #endregion
 

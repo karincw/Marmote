@@ -7,6 +7,7 @@ namespace Shy
     public class StatEventSO : SynergyEventSO
     {
         public SubStatEnum subStat;
+        public Calculate calculate;
         public float value;
     }
 }
