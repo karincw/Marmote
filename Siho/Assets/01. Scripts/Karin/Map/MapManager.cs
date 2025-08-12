@@ -20,6 +20,8 @@ public class MapManager : MonoBehaviour
     [Header("MapData")]
     [SerializeField] private int _currentMapIndex = 0;
 
+    public int money = 0;
+
     private int _tileCount;
     public Symbol symbol;
     private int _mapIndex;
@@ -39,6 +41,7 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         _mapIndex = 0;
+        _mapDatas = DataLinkManager.instance.stage.stageData.mapDatas;
         MakeMap();
         SetTileNumbers(0);
     }
