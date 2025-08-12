@@ -13,9 +13,6 @@ namespace Shy
         private float playerCurrentTime, enemyCurrentTime, regenerationTime;
         [SerializeField] private CanvasGroup battlePanel;
 
-        [Tooltip("x : player / y : enemy")]
-        [SerializeField] private Vector2Int eventPercent;
-
         private bool nowFight = false;
 
         private void Awake()
@@ -36,55 +33,29 @@ namespace Shy
         #endregion
 
         #region Event
-        private IEnumerator CheckEvent(int _v)
-        {
-            yield return new WaitForSeconds(1.5f);
-
-            if (_v <= eventPercent.x)
-            {
-                //EventManager.Instance.SetBattleEvent(_v);
-            }
-            else if (_v > 20 - eventPercent.y)
-            {
-                EventManager.Instance.ShowMessage("갑작스럽게 튀어나온\n적에게 공격당했다.");
-                GameMakeTool.Instance.Delay(() => SurpriseAttack(enemy, player), 1.5f);
-                GameMakeTool.Instance.Delay(EventManager.Instance.HideMessage, 2.3f);
-            }
-            else
-            {
-                EventManager.Instance.HideAllPanel();
-                BeginBattle();
-            }
-        }
-
         public void UserBattleEvent(BattleEvent _bEvent, int _per, int _result)
         {
             bool _success = _per >= _result;
+            var so = SOManager.Instance.GetSO(_bEvent);
+
+            EventManager.Instance.ShowMessage(_success ? so.successMes : so.failMes);
 
             switch (_bEvent)
             {
                 case BattleEvent.Run:
-                    if (_success)
-                    {
-                        EventManager.Instance.ShowMessage("적이 알아차리기 전에\n자리를 피했다.");
+                    if (_success) 
                         GameMakeTool.Instance.Delay(EndBattle, 0.5f);
-                    }
                     else
-                    {
-                        EventManager.Instance.ShowMessage("도망칠 길을 찾던 중\n적에게 발각되었다.");
                         GameMakeTool.Instance.Delay(BeginBattle, 2f);
-                    }
                     break;
 
                 case BattleEvent.Surprise:
                     if (_success)
                     {
-                        EventManager.Instance.ShowMessage("재빠른 몸놀림으로 적이\n알아차리기 전에 공격했다.");
                         GameMakeTool.Instance.Delay(() => SurpriseAttack(player, enemy), 2f);
                     }
                     else
                     {
-                        EventManager.Instance.ShowMessage("공격하였지만 적이 재빠른 움직임으로 피했다.");
                         GameMakeTool.Instance.Delay(BeginBattle, 1.5f);
                     }
                     break;
@@ -95,7 +66,6 @@ namespace Shy
                     }
                     else
                     {
-                        EventManager.Instance.ShowMessage("적을 위협 하였지만\n가소로운듯 웃기만 했다.");
                         GameMakeTool.Instance.Delay(() => BeginBattle(), 2f);
                     }
                     break;
@@ -105,12 +75,12 @@ namespace Shy
         #endregion
 
         #region Battle
-        public void InitBattle(CharacterDataSO _player, CharacterDataSO _enemy)
+        public void InitBattle(CharacterDataSO _enemy)
         {
             battlePanel.gameObject.SetActive(true);
             battlePanel.alpha = 0;
 
-            player.Init(_player);
+            player.Init(Data.GameData.playerData);
             enemy.Init(_enemy.Init());
 
             player.UseSynergy();
@@ -118,9 +88,6 @@ namespace Shy
 
             EventManager.Instance.HideAllPanel();
             SynergyTooltipManager.Instance.Init();
-
-            //UnityEvent<int> _diceEvent = new();
-            //_diceEvent.AddListener((int _v) => StartCoroutine(CheckEvent(_v)));
 
             GameMakeTool.Instance.DOFadeCanvasGroup(battlePanel, 0.5f, () =>
             {
@@ -238,7 +205,7 @@ namespace Shy
 
             float hitValue = _user.GetNowStat(SubStatEnum.HitChance) - _target.GetNowStat(SubStatEnum.DodgeChance);
 
-            if(Random.Range(0, 100f) < hitValue)
+            if(Random.Range(0, 100f) > hitValue)
             {
                 result.attackResult = AttackResult.Dodge;
                 return result;

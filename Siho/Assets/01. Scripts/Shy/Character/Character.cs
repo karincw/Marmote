@@ -95,6 +95,7 @@ namespace Shy
         }
         #endregion
 
+        //½ºÅÈ°ú Æ¯¼º
         #region Stat & Characteristic
         private float CalcValue(float _oldValue, float _newValue, Calculate _calc)
         {
@@ -131,19 +132,6 @@ namespace Shy
         #region Character Action
         public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
 
-        private void HealEvent(float _value)
-        {
-            if (_value <= 0) return;
-
-            subStats.hp += _value;
-
-            var _item = PoolingManager.Instance.Pop(PoolType.DmgText).GetComponent<DamageText>();
-            _item.transform.SetParent(dmgTxtPos);
-            _item.Use(_value, new Color(0.4f, 1, 0));
-
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
-        }
-
         public void Drain(float _dmg)
         {
             float _value = _dmg * subStats.drain * 0.01f;
@@ -157,14 +145,24 @@ namespace Shy
 
         public bool Counter() => Random.Range(0, 100f) <= subStats.counter;
 
+        private void HealEvent(float _value)
+        {
+            if (_value <= 0) return;
+
+            subStats.hp += _value;
+
+            var _item = PoolingManager.Instance.Pop(PoolType.DmgText).GetComponent<DamageText>();
+            _item.transform.SetParent(dmgTxtPos);
+            _item.Use(_value, new(0.4f, 1, 0));
+
+            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+        }
+
         public void HitEvent(Attack _result)
         {
             if(_result.dmg >= 0)
             {
                 subStats.hp -= _result.dmg;
-
-                Debug.Log("Hit Event");
-                Debug.Log(_result + " -> " + _result.attackResult);
 
                 Sequence seq = DOTween.Sequence();
                 seq.Append(hitVisual.DOFade(0.8f, 0.2f));

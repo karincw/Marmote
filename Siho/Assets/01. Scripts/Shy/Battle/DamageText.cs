@@ -15,18 +15,22 @@ namespace Shy
             tmp.color = Color.clear;
         }
 
+        private int GetLocalY() => -25 * transform.parent.childCount;
+
         public void Use(string _mes, Color _color)
         {
-            transform.localPosition = Vector3.zero;
+            float y = GetLocalY();
+
+            transform.localPosition = new(0, y, 0);
             transform.localScale = Vector3.one;
             gameObject.SetActive(true);
 
             Sequence seq = DOTween.Sequence();
-            tmp.color = new Color(_color.r, _color.g, _color.b, 0);
+            tmp.color = new(_color.r, _color.g, _color.b, 0);
             tmp.SetText(_mes);
 
             seq.Append(tmp.DOFade(1, 0.4f));
-            seq.Join(tmp.transform.DOLocalMoveY(100, 0.4f));
+            seq.Join(transform.DOLocalMoveY(150 + y, 0.4f));
             seq.AppendInterval(0.2f);
             seq.Append(tmp.DOFade(0, 0.2f));
             seq.OnComplete(() => PoolingManager.Instance.Push(PoolType.DmgText, gameObject));
@@ -37,7 +41,6 @@ namespace Shy
         public void Use(Attack _attack)
         {
             Color _color = Color.white;
-            string _mes = "";
 
             switch (_attack.attackResult)
             {
@@ -46,18 +49,17 @@ namespace Shy
                     return;
 
                 case AttackResult.Critical:
-                    Use(_attack.dmg, new Color(1, 0.87f, 0.35f));
+                    Use(_attack.dmg, new(1, 0.87f, 0.35f));
                     return;
 
                 case AttackResult.Dodge:
-                    _mes = "DODGE";
-                    break;
+                    Use("DODGE", _color);
+                    return;
 
                 case AttackResult.Block:
-                    _mes = "BLOCK";
-                    break;
+                    Use("BLOCK", _color);
+                    return;
             }
-            Use(_mes, _color);
         }
     }
 }

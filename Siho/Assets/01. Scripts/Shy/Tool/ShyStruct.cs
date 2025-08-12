@@ -95,8 +95,7 @@ namespace Shy
             public RandomResult GetResult()
             {
                 float value = Random.Range(0, 100f);
-                int n = 0;
-
+                
                 for (int i = 0; i < results.Count; i++)
                 {
                     value -= results[i].chance;

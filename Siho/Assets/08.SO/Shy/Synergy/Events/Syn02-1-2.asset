@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: 0
   subStat: 4
-  value: -0.15
+  calculate: 1
+  value: 0.15

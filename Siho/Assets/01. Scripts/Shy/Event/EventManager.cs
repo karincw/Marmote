@@ -1,4 +1,3 @@
-using Shy.Data;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -47,9 +46,8 @@ namespace Shy.Event
             foreach (var _event in bEventUis) _event.clickEvent = _uBE;
         }
 
-        #region Battle
         #region Dice
-        public void DiceRoll(UnityEvent<int> _event)
+        private void DiceRoll(UnityEvent<int> _event)
         {
             currentEvent = _event;
             dice.gameObject.SetActive(true);
@@ -57,15 +55,9 @@ namespace Shy.Event
             dice.Roll();
         }
 
-        public void ReturnDiceResult(int _n)
-        {
-            currentEvent?.Invoke(_n);
-        }
+        public void ReturnDiceResult(int _n) => currentEvent?.Invoke(_n);
 
-        public void HideDice()
-        {
-            dice.gameObject.SetActive(false);
-        }
+        private void HideDice() => dice.gameObject.SetActive(false);
         #endregion
 
         #region EventUi
@@ -84,7 +76,6 @@ namespace Shy.Event
         {
             foreach (var _ui in bEventUis) _ui.gameObject.SetActive(false);
         }
-        #endregion
 
         public void HideAllPanel()
         {
@@ -107,7 +98,7 @@ namespace Shy.Event
         #region Text Event
         public void InitEvent(EventSO _eventSO)
         {
-            HideSelectors();
+            SelectorsVisible(false);
 
             textEventTmp.text = "";
             eventPanel.gameObject.SetActive(true);
@@ -127,23 +118,15 @@ namespace Shy.Event
 
             GameMakeTool.Instance.DOFadeCanvasGroup(eventPanel, 0.5f, () =>
             {
-                StartCoroutine(SetMessageDelay(_eventSO.explain, ShowSelectors));
+                StartCoroutine(SetMessageDelay(_eventSO.explain, () => SelectorsVisible(true)));
             });
         }
 
-        private void HideSelectors()
+        private void SelectorsVisible(bool show)
         {
             foreach (var _selector in selectors)
             {
-                _selector.gameObject.SetActive(false);
-            }
-        }
-
-        private void ShowSelectors()
-        {
-            foreach (var _selector in selectors)
-            {
-                _selector.gameObject.SetActive(_selector.isUse);
+                _selector.gameObject.SetActive(show ? _selector.isUse : false);
             }
         }
 
@@ -153,33 +136,18 @@ namespace Shy.Event
 
             if (result is StatResultSO _statResult)
             {
-                switch (_statResult.mainStat)
-                {
-                    case MainStatEnum.Str:
-                        GameData.playerData.mainStat.STR += _statResult.value;
-                        break;
-                    case MainStatEnum.Dex:
-                        GameData.playerData.mainStat.DEX += _statResult.value;
-                        break;
-                    case MainStatEnum.Hp:
-                        GameData.playerData.mainStat.HP += _statResult.value;
-                        Debug.Log(GameData.playerData.mainStat.HP);
-                        break;
-                    case MainStatEnum.Int:
-                        GameData.playerData.mainStat.INT += _statResult.value;
-                        break;
-                }
+                PlayerManager.Instance.AddStat(_statResult.mainStat, _statResult.value);
             }
             else if (result is SynergyResultSO _synergyResult)
             {
-                GameData.playerData.synergies.Add(_synergyResult.so);
+                Data.GameData.playerData.synergies.Add(_synergyResult.so);
             }
             else if (result is BattleResultSO)
             {
 
             }
 
-            HideSelectors();
+            SelectorsVisible(false);
             StartCoroutine(SetMessageDelay(result.message, () => StartCoroutine(EndEvent())));
         }
 

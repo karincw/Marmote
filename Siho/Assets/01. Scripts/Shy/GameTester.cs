@@ -27,7 +27,7 @@ namespace Shy
 
         public void BattleStart()
         {
-            BattleManager.Instance.InitBattle(player, enemy);
+            BattleManager.Instance.InitBattle(enemy);
         }
 
         public void EventStart()
