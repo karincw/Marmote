@@ -13,6 +13,6 @@ namespace Shy
         public Sprite icon;
         public bool showNum = false;
 
-        public List<SynergyEffect> synergies;
+        public List<SynergyEventSO> synergies;
     }
 }

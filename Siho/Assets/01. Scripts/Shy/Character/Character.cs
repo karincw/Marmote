@@ -112,6 +112,18 @@ namespace Shy
 
         public void AddStat(float _value, Calculate _calc, SubStatEnum _statEnum)
         {
+            if(_statEnum == SubStatEnum.Hp)
+            {
+                subStats.hp = CalcValue(subStats.hp, _value, _calc);
+                return;
+            }
+
+            if(_statEnum == SubStatEnum.MaxHp)
+            {
+                subStats.maxHp = CalcValue(subStats.maxHp, _value, _calc);
+                return;
+            }
+
             ref float _stat = ref StatSystem.GetSubStatRef(ref subStats, _statEnum);
             _stat = CalcValue(_stat, _value, _calc);
         }

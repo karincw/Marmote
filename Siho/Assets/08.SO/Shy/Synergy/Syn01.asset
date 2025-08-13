@@ -17,15 +17,6 @@ MonoBehaviour:
   explain: "\uACF5\uACA9\uC2DC \uD53C\uD574\uB7C9\uC5D0 \uBE44\uB840\uD574 (10/15/20)%\uC758
     \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: dacd590367369774ea8e7e0bbe328606, type: 3}
-  outlineColor: {r: 1, g: 0.24213827, b: 0.24213827, a: 1}
   showNum: 1
   synergies:
-  - level: 1
-    synergyEvents:
-    - {fileID: 11400000, guid: 96c864aed71615d4da5dd60eace081b4, type: 2}
-  - level: 2
-    synergyEvents:
-    - {fileID: 11400000, guid: d070d339590ae4f4a8543169dcd3b5ca, type: 2}
-  - level: 3
-    synergyEvents:
-    - {fileID: 11400000, guid: 545f5036897fa344da10c5460e3de2c0, type: 2}
+  - {fileID: 11400000, guid: 96c864aed71615d4da5dd60eace081b4, type: 2}

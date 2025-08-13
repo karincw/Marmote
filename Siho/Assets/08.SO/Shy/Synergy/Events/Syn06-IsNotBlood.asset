@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b88bbd54931e68458b8c44e12176a39, type: 3}
-  m_Name: Syn05-1
+  m_Script: {fileID: 11500000, guid: 3a34361e742212149bbcd366fd4cb5fe, type: 3}
+  m_Name: Syn06-IsNotBlood
   m_EditorClassIdentifier: 
   target: 0
-  subStat: 12
-  value: 3
+  characteristic: 1
+  effectByLevel:
+  - level: 1
+    value: 1
+  - level: 2
+    value: 1

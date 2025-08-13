@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -40,20 +41,7 @@ namespace Shy.Pooling
 
         public void UseSynergy()
         {
-            SynergyEffect effect = new();
-
-            foreach (var _synergy in so.synergies)
-            {
-                if (_synergy.level == value)
-                {
-                    effect = _synergy;
-                    break;
-                }
-            }
-
-            if (effect.synergyEvents.Count == 0) return;
-
-            foreach (var _event in effect.synergyEvents)
+            foreach (var _event in so.synergies)
             {
                 Team _opponentTeam = userTeam == Team.Player ? Team.Enemy : Team.Player;
                 Target _targetEnum = _event.target;
@@ -63,21 +51,25 @@ namespace Shy.Pooling
                     if (_targetEnum != Target.Self)
                     {
                         var _target = BattleManager.Instance.GetCharacter(_opponentTeam);
-                        _target.AddStat(_statEvent.value, _statEvent.calculate, _statEvent.subStat);
+                        _target.AddStat(_statEvent.GetData(value), _statEvent.calculate, _statEvent.subStat);
                     }
+
                     if (_targetEnum != Target.Opponent)
                     {
                         var _target = BattleManager.Instance.GetCharacter(userTeam);
-                        _target.AddStat(_statEvent.value, _statEvent.calculate, _statEvent.subStat);
+                        _target.AddStat(_statEvent.GetData(value), _statEvent.calculate, _statEvent.subStat);
                     }
                 }
                 else if (_event is SpecialEventSO _specialEvent)
                 {
+                    if (_specialEvent.GetData(value) == false) return;
+
                     if (_targetEnum != Target.Self)
                     {
                         var _target = BattleManager.Instance.GetCharacter(_opponentTeam);
                         _target.ChangeCharacteristic(_specialEvent.characteristic);
                     }
+
                     if (_targetEnum != Target.Opponent)
                     {
                         var _target = BattleManager.Instance.GetCharacter(userTeam);

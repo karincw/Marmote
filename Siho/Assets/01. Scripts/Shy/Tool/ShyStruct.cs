@@ -4,6 +4,7 @@ using Show = System.SerializableAttribute;
 
 namespace Shy
 {
+    #region Stat
     [Show]
     public struct MainStat
     {
@@ -34,6 +35,8 @@ namespace Shy
             set
             {
                 MaxHp = value;
+
+                if (value > 0) Hp += value;
                 if (Hp > MaxHp) Hp = MaxHp;
             }
         }
@@ -47,7 +50,7 @@ namespace Shy
                 if (Hp < 0) Hp = 0;
             }
         }
-        internal float Hp, MaxHp;
+        private float Hp, MaxHp;
         #endregion
         public float atk;
         [Tooltip("n/s 초당 공격 횟수")]
@@ -63,6 +66,7 @@ namespace Shy
         public float counter;
         public float firstAttackBonus;
     }
+    #endregion
 
     public struct Characteristic
     {
@@ -77,10 +81,17 @@ namespace Shy
     }
 
     [Show]
-    public struct SynergyEffect
+    public struct StatSynergyValue
     {
         public int level;
-        public List<SynergyEventSO> synergyEvents;
+        public float value;
+    }
+
+    [Show]
+    public struct SpecialSynergyValue
+    {
+        public int level;
+        public bool value;
     }
 
     namespace Event

@@ -12,8 +12,6 @@ namespace Shy
                 case SubStatEnum.Atk: return ref _subStat.atk;
                 case SubStatEnum.Def: return ref _subStat.def;
                 case SubStatEnum.AtkSpd: return ref _subStat.atkSpd;
-                case SubStatEnum.MaxHp: return ref _subStat.MaxHp;
-                case SubStatEnum.Hp: return ref _subStat.Hp;
                 case SubStatEnum.CriChance: return ref _subStat.criChance;
                 case SubStatEnum.CriDmg: return ref _subStat.criDmg;
                 case SubStatEnum.TrueDmg: return ref _subStat.trueDmg;
@@ -25,6 +23,11 @@ namespace Shy
                 case SubStatEnum.RedDmg: return ref _subStat.reduceDmg;
                 case SubStatEnum.Counter: return ref _subStat.counter;
                 case SubStatEnum.FirstAtkBonus: return ref _subStat.firstAttackBonus;
+
+                case SubStatEnum.MaxHp: case SubStatEnum.Hp:
+                    UnityEngine.Debug.LogError("Error Cant use MaxHp or Hp by GetSubStat Ref");
+                    return ref dummy1;
+
                 default: return ref dummy1;
             }
         }
@@ -45,15 +48,15 @@ namespace Shy
         {
             var _ss = new SubStat();
 
-            _ss.maxHp = 5 + _ms.HP * 4 + _ms.STR * 2;
+            _ss.maxHp = 10 + _ms.HP * 4 + _ms.STR * 2;
             _ss.hp = _ss.maxHp;
             _ss.atk = 8 + _ms.STR * 1.1f;
             _ss.atkSpd = 0.2f + _ms.DEX * 0.05f;
-            _ss.def = 5 + _ms.HP;
-            _ss.criChance = 25 + _ms.INT * 0.25f;
-            _ss.criDmg = 130 + _ms.HP * 0.4f + _ms.STR * 0.8f;
-            _ss.hitChance = 50 + _ms.DEX * 3.3f + _ms.INT * 4.2f;
-            _ss.dodgeChange = _ms.DEX * 2.5f + _ms.INT * 1.5f;
+            _ss.def = 5 + _ms.HP * 0.7f + _ms.INT * 0.4f;
+            _ss.criChance = 20 + _ms.INT * 0.5f + _ms.DEX * 0.4f;
+            _ss.criDmg = 130 + _ms.HP * 0.4f + _ms.STR * 0.85f;
+            _ss.hitChance = 70 + _ms.DEX * 4.5f;
+            _ss.dodgeChange = 15 + _ms.DEX * 2.8f;
 
             return _ss;
         }

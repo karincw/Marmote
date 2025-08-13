@@ -157,6 +157,7 @@ namespace Shy
         #region Attack
         private void SurpriseAttack(Character _user, Character _target)
         {
+            Debug.Log("Surprise Attack\nAttacker : " + _user.gameObject.name + " / Target : " + _target);
             Attack result = new();
 
             _user.VisualUpdate(false);
@@ -219,7 +220,7 @@ namespace Shy
                 return result;
             }
 
-            if(Random.Range(0, 100f) < _user.GetNowStat(SubStatEnum.CriChance))
+            if(Random.Range(0, 100f) <= _user.GetNowStat(SubStatEnum.CriChance))
             {
                 result.attackResult = AttackResult.Critical;
                 dmg *= _user.GetNowStat(SubStatEnum.CriDmg) * 0.01f;
@@ -232,7 +233,11 @@ namespace Shy
 
         private void Attack(Character _user, Character _target)
         {
+            Debug.Log("Attacker : " + _user.gameObject.name + " / Target : " + _target);
+
             Attack result = GetAttackData(_user, _target);
+
+            Debug.Log("Attack " + result.attackResult + " : " + result.dmg);
 
             _user.VisualUpdate(false);
             GameMakeTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
@@ -245,6 +250,7 @@ namespace Shy
 
             if(_target.Counter())
             {
+                Debug.Log("Counter");
                 switch (_target.team)
                 {
                     case Team.Player:

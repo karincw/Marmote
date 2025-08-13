@@ -19,11 +19,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c49c1bba78a0fe94ba2522b924945c0a, type: 3}
   showNum: 1
   synergies:
-  - level: 1
-    synergyEvents:
-    - {fileID: 11400000, guid: a4861d1d546ca8140a0016c370a505d9, type: 2}
-    - {fileID: 11400000, guid: 982f615cd1d535f41a6026b8b2b06779, type: 2}
-  - level: 2
-    synergyEvents:
-    - {fileID: 11400000, guid: f8a6adb7781381a4083b0f3d094aae29, type: 2}
-    - {fileID: 11400000, guid: 982f615cd1d535f41a6026b8b2b06779, type: 2}
+  - {fileID: 11400000, guid: 5603392a96f91624ba49f3abf223961b, type: 2}

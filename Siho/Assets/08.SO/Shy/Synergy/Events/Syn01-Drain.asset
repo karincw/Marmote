@@ -10,8 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b88bbd54931e68458b8c44e12176a39, type: 3}
-  m_Name: Syn02-1-0
+  m_Name: Syn01-Drain
   m_EditorClassIdentifier: 
   target: 0
-  subStat: 11
-  value: 0.07
+  subStat: 0
+  calculate: 0
+  effectByLevel:
+  - level: 1
+    value: 10
+  - level: 2
+    value: 15
+  - level: 3
+    value: 20

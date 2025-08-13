@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shy
@@ -8,6 +9,17 @@ namespace Shy
     {
         public SubStatEnum subStat;
         public Calculate calculate;
-        public float value;
+        public List<StatSynergyValue> effectByLevel;
+
+        public float GetData(int lv)
+        {
+            foreach (var item in effectByLevel)
+            {
+                if (item.level == lv) return item.value;
+            }
+
+            Debug.Log("Not Found Synergy Effect\n-> Return 0");
+            return 0;
+        }
     }
 }
