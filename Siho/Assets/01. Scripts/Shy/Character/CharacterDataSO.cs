@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Shy
@@ -10,7 +9,10 @@ namespace Shy
         public string itemName;
         public Sprite visual, attackAnime;
         public MainStat mainStat;
-        public List<SynergySO> synergies = new();
+
+        public List<SynergySO> baseSynergies;
+        internal Dictionary<SynergyType, int> synergies = new();
+
 
         public virtual CharacterDataSO Init()
         {
@@ -22,9 +24,26 @@ namespace Shy
             _so.attackAnime = attackAnime;
 
             _so.mainStat = mainStat;
-            _so.synergies = synergies.ToList();
+
+            foreach (var item in baseSynergies)
+            {
+                _so.AddSynergy(item.synergyType);
+            }
 
             return _so;
+        }
+
+        public void AddSynergy(SynergyType _type)
+        {
+            if (synergies.ContainsKey(_type))
+            {
+                if (SOManager.Instance.GetSOLimitValue(_type) > synergies[_type])
+                    synergies[_type]++;
+            }
+            else
+            {
+                synergies.Add(_type, 1);
+            }
         }
     }
 }

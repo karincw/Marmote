@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Syn01-Drain
   m_EditorClassIdentifier: 
   target: 0
-  subStat: 0
+  subStat: 13
   calculate: 0
   effectByLevel:
   - level: 1

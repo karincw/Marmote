@@ -15,7 +15,7 @@ namespace Shy
 
         public void AddSynergy(SynergyType _type)
         {
-            GameData.playerData.synergies.Add(SOManager.Instance.GetSO(_type));
+            GameData.playerData.AddSynergy(_type);
         }
 
         public void AddStat(MainStatEnum _type, int _value)

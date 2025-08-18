@@ -1,5 +1,6 @@
 using Shy.Data;
 using Shy.Event;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shy
@@ -16,6 +17,7 @@ namespace Shy
 
         private void Start()
         {
+
             GameData.Init(player);
         }
 

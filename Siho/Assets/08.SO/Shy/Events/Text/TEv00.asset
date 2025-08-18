@@ -27,5 +27,5 @@ MonoBehaviour:
   - eventExplain: "\uBB34\uC2DC\uD558\uACE0 \uC9C0\uB098\uAC04\uB2E4."
     sprite: {fileID: 0}
     results:
-    - resultSO: {fileID: 11400000, guid: d627f614fa1af6e459787fa065f969be, type: 2}
+    - resultSO: {fileID: 11400000, guid: 5db52867c5b5d0844b7b55d0c6836e33, type: 2}
       chance: 100

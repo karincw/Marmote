@@ -34,12 +34,18 @@ namespace Shy.Event
             UnityEvent<BattleEvent, int> _uBE = new();
             UnityEvent<int> _diceEvent = new();
 
-            _uBE.AddListener((BattleEvent _e, int _i) => HideEventUis());
             _uBE.AddListener((BattleEvent _e, int _i) =>
             {
-                _diceEvent.AddListener((int _v) => 
-                GameMakeTool.Instance.Delay(()=>
-                BattleManager.Instance.UserBattleEvent(_e, _i, _v), 1.5f));
+                HideEventUis();
+
+                _diceEvent.AddListener((int _v) =>
+                {
+                    GameMakeTool.Instance.Delay(() =>
+                    {
+                        BattleManager.Instance.UserBattleEvent(_e, _i, _v);
+                    }, 1.5f);
+                });
+
                 DiceRoll(_diceEvent);
             });
 
@@ -140,7 +146,7 @@ namespace Shy.Event
             }
             else if (result is SynergyResultSO _synergyResult)
             {
-                Data.GameData.playerData.synergies.Add(_synergyResult.so);
+                PlayerManager.Instance.AddSynergy(_synergyResult.synergyType);
             }
             else if (result is BattleResultSO)
             {

@@ -8,6 +8,7 @@ namespace Shy
     {
         public string synergyName;
         public SynergyType synergyType;
+        public int maxLevel;
         [TextArea()]
         public string explain;
         public Sprite icon;

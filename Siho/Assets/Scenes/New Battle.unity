@@ -2886,7 +2886,6 @@ Transform:
   m_Children:
   - {fileID: 1376175382}
   - {fileID: 1921954477}
-  - {fileID: 1683187883}
   - {fileID: 1569840819}
   - {fileID: 1502725451}
   m_Father: {fileID: 0}
@@ -3683,7 +3682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: 22c36bf6bdb59a844b08d423cf8d4b40, type: 2}
   enemy: {fileID: 11400000, guid: dff70e70ed906c34fa49c85e821a8043, type: 2}
-  eventSO: {fileID: 11400000, guid: 264896197d0587641b2aaf309e61a6ff, type: 2}
+  eventSO: {fileID: 11400000, guid: 6fb5ee9e47b38914d89dc6dcbe0baa40, type: 2}
 --- !u!1 &827024646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,7 +4160,7 @@ GameObject:
   - component: {fileID: 876850135}
   - component: {fileID: 876850134}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5005,7 +5004,7 @@ GameObject:
   - component: {fileID: 1217714593}
   - component: {fileID: 1217714592}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5488,6 +5487,7 @@ GameObject:
   - component: {fileID: 1376175382}
   - component: {fileID: 1376175383}
   - component: {fileID: 1376175384}
+  - component: {fileID: 1376175385}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -5540,6 +5540,21 @@ MonoBehaviour:
   tooltipBox: {fileID: 24656837}
   nameTmp: {fileID: 212804}
   explainTmp: {fileID: 842052878}
+--- !u!114 &1376175385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376175381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c6c1eabf51ea74992267007cc42b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadPanel: {fileID: 1132910930}
+  enemyParent: {fileID: 2107549330}
+  deadCanvasGroup: {fileID: 1758358052}
 --- !u!1 &1447753237
 GameObject:
   m_ObjectHideFlags: 0
@@ -6309,53 +6324,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -100, y: -300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1683187882
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1683187883}
-  - component: {fileID: 1683187884}
-  m_Layer: 0
-  m_Name: End Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1683187883
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683187882}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 690037259}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1683187884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683187882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43c6c1eabf51ea74992267007cc42b60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deadPanel: {fileID: 1132910930}
-  enemyParent: {fileID: 2107549330}
-  deadCanvasGroup: {fileID: 1758358052}
 --- !u!1 &1695630277
 GameObject:
   m_ObjectHideFlags: 0
@@ -6650,7 +6618,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1683187884}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Shy.EndingManager, Assembly-CSharp
         m_MethodName: GoToTitle
         m_Mode: 1

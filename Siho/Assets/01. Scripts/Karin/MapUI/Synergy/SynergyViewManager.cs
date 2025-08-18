@@ -23,11 +23,10 @@ public class SynergyViewManager : MonoBehaviour
     private void SetUp()
     {
         var syList = DataLinkManager.instance.characterData.synergies;
+
         foreach (var view in _synergyViews)
         {
-            var currentType = view.type;
-            view.Value = syList.Where(t => t.synergyType == currentType).Count();
-
+            view.Value = syList[view.type];
 
             if (view.Value == 0)
                 view.gameObject.SetActive(false);

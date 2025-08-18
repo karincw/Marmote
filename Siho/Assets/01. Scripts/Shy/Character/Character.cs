@@ -22,7 +22,7 @@ namespace Shy
         private Sprite idle, attack;
 
         [SerializeField] private Transform synergyParent;
-        private Dictionary<SynergySO, Synergy> synergies;
+        private Dictionary<SynergyType, Synergy> synergies;
 
         private void Awake()
         {
@@ -73,24 +73,13 @@ namespace Shy
             }
         }
 
-        private void GetSynergy(SynergySO _so)
+        private void GetSynergy(KeyValuePair<SynergyType, int> _data)
         {
-            Synergy _synergy;
+            var _synergy = PoolingManager.Instance.Pop(PoolType.Synergy).GetComponent<Synergy>();
+            _synergy.transform.SetParent(synergyParent);
+            _synergy.Init(_data, team);
 
-            if(synergies.ContainsKey(_so))
-            {
-                _synergy = synergies[_so];
-            }
-            else
-            {
-                _synergy = PoolingManager.Instance.Pop(PoolType.Synergy).GetComponent<Synergy>();
-                _synergy.transform.SetParent(synergyParent);
-                _synergy.Init(_so, team);
-
-                synergies.Add(_so, _synergy);
-            }
-
-            _synergy.SetValue();
+            synergies.Add(_data.Key, _synergy);
             _synergy.gameObject.SetActive(true);
         }
         #endregion

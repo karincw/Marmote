@@ -21,21 +21,23 @@ namespace Shy.Pooling
             numTmp = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void Init(SynergySO _so, Team _team)
+        public void Init(KeyValuePair<SynergyType, int> _data, Team _team)
         {
-            so = _so;
+            so = SOManager.Instance.GetSO(_data.Key);
             userTeam = _team;
+            value = _data.Value;
 
-            icon.sprite = _so.icon;
-            numTmp.gameObject.SetActive(_so.showNum);
+            icon.sprite = so.icon;
+            numTmp.gameObject.SetActive(so.showNum);
 
             transform.localScale = Vector3.one;
             transform.localPosition = Vector3.zero;
+
+            UpdateValue();
         }
 
-        public void SetValue(int _value = 1)
+        public void UpdateValue()
         {
-            value += _value;
             numTmp.text = value.ToString();
         }
 

@@ -17,17 +17,14 @@ namespace Shy
         {
             if(Instance != null) { Destroy(gameObject); return; }
             Instance = this;
-        }
 
-        private void Start()
-        {
             foreach (var _item in so)
             {
-                if(_item is SynergySO _synergyItem)
+                if (_item is SynergySO _synergyItem)
                 {
                     synergyDic.Add(_synergyItem.synergyType, _synergyItem);
                 }
-                else if(_item is BattleEventSO _battleEventItem)
+                else if (_item is BattleEventSO _battleEventItem)
                 {
                     battleEventDic.Add(_battleEventItem.eventType, _battleEventItem);
                 }
@@ -35,6 +32,7 @@ namespace Shy
         }
 
         public SynergySO GetSO(SynergyType _type) => synergyDic[_type];
+        public int GetSOLimitValue(SynergyType _type) => synergyDic[_type].maxLevel;
         public BattleEventSO GetSO(BattleEvent _type) => battleEventDic[_type];
     }
 }
