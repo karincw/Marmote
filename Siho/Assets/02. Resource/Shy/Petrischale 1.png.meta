@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c2d64c71a85df6546bc790813f04abd0
+guid: b18587fb88dbd3f40834648d9abc04ca
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8392746333814519685
-    second: Petrischale_0
+      213: -3556836850096838785
+    second: Petrischale 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Petrischale_0
+      name: Petrischale 1_0
       rect:
         serializedVersion: 2
-        x: 167
-        y: 61
-        width: 1284
-        height: 1223
+        x: 6
+        y: 23
+        width: 1071
+        height: 1020
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 587f9fce256097470800000000000000
-      internalID: 8392746333814519685
+      spriteID: f7765f1dab393aec0800000000000000
+      internalID: -3556836850096838785
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Petrischale_0: 8392746333814519685
+      Petrischale 1_0: -3556836850096838785
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
