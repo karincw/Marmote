@@ -32,6 +32,30 @@ public class Item : MonoBehaviour
     {
         _button.interactable = false;
 
-        Debug.Log("아이템 구매시 로직 추가");
+        switch (data.ItemType)
+        {
+            case ItemType.None:
+                break;
+            case ItemType.Red_Injecter:
+                Debug.Log("blood추가");
+                break;
+            case ItemType.Blue_Injecter:
+                Debug.Log("cool추가");
+                break;
+            case ItemType.Yellow_Injecter:
+                Debug.Log("strong추가");
+                break;
+            case ItemType.Purple_Injecter:
+                Debug.Log("fear추가");
+                break;
+            case ItemType.Green_Injecter:
+                Debug.Log("spine추가");
+                break;
+            case ItemType.Grey_Injecter:
+                Debug.Log("steel추가");
+                break;
+            default:
+                break;
+        }
     }
 }

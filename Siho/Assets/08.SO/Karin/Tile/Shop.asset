@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f53f1e05d626644813b6d9627d0f2a, type: 3}
   m_Name: Shop
   m_EditorClassIdentifier: 
-  imageTexture: {fileID: 0}
+  imageTexture: {fileID: 2800000, guid: 1f675e9948413eb42996faedd0efb38b, type: 3}

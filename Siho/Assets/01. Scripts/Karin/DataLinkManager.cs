@@ -8,6 +8,7 @@ public class DataLinkManager : MonoBehaviour
     public static DataLinkManager instance;
     public CharacterDataSO characterData;
     public List<CharacterDataSO> enemys;
+    public Stage stage;
 
     private void Awake()
     {
