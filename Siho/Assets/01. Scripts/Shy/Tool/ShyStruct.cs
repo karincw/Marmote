@@ -139,6 +139,11 @@ namespace Shy
             public EventItemSO item;
             public int value;
             public ConditionType conditionType;
+
+            public void S()
+            {
+
+            }
         }
     }
 
