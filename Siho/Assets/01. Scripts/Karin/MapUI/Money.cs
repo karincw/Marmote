@@ -14,7 +14,7 @@ public class Money : MonoBehaviour
             _text.text = _count.ToString();
         }
     }
-    private int _count;
+    private int _count = -1;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class Money : MonoBehaviour
 
     public bool RemoveMoney(int value)
     {
-        if((_count - value) < 0)
+        if ((_count - value) < 0)
             return false;
 
         Count = _count - value;
