@@ -17,8 +17,7 @@ namespace Shy
 
         private void Start()
         {
-
-            GameData.Init(player);
+            PlayerManager.Instance.Init(player);
         }
 
         private void Update()

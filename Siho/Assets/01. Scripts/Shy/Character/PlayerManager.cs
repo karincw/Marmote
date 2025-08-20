@@ -1,4 +1,5 @@
 using Shy.Data;
+using System;
 using UnityEngine;
 
 namespace Shy
@@ -6,6 +7,7 @@ namespace Shy
     public class PlayerManager : MonoBehaviour
     {
         public static PlayerManager Instance;
+        private CharacterDataSO playerData;
         
         private void Awake()
         {
@@ -13,14 +15,24 @@ namespace Shy
             Instance = this;
         }
 
-        public void AddSynergy(SynergyType _type)
+        internal void Init(CharacterDataSO _player)
         {
-            GameData.playerData.AddSynergy(_type);
+            playerData = _player.Init();
+        }
+
+        public void AddSynergy(SynergyType _type, int _loop = 1)
+        {
+            for (int i = 0; i < _loop; i++)
+            {
+                playerData.AddSynergy(_type);
+            }
         }
 
         public void AddStat(MainStatEnum _type, int _value)
         {
-            StatSystem.GetMainStatRef(ref GameData.playerData.mainStat, _type) += _value;
+            StatSystem.GetMainStatRef(ref playerData.mainStat, _type) += _value;
         }
+
+        internal CharacterDataSO GetPlayerData() => playerData;
     }
 }

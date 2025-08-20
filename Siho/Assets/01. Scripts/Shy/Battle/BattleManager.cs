@@ -80,7 +80,7 @@ namespace Shy
             battlePanel.gameObject.SetActive(true);
             battlePanel.alpha = 0;
 
-            player.Init(Data.GameData.playerData);
+            player.Init(PlayerManager.Instance.GetPlayerData());
             enemy.Init(_enemy.Init());
 
             player.UseSynergy();

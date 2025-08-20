@@ -140,15 +140,21 @@ namespace Shy.Event
         {
             var result = _eventData.GetResult().resultSO;
 
-            if (result is StatResultSO _statResult)
+            if (result is Result_Item _item)
             {
-                PlayerManager.Instance.AddStat(_statResult.mainStat, _statResult.value);
+                if (_item.item is Item_Stat _stat)
+                {
+                    PlayerManager.Instance.AddStat(_stat.statType, _item.value);
+                }
+                else if (_item.item is Item_Synergy _synergy)
+                {
+                    PlayerManager.Instance.AddSynergy(_synergy.item.synergyType, _item.value);
+                }
+                else if (_item.item is Item_Money _money)
+                {
+                }
             }
-            else if (result is SynergyResultSO _synergyResult)
-            {
-                PlayerManager.Instance.AddSynergy(_synergyResult.synergyType);
-            }
-            else if (result is BattleResultSO)
+            else if (result is Result_Battle)
             {
 
             }

@@ -49,12 +49,11 @@ namespace Shy
     public enum SynergyType
     {
         Blood,
-        String,
+        Strong,
         Fear,
         Spine,
         Cool,
         Steel
-
     }
 
     public enum Calculate
@@ -80,6 +79,14 @@ namespace Shy
             Run,
             Surprise,
             Talk
+        }
+
+        public enum ConditionType
+        {
+            None,
+            Equal,
+            More,
+            Below
         }
     }
 }

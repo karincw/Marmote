@@ -68,16 +68,17 @@ namespace Shy
     }
     #endregion
 
-    public struct Characteristic
-    {
-        public bool notBlood, isNotBlood;
-
-    }
-
     public struct Attack
     {
         public AttackResult attackResult;
         public float dmg;
+    }
+
+    #region Synergy & Characteristic
+    public struct Characteristic
+    {
+        public bool notBlood, isNotBlood;
+
     }
 
     [Show]
@@ -93,6 +94,7 @@ namespace Shy
         public int level;
         public bool value;
     }
+    #endregion
 
     namespace Event
     {
@@ -101,6 +103,7 @@ namespace Shy
         {
             public string eventExplain;
             public Sprite sprite;
+            public EventCondition condition;
             public List<RandomResult> results;
 
             public RandomResult GetResult()
@@ -128,6 +131,14 @@ namespace Shy
             public EventResultSO resultSO;
             [Range(0, 100f)]
             public float chance;
+        }
+
+        [Show]
+        public struct EventCondition
+        {
+            public EventItemSO item;
+            public int value;
+            public ConditionType conditionType;
         }
     }
 
