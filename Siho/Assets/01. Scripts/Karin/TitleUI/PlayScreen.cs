@@ -18,7 +18,7 @@ public class PlayScreen : MonoBehaviour
         _mainCanvas = transform.Find("ScreenLayout").GetComponent<CanvasGroup>();
         _stageChange = transform.Find("StageChangePanel").GetComponent<CanvasGroup>();
         _stageText = transform.Find("ScreenLayout").Find("StageLayout").Find("StageText").GetComponent<TMP_Text>();
-        _stageIcon = transform.Find("ScreenLayout").Find("StageLayout").Find("HLayout").Find("MapIcon").GetComponent<Image>();
+        _stageIcon = transform.Find("ScreenLayout").Find("StageLayout").Find("MapIcon").GetComponent<Image>();
     }
 
     public void SetStage(StageSO stage)

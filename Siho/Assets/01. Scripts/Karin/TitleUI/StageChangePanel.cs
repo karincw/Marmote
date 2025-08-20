@@ -11,7 +11,7 @@ public class StageChangePanel : MonoBehaviour
 
     private List<Stage> _contents = new();
 
-    private readonly int _moveInterval = 559;
+    private readonly int _moveInterval = 445;
     private int _currentIdx;
 
     private CanvasGroup _canvasGroup;

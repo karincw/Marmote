@@ -20,7 +20,7 @@ public class MapManager : MonoBehaviour
     [Header("MapData")]
     [SerializeField] private int _currentMapIndex = 0;
 
-    public int money = 0;
+    public Money money;
 
     private int _tileCount;
     public Symbol symbol;
@@ -32,6 +32,7 @@ public class MapManager : MonoBehaviour
         instance = this;
 
         symbol = FindFirstObjectByType<Symbol>();
+        money = FindFirstObjectByType<Money>();
         _mapChangeDelayWait = new WaitForSeconds(_mapChangeDelay);
         _tileCount = _tiles.Count;
         Symbol.OnMoveEndEvent += HandleMoveEnd;
