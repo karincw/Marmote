@@ -20,6 +20,13 @@ public class Money : MonoBehaviour
     {
         _text = transform.GetComponentInChildren<TMP_Text>();
         Count = 0;
+
+        DicePanel.OnDoubleEvent += AddMoney;
+    }
+
+    private void OnDestroy()
+    {
+        DicePanel.OnDoubleEvent -= AddMoney;
     }
 
     public void AddMoney(int value)

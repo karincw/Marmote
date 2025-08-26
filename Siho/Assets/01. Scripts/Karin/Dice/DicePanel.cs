@@ -21,7 +21,7 @@ public class DicePanel : MonoBehaviour
     private readonly int _rollHash = Animator.StringToHash("Roll");
 
     public static Action<int> OnDiceRollEndEvent;
-    public static Action OnDoubleEvent;
+    public static Action<int> OnDoubleEvent;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class DicePanel : MonoBehaviour
             if (_result == dice + 1)
             {
                 _doubleText.text = "´õºí!";
-                OnDoubleEvent?.Invoke();
+                OnDoubleEvent?.Invoke(_result);
             }
             else
                 _doubleText.text = "";
