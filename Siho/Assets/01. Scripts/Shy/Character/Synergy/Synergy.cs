@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Shy.Pooling
 {
-    public class Synergy : MonoBehaviour, IPointerClickHandler
+    public class Synergy : Pool, IPointerClickHandler
     {
         public SynergySO so;
         private int value = 0;
@@ -23,15 +22,14 @@ namespace Shy.Pooling
 
         public void Init(KeyValuePair<SynergyType, int> _data, Team _team)
         {
+            Init();
+            
             so = SOManager.Instance.GetSO(_data.Key);
             userTeam = _team;
             value = _data.Value;
 
             icon.sprite = so.icon;
             numTmp.gameObject.SetActive(so.showNum);
-
-            transform.localScale = Vector3.one;
-            transform.localPosition = Vector3.zero;
 
             UpdateValue();
         }

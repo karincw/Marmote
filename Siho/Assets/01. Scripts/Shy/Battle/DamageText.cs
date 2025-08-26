@@ -5,7 +5,7 @@ using Shy.Pooling;
 
 namespace Shy
 {
-    public class DamageText : MonoBehaviour
+    public class DamageText : Pool
     {
         private TextMeshProUGUI tmp;
 
@@ -23,17 +23,18 @@ namespace Shy
 
             transform.localPosition = new(0, y, 0);
             transform.localScale = Vector3.one;
+
             gameObject.SetActive(true);
 
-            Sequence seq = DOTween.Sequence();
             tmp.color = new(_color.r, _color.g, _color.b, 0);
             tmp.SetText(_mes);
 
+            Sequence seq = DOTween.Sequence();
             seq.Append(tmp.DOFade(1, 0.4f));
             seq.Join(transform.DOLocalMoveY(150 + y, 0.4f));
             seq.AppendInterval(0.2f);
             seq.Append(tmp.DOFade(0, 0.2f));
-            seq.OnComplete(() => PoolingManager.Instance.Push(PoolType.DmgText, gameObject));
+            seq.OnComplete(() => PoolingManager.Instance.Push(PoolType.DmgText, this));
         }
 
         public void Use(float _value, Color _color) => Use((0.01f * Mathf.CeilToInt(_value * 100)).ToString(), _color);

@@ -38,7 +38,7 @@ namespace Shy
             bool _success = _per >= _result;
             var so = SOManager.Instance.GetSO(_bEvent);
 
-            EventManager.Instance.ShowMessage(_success ? so.successMes : so.failMes);
+            EventManager.Instance.ShowBEventText(_success ? so.successMes : so.failMes);
 
             switch (_bEvent)
             {
@@ -86,18 +86,18 @@ namespace Shy
             player.UseSynergy();
             enemy.UseSynergy();
 
-            EventManager.Instance.HideAllPanel();
+            EventManager.Instance.HideBattleUis();
             SynergyTooltipManager.Instance.Init();
 
             GameMakeTool.Instance.DOFadeCanvasGroup(battlePanel, 0.5f, () =>
             {
-                GameMakeTool.Instance.Delay(EventManager.Instance.SetBattleEvent, 0.5f);
+                GameMakeTool.Instance.Delay(EventManager.Instance.SetBEvent, 0.5f);
             });
         }
 
         private void BeginBattle()
         {
-            EventManager.Instance.HideMessage();
+            EventManager.Instance.HideBEventText();
 
             SetNextAttackTime(Team.All);
             nowFight = true;
