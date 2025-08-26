@@ -69,7 +69,8 @@ namespace Shy
     {
         Dice,
         Synergy,
-        DmgText
+        DmgText,
+        Alert
     }
 
     namespace Event

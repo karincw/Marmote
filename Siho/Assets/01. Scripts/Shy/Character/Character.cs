@@ -52,7 +52,7 @@ namespace Shy
             {
                 foreach (var item in synergies.Values)
                 {
-                    PoolingManager.Instance.Push(PoolType.Synergy, item.gameObject);
+                    PoolingManager.Instance.Push(PoolType.Synergy, item);
                 }
             }
 
@@ -75,7 +75,7 @@ namespace Shy
 
         private void GetSynergy(KeyValuePair<SynergyType, int> _data)
         {
-            var _synergy = PoolingManager.Instance.Pop(PoolType.Synergy).GetComponent<Synergy>();
+            var _synergy = PoolingManager.Instance.Pop(PoolType.Synergy) as Synergy;
             _synergy.transform.SetParent(synergyParent);
             _synergy.Init(_data, team);
 
@@ -152,7 +152,7 @@ namespace Shy
 
             subStats.hp += _value;
 
-            var _item = PoolingManager.Instance.Pop(PoolType.DmgText).GetComponent<DamageText>();
+            var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
             _item.transform.SetParent(dmgTxtPos);
             _item.Use(_value, new(0.4f, 1, 0));
 
@@ -169,7 +169,7 @@ namespace Shy
                 seq.Append(hitVisual.DOFade(0.8f, 0.2f));
                 seq.Append(hitVisual.DOFade(0f, 0.5f));
 
-                var _item = PoolingManager.Instance.Pop(PoolType.DmgText).GetComponent<DamageText>();
+                var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
                 _item.transform.SetParent(dmgTxtPos);
 
                 _item.Use(_result);

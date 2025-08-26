@@ -1,3 +1,4 @@
+using Shy.Pooling;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Shy.Event
         [SerializeField] private CanvasGroup eventPanel;
         [SerializeField] private TextMeshProUGUI textEventTmp;
         [SerializeField] private EventSelector[] selectors;
+        [SerializeField] private Transform alertPos;
 
         [Header("Battle Event Variables")]
         [SerializeField] private RollingDice dice;
@@ -36,7 +38,7 @@ namespace Shy.Event
 
             _uBE.AddListener((BattleEvent _e, int _i) =>
             {
-                HideEventUis();
+                HideBEventUis();
 
                 _diceEvent.AddListener((int _v) =>
                 {
@@ -66,8 +68,8 @@ namespace Shy.Event
         private void HideDice() => dice.gameObject.SetActive(false);
         #endregion
 
-        #region EventUi
-        public void SetBattleEvent()
+        #region BattleEvent
+        public void SetBEvent()
         {
             HideDice();
 
@@ -78,23 +80,23 @@ namespace Shy.Event
             }
         }
 
-        private void HideEventUis()
+        private void HideBEventUis()
         {
             foreach (var _ui in bEventUis) _ui.gameObject.SetActive(false);
         }
 
-        public void HideAllPanel()
+        public void HideBattleUis()
         {
             HideDice();
-            HideEventUis();
-            HideMessage();
+            HideBEventUis();
+            HideBEventText();
         }
 
-        public void HideMessage() => bEventMess.gameObject.SetActive(false);
+        public void HideBEventText() => bEventMess.gameObject.SetActive(false);
 
-        internal void ShowMessage(string _v)
+        internal void ShowBEventText(string _v)
         {
-            HideAllPanel();
+            HideBattleUis();
 
             bEventMess.SetText(_v);
             bEventMess.gameObject.SetActive(true);
@@ -114,11 +116,11 @@ namespace Shy.Event
             {
                 if(_eventSO.events.Length <= i)
                 {
-                    selectors[i].Init(new EventData());
+                    selectors[i].Init(new EventData(), false);
                 }
                 else
                 {
-                    selectors[i].Init(_eventSO.events[i]);
+                    selectors[i].Init(_eventSO.events[i], EventAbleChecker.AbleCheck(_eventSO.events[i].condition));
                 }
             }
 
@@ -126,6 +128,13 @@ namespace Shy.Event
             {
                 StartCoroutine(SetMessageDelay(_eventSO.explain, () => SelectorsVisible(true)));
             });
+        }
+
+        internal void TEventAlert(string _mes)
+        {
+            var _alert = PoolingManager.Instance.Pop(PoolType.Alert) as Alert;
+            _alert.transform.SetParent(alertPos);
+            _alert.ShowMessage(_mes);
         }
 
         private void SelectorsVisible(bool show)
@@ -168,7 +177,7 @@ namespace Shy.Event
             string _message = "";
             textEventTmp.text = _message;
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
 
             for (int i = 0; i < _mes.Length; i++)
             {
@@ -182,7 +191,7 @@ namespace Shy.Event
 
         private IEnumerator EndEvent()
         {
-            yield return new WaitForSeconds(3.5f);
+            yield return new WaitForSeconds(2.5f);
             eventPanel.gameObject.SetActive(false);
         }
         #endregion

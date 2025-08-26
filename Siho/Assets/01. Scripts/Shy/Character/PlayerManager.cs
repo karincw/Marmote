@@ -33,6 +33,18 @@ namespace Shy
             StatSystem.GetMainStatRef(ref playerData.mainStat, _type) += _value;
         }
 
+        public int GetStatCount(MainStatEnum _type)
+        {
+            return StatSystem.GetMainStatRef(ref playerData.mainStat, _type);
+        }
+
+        public int GetSynergyCount(SynergyType _type)
+        {
+            if (playerData.synergies.ContainsKey(_type) == false) return 0;
+
+            return playerData.synergies[_type];
+        }
+
         internal CharacterDataSO GetPlayerData() => playerData;
     }
 }

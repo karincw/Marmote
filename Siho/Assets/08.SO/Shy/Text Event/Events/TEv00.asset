@@ -18,9 +18,9 @@ MonoBehaviour:
   - eventExplain: "\uCE58\uC988\uB97C \uC90D\uB294\uB2E4."
     sprite: {fileID: 0}
     condition:
-      item: {fileID: 0}
+      item: {fileID: 11400000, guid: 0c851d341e48a034d818f4a1166deac5, type: 2}
       value: 2
-      conditionType: 0
+      conditionType: 2
     results:
     - resultSO: {fileID: 11400000, guid: effa22fa4ef5af4459baf9e43d9e4093, type: 2}
       chance: 25

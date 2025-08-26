@@ -1,4 +1,5 @@
 using TMPro;
+using Shy.Pooling;
 using UnityEngine;
 
 namespace Shy.Event
@@ -8,9 +9,10 @@ namespace Shy.Event
         [SerializeField] private TextMeshProUGUI actionTmp, conditionTmp;
         private EventData currentEvent;
         public bool isUse { internal get; set; }
+        private bool isAble;
 
 
-        public void Init(EventData _event)
+        public void Init(EventData _event, bool _able)
         {
             currentEvent = _event;
             actionTmp.text = _event.eventExplain;
@@ -27,6 +29,7 @@ namespace Shy.Event
                     case ConditionType.More:
                         _cMes += "이상 ";
                         break;
+
                     case ConditionType.Below:
                         _cMes += "이하 ";
                         break;
@@ -35,14 +38,23 @@ namespace Shy.Event
                 _cMes += "필요";
             }
 
+            conditionTmp.color = _able ? Color.green : Color.red;
             conditionTmp.SetText(_cMes);
 
             isUse = (_event.eventExplain != null);
+            isAble = _able;
         }
 
         public void Click()
         {
-            EventManager.Instance.OnEvent(currentEvent);
+            if (isAble)
+            {
+                EventManager.Instance.OnEvent(currentEvent);
+            }
+            else
+            {
+                EventManager.Instance.TEventAlert("불가능한 것 같다.");
+            }
         }
     }
 }
