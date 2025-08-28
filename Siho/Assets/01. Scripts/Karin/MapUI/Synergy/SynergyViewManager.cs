@@ -22,16 +22,22 @@ public class SynergyViewManager : MonoBehaviour
 
     private void SetUp()
     {
-        var syList = DataLinkManager.instance.characterData.synergies;
+        var syList = Shy.PlayerManager.Instance.GetPlayerData().synergies;
 
         foreach (var view in _synergyViews)
         {
-            view.Value = syList[view.type];
-
-            if (view.Value == 0)
-                view.gameObject.SetActive(false);
+            if(syList.TryGetValue(view.type, out int value))
+            {
+                view.Value = value;
+                if (view.Value == 0)
+                    view.gameObject.SetActive(false);
+                else
+                    view.gameObject.SetActive(true);
+            }
             else
-                view.gameObject.SetActive(true);
+            {
+                view.gameObject.SetActive(false);
+            }
         }
     }
 }

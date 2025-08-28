@@ -26,7 +26,7 @@ public class CameraControler : MonoBehaviour
 
     public void ZoomOut()
     {
-        //_zoomCam.Priority = 0;
-        //_mainCam.Priority = 1;
+        _zoomCam.Priority = 0;
+        _mainCam.Priority = 1;
     }
 }

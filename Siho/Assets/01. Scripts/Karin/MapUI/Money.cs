@@ -5,21 +5,22 @@ public class Money : MonoBehaviour
 {
     private TMP_Text _text;
 
-    public int Count
+    public int Value
     {
+        get => _value;
         set
         {
-            if (_count == value) return;
-            _count = value;
-            _text.text = _count.ToString();
+            if (_value == value) return;
+            _value = value;
+            _text.text = _value.ToString();
         }
     }
-    private int _count = -1;
+    private int _value = -1;
 
     private void Awake()
     {
         _text = transform.GetComponentInChildren<TMP_Text>();
-        Count = 0;
+        Value = 0;
 
         DicePanel.OnDoubleEvent += AddMoney;
     }
@@ -31,15 +32,15 @@ public class Money : MonoBehaviour
 
     public void AddMoney(int value)
     {
-        Count = _count + value;
+        Value = _value + value;
     }
 
     public bool RemoveMoney(int value)
     {
-        if ((_count - value) < 0)
+        if ((_value - value) < 0)
             return false;
 
-        Count = _count - value;
+        Value = _value - value;
         return true;
     }
 

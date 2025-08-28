@@ -761,19 +761,7 @@ MonoBehaviour:
   _disabledColor: {r: 0.45911938, g: 0.45911938, b: 0.45911938, a: 1}
   _pressedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 303093668}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Map
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &138472099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4104,7 +4092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b931266667324f4aa9ca9a6f421732b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 0}
+  characterData: {fileID: 11400000, guid: 22c36bf6bdb59a844b08d423cf8d4b40, type: 2}
   enemys:
   - {fileID: 11400000, guid: dff70e70ed906c34fa49c85e821a8043, type: 2}
   - {fileID: 11400000, guid: b96bb549f827ae34cad6d2ede213e737, type: 2}

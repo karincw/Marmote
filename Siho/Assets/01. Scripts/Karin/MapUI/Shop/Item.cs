@@ -30,6 +30,12 @@ public class Item : MonoBehaviour
 
     private void HandleBuy()
     {
+        if(MapManager.instance.money.Value < data.price)
+        {
+            Debug.Log("님 돈없으셈 ㅋㅋ");
+            return;
+        }
+
         _button.interactable = false;
 
         switch (data.ItemType)
@@ -37,25 +43,29 @@ public class Item : MonoBehaviour
             case ItemType.None:
                 break;
             case ItemType.Red_Injecter:
-                Debug.Log("blood추가");
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Blood);
                 break;
             case ItemType.Blue_Injecter:
-                Debug.Log("cool추가");
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Blood);
                 break;
             case ItemType.Yellow_Injecter:
-                Debug.Log("strong추가");
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Strong);
                 break;
             case ItemType.Purple_Injecter:
-                Debug.Log("fear추가");
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Fear);
                 break;
             case ItemType.Green_Injecter:
-                Debug.Log("spine추가");
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Spine);
                 break;
             case ItemType.Grey_Injecter:
-                Debug.Log("steel추가");
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Steel);
                 break;
             default:
+                Debug.LogWarning("효과안넣음");
                 break;
         }
+
+        MapManager.instance.money.Value -= data.price;
+
     }
 }
