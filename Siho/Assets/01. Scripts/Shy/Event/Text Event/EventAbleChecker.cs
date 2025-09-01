@@ -1,10 +1,8 @@
-using UnityEngine;
-
 namespace Shy.Event
 {
     public static class EventAbleChecker
     {
-        #region Compare ºñ±³
+        #region Compare
         private static int GetItemValue(EventItemSO _so)
         {
             if (_so is Item_Stat _stat)

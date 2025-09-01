@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Show = System.SerializableAttribute;
+using Hide = UnityEngine.HideInInspector;
+using UnityEngine.Events;
 
 namespace Shy
 {
@@ -95,6 +97,18 @@ namespace Shy
         public bool value;
     }
     #endregion
+
+    public struct TextEvent
+    {
+        public UnityAction valueEvent;
+        public int conditionValue;
+        public UnityAction endEvent;
+
+        public void EqualCheck(int _value)
+        {
+            if (_value == conditionValue) valueEvent?.Invoke();
+        }
+    }
 
     namespace Event
     {

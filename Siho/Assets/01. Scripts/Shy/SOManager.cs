@@ -20,9 +20,11 @@ namespace Shy
 
             foreach (var _item in so)
             {
+                if (_item == null) continue;
+
                 if (_item is SynergySO _synergyItem)
                 {
-                    synergyDic.Add(_synergyItem.synergyType, _synergyItem);
+                    synergyDic.TryAdd(_synergyItem.synergyType, _synergyItem);
                 }
                 else if (_item is BattleEventSO _battleEventItem)
                 {

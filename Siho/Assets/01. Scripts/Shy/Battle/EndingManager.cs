@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
@@ -37,7 +36,7 @@ namespace Shy
             seq.Append(_enemy.DOLocalMove(new Vector2(-250, 0), 0.5f));
             seq.Join(_enemy.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.5f));
 
-            GameMakeTool.Instance.DOFadeCanvasGroup(deadCanvasGroup, 0.5f);
+            SequnceTool.Instance.FadeInCanvasGroup(deadCanvasGroup, 0.5f);
         }
 
         public void GoToTitle()

@@ -24,10 +24,7 @@ namespace Shy
 
     public enum MainStatEnum
     {
-        Str,
-        Dex,
-        Hp,
-        Int
+        Str, Dex, Hp, Int
     }
 
     public enum SubStatEnum
@@ -65,12 +62,15 @@ namespace Shy
         Change
     }
 
-    public enum PoolType
+    namespace Pooling
     {
-        Dice,
-        Synergy,
-        DmgText,
-        Alert
+        public enum PoolType
+        {
+            Dice,
+            Synergy,
+            DmgText,
+            Alert
+        }
     }
 
     namespace Event

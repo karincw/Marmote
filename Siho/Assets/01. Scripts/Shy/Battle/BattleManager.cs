@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System.Collections;
 using Shy.Event;
 
@@ -30,6 +29,16 @@ namespace Shy
         #region Characters
         public Character GetCharacter(Team _target) => (_target == Team.Player) ? player : enemy;
         public Character[] GetCharacters() => new[] { player, enemy };
+        public Character[] GetCharacters(Team _target)
+        {
+            switch (_target)
+            {
+                case Team.Player:   return new[] { player };
+                case Team.Enemy:    return new[] { enemy };
+            }
+
+            return new[] { player, enemy };
+        }
         #endregion
 
         #region Event
@@ -44,19 +53,19 @@ namespace Shy
             {
                 case BattleEvent.Run:
                     if (_success) 
-                        GameMakeTool.Instance.Delay(EndBattle, 0.5f);
+                        SequnceTool.Instance.Delay(EndBattle, 0.5f);
                     else
-                        GameMakeTool.Instance.Delay(BeginBattle, 2f);
+                        SequnceTool.Instance.Delay(BeginBattle, 2f);
                     break;
 
                 case BattleEvent.Surprise:
                     if (_success)
                     {
-                        GameMakeTool.Instance.Delay(() => SurpriseAttack(player, enemy), 2f);
+                        SequnceTool.Instance.Delay(() => SurpriseAttack(player, enemy), 2f);
                     }
                     else
                     {
-                        GameMakeTool.Instance.Delay(BeginBattle, 1.5f);
+                        SequnceTool.Instance.Delay(BeginBattle, 1.5f);
                     }
                     break;
 
@@ -66,7 +75,7 @@ namespace Shy
                     }
                     else
                     {
-                        GameMakeTool.Instance.Delay(() => BeginBattle(), 2f);
+                        SequnceTool.Instance.Delay(() => BeginBattle(), 2f);
                     }
                     break;
             }
@@ -89,9 +98,9 @@ namespace Shy
             EventManager.Instance.HideBattleUis();
             SynergyTooltipManager.Instance.Init();
 
-            GameMakeTool.Instance.DOFadeCanvasGroup(battlePanel, 0.5f, () =>
+            SequnceTool.Instance.FadeInCanvasGroup(battlePanel, 0.5f, () =>
             {
-                GameMakeTool.Instance.Delay(EventManager.Instance.SetBEvent, 0.5f);
+                SequnceTool.Instance.Delay(EventManager.Instance.SetBEvent, 0.5f);
             });
         }
 
@@ -161,7 +170,7 @@ namespace Shy
             Attack result = new();
 
             _user.VisualUpdate(false);
-            GameMakeTool.Instance.Delay(() => _user.VisualUpdate(true), 0.35f);
+            SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.35f);
             result.dmg = GetDamage(_user, _target);
 
             _target.HitEvent(result);
@@ -240,7 +249,7 @@ namespace Shy
             Debug.Log("Attack " + result.attackResult + " : " + result.dmg);
 
             _user.VisualUpdate(false);
-            GameMakeTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
+            SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
 
             _target.HitEvent(result);
 

@@ -43,38 +43,36 @@ namespace Shy.Pooling
         {
             foreach (var _event in so.synergies)
             {
-                Team _opponentTeam = userTeam == Team.Player ? Team.Enemy : Team.Player;
                 Target _targetEnum = _event.target;
+                Team _targetTeam = Team.All;
 
-                if (_event is StatEventSO _statEvent)
+                switch (_targetEnum)
                 {
-                    if (_targetEnum != Target.Self)
-                    {
-                        var _target = BattleManager.Instance.GetCharacter(_opponentTeam);
-                        _target.AddStat(_statEvent.GetData(value), _statEvent.calculate, _statEvent.subStat);
-                    }
-
-                    if (_targetEnum != Target.Opponent)
-                    {
-                        var _target = BattleManager.Instance.GetCharacter(userTeam);
-                        _target.AddStat(_statEvent.GetData(value), _statEvent.calculate, _statEvent.subStat);
-                    }
+                    case Target.Self:
+                        _targetTeam = userTeam;
+                        break;
+                    case Target.Opponent:
+                        _targetTeam = userTeam == Team.Player ? Team.Enemy : Team.Player;
+                        break;
                 }
-                else if (_event is SpecialEventSO _specialEvent)
+
+                var targets = BattleManager.Instance.GetCharacters(_targetTeam);
+
+                switch (_event)
                 {
-                    if (_specialEvent.GetData(value) == false) return;
+                    case StatEventSO _statEvent:
+                        foreach (var item in targets)
+                        {
+                            item.AddStat(_statEvent.GetData(value), _statEvent.calculate, _statEvent.subStat);
+                        }
+                        break;
 
-                    if (_targetEnum != Target.Self)
-                    {
-                        var _target = BattleManager.Instance.GetCharacter(_opponentTeam);
-                        _target.ChangeCharacteristic(_specialEvent.characteristic);
-                    }
-
-                    if (_targetEnum != Target.Opponent)
-                    {
-                        var _target = BattleManager.Instance.GetCharacter(userTeam);
-                        _target.ChangeCharacteristic(_specialEvent.characteristic);
-                    }
+                    case SpecialEventSO _specialEvent:
+                        foreach (var item in targets)
+                        {
+                            item.ChangeCharacteristic(_specialEvent.characteristic);
+                        }
+                        break;
                 }
             }
         }

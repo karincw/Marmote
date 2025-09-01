@@ -42,7 +42,7 @@ namespace Shy.Event
 
                 _diceEvent.AddListener((int _v) =>
                 {
-                    GameMakeTool.Instance.Delay(() =>
+                    SequnceTool.Instance.Delay(() =>
                     {
                         BattleManager.Instance.UserBattleEvent(_e, _i, _v);
                     }, 1.5f);
@@ -124,7 +124,7 @@ namespace Shy.Event
                 }
             }
 
-            GameMakeTool.Instance.DOFadeCanvasGroup(eventPanel, 0.5f, () =>
+            SequnceTool.Instance.FadeInCanvasGroup(eventPanel, 0.5f, () =>
             {
                 StartCoroutine(SetMessageDelay(_eventSO.explain, () => SelectorsVisible(true)));
             });
