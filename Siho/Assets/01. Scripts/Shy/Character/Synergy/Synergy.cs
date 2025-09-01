@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Shy.Pooling
 {
-    public class Synergy : Pool, IPointerClickHandler
+    public class Synergy : Pool, IPointerDownHandler, IPointerUpHandler
     {
         public SynergySO so;
         private int value = 0;
@@ -34,10 +34,29 @@ namespace Shy.Pooling
             UpdateValue();
         }
 
-        public void UpdateValue()
+        #region String
+        private void UpdateValue()
         {
             numTmp.text = value.ToString();
         }
+
+        public string GetDataValue()
+        {
+            string s = "";
+
+            foreach (var _event in so.synergies)
+            {
+                if (_event is StatEventSO _statEvent)
+                {
+                    s += _statEvent.valueSign.Replace("n", _statEvent.GetData(value).ToString());
+                    s += " / ";
+                }
+            }
+
+            if(s != "") s = s.Remove(s.Length - 2);
+            return s;
+        }
+        #endregion
 
         public void UseSynergy()
         {
@@ -62,24 +81,27 @@ namespace Shy.Pooling
                 {
                     case StatEventSO _statEvent:
                         foreach (var item in targets)
-                        {
                             item.AddStat(_statEvent.GetData(value), _statEvent.calculate, _statEvent.subStat);
-                        }
                         break;
 
                     case SpecialEventSO _specialEvent:
                         foreach (var item in targets)
-                        {
-                            item.ChangeCharacteristic(_specialEvent.characteristic);
-                        }
+                            item.ChangeCharacteristic(_specialEvent.characteristic, _specialEvent.GetData(value));
                         break;
                 }
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        #region Click
+        public void OnPointerDown(PointerEventData eventData)
         {
             SynergyTooltipManager.Instance.Use(this);
         }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            SynergyTooltipManager.Instance.Init();
+        }
+        #endregion
     }
 }

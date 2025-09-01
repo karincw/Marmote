@@ -117,14 +117,14 @@ namespace Shy
             _stat = CalcValue(_stat, _value, _calc);
         }
 
-        public void ChangeCharacteristic(CharacteristicEnum _enum)
+        public void ChangeCharacteristic(CharacteristicEnum _enum, bool _value)
         {
             switch (_enum)
             {
-                case CharacteristicEnum.NotBlood: characteristic.notBlood = true;
+                case CharacteristicEnum.NotBlood: characteristic.notBlood = _value;
                     break;
 
-                case CharacteristicEnum.IsNotBlood: characteristic.isNotBlood = true;
+                case CharacteristicEnum.IsNotBlood: characteristic.isNotBlood = _value;
                     break;
             }
         }

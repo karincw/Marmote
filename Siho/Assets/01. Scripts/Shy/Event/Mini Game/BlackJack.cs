@@ -95,6 +95,7 @@ namespace Shy.Event
             if (gameOff) return;
 
             gameOff = true;
+            ButtonUseables(false);
 
             SequnceTool.Instance.Delay(() =>
             {
@@ -110,6 +111,14 @@ namespace Shy.Event
             stopBt.LockChange(!_isLock);
             exitBt.LockChange(!_isLock);
             stayBt.LockChange(!_isLock);
+        }
+
+        private void ButtonUseables(bool _useable)
+        {
+            playBt.UseableChange(_useable);
+            stopBt.UseableChange(_useable);
+            exitBt.UseableChange(_useable);
+            stayBt.UseableChange(_useable);
         }
 
         private void StayBtAble(bool _onStay)

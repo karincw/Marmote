@@ -9,6 +9,7 @@ namespace Shy
         public SubStatEnum subStat;
         public Calculate calculate;
         public List<StatSynergyValue> effectByLevel;
+        public string valueSign = "n";
 
         public virtual float GetData(int lv)
         {

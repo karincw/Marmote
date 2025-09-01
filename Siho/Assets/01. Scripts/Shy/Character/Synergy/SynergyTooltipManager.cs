@@ -9,10 +9,7 @@ namespace Shy
         public static SynergyTooltipManager Instance;
 
         [SerializeField] private GameObject tooltipBox;
-        [SerializeField] private TextMeshProUGUI nameTmp;
-        [SerializeField] private TextMeshProUGUI explainTmp;
-
-        private Synergy currentSynergy;
+        [SerializeField] private TextMeshProUGUI nameTmp, explainTmp, nowValueTmp;
 
         private void Awake()
         {
@@ -26,26 +23,19 @@ namespace Shy
 
         public void Init()
         {
-            currentSynergy = null;
             tooltipBox.SetActive(false);
         }
 
         public void Use(Synergy _synergy)
         {
-            if(currentSynergy == _synergy)
-            {
-                Init();
-            }
-            else
-            {
-                currentSynergy = _synergy;
+            nameTmp.text = _synergy.so.synergyName;
+            explainTmp.text = _synergy.so.explain;
 
-                nameTmp.text = _synergy.so.synergyName;
-                explainTmp.text = _synergy.so.explain;
+            var _value = _synergy.GetDataValue();
+            nowValueTmp.text = $"ÇöÀç °ª : {_value}";
+            nowValueTmp.gameObject.SetActive(_value != "");
 
-                tooltipBox.transform.position = new Vector3(0, _synergy.transform.position.y - 1, tooltipBox.transform.position.z);
-                tooltipBox.SetActive(true);
-            }
+            tooltipBox.SetActive(true);
         }
     }
 }

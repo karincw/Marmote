@@ -22,3 +22,4 @@ MonoBehaviour:
     value: 15
   - level: 3
     value: 20
+  valueSign: n%
