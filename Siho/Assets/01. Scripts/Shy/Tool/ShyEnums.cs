@@ -50,16 +50,14 @@ namespace Shy
         Fear,
         Spine,
         Cool,
-        Steel
+        Steel,
+        Panic
     }
 
     public enum Calculate
     {
-        Plus,
-        Minus,
-        Multiply,
-        Divide,
-        Change
+        Plus, Minus, Multiply,
+        Divide, Change, Percent
     }
 
     public enum BattleEventMode

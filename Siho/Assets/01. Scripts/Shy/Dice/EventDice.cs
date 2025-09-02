@@ -29,8 +29,6 @@ namespace Shy.Event
             tmp.SetText(_value.ToString());
             tmp.gameObject.SetActive(true);
 
-            Debug.Log("Dice Value : " + _value);
-
             diceFinEvent?.Invoke(_value);
         }
     }

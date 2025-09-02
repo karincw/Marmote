@@ -1,8 +1,5 @@
-using UnityEngine;
 using System.Collections;
-using Shy.Event;
-using TMPro;
-using UnityEngine.Events;
+using UnityEngine;
 
 namespace Shy
 {
@@ -61,8 +58,6 @@ namespace Shy
             player.Init(PlayerManager.Instance.GetPlayerData());
             enemy.Init(_enemy.Init());
 
-            player.UseSynergy();
-            enemy.UseSynergy();
             eventManager.HideAllUis();
 
             SequnceTool.Instance.FadeInCanvasGroup(battlePanel, 0.5f, () =>
@@ -73,6 +68,12 @@ namespace Shy
 
         private void BeginBattle()
         {
+            player.UseSynergy();
+            enemy.UseSynergy();
+
+            player.SubscribeCounter();
+            enemy.SubscribeCounter();
+
             eventManager.HideAllUis();
             eventManager.eventMode = BattleEventMode.None;
 
@@ -81,11 +82,11 @@ namespace Shy
             regenerationTime = Time.time + 1;
         }
         
-        private void EndBattle(Team _winner)
+        public void EndBattle(Team _looser)
         {
             nowFight = false;
 
-            if (_winner == Team.Player)
+            if (_looser == Team.Enemy)
                 EndBattle();
             else
                 SequnceTool.Instance.Delay(() => EndingManager.Instance.PlayerDead(enemy.transform), 1f);
@@ -130,22 +131,29 @@ namespace Shy
         {
             Attack result = new();
 
+            nowFight = true;
+
             _user.VisualUpdate(false);
             SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.35f);
             result.dmg = GetDamage(_user, _target);
+            result.target = _target;
 
+            _user.AttackEvent(result);
             _target.HitEvent(result);
 
-            if (_target.DieCheck())
-                EndBattle(_user.team);
-            else
-                BeginBattle();
+            if (nowFight) BeginBattle();
         }
 
         public void SetNextAttackTime(Team _team)
         {
             if (_team != Team.Player) enemyCurrentTime = Time.time + (1 / enemy.GetNowStat(SubStatEnum.AtkSpd));
             if (_team != Team.Enemy) playerCurrentTime = Time.time + (1 / player.GetNowStat(SubStatEnum.AtkSpd));
+        }
+
+        public void AttackTimeReset(Team _team)
+        {
+            if (_team != Team.Player) enemyCurrentTime = 0;
+            if (_team != Team.Enemy) playerCurrentTime = 0;
         }
 
         private void Attack(Character _user, Character _target)
@@ -155,25 +163,8 @@ namespace Shy
             _user.VisualUpdate(false);
             SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
 
+            _user.AttackEvent(result);
             _target.HitEvent(result);
-
-            if (!_target.characteristic.isNotBlood) _user.Drain(result.dmg);
-
-            if (_target.DieCheck()) EndBattle(_user.team);
-
-            if (_target.Counter())
-            {
-                switch (_target.team)
-                {
-                    case Team.Player:
-                        playerCurrentTime = 0;
-                        break;
-
-                    case Team.Enemy:
-                        enemyCurrentTime = 0;
-                        break;
-                }
-            }
 
             SetNextAttackTime(_user.team);
         }
@@ -196,6 +187,7 @@ namespace Shy
         private Attack GetAttackData(Character _user, Character _target)
         {
             Attack result = new();
+            result.target = _target;
             float hitValue = _user.GetNowStat(SubStatEnum.HitChance) - _target.GetNowStat(SubStatEnum.DodgeChance);
 
             if (Random.Range(0, 100f) > hitValue)
@@ -206,7 +198,7 @@ namespace Shy
 
             float dmg = GetDamage(_user, _target);
 
-            if (dmg < 0)
+            if (dmg <= 0)
             {
                 result.attackResult = AttackResult.Block;
                 return result;
@@ -221,6 +213,13 @@ namespace Shy
             result.attackResult = AttackResult.Normal;
             result.dmg = dmg;
             return result;
+        }
+        #endregion
+
+        #region Synergy
+        private IEnumerator jj()
+        {
+            yield return new WaitForSeconds(1);
         }
         #endregion
     }

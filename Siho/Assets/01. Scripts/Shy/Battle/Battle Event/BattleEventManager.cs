@@ -151,7 +151,7 @@ namespace Shy
                     break;
 
                 case BattleEventType.Talk:
-                    // 후에 구현
+                    //BattleManager.Instance.GetCharacter(Team.Enemy).add
                     break;
             }
         }

@@ -34,6 +34,16 @@ namespace Shy.Pooling
             UpdateValue();
         }
 
+        public void Add(int i = 1)
+        {
+            if (so.maxLevel < value + i)
+                value = so.maxLevel;
+            else 
+                value += i;
+
+            UpdateValue();
+        }
+
         #region String
         private void UpdateValue()
         {
@@ -47,13 +57,10 @@ namespace Shy.Pooling
             foreach (var _event in so.synergies)
             {
                 if (_event is StatEventSO _statEvent)
-                {
-                    s += _statEvent.valueSign.Replace("n", _statEvent.GetData(value).ToString());
-                    s += " / ";
-                }
+                    s += _statEvent.valueSign.Replace("n", _statEvent.GetData(value).ToString()) + " / ";
             }
 
-            if(s != "") s = s.Remove(s.Length - 2);
+            if (s != "") s = s.Remove(s.Length - 2);
             return s;
         }
         #endregion
@@ -70,6 +77,7 @@ namespace Shy.Pooling
                     case Target.Self:
                         _targetTeam = userTeam;
                         break;
+
                     case Target.Opponent:
                         _targetTeam = userTeam == Team.Player ? Team.Enemy : Team.Player;
                         break;

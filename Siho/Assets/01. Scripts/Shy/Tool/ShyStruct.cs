@@ -74,13 +74,13 @@ namespace Shy
     {
         public AttackResult attackResult;
         public float dmg;
+        public Character target;
     }
 
     #region Synergy & Characteristic
     public struct Characteristic
     {
         public bool notBlood, isNotBlood;
-
     }
 
     [Show]

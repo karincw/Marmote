@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Shy.Pooling;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Events;
 
 namespace Shy
 {
@@ -13,7 +14,7 @@ namespace Shy
         public Team team;
         [SerializeField] private MainStat mainStats;
         [SerializeField] private SubStat subStats;
-        internal Characteristic characteristic;
+        private Characteristic characteristic;
 
         private Transform dmgTxtPos;
 
@@ -24,13 +25,45 @@ namespace Shy
         [SerializeField] private Transform synergyParent;
         private Dictionary<SynergyType, Synergy> synergies;
 
+        public event UnityAction<Attack> OnAttack, OnHit;
+        public event UnityAction<float> OnHeal;
+
         private void Awake()
         {
             healthCompo = GetComponent<HealthGuageCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
             dmgTxtPos = transform.Find("DmgTxtPos");
-            hitVisual = visual.transform.GetChild(0).GetComponent<Image>();   
-            subStats.hp = subStats.maxHp;
+            hitVisual = visual.transform.GetChild(0).GetComponent<Image>();
+
+            OnHeal = (float _value) =>
+            {
+                subStats.hp += _value;
+
+                var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
+                _item.transform.SetParent(dmgTxtPos);
+                _item.Use(_value, new(0.4f, 1, 0));
+
+                healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+            };
+
+            OnHit = (Attack _result) =>
+            {
+                subStats.hp -= _result.dmg;
+
+                Sequence seq = DOTween.Sequence();
+                seq.Append(hitVisual.DOFade(0.8f, 0.2f));
+                seq.Join(visual.transform.DOScaleY(0.65f, 0.2f));
+                seq.Append(hitVisual.DOFade(0f, 0.5f));
+                seq.Join(visual.transform.DOScaleY(1, 0.5f));
+
+                healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+            };
+            OnHit += (Attack _result) => DieCheck();
+
+            OnAttack = (Attack _result) =>
+            {
+                if (_result.target.characteristic.isNotBlood) HealEvent(_result.dmg * subStats.drain * 0.01f);
+            };
         }
 
         public void Init(CharacterDataSO _so)
@@ -48,7 +81,7 @@ namespace Shy
 
             visual.color = Color.white;
 
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
+            healthCompo.HealthUpdate(1, 1);
 
             if(synergies != null)
             {
@@ -68,6 +101,13 @@ namespace Shy
             {
                 _synergy.UseSynergy();
             }
+
+            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
+        }
+
+        public void AddSynergy(SynergyType _type)
+        {
+             
         }
 
         private void GetSynergy(KeyValuePair<SynergyType, int> _data)
@@ -84,11 +124,21 @@ namespace Shy
         #region Stat & Characteristic
         private float CalcValue(float _oldValue, float _newValue, Calculate _calc)
         {
-            if (_calc == Calculate.Plus) return _oldValue + _newValue;
-            if (_calc == Calculate.Minus) return _oldValue - _newValue;
-            if (_calc == Calculate.Multiply) return _oldValue * _newValue;
-            if (_calc == Calculate.Divide) return _oldValue / _newValue;
-            if (_calc == Calculate.Change) return _newValue;
+            switch (_calc)
+            {
+                case Calculate.Plus:
+                    return _oldValue + _newValue;
+                case Calculate.Minus:
+                    return _oldValue - _newValue;
+                case Calculate.Multiply:
+                    return _oldValue * _newValue;
+                case Calculate.Divide:
+                    return _oldValue / _newValue;
+                case Calculate.Change:
+                    return _newValue;
+                case Calculate.Percent:
+                    return _oldValue * (1 - _newValue * 0.01f);
+            }
             return 0;
         }
 
@@ -128,50 +178,28 @@ namespace Shy
 
         #region Character Action
         public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
-
-        public void Drain(float _dmg)
+        
+        public void Regeneration() => HealEvent(subStats.regen);
+        public void SubscribeCounter() => OnHit += (Attack _attack) => { if (Random.Range(0, 100f) <= subStats.counter) BattleManager.Instance.AttackTimeReset(team); }; 
+        public void AttackEvent(Attack _result)
         {
-            float _value = _dmg * subStats.drain * 0.01f;
-            HealEvent(_value);
-        }
-
-        public void Regeneration()
-        {
-            HealEvent(subStats.regen);
-        }
-
-        public bool Counter() => Random.Range(0, 100f) <= subStats.counter;
-
-        private void HealEvent(float _value)
-        {
-            if (_value <= 0) return;
-
-            subStats.hp += _value;
-
-            var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
-            _item.transform.SetParent(dmgTxtPos);
-            _item.Use(_value, new(0.4f, 1, 0));
-
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+            if (_result.dmg > 0) OnAttack?.Invoke(_result);
         }
 
         public void HitEvent(Attack _result)
         {
-            if(_result.dmg >= 0)
-            {
-                subStats.hp -= _result.dmg;
+            if (_result.dmg > 0) OnHit?.Invoke(_result);
 
-                Sequence seq = DOTween.Sequence();
-                seq.Append(hitVisual.DOFade(0.8f, 0.2f));
-                seq.Append(hitVisual.DOFade(0f, 0.5f));
+            var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
+            _item.transform.SetParent(dmgTxtPos);
+            _item.Use(_result);
+        }
 
-                var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
-                _item.transform.SetParent(dmgTxtPos);
+        public void HealEvent(float _value)
+        {
+            if (_value <= 0) return;
 
-                _item.Use(_result);
-            }
-
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+            OnHeal?.Invoke(_value);
         }
 
         private void DieEvent()
@@ -179,13 +207,18 @@ namespace Shy
             Debug.Log(gameObject.name + " »ç¸Á");
             visual.DOColor(Color.black, 0.45f);
             visual.DOFade(0, 0.7f);
+
+            BattleManager.Instance.EndBattle(team);
         }
 
-        public bool DieCheck()
+        public void DieCheck()
         {
             bool _isDie = subStats.hp <= 0;
-            if (_isDie) DieEvent();
-            return _isDie;
+
+            if (_isDie)
+            {
+                DieEvent();
+            }
         }
         #endregion
     }
