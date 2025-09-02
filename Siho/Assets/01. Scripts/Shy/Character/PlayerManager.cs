@@ -1,5 +1,3 @@
-using Shy.Data;
-using System;
 using UnityEngine;
 
 namespace Shy

@@ -88,7 +88,7 @@ namespace Shy
             if (_winner == Team.Player)
                 EndBattle();
             else
-                EndingManager.Instance.PlayerDead(enemy.transform);
+                SequnceTool.Instance.Delay(() => EndingManager.Instance.PlayerDead(enemy.transform), 1f);
         }
 
         private void EndBattle()
@@ -97,7 +97,7 @@ namespace Shy
             SequnceTool.Instance.Delay(() =>
             {
                 SequnceTool.Instance.FadeOutCanvasGroup(battlePanel, 0.5f, () => battlePanel.gameObject.SetActive(false));
-            }, 2.5f);
+            }, 1.4f);
         }
 
         private void Update()
@@ -168,6 +168,7 @@ namespace Shy
                     case Team.Player:
                         playerCurrentTime = 0;
                         break;
+
                     case Team.Enemy:
                         enemyCurrentTime = 0;
                         break;

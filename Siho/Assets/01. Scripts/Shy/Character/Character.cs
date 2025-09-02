@@ -46,22 +46,19 @@ namespace Shy
             attack = _so.attackAnime;
             VisualUpdate(true);
 
+            visual.color = Color.white;
+
             healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
 
             if(synergies != null)
             {
                 foreach (var item in synergies.Values)
-                {
                     PoolingManager.Instance.Push(PoolType.Synergy, item);
-                }
             }
 
             synergies = new();
 
-            foreach (var _synergySO in _so.synergies)
-            {
-                GetSynergy(_synergySO);
-            }
+            foreach (var _synergySO in _so.synergies) GetSynergy(_synergySO);
         }
 
         #region Synergy
@@ -84,7 +81,6 @@ namespace Shy
         }
         #endregion
 
-        //½ºÅÈ°ú Æ¯¼º
         #region Stat & Characteristic
         private float CalcValue(float _oldValue, float _newValue, Calculate _calc)
         {
@@ -181,6 +177,8 @@ namespace Shy
         private void DieEvent()
         {
             Debug.Log(gameObject.name + " »ç¸Á");
+            visual.DOColor(Color.black, 0.45f);
+            visual.DOFade(0, 0.7f);
         }
 
         public bool DieCheck()

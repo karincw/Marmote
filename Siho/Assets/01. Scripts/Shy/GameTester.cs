@@ -1,11 +1,8 @@
-using Shy.Data;
 using Shy.Event;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shy
 {
-
     public class GameTester : MonoBehaviour
     {
         [Header("Battle : Q")]
