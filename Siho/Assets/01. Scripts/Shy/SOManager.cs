@@ -11,7 +11,7 @@ namespace Shy
         [SerializeField] private List<ScriptableObject> so;
         
         private Dictionary<SynergyType, SynergySO> synergyDic = new();
-        private Dictionary<BattleEvent, BattleEventSO> battleEventDic = new();
+        private Dictionary<BattleEventType, BattleEventSO> battleEventDic = new();
 
         private void Awake()
         {
@@ -35,6 +35,6 @@ namespace Shy
 
         public SynergySO GetSO(SynergyType _type) => synergyDic[_type];
         public int GetSOLimitValue(SynergyType _type) => synergyDic[_type].maxLevel;
-        public BattleEventSO GetSO(BattleEvent _type) => battleEventDic[_type];
+        public BattleEventSO GetSO(BattleEventType _type) => battleEventDic[_type];
     }
 }

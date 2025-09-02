@@ -62,6 +62,15 @@ namespace Shy
         Change
     }
 
+    public enum BattleEventMode
+    {
+        None,
+        Event,
+        Tooltip,
+        Text,
+        Dice
+    }
+
     namespace Pooling
     {
         public enum PoolType
@@ -75,7 +84,7 @@ namespace Shy
 
     namespace Event
     {
-        public enum BattleEvent
+        public enum BattleEventType
         {
             Run,
             Surprise,

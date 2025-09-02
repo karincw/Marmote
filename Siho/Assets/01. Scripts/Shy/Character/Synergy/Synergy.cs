@@ -95,12 +95,12 @@ namespace Shy.Pooling
         #region Click
         public void OnPointerDown(PointerEventData eventData)
         {
-            SynergyTooltipManager.Instance.Use(this);
+            BattleEventManager.Instance.OpenTooltip(this);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            SynergyTooltipManager.Instance.Init();
+            BattleEventManager.Instance.CloseTooltip(this);
         }
         #endregion
     }

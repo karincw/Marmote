@@ -10,18 +10,11 @@ namespace Shy.Event
     {
         public static EventManager Instance;
 
-        private UnityEvent<int> currentEvent;
-
         [Header("Text Event Variables")]
         [SerializeField] private CanvasGroup eventPanel;
         [SerializeField] private TextMeshProUGUI textEventTmp;
         [SerializeField] private EventSelector[] selectors;
         [SerializeField] private Transform alertPos;
-
-        [Header("Battle Event Variables")]
-        [SerializeField] private RollingDice dice;
-        [SerializeField] private BattleEventUi[] bEventUis = new BattleEventUi[3];
-        [SerializeField] private TextMeshProUGUI bEventMess;
 
         private void Awake()
         {
@@ -32,76 +25,7 @@ namespace Shy.Event
         private void Start()
         {
             eventPanel.gameObject.SetActive(false);
-
-            UnityEvent<BattleEvent, int> _uBE = new();
-            UnityEvent<int> _diceEvent = new();
-
-            _uBE.AddListener((BattleEvent _e, int _i) =>
-            {
-                HideBEventUis();
-
-                _diceEvent.AddListener((int _v) =>
-                {
-                    SequnceTool.Instance.Delay(() =>
-                    {
-                        BattleManager.Instance.UserBattleEvent(_e, _i, _v);
-                    }, 1.5f);
-                });
-
-                DiceRoll(_diceEvent);
-            });
-
-            foreach (var _event in bEventUis) _event.clickEvent = _uBE;
         }
-
-        #region Dice
-        private void DiceRoll(UnityEvent<int> _event)
-        {
-            currentEvent = _event;
-            dice.gameObject.SetActive(true);
-
-            dice.Roll();
-        }
-
-        public void ReturnDiceResult(int _n) => currentEvent?.Invoke(_n);
-
-        private void HideDice() => dice.gameObject.SetActive(false);
-        #endregion
-
-        #region BattleEvent
-        public void SetBEvent()
-        {
-            HideDice();
-
-            foreach (var _ui in bEventUis)
-            {
-                _ui.SetPercent(BattleManager.Instance.GetCharacters());
-                _ui.gameObject.SetActive(true);
-            }
-        }
-
-        private void HideBEventUis()
-        {
-            foreach (var _ui in bEventUis) _ui.gameObject.SetActive(false);
-        }
-
-        public void HideBattleUis()
-        {
-            HideDice();
-            HideBEventUis();
-            HideBEventText();
-        }
-
-        public void HideBEventText() => bEventMess.gameObject.SetActive(false);
-
-        internal void ShowBEventText(string _v)
-        {
-            HideBattleUis();
-
-            bEventMess.SetText(_v);
-            bEventMess.gameObject.SetActive(true);
-        }
-        #endregion
 
         #region Text Event
         public void InitEvent(EventSO _eventSO)

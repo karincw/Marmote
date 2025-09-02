@@ -1,17 +1,22 @@
 using UnityEngine;
 using System.Collections;
 using Shy.Event;
+using TMPro;
+using UnityEngine.Events;
 
 namespace Shy
 {
+    [RequireComponent(typeof(BattleEventManager))]
     public class BattleManager : MonoBehaviour
     {
         public static BattleManager Instance;
 
+        [Header("Battle Variables")]
         public Character player, enemy;
         private float playerCurrentTime, enemyCurrentTime, regenerationTime;
         [SerializeField] private CanvasGroup battlePanel;
 
+        private BattleEventManager eventManager;
         private bool nowFight = false;
 
         private void Awake()
@@ -23,7 +28,13 @@ namespace Shy
                 return;
             }
 
+            eventManager = GetComponent<BattleEventManager>();
             battlePanel.gameObject.SetActive(false);
+        }
+
+        private void Start()
+        {
+            eventManager.InitEvent(BeginBattle, EndBattle);
         }
 
         #region Characters
@@ -41,49 +52,7 @@ namespace Shy
         }
         #endregion
 
-        #region Event
-        public void UserBattleEvent(BattleEvent _bEvent, int _per, int _result)
-        {
-            bool _success = _per >= _result;
-            var so = SOManager.Instance.GetSO(_bEvent);
-
-            EventManager.Instance.ShowBEventText(_success ? so.successMes : so.failMes);
-
-            switch (_bEvent)
-            {
-                case BattleEvent.Run:
-                    if (_success) 
-                        SequnceTool.Instance.Delay(EndBattle, 0.5f);
-                    else
-                        SequnceTool.Instance.Delay(BeginBattle, 2f);
-                    break;
-
-                case BattleEvent.Surprise:
-                    if (_success)
-                    {
-                        SequnceTool.Instance.Delay(() => SurpriseAttack(player, enemy), 2f);
-                    }
-                    else
-                    {
-                        SequnceTool.Instance.Delay(BeginBattle, 1.5f);
-                    }
-                    break;
-
-                case BattleEvent.Talk:
-                    if (_success)
-                    {
-                    }
-                    else
-                    {
-                        SequnceTool.Instance.Delay(() => BeginBattle(), 2f);
-                    }
-                    break;
-            }
-        }
-
-        #endregion
-
-        #region Battle
+        #region Battle System
         public void InitBattle(CharacterDataSO _enemy)
         {
             battlePanel.gameObject.SetActive(true);
@@ -94,19 +63,18 @@ namespace Shy
 
             player.UseSynergy();
             enemy.UseSynergy();
-
-            EventManager.Instance.HideBattleUis();
-            SynergyTooltipManager.Instance.Init();
+            eventManager.HideAllUis();
 
             SequnceTool.Instance.FadeInCanvasGroup(battlePanel, 0.5f, () =>
             {
-                SequnceTool.Instance.Delay(EventManager.Instance.SetBEvent, 0.5f);
+                SequnceTool.Instance.Delay(eventManager.BeginEvent, 0.5f);
             });
         }
 
         private void BeginBattle()
         {
-            EventManager.Instance.HideBEventText();
+            eventManager.HideAllUis();
+            eventManager.eventMode = BattleEventMode.None;
 
             SetNextAttackTime(Team.All);
             nowFight = true;
@@ -118,40 +86,26 @@ namespace Shy
             nowFight = false;
 
             if (_winner == Team.Player)
-            {
                 EndBattle();
-            }
             else
-            {
                 EndingManager.Instance.PlayerDead(enemy.transform);
-            }
         }
 
         private void EndBattle()
         {
             nowFight = false;
-            StartCoroutine(BattlePanelOff());
-        }
-
-        private IEnumerator BattlePanelOff()
-        {
-            yield return new WaitForSeconds(3f);
-
-            battlePanel.gameObject.SetActive(false);
+            SequnceTool.Instance.Delay(() =>
+            {
+                SequnceTool.Instance.FadeOutCanvasGroup(battlePanel, 0.5f, () => battlePanel.gameObject.SetActive(false));
+            }, 2.5f);
         }
 
         private void Update()
         {
             if (nowFight)
             {
-                if (playerCurrentTime < Time.time)
-                {
-                    Attack(player, enemy);
-                }
-                else if (enemyCurrentTime < Time.time)
-                {
-                    Attack(enemy, player);
-                }
+                if (playerCurrentTime < Time.time) Attack(player, enemy);
+                else if (enemyCurrentTime < Time.time) Attack(enemy, player);
 
                 if (nowFight && Time.time > regenerationTime)
                 {
@@ -164,9 +118,16 @@ namespace Shy
         #endregion
 
         #region Attack
+        internal void SurpriseAttack(Team _attacker)
+        {
+            if (_attacker == Team.Player)
+                SurpriseAttack(player, enemy);
+            else
+                SurpriseAttack(enemy, player);
+        }
+
         private void SurpriseAttack(Character _user, Character _target)
         {
-            Debug.Log("Surprise Attack\nAttacker : " + _user.gameObject.name + " / Target : " + _target);
             Attack result = new();
 
             _user.VisualUpdate(false);
@@ -176,13 +137,9 @@ namespace Shy
             _target.HitEvent(result);
 
             if (_target.DieCheck())
-            {
                 EndBattle(_user.team);
-            }
             else
-            {
                 BeginBattle();
-            }
         }
 
         public void SetNextAttackTime(Team _team)
@@ -191,12 +148,38 @@ namespace Shy
             if (_team != Team.Enemy) playerCurrentTime = Time.time + (1 / player.GetNowStat(SubStatEnum.AtkSpd));
         }
 
-        private float DefCalc(float _dmg, float _def, float _reduceDmg)
+        private void Attack(Character _user, Character _target)
         {
-            _dmg = _dmg - (_def * 0.5f);
-            _dmg *= (1 - _reduceDmg);
-            return _dmg;
+            Attack result = GetAttackData(_user, _target);
+
+            _user.VisualUpdate(false);
+            SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
+
+            _target.HitEvent(result);
+
+            if (!_target.characteristic.isNotBlood) _user.Drain(result.dmg);
+
+            if (_target.DieCheck()) EndBattle(_user.team);
+
+            if (_target.Counter())
+            {
+                switch (_target.team)
+                {
+                    case Team.Player:
+                        playerCurrentTime = 0;
+                        break;
+                    case Team.Enemy:
+                        enemyCurrentTime = 0;
+                        break;
+                }
+            }
+
+            SetNextAttackTime(_user.team);
         }
+        #endregion
+
+        #region Attack Value
+        private float DefCalc(float _dmg, float _def, float _reduceDmg) => (_dmg - (_def * 0.5f)) * (1 - _reduceDmg);
 
         private float GetDamage(Character _user, Character _target)
         {
@@ -212,10 +195,9 @@ namespace Shy
         private Attack GetAttackData(Character _user, Character _target)
         {
             Attack result = new();
-
             float hitValue = _user.GetNowStat(SubStatEnum.HitChance) - _target.GetNowStat(SubStatEnum.DodgeChance);
 
-            if(Random.Range(0, 100f) > hitValue)
+            if (Random.Range(0, 100f) > hitValue)
             {
                 result.attackResult = AttackResult.Dodge;
                 return result;
@@ -223,13 +205,13 @@ namespace Shy
 
             float dmg = GetDamage(_user, _target);
 
-            if(dmg < 0)
+            if (dmg < 0)
             {
                 result.attackResult = AttackResult.Block;
                 return result;
             }
 
-            if(Random.Range(0, 100f) <= _user.GetNowStat(SubStatEnum.CriChance))
+            if (Random.Range(0, 100f) <= _user.GetNowStat(SubStatEnum.CriChance))
             {
                 result.attackResult = AttackResult.Critical;
                 dmg *= _user.GetNowStat(SubStatEnum.CriDmg) * 0.01f;
@@ -238,40 +220,6 @@ namespace Shy
             result.attackResult = AttackResult.Normal;
             result.dmg = dmg;
             return result;
-        }
-
-        private void Attack(Character _user, Character _target)
-        {
-            Debug.Log("Attacker : " + _user.gameObject.name + " / Target : " + _target);
-
-            Attack result = GetAttackData(_user, _target);
-
-            Debug.Log("Attack " + result.attackResult + " : " + result.dmg);
-
-            _user.VisualUpdate(false);
-            SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.5f);
-
-            _target.HitEvent(result);
-
-            if(!_target.characteristic.isNotBlood) _user.Drain(result.dmg);
-
-            if (_target.DieCheck()) EndBattle(_user.team);
-
-            if(_target.Counter())
-            {
-                Debug.Log("Counter");
-                switch (_target.team)
-                {
-                    case Team.Player:
-                        playerCurrentTime = 0;
-                        break;
-                    case Team.Enemy:
-                        enemyCurrentTime = 0;
-                        break;
-                }
-            }
-
-            SetNextAttackTime(_user.team);
         }
         #endregion
     }
