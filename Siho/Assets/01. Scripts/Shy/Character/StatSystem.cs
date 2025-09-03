@@ -18,11 +18,11 @@ namespace Shy
                 case SubStatEnum.Drain: return ref _subStat.drain;
                 case SubStatEnum.Regen: return ref _subStat.regen;
                 case SubStatEnum.HitChance: return ref _subStat.hitChance;
-                case SubStatEnum.DodgeChance: return ref _subStat.dodgeChange;
+                case SubStatEnum.DodgeChance: return ref _subStat.dodgeChance;
                 case SubStatEnum.AddDmg: return ref _subStat.addDmg;
                 case SubStatEnum.RedDmg: return ref _subStat.reduceDmg;
                 case SubStatEnum.Counter: return ref _subStat.counter;
-                case SubStatEnum.FirstAtkBonus: return ref _subStat.firstAttackBonus;
+                case SubStatEnum.FirstAtkBonus: return ref _subStat.surpiseAttackBonus;
 
                 case SubStatEnum.MaxHp: case SubStatEnum.Hp:
                     UnityEngine.Debug.LogError("Error Cant use MaxHp or Hp by GetSubStat Ref");
@@ -44,6 +44,31 @@ namespace Shy
             }
         }
 
+        private static float CalcValue(float _oldValue, float _newValue, Calculate _calc)
+        {
+            switch (_calc)
+            {
+                case Calculate.Plus: return _oldValue + _newValue;
+                case Calculate.Minus: return _oldValue - _newValue;
+                case Calculate.Multiply: return _oldValue * _newValue;
+                case Calculate.Divide: return _oldValue / _newValue;
+                case Calculate.Change: return _newValue;
+                case Calculate.Percent: return _oldValue * (1 - _newValue * 0.01f);
+                case Calculate.ReflectPercent: return (_oldValue / _newValue) * 100f;
+            }
+            return 0;
+        }
+
+        public static void ChangeStat(ref SubStat _subStat, float _newValue, Calculate _calc, SubStatEnum _statEnum)
+        {
+            if (_statEnum == SubStatEnum.MaxHp) _subStat.maxHp = CalcValue(_subStat.maxHp, _newValue, _calc);
+            else
+            {
+                 ref float v = ref GetSubStatRef(ref _subStat, _statEnum);
+                v = CalcValue(v, _newValue, _calc);
+            }
+        }
+
         public static SubStat ChangeSubStat(MainStat _ms)
         {
             var _ss = new SubStat();
@@ -56,7 +81,7 @@ namespace Shy
             _ss.criChance = 20 + _ms.INT * 0.5f + _ms.DEX * 0.4f;
             _ss.criDmg = 130 + _ms.HP * 0.4f + _ms.STR * 0.85f;
             _ss.hitChance = 70 + _ms.DEX * 4.5f;
-            _ss.dodgeChange = 15 + _ms.DEX * 2.8f;
+            _ss.dodgeChance = 15 + _ms.DEX * 2.8f;
 
             return _ss;
         }

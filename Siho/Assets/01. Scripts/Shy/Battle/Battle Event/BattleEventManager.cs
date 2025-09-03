@@ -151,7 +151,8 @@ namespace Shy
                     break;
 
                 case BattleEventType.Talk:
-                    //BattleManager.Instance.GetCharacter(Team.Enemy).add
+                    BattleManager.Instance.GetCharacter(Team.Enemy).AddSynergy(SynergyType.Panic);
+                    SequnceTool.Instance.Delay(beginBattle, 1.5f);
                     break;
             }
         }

@@ -6885,23 +6885,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 350
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 350
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10166,7 +10166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tmp: {fileID: 630337046}
-  diceRnage: {x: 1, y: 20}
+  diceRnage: {x: 1, y: 8}
 --- !u!1 &1554096743
 GameObject:
   m_ObjectHideFlags: 0
@@ -14138,23 +14138,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 350
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 350
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409006921125275937, guid: 846ff7ee18d6ddf4986d0621494ae43d, type: 3}
       propertyPath: m_LocalScale.x

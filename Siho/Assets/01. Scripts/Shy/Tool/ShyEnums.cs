@@ -57,7 +57,8 @@ namespace Shy
     public enum Calculate
     {
         Plus, Minus, Multiply,
-        Divide, Change, Percent
+        Divide, Change, Percent,
+        ReflectPercent
     }
 
     public enum BattleEventMode

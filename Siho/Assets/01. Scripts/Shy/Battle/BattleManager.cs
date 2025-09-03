@@ -68,9 +68,6 @@ namespace Shy
 
         private void BeginBattle()
         {
-            player.UseSynergy();
-            enemy.UseSynergy();
-
             player.SubscribeCounter();
             enemy.SubscribeCounter();
 
@@ -129,14 +126,12 @@ namespace Shy
 
         private void SurpriseAttack(Character _user, Character _target)
         {
-            Attack result = new();
+            Attack result = new(AttackResult.Normal, GetDamage(_user, _target), _target);
 
             nowFight = true;
 
             _user.VisualUpdate(false);
             SequnceTool.Instance.Delay(() => _user.VisualUpdate(true), 0.35f);
-            result.dmg = GetDamage(_user, _target);
-            result.target = _target;
 
             _user.AttackEvent(result);
             _target.HitEvent(result);
@@ -213,13 +208,6 @@ namespace Shy
             result.attackResult = AttackResult.Normal;
             result.dmg = dmg;
             return result;
-        }
-        #endregion
-
-        #region Synergy
-        private IEnumerator jj()
-        {
-            yield return new WaitForSeconds(1);
         }
         #endregion
     }
