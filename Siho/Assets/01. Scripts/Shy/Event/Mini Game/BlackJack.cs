@@ -154,7 +154,7 @@ namespace Shy.Event
             int v = playerCard.value - enemyCard.value;
 
             if (v > 0) GameResult(Team.Player);
-            else if (v < 0) GameResult(Team.Player);
+            else if (v < 0) GameResult(Team.Enemy);
             else
             {
                 if (playerCard.cnt > enemyCard.cnt) GameResult(Team.Enemy);
