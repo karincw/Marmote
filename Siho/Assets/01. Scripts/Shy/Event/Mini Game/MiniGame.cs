@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class MiniGame : MonoBehaviour
+namespace Shy.Event
 {
-    [SerializeField] protected CanvasGroup canvasGroup;
-
-    protected virtual void Start()
+    public class MiniGame : MonoBehaviour
     {
-        canvasGroup.gameObject.SetActive(false);
+        [SerializeField] protected CanvasGroup canvasGroup;
+
+        protected virtual void Start()
+        {
+            canvasGroup.gameObject.SetActive(false);
+        }
+
+        public virtual void Init()
+        {
+            canvasGroup.gameObject.SetActive(true);
+        }
     }
 
-    public virtual void Init()
-    {
-        canvasGroup.gameObject.SetActive(true);
-    }
 }

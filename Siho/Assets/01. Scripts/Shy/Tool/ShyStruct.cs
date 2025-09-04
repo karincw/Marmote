@@ -190,6 +190,10 @@ namespace Shy
             public int value;
             public ConditionType conditionType;
         }
+
+        namespace LadderGame
+        {
+        }
     }
 
     namespace Pooling

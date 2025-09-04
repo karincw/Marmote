@@ -1,4 +1,6 @@
 using Shy.Event;
+using Shy.Event.BlackJack;
+using Shy.Event.LadderGame;
 using UnityEngine;
 
 namespace Shy
@@ -14,6 +16,9 @@ namespace Shy
 
         [Header("Event : E")]
         public BlackJack blackJack;
+
+        [Header("Event : R")]
+        public LadderGame ladderGame;
 
         private void Start()
         {
@@ -38,6 +43,12 @@ namespace Shy
             {
                 Debug.Log("Test E : BlackJack Start");
                 blackJack.Init();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Debug.Log("Test E : Ladder Game Start");
+                ladderGame.Init();
             }
         }
 

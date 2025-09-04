@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Shy.Event
+namespace Shy.Event.BlackJack
 {
     public class BlackJack : MiniGame
     {
@@ -115,10 +115,10 @@ namespace Shy.Event
 
         private void ButtonUseables(bool _useable)
         {
-            playBt.UseableChange(_useable);
-            stopBt.UseableChange(_useable);
-            exitBt.UseableChange(_useable);
-            stayBt.UseableChange(_useable);
+            playBt.useable = _useable;
+            stopBt.useable = _useable;
+            exitBt.useable = _useable;
+            stayBt.useable = _useable;
         }
 
         private void StayBtAble(bool _onStay)
