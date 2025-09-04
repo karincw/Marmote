@@ -193,6 +193,11 @@ namespace Shy
 
         namespace LadderGame
         {
+            [Show]
+            public struct LadderReward
+            {
+                public int value, weight;
+            }
         }
     }
 

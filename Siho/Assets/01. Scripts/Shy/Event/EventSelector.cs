@@ -49,11 +49,11 @@ namespace Shy.Event
         {
             if (isAble)
             {
-                EventManager.Instance.OnEvent(currentEvent);
+                TextEventManager.Instance.OnEvent(currentEvent);
             }
             else
             {
-                EventManager.Instance.TEventAlert("불가능한 것 같다.");
+                TextEventManager.Instance.TextEventAlert("불가능한 것 같다.");
             }
         }
     }

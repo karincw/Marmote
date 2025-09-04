@@ -32,9 +32,7 @@ namespace Shy
             float addValue = 0.01f, delay = _useTime * 0.01f;
 
             if(lastValue == 1)
-            {
                 _canvas.alpha = 0;
-            }
             else
             {
                 _canvas.alpha = 1;
@@ -50,11 +48,9 @@ namespace Shy
             _endAction?.Invoke();
         }
 
+        public void DOCountDown(TextMeshProUGUI _tmp, int _value, float _useTime, TextEvent _event) => StartCoroutine(CountDown(_tmp, _value, _useTime, _event));
 
-
-        public void DOTextCount(TextMeshProUGUI _tmp, int _value, float _useTime, TextEvent _event) => StartCoroutine(TextCount(_tmp, _value, _useTime, _event));
-
-        private IEnumerator TextCount(TextMeshProUGUI _tmp, int _value, float _useTime, TextEvent _event)
+        private IEnumerator CountDown(TextMeshProUGUI _tmp, int _value, float _useTime, TextEvent _event)
         {
             int _alreadyValue = int.Parse(_tmp.text);
             int _gap = Mathf.Abs(_value - _alreadyValue);

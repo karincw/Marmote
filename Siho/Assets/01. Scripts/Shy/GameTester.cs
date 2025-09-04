@@ -59,7 +59,7 @@ namespace Shy
 
         public void EventStart()
         {
-            EventManager.Instance.InitEvent(eventSO);
+            TextEventManager.Instance.InitEvent(eventSO);
         }
     }
 }

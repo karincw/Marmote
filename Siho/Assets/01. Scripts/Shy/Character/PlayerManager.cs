@@ -26,9 +26,14 @@ namespace Shy
             }
         }
 
-        public void AddStat(MainStatEnum _type, int _value)
+        public void AddStat(MainStatEnum _type, int _value) => ChangeStat(_type, _value, Calculate.Plus);
+
+        public void ChangeStat(MainStatEnum _type, int _value, Calculate _calc)
         {
-            StatSystem.GetMainStatRef(ref playerData.mainStat, _type) += _value;
+            ref int stat = ref StatSystem.GetMainStatRef(ref playerData.mainStat, _type);
+            stat = Mathf.RoundToInt(Calculator.GetValue(stat, _value, _calc));
+
+            if (stat < 1) stat = 1;
         }
 
         public int GetStatCount(MainStatEnum _type)
