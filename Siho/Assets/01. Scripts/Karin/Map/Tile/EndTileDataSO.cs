@@ -6,6 +6,6 @@ public class EndTileDataSO : TileDataSO
     public override void ThrowEvent()
     {
         base.ThrowEvent();
-        SceneChanger.instance.LoadScene("Title");
+        FindFirstObjectByType<EndingPanel>().Open(true);
     }
 }

@@ -20,7 +20,7 @@ public class Money : MonoBehaviour
     private void Awake()
     {
         _text = transform.GetComponentInChildren<TMP_Text>();
-        Value = 0;
+        Value = 1000;
 
         DicePanel.OnDoubleEvent += AddMoney;
     }

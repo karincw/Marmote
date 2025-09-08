@@ -61,6 +61,7 @@ public class SceneChanger : MonoBehaviour
             _sp.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
             _sp.transform.rotation = Camera.main.transform.rotation;
         }
+        //yield return new WaitForSeconds(0.5f);
         OnSceneChanged?.Invoke(sceneName);
         LoadingComplete();
     }

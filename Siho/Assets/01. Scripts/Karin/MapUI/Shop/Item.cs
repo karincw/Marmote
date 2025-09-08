@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public ItemDataSO data;
 
     private Image _image;
+    private Button _infoButton;
     private AnimationButton _button;
 
     private CanvasGroup _infoGroup;
@@ -16,6 +17,7 @@ public class Item : MonoBehaviour
     private void Awake()
     {
         _image = transform.Find("Image").GetComponent<Image>();
+        _infoButton = _image.GetComponent<Button>();
         _button = transform.Find("BuyButton").transform.Find("Button").GetComponent<AnimationButton>();
         _infoGroup = transform.Find("Info").GetComponent<CanvasGroup>();
         _infoText = transform.Find("Info").Find("InfoText").GetComponent<TMP_Text>();
@@ -33,16 +35,22 @@ public class Item : MonoBehaviour
         _button.SetText($"{data.price} Cheese");
         _image.sprite = data.image;
         _button.interactable = true;
+        _infoButton.onClick.AddListener(OpenInfo);
     }
 
     public void OpenInfo()
     {
+        transform.SetAsLastSibling();
         _infoText.text = data.itemDescription;
         _infoGroup.DOFade(1, 0.3f);
+        _infoButton.onClick.RemoveAllListeners();
+        _infoButton.onClick.AddListener(CloseInfo);
     }
 
     public void CloseInfo()
     {
+        _infoButton.onClick.RemoveAllListeners();
+        _infoButton.onClick.AddListener(OpenInfo);
         _infoGroup.DOFade(0, 0.3f);
     }
 

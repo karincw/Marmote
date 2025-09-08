@@ -13,7 +13,7 @@ public class ShopPanel : FadeUI
         base.Awake();
     }
 
-    private void RefreshItems()
+    public void RefreshItems()
     {
         List<ItemDataSO> list;
         if (_useRandom)
