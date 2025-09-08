@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Shy.Pooling;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Events;
 
 namespace Shy
 {
@@ -12,8 +13,9 @@ namespace Shy
         [SerializeField] private TextMeshProUGUI characterName;
         public Team team;
         [SerializeField] private MainStat mainStats;
-        [SerializeField] private SubStat subStats;
-        internal Characteristic characteristic;
+        [SerializeField] private SubStat totalSubStat;
+        private SubStat addSubStat, multiSubStat;
+        private Characteristic characteristic;
 
         private Transform dmgTxtPos;
 
@@ -24,14 +26,52 @@ namespace Shy
         [SerializeField] private Transform synergyParent;
         private Dictionary<SynergyType, Synergy> synergies;
 
+        public event UnityAction<Attack> OnAttack, OnHit;
+        public event UnityAction<float> OnHeal;
+
         private void Awake()
         {
             healthCompo = GetComponent<HealthGuageCompo>();
             visual = transform.Find("Visual").GetComponent<Image>();
             dmgTxtPos = transform.Find("DmgTxtPos");
-            hitVisual = visual.transform.GetChild(0).GetComponent<Image>();   
-            subStats.hp = subStats.maxHp;
+            hitVisual = visual.transform.GetChild(0).GetComponent<Image>();
+
+            InitAction();          
         }
+
+        #region Actions
+        private void InitAction()
+        {
+            OnHeal = (float _value) =>
+            {
+                totalSubStat.hp += _value;
+
+                var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
+                _item.transform.SetParent(dmgTxtPos);
+                _item.Use(_value, new(0.4f, 1, 0));
+
+                healthCompo.HealthUpdate(totalSubStat.hp, totalSubStat.maxHp, true);
+            };
+            OnHit = (Attack _result) =>
+            {
+                totalSubStat.hp -= _result.dmg;
+
+                Sequence seq = DOTween.Sequence();
+                seq.Append(hitVisual.DOFade(0.8f, 0.2f));
+                seq.Join(visual.transform.DOScaleY(0.65f, 0.2f));
+                seq.Append(hitVisual.DOFade(0f, 0.5f));
+                seq.Join(visual.transform.DOScaleY(1, 0.5f));
+
+                healthCompo.HealthUpdate(totalSubStat.hp, totalSubStat.maxHp, true);
+            };
+            OnHit += (Attack _result) => DieCheck();
+
+            OnAttack = (Attack _result) =>
+            {
+                if (_result.target.characteristic.isNotBlood == false) HealEvent(_result.dmg * totalSubStat.drain * 0.01f);
+            };
+        }
+        #endregion
 
         public void Init(CharacterDataSO _so)
         {
@@ -40,40 +80,43 @@ namespace Shy
             characteristic = new();
 
             mainStats = _so.mainStat;
-            subStats = StatSystem.ChangeSubStat(mainStats);
+            addSubStat = StatSystem.ChangeSubStat(mainStats);
+            multiSubStat.Reset(1);
+            CheckSubstat();
 
             idle = _so.visual;
             attack = _so.attackAnime;
             VisualUpdate(true);
 
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp);
+            visual.color = Color.white;
+
+            healthCompo.HealthUpdate(1, 1);
 
             if(synergies != null)
             {
                 foreach (var item in synergies.Values)
-                {
                     PoolingManager.Instance.Push(PoolType.Synergy, item);
-                }
             }
 
             synergies = new();
 
-            foreach (var _synergySO in _so.synergies)
-            {
-                GetSynergy(_synergySO);
-            }
+            foreach (var _synergySO in _so.synergies) AddSynergy(_synergySO);
         }
 
         #region Synergy
-        public void UseSynergy()
+        public void AddSynergy(SynergyType _type)
         {
-            foreach (var _synergy in synergies.Values)
+            if (synergies.ContainsKey(_type))
             {
-                _synergy.UseSynergy();
+                synergies[_type].Add();
+            }
+            else
+            {
+                AddSynergy(new KeyValuePair<SynergyType, int>(_type, 1));
             }
         }
 
-        private void GetSynergy(KeyValuePair<SynergyType, int> _data)
+        private void AddSynergy(KeyValuePair<SynergyType, int> _data)
         {
             var _synergy = PoolingManager.Instance.Pop(PoolType.Synergy) as Synergy;
             _synergy.transform.SetParent(synergyParent);
@@ -84,47 +127,30 @@ namespace Shy
         }
         #endregion
 
-        //½ºÅÈ°ú Æ¯¼º
         #region Stat & Characteristic
-        private float CalcValue(float _oldValue, float _newValue, Calculate _calc)
-        {
-            if (_calc == Calculate.Plus) return _oldValue + _newValue;
-            if (_calc == Calculate.Minus) return _oldValue - _newValue;
-            if (_calc == Calculate.Multiply) return _oldValue * _newValue;
-            if (_calc == Calculate.Divide) return _oldValue / _newValue;
-            if (_calc == Calculate.Change) return _newValue;
-            return 0;
-        }
-
-        public float GetNowStat(SubStatEnum _stat) => StatSystem.GetSubStatRef(ref subStats, _stat);
+        public float GetNowStat(SubStatEnum _stat) => StatSystem.GetSubStatRef(ref totalSubStat, _stat);
         public int GetNowStat(MainStatEnum _stat) => StatSystem.GetMainStatRef(ref mainStats, _stat);
+        private void CheckSubstat() => totalSubStat = addSubStat * multiSubStat;
 
-        public void AddStat(float _value, Calculate _calc, SubStatEnum _statEnum)
+        public void ChangeStat(float _value, Calculate _calc, SubStatEnum _statEnum)
         {
-            if(_statEnum == SubStatEnum.Hp)
-            {
-                subStats.hp = CalcValue(subStats.hp, _value, _calc);
-                return;
-            }
+            if (_calc == Calculate.Plus || _calc == Calculate.Minus)
+                StatSystem.ChangeStat(ref addSubStat, _value, _calc, _statEnum);
+            else
+                StatSystem.ChangeStat(ref multiSubStat, _value, _calc, _statEnum);
 
-            if(_statEnum == SubStatEnum.MaxHp)
-            {
-                subStats.maxHp = CalcValue(subStats.maxHp, _value, _calc);
-                return;
-            }
-
-            ref float _stat = ref StatSystem.GetSubStatRef(ref subStats, _statEnum);
-            _stat = CalcValue(_stat, _value, _calc);
+            CheckSubstat();
+            healthCompo.HealthUpdate(totalSubStat.hp, totalSubStat.maxHp);
         }
 
-        public void ChangeCharacteristic(CharacteristicEnum _enum)
+        public void ChangeCharacteristic(CharacteristicEnum _enum, bool _value)
         {
             switch (_enum)
             {
-                case CharacteristicEnum.NotBlood: characteristic.notBlood = true;
+                case CharacteristicEnum.NotBlood: characteristic.notBlood = _value;
                     break;
 
-                case CharacteristicEnum.IsNotBlood: characteristic.isNotBlood = true;
+                case CharacteristicEnum.IsNotBlood: characteristic.isNotBlood = _value;
                     break;
             }
         }
@@ -132,62 +158,47 @@ namespace Shy
 
         #region Character Action
         public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
-
-        public void Drain(float _dmg)
+        
+        public void Regeneration() => HealEvent(totalSubStat.regen);
+        public void SubscribeCounter() => OnHit += (Attack _attack) => { if (Random.Range(0, 100f) <= totalSubStat.counter) BattleManager.Instance.AttackTimeReset(team); }; 
+        public void AttackEvent(Attack _result)
         {
-            float _value = _dmg * subStats.drain * 0.01f;
-            HealEvent(_value);
-        }
-
-        public void Regeneration()
-        {
-            HealEvent(subStats.regen);
-        }
-
-        public bool Counter() => Random.Range(0, 100f) <= subStats.counter;
-
-        private void HealEvent(float _value)
-        {
-            if (_value <= 0) return;
-
-            subStats.hp += _value;
-
-            var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
-            _item.transform.SetParent(dmgTxtPos);
-            _item.Use(_value, new(0.4f, 1, 0));
-
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+            if (_result.dmg > 0) OnAttack?.Invoke(_result);
         }
 
         public void HitEvent(Attack _result)
         {
-            if(_result.dmg >= 0)
-            {
-                subStats.hp -= _result.dmg;
+            if (_result.dmg > 0) OnHit?.Invoke(_result);
 
-                Sequence seq = DOTween.Sequence();
-                seq.Append(hitVisual.DOFade(0.8f, 0.2f));
-                seq.Append(hitVisual.DOFade(0f, 0.5f));
+            var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
+            _item.transform.SetParent(dmgTxtPos);
+            _item.Use(_result);
+        }
 
-                var _item = PoolingManager.Instance.Pop(PoolType.DmgText) as DamageText;
-                _item.transform.SetParent(dmgTxtPos);
+        public void HealEvent(float _value)
+        {
+            if (_value <= 0) return;
 
-                _item.Use(_result);
-            }
-
-            healthCompo.HealthUpdate(subStats.hp, subStats.maxHp, true);
+            OnHeal?.Invoke(_value);
         }
 
         private void DieEvent()
         {
             Debug.Log(gameObject.name + " »ç¸Á");
+            visual.DOColor(Color.black, 0.45f);
+            visual.DOFade(0, 0.7f);
+
+            BattleManager.Instance.EndBattle(team);
         }
 
-        public bool DieCheck()
+        public void DieCheck()
         {
-            bool _isDie = subStats.hp <= 0;
-            if (_isDie) DieEvent();
-            return _isDie;
+            bool _isDie = totalSubStat.hp <= 0;
+
+            if (_isDie)
+            {
+                DieEvent();
+            }
         }
         #endregion
     }

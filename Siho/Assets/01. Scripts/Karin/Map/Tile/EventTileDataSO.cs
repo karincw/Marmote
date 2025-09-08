@@ -8,6 +8,6 @@ public class EventTileDataSO : TileDataSO
 
     public override void EnterEvent() 
     {
-        EventManager.Instance.InitEvent(eventType);
+        TextEventManager.Instance.InitEvent(eventType);
     }
 }

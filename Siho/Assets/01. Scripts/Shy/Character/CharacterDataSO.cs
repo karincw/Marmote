@@ -10,9 +10,8 @@ namespace Shy
         public Sprite visual, attackAnime;
         public MainStat mainStat;
 
-        public List<SynergySO> baseSynergies;
+        [SerializeField] private List<SynergySO> baseSynergies;
         internal Dictionary<SynergyType, int> synergies = new();
-
 
         public virtual CharacterDataSO Init()
         {

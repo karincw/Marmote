@@ -1,24 +1,18 @@
-using UnityEngine;
-
 namespace Shy.Event
 {
     public static class EventAbleChecker
     {
-        #region Compare ºñ±³
+        #region Compare
         private static int GetItemValue(EventItemSO _so)
         {
             if (_so is Item_Stat _stat)
-            {
                 return PlayerManager.Instance.GetStatCount(_stat.statType);
-            }
             else if (_so is Item_Money _money)
             {
-
+                // Get Money
             }
             else if (_so is Item_Synergy _synergy)
-            {
                 return PlayerManager.Instance.GetSynergyCount(_synergy.item.synergyType);
-            }
 
             return 0;
         }

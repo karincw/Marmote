@@ -24,10 +24,7 @@ namespace Shy
 
     public enum MainStatEnum
     {
-        Str,
-        Dex,
-        Hp,
-        Int
+        Str, Dex, Hp, Int
     }
 
     public enum SubStatEnum
@@ -53,29 +50,40 @@ namespace Shy
         Fear,
         Spine,
         Cool,
-        Steel
+        Steel,
+        Panic
     }
 
     public enum Calculate
     {
-        Plus,
-        Minus,
-        Multiply,
-        Divide,
-        Change
+        Plus, Minus, Multiply,
+        Divide, Change, Percent,
+        ReflectPercent
     }
 
-    public enum PoolType
+    public enum BattleEventMode
     {
-        Dice,
-        Synergy,
-        DmgText,
-        Alert
+        None,
+        Event,
+        Tooltip,
+        Text,
+        Dice
+    }
+
+    namespace Pooling
+    {
+        public enum PoolType
+        {
+            Dice,
+            Synergy,
+            DmgText,
+            Alert
+        }
     }
 
     namespace Event
     {
-        public enum BattleEvent
+        public enum BattleEventType
         {
             Run,
             Surprise,

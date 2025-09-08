@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Shy
 {
-
     [CreateAssetMenu(menuName = "SO/Shy/Synergy/Stat")]
     public class StatEventSO : SynergyEventSO
     {
         public SubStatEnum subStat;
         public Calculate calculate;
         public List<StatSynergyValue> effectByLevel;
+        public string valueSign = "n";
 
-        public float GetData(int lv)
+        public virtual float GetData(int lv)
         {
             foreach (var item in effectByLevel)
             {
