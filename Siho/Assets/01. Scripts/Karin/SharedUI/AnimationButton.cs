@@ -22,8 +22,6 @@ public class AnimationButton : Button
         base.Awake();
         _text = GetComponentInChildren<TMP_Text>();
         _image = GetComponent<Image>();
-        _image.sprite = _baseImage;
-        _image.color = _baseColor;
     }
 
     public void SetText(string text)
@@ -51,5 +49,11 @@ public class AnimationButton : Button
     {
         base.OnDisable();
         _image.color = _disabledColor;
+    }
+    protected override void OnEnable()
+    {
+        _image.sprite = _baseImage;
+        _image.color = _baseColor;
+        base.OnEnable();
     }
 }

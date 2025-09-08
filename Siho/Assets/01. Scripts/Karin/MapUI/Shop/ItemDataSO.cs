@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemDataSO : ScriptableObject
 {
     public string itemName;
-    public string itemDescription;
+    [TextArea(2,7)]public string itemDescription;
     public ItemType ItemType;
     public Sprite image;
     public int price;

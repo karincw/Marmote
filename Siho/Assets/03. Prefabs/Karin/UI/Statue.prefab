@@ -714,7 +714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1264371203132490004, guid: 5b587d41410c49f448800862017fb9c7, type: 3}
+  m_Sprite: {fileID: -5711848221618334454, guid: 90f1b3c9497ca0d4eb86bc63351e9a0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -740,9 +740,9 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: 600
   m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredHeight: 600
   m_FlexibleWidth: -1
-  m_FlexibleHeight: 2
+  m_FlexibleHeight: 1
   m_LayoutPriority: 1
 --- !u!1 &7144166999565670039
 GameObject:

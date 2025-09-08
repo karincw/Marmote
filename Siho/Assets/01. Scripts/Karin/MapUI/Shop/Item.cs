@@ -1,3 +1,5 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +10,15 @@ public class Item : MonoBehaviour
     private Image _image;
     private AnimationButton _button;
 
+    private CanvasGroup _infoGroup;
+    private TMP_Text _infoText;
+
     private void Awake()
     {
         _image = transform.Find("Image").GetComponent<Image>();
         _button = transform.Find("BuyButton").transform.Find("Button").GetComponent<AnimationButton>();
+        _infoGroup = transform.Find("Info").GetComponent<CanvasGroup>();
+        _infoText = transform.Find("Info").Find("InfoText").GetComponent<TMP_Text>();
         _button.onClick.AddListener(HandleBuy);
     }
 
@@ -28,11 +35,22 @@ public class Item : MonoBehaviour
         _button.interactable = true;
     }
 
+    public void OpenInfo()
+    {
+        _infoText.text = data.itemDescription;
+        _infoGroup.DOFade(1, 0.3f);
+    }
+
+    public void CloseInfo()
+    {
+        _infoGroup.DOFade(0, 0.3f);
+    }
+
     private void HandleBuy()
     {
         if(MapManager.instance.money.Value < data.price)
         {
-            Debug.Log("´Ô µ·¾øÀ¸¼À ¤»¤»");
+            Debug.Log("´Ô µ·¾øÀ½");
             return;
         }
 
@@ -40,13 +58,11 @@ public class Item : MonoBehaviour
 
         switch (data.ItemType)
         {
-            case ItemType.None:
-                break;
             case ItemType.Red_Injecter:
                 Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Blood);
                 break;
             case ItemType.Blue_Injecter:
-                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Blood);
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Cool);
                 break;
             case ItemType.Yellow_Injecter:
                 Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Strong);

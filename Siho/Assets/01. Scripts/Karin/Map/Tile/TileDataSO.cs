@@ -8,5 +8,8 @@ public class TileDataSO : ScriptableObject
     public virtual void ThrowEvent()
     {
     }
-    public virtual void EnterEvent() { }
+    public virtual void EnterEvent() 
+    {
+        
+    }
 }

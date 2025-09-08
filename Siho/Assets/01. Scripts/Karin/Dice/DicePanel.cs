@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class DicePanel : MonoBehaviour
 {
-
+    [SerializeField] private AnimationButton _button;
     [SerializeField] private List<Sprite> _diceFaces;
     [SerializeField] private Image[] _faces;
 
@@ -50,6 +50,7 @@ public class DicePanel : MonoBehaviour
             _result += dice + 1;
         }
         _resultText.text = _result.ToString();
+        _button.enabled = false;
     }
 
     public void RollEnd()
@@ -62,3 +63,4 @@ public class DicePanel : MonoBehaviour
         OnDiceRollEndEvent?.Invoke(_result);
     }
 }
+

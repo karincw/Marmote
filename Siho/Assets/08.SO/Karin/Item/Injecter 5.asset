@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Injecter 5
   m_EditorClassIdentifier: 
   itemName: Blue Injecter
+  itemDescription: "<color=#356DE5>\uD30C\uB780\uC0C9 \uC8FC\uC0AC\uAE30</color>\n\uC0AC\uC6A9\uD558\uBA74
+    \uCC28\uBD84\uD574\uC9C0\uB294 \uC57D\uBB3C\uC774 \uB4E4\uC5B4\uC788\uB2E4.\n\uCC28\uBD84\uD568
+    + 1"
   ItemType: 2
   image: {fileID: 3321156863757789803, guid: aa77b0b4ca8a5c84b8ef45d2cd9fb066, type: 3}
   price: 12

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Injecter 3
   m_EditorClassIdentifier: 
   itemName: Purple Injecter
+  itemDescription: "<color=#9504BD>\uBCF4\uB77C\uC0C9 \uC8FC\uC0AC\uAE30</color>\n\uC0AC\uC6A9\uD558\uBA74
+    \uBB34\uC11C\uC6CC\uC9C0\uB294 \uC57D\uBB3C\uC774 \uB4E4\uC5B4\uC788\uB2E4.\n\uD5D8\uC545\uD568
+    + 1"
   ItemType: 4
   image: {fileID: 5123379799470895094, guid: aa77b0b4ca8a5c84b8ef45d2cd9fb066, type: 3}
   price: 12

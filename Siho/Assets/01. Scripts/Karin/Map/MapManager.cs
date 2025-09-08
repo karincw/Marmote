@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour
     [Header("MapData")]
     [SerializeField] private int _currentMapIndex = 0;
 
+    [SerializeField] private AnimationButton _button;
     public Money money;
 
     private int _tileCount;
@@ -55,6 +56,7 @@ public class MapManager : MonoBehaviour
 
     public void HandleMoveEnd(int index)
     {
+        _button.enabled = true;
         index %= 40;
         _tiles[index].OnEnterEvent?.Invoke();
     }
