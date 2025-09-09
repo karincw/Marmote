@@ -11,7 +11,7 @@ public class StageChangePanel : MonoBehaviour
 
     private List<Stage> _contents = new();
 
-    private readonly int _moveInterval = 445;
+    private int _moveInterval;
     private int _currentIdx;
 
     private CanvasGroup _canvasGroup;
@@ -26,6 +26,11 @@ public class StageChangePanel : MonoBehaviour
         _left.onClick.AddListener(MoveLeft);
         _right.onClick.AddListener(MoveRight);
         Utils.FadeGroup(_canvasGroup, 0, false);
+
+        _moveInterval = Screen.width;
+
+        RectTransform crtr = (_contentsTrm as RectTransform);
+        crtr.sizeDelta = new Vector2(Screen.width * 3, crtr.sizeDelta.y);
     }
 
     private void Start()
@@ -50,6 +55,7 @@ public class StageChangePanel : MonoBehaviour
     private void MoveLeft()
     {
         if (_currentIdx == 0) return;
+        _contentsTrm.DOComplete();
         _contentsTrm.DOAnchorPos(_contentsTrm.anchoredPosition + new Vector2(_moveInterval, 0), 0.5f);
         _contents[_currentIdx].transform.DOScale(0.5f, 0.5f);
         _currentIdx--;
@@ -58,6 +64,7 @@ public class StageChangePanel : MonoBehaviour
     private void MoveRight()
     {
         if (_currentIdx == _contents.Count - 1) return;
+        _contentsTrm.DOComplete();
         _contentsTrm.DOAnchorPos(_contentsTrm.anchoredPosition - new Vector2(_moveInterval, 0), 0.5f);
         _contents[_currentIdx].transform.DOScale(0.5f, 0.5f);
         _currentIdx++;

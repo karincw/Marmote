@@ -16,7 +16,7 @@ MonoBehaviour:
   synergyType: 6
   maxLevel: 3
   explain: "\uC0C1\uB300\uBC29\uC758 \uD68C\uD53C\uC728\uC774 (5/10/15)% \uAC10\uC18C\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: fac9642c3fc2916469b51c75fcb3e59f, type: 3}
+  icon: {fileID: 21300000, guid: ce02a649407a9f6489c77f0fe812e323, type: 3}
   showNum: 1
   synergies:
   - {fileID: 11400000, guid: 4a2a21d603542ab47adebd8b60ceed40, type: 2}

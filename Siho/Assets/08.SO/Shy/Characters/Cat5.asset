@@ -16,8 +16,8 @@ MonoBehaviour:
   visual: {fileID: 21300000, guid: b8205126f34904d4eb1a81eccb4d996b, type: 3}
   attackAnime: {fileID: 21300000, guid: a561044b02f2d2748b0994529714c490, type: 3}
   mainStat:
-    STR: 7
-    DEX: 7
-    HP: 7
-    INT: 7
-  synergies: []
+    STR: 8
+    DEX: 6
+    HP: 9
+    INT: 5
+  baseSynergies: []

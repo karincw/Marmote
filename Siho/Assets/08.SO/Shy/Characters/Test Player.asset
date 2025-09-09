@@ -16,12 +16,8 @@ MonoBehaviour:
   visual: {fileID: 21300000, guid: d687795f5b2f00d4bba43848625d9acd, type: 3}
   attackAnime: {fileID: 21300000, guid: 7ab373f3d0e91664497ad627da2d200d, type: 3}
   mainStat:
-    STR: 7
-    DEX: 7
-    HP: 7
-    INT: 7
-  baseSynergies:
-  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
-  - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
-  - {fileID: 11400000, guid: 797845c144e47f946a4f86597a03cd0b, type: 2}
-  - {fileID: 11400000, guid: 4ab6fdab9a8cff74fb8d5fe341b997a8, type: 2}
+    STR: 2
+    DEX: 2
+    HP: 3
+    INT: 2
+  baseSynergies: []
