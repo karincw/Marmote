@@ -7,7 +7,10 @@ namespace Shy.Event
     {
         [SerializeField] private string statName;
         public MainStatEnum statType;
+        public Sprite statIcon;
 
         public override string GetName() => statName;
+
+        public override Sprite GetIcon() => statIcon;
     }
 }

@@ -109,10 +109,7 @@ namespace Shy
 
             SequnceTool.Instance.Delay(() =>
             {
-                foreach (var _synergySO in _so.synergies)
-                {
-                    AddSynergy(_synergySO);
-                }
+                foreach (var _synergySO in _so.synergies) AddSynergy(_synergySO);
             }, 0.8f);
         }
 

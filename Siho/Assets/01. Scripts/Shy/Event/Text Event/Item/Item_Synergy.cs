@@ -9,5 +9,6 @@ namespace Shy.Event
         public bool badSynergy = false;
 
         public override string GetName() => item.synergyName;
+        public override Sprite GetIcon() => item.icon;
     }
 }

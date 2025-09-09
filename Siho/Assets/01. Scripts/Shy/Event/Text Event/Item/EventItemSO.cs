@@ -5,5 +5,6 @@ namespace Shy.Event
     public abstract class EventItemSO : ScriptableObject
     {
         public abstract string GetName();
+        public abstract Sprite GetIcon();
     }
 }

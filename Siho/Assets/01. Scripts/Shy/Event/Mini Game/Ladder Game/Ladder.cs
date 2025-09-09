@@ -6,7 +6,7 @@ namespace Shy.Event.LadderGame
     {
         [SerializeField] private bool isLinkLadder = true;
         private CrossNode[] linkNode;
-        private RewardNode result;
+        private RewardNode reward;
         private LadderButton button;
         public int yValue { get; private set; }
 
@@ -21,14 +21,14 @@ namespace Shy.Event.LadderGame
             linkNode = nodes.GetComponentsInChildren<CrossNode>();
 
             button = GetComponentInChildren<LadderButton>();
-            result = GetComponentInChildren<RewardNode>();
+            reward = GetComponentInChildren<RewardNode>();
 
             for (int i = linkNode.Length - 1; i > 0; i--)
             {
                 linkNode[i].Init(isLinkLadder, linkNode[i - 1]);
             }
-            linkNode[0].Init(isLinkLadder, result);
-            result.Init(false, null);
+            linkNode[0].Init(isLinkLadder, reward);
+            reward.Init(false, null);
 
             button.Init(() => _action?.Invoke(linkNode[yValue - 1]));
         }
@@ -37,7 +37,7 @@ namespace Shy.Event.LadderGame
         {
             foreach (var _node in linkNode) _node.InitEvent();
             button.useable = true;
-            result.InitEvent();
+            reward.InitEvent();
         }
 
         public void Link(int _y, Ladder _linkLadder)
@@ -46,6 +46,17 @@ namespace Shy.Event.LadderGame
 
             linkNode[_y].LinkNode(otherNode, true);
             otherNode.LinkNode(linkNode[_y], false);
+        }
+
+        public void RewardSet(EventItemSO _item, int _value)
+        {
+            reward.Init(_item, _value);
+            Debug.Log("Reward 받아야 겠지?" + gameObject.name);
+        }
+
+        public void RewardSet(Sprite _sprite)
+        {
+            reward.Init(_sprite);
         }
     }
 }

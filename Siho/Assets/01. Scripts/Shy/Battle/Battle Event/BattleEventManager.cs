@@ -39,7 +39,6 @@ namespace Shy
         public void HideAllUis()
         {
             uiGroups.gameObject.SetActive(false);
-            uiGroups.alpha = 0;
             dice.gameObject.SetActive(false);
             eventMessage.gameObject.SetActive(false);
             CloseTooltip();
@@ -83,14 +82,15 @@ namespace Shy
         public void CloseTooltip(Synergy _synergy)
         {
             if (eventMode == BattleEventMode.Tooltip)
-            {
                 if (currentSynergy != _synergy) return;
-            }
 
             CloseTooltip();
 
             if(eventMode == BattleEventMode.Event)
-                foreach (var _bt in eventUiButtons) _bt.gameObject.SetActive(true);
+            {
+                uiGroups.alpha = 1;
+                uiGroups.gameObject.SetActive(true);
+            }
         }
         #endregion
 

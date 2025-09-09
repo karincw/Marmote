@@ -217,6 +217,13 @@ namespace Shy
             {
                 public int value, weight;
             }
+
+            [Show]
+            public struct LadderBestReward
+            {
+                public EventItemSO item;
+                public int value, weight;
+            }
         }
     }
 

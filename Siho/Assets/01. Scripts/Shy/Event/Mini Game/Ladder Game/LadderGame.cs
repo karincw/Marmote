@@ -13,8 +13,10 @@ namespace Shy.Event.LadderGame
         [SerializeField][Range(0, 10)] private int linkCount = 5;
 
         [Header("Rewards")]
+        [SerializeField] private Sprite failIcon;
+        [SerializeField] private Item_Money moneySO;
         [SerializeField] private List<LadderReward> normalReward;
-        [SerializeField] private List<EventItemSO> bestRewards;
+        [SerializeField] private List<LadderBestReward> bestRewards;
 
         protected override void Start()
         {
@@ -31,8 +33,9 @@ namespace Shy.Event.LadderGame
 
             foreach (var item in ladders) item.InitEvent();
 
-            SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, 
-                () => LadderValueSet(linkCount, 0, linkCount - 2));
+            SetReward();
+
+            SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, () => LadderValueSet(linkCount, 0, linkCount - 2));
         }
 
         private void Play(LadderNode _startNode)
@@ -45,6 +48,63 @@ namespace Shy.Event.LadderGame
         }
 
         #region Ladder Setting
+        private void SetReward()
+        {
+            List<int> _arr = new() { 0, 1, 2, 3, 4 };
+
+            int randTotal = 0;
+
+            foreach (var _item in normalReward) randTotal += _item.weight;
+
+            int rand1 = Random.Range(0, randTotal), rand2 = Random.Range(0, randTotal);
+
+            for (int i = 0; i < normalReward.Count; i++)
+            {
+                if (rand1 >= 0) rand1 -= normalReward[i].weight;
+                if (rand2 >= 0) rand2 -= normalReward[i].weight;
+
+                if (rand1 < 0 && rand1 != int.MinValue)
+                {
+                    int _rand = Random.Range(0, _arr.Count);
+                    ladders[_arr[_rand]].RewardSet(moneySO, normalReward[i].value);
+                    _arr.RemoveAt(_rand);
+                    rand1 = int.MinValue;
+                }
+
+                if (rand2 < 0 && rand2 != int.MinValue)
+                {
+                    int _rand = Random.Range(0, _arr.Count);
+                    ladders[_arr[_rand]].RewardSet(moneySO, normalReward[i].value);
+                    _arr.RemoveAt(_rand);
+                    rand2 = int.MinValue;
+                }
+
+                if (rand2 < 0 && rand1 < 0) break;
+            }
+
+            randTotal = 0;
+            foreach (var _item in bestRewards) randTotal += _item.weight;
+            rand1 = Random.Range(0, randTotal);
+
+            for (int i = 0; i < bestRewards.Count; i++)
+            {
+                rand1 -= bestRewards[i].weight;
+
+                if(rand1 < 0)
+                {
+                    int _rand = Random.Range(0, _arr.Count);
+                    ladders[_arr[_rand]].RewardSet(bestRewards[i].item, bestRewards[i].value);
+                    _arr.RemoveAt(_rand);
+                    break;
+                }
+            }
+
+            foreach (var item in _arr)
+            {
+                ladders[item].RewardSet(failIcon);
+            }
+        }
+
         private void LadderValueSet(int _total, int _y, int _n)
         {
             if (_total == 0) return;

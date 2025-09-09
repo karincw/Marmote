@@ -13137,6 +13137,8 @@ MonoBehaviour:
   - {fileID: 1191016732}
   - {fileID: 331687643}
   linkCount: 7
+  failIcon: {fileID: 21300000, guid: ab58d758e2f104a44b1aaf8b466ce2c6, type: 3}
+  moneySO: {fileID: 11400000, guid: a22f4c393683c21469d9d542d8093d11, type: 2}
   normalReward:
   - value: 10
     weight: 50
@@ -13145,10 +13147,21 @@ MonoBehaviour:
   - value: 20
     weight: 5
   bestRewards:
-  - {fileID: 11400000, guid: 3c6cd8cf79335b042b74efe237072fc5, type: 2}
-  - {fileID: 11400000, guid: 43467db36d7d25043a69a9816ee05d9e, type: 2}
-  - {fileID: 11400000, guid: 2a7cdbbbe6e4ec24c8551325e6987e8b, type: 2}
-  - {fileID: 11400000, guid: 0c851d341e48a034d818f4a1166deac5, type: 2}
+  - item: {fileID: 11400000, guid: 2a7cdbbbe6e4ec24c8551325e6987e8b, type: 2}
+    value: 1
+    weight: 1
+  - item: {fileID: 11400000, guid: 0c851d341e48a034d818f4a1166deac5, type: 2}
+    value: 0
+    weight: 0
+  - item: {fileID: 11400000, guid: 43467db36d7d25043a69a9816ee05d9e, type: 2}
+    value: 0
+    weight: 0
+  - item: {fileID: 11400000, guid: 3c6cd8cf79335b042b74efe237072fc5, type: 2}
+    value: 0
+    weight: 0
+  - item: {fileID: 11400000, guid: cd09769814bb7164fa046c51247fe799, type: 2}
+    value: 0
+    weight: 0
 --- !u!114 &1921954481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14804,10 +14817,6 @@ PrefabInstance:
     - target: {fileID: 1672012859272999870, guid: 0888ff1b90ef2bf4bbc6c99b69b2c051, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5121241411348870849, guid: 0888ff1b90ef2bf4bbc6c99b69b2c051, type: 3}
-      propertyPath: m_text
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5455836191527229012, guid: 0888ff1b90ef2bf4bbc6c99b69b2c051, type: 3}
       propertyPath: m_AnchorMax.y
