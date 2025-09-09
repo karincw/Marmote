@@ -77,7 +77,8 @@ namespace Shy
             Dice,
             Synergy,
             DmgText,
-            Alert
+            Alert,
+            DmgParticle
         }
     }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shy.Event
+namespace Shy.Event.BlackJack
 {
     public class BlackJackButton : Button
     {

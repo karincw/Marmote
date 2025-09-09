@@ -8,94 +8,100 @@ namespace Shy.Event
 {
     public class TextEventManager : MonoBehaviour
     {
-        public static TextEventManager Instance;
-
         [Header("Text Event Variables")]
         [SerializeField] private CanvasGroup eventPanel;
-        [SerializeField] private TextMeshProUGUI textEventTmp;
-        [SerializeField] private EventSelector[] selectors;
+        [SerializeField] private TextMeshProUGUI textEventTmp, resultTmp;
+        [SerializeField] private Color goodColor, badColor;
+        [SerializeField] private EventButton[] buttons;
         [SerializeField] private Transform alertPos;
-
-        private void Awake()
-        {
-            if (Instance == null) Instance = this;
-            else Destroy(gameObject);
-        }
 
         private void Start()
         {
             eventPanel.gameObject.SetActive(false);
+
+            foreach (var item in buttons) item.Init(OnEvent, AlertEvent);
         }
 
-        #region Text Event
-        public void InitEvent(EventSO _eventSO)
+        public void Init(EventSO _eventSO)
         {
-            SelectorsVisible(false);
-
             textEventTmp.text = "";
             eventPanel.gameObject.SetActive(true);
             eventPanel.alpha = 0;
+            resultTmp.SetText("");
 
-            for (int i = 0; i < selectors.Length; i++)
+            for (int i = 0; i < buttons.Length; i++)
             {
                 if(_eventSO.events.Length <= i)
-                    selectors[i].Init(new EventData(), false);
+                    buttons[i].IniteEvent(new EventData(), false);
                 else
-                    selectors[i].Init(_eventSO.events[i], EventAbleChecker.AbleCheck(_eventSO.events[i].condition));
+                    buttons[i].IniteEvent(_eventSO.events[i], EventAbleChecker.AbleCheck(_eventSO.events[i].condition));
             }
 
             SequnceTool.Instance.FadeInCanvasGroup(eventPanel, 0.5f, () =>
             {
-                StartCoroutine(SetMessageDelay(_eventSO.explain, () => SelectorsVisible(true)));
+                StartCoroutine(SetMessageDelay(_eventSO.explain, () =>
+                {
+                    foreach (var item in buttons)
+                        item.CheckAble();
+                }, textEventTmp));
             });
         }
 
-        internal void TextEventAlert(string _mes)
+        internal void AlertEvent(string _mes)
         {
             var _alert = PoolingManager.Instance.Pop(PoolType.Alert) as Alert;
             _alert.transform.SetParent(alertPos);
             _alert.ShowMessage(_mes);
         }
 
-        private void SelectorsVisible(bool show)
-        {
-            foreach (var _selector in selectors)
-                _selector.gameObject.SetActive(show ? _selector.isUse : false);
-        }
-
         public void OnEvent(EventData _eventData)
         {
-            var result = _eventData.GetResult().resultSO;
+            foreach (var item in buttons) item.OffButton();
 
-            if (result is Result_Item _item)
+            var _result = _eventData.GetResult().resultSO;
+            string _message = _result.message, _resultMes = "";
+
+            if (_result is Result_Item _item)
             {
                 if (_item.item is Item_Stat _stat)
+                {
+                    bool _minus = _item.calc == Calculate.Minus;
+                    resultTmp.color = _minus ? badColor : goodColor;
+
+                    _resultMes = $"{_stat.GetName()} {_item.value} {(_minus ? "감소" : "증가")}";
+
                     PlayerManager.Instance.ChangeStat(_stat.statType, _item.value, _item.calc);
+                }
                 else if (_item.item is Item_Synergy _synergy)
+                {
+                    resultTmp.color = _synergy.badSynergy ? badColor : goodColor;
+
+                    _resultMes = $"{_synergy.GetName()} {_item.value} 추가";
+
                     PlayerManager.Instance.AddSynergy(_synergy.item.synergyType, _item.value);
+                }
                 else if (_item.item is Item_Money _money)
                 {
                     //Money 추가
                 }
             }
 
-            string _message = result.message;
-
-            SelectorsVisible(false);
-            StartCoroutine(SetMessageDelay(_message, () => StartCoroutine(EndEvent())));
+            StartCoroutine(SetMessageDelay(_message, () => 
+            StartCoroutine(SetMessageDelay(_resultMes, () => 
+            StartCoroutine(EndEvent()), resultTmp)), textEventTmp));
         }
 
-        private IEnumerator SetMessageDelay(string _mes, UnityAction _endAction)
+        private IEnumerator SetMessageDelay(string _mes, UnityAction _endAction, TextMeshProUGUI _tmp)
         {
             string _message = "";
-            textEventTmp.text = _message;
+            _tmp.text = _message;
 
             yield return new WaitForSeconds(0.5f);
 
             for (int i = 0; i < _mes.Length; i++)
             {
                 _message += _mes[i];
-                textEventTmp.text = _message;
+                _tmp.text = _message;
                 yield return new WaitForSeconds(0.05f);
             }
 
@@ -107,6 +113,5 @@ namespace Shy.Event
             yield return new WaitForSeconds(2.5f);
             eventPanel.gameObject.SetActive(false);
         }
-        #endregion
     }
 }

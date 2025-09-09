@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Shy.Event
+namespace Shy.Event.BlackJack
 {
     [System.Serializable]
     public class BlackJackCard
@@ -43,7 +43,7 @@ namespace Shy.Event
 
         private void TextUpdate()
         {
-            SequnceTool.Instance.DOCountDown(totalTmp, value, 0.15f, textEvent);
+            SequnceTool.Instance.DOCountUp(totalTmp, value, 0.15f, textEvent);
         }
 
         public bool OverValueCheck() => value >= conditionValue - 1;

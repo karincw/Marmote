@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 using Debug = UnityEngine.Debug;
 
 namespace Shy.Pooling
@@ -36,6 +37,18 @@ namespace Shy.Pooling
 
             UpdateValue();
             UseSynergy();
+        }
+
+        public void Show()
+        {
+            icon.color = new(1, 1, 1, 0);
+            gameObject.SetActive(true);
+            numTmp.gameObject.SetActive(false);
+
+            Sequence seq = DOTween.Sequence();
+
+            seq.Append(icon.DOFade(1, 0.2f));
+            seq.InsertCallback(0.1f, () => numTmp.gameObject.SetActive(true));
         }
 
         public void Add(int i = 1)

@@ -62,7 +62,7 @@ namespace Shy
 
             SequnceTool.Instance.FadeInCanvasGroup(battlePanel, 0.5f, () =>
             {
-                SequnceTool.Instance.Delay(eventManager.BeginEvent, 0.5f);
+                SequnceTool.Instance.Delay(eventManager.BeginEvent, 1.3f);
             });
         }
 
