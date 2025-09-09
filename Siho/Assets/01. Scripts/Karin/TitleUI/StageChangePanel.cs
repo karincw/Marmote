@@ -30,7 +30,13 @@ public class StageChangePanel : MonoBehaviour
 
     private void Start()
     {
-        DataLinkManager.instance.stage = _contents[0];
+        Debug.Log("Start");
+        DataLinkManager.instance.stage = _contents[0].stageData;
+
+        for (int i = 0; i < _contents.Count; i++)
+        {
+            _contents[i].canSelect = DataLinkManager.instance.stageData.stageEnable[i];
+        }
     }
 
     public void SetIndex(int idx)
@@ -61,7 +67,7 @@ public class StageChangePanel : MonoBehaviour
     public void Select()
     {
         _playScreen.SetStage(_contents[_currentIdx].stageData);
-        DataLinkManager.instance.stage = _contents[_currentIdx];
+        DataLinkManager.instance.stage = _contents[_currentIdx].stageData;
         _playScreen.OpenMain();
     }
 }

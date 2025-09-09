@@ -43,7 +43,7 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         _mapIndex = 0;
-        _mapDatas = DataLinkManager.instance.stage.stageData.mapDatas;
+        _mapDatas = DataLinkManager.instance.stage.mapDatas;
         MakeMap();
         SetTileNumbers(0);
     }
