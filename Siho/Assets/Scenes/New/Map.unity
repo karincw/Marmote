@@ -6279,7 +6279,7 @@ GameObject:
   - component: {fileID: 568363447}
   - component: {fileID: 568363446}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: RerollButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24716,7 +24716,7 @@ MonoBehaviour:
   _faces:
   - {fileID: 1664319248268562775}
   - {fileID: 339328668267851600}
-  _debug: 40
+  _debug: -1
 --- !u!4 &6773019844773073057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2439017912855148407, guid: 956ae91cd49471c47a87c8f222338ab5, type: 3}
