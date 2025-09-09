@@ -13,13 +13,13 @@ namespace Shy
 
         [Header("Dice")]
         [SerializeField] private EventDice dice;
-
-
+        
         [Header("Event")]
         [SerializeField] private BattleEventButton[] eventUiButtons = new BattleEventButton[3];
-
+        [SerializeField] private CanvasGroup uiGroups;
         private UnityAction beginBattle, endBattle;
         private BattleEventButton currentEvent;
+        private int checkedEventValue;
 
         [Header("Text")]
         [SerializeField] private TextMeshProUGUI eventMessage;
@@ -38,7 +38,8 @@ namespace Shy
         #region Uis
         public void HideAllUis()
         {
-            foreach (var _ui in eventUiButtons) _ui.gameObject.SetActive(false);
+            uiGroups.gameObject.SetActive(false);
+            uiGroups.alpha = 0;
             dice.gameObject.SetActive(false);
             eventMessage.gameObject.SetActive(false);
             CloseTooltip();
@@ -103,7 +104,7 @@ namespace Shy
 
             foreach (var _event in eventUiButtons)
             {
-                _event.clickEvent = CurrentEvent;
+                _event.Init(CurrentEvent);
             }
         }
 
@@ -111,9 +112,23 @@ namespace Shy
         {
             eventMode = BattleEventMode.Event;
 
-            foreach (var _bt in eventUiButtons)
+            checkedEventValue = 0;
+            uiGroups.gameObject.SetActive(true);
+
+            SequnceTool.Instance.FadeInCanvasGroup(uiGroups, 0.15f, () =>
             {
-                _bt.SetPercent(BattleManager.Instance.GetCharacters());
+                foreach (var _bt in eventUiButtons)
+                {
+                    _bt.SetPercent(BattleManager.Instance.GetCharacters());
+                }
+            });
+        }
+
+        public void CheckEvent()
+        {
+            if(++checkedEventValue == eventUiButtons.Length)
+            {
+                foreach (var item in eventUiButtons) item.clickAble = true;
             }
         }
 
@@ -131,7 +146,7 @@ namespace Shy
         {
             var so = SOManager.Instance.GetSO(currentEvent.eventType);
 
-            if(currentEvent.per < _n)
+            if (currentEvent.per < _n)
             {
                 ShowTextEvent(so.failMes);
                 SequnceTool.Instance.Delay(beginBattle, 1.5f);

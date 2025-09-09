@@ -5,6 +5,7 @@ using Shy.Pooling;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.Events;
+using ParticleSystem = Shy.Pooling.ParticleSystem;
 
 namespace Shy
 {
@@ -23,7 +24,7 @@ namespace Shy
         private Image visual, hitVisual;
         private Sprite idle, attack;
 
-        [SerializeField] private Transform synergyParent;
+        [SerializeField] private Transform synergyParent, particleParent;
         private Dictionary<SynergyType, Synergy> synergies;
 
         public event UnityAction<Attack> OnAttack, OnHit;
@@ -52,9 +53,15 @@ namespace Shy
 
                 healthCompo.HealthUpdate(totalSubStat.hp, totalSubStat.maxHp, true);
             };
+
             OnHit = (Attack _result) =>
             {
                 totalSubStat.hp -= _result.dmg;
+
+                var _item = PoolingManager.Instance.Pop(PoolType.DmgParticle) as ParticleSystem;
+                _item.transform.SetParent(particleParent);
+                _item.Init();
+                _item.Play();
 
                 Sequence seq = DOTween.Sequence();
                 seq.Append(hitVisual.DOFade(0.8f, 0.2f));
@@ -100,7 +107,13 @@ namespace Shy
 
             synergies = new();
 
-            foreach (var _synergySO in _so.synergies) AddSynergy(_synergySO);
+            SequnceTool.Instance.Delay(() =>
+            {
+                foreach (var _synergySO in _so.synergies)
+                {
+                    AddSynergy(_synergySO);
+                }
+            }, 0.8f);
         }
 
         #region Synergy
@@ -123,7 +136,7 @@ namespace Shy
             _synergy.Init(_data, team);
 
             synergies.Add(_data.Key, _synergy);
-            _synergy.gameObject.SetActive(true);
+            _synergy.Show();
         }
         #endregion
 

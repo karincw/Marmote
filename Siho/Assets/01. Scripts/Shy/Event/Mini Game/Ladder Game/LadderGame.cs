@@ -5,7 +5,6 @@ namespace Shy.Event.LadderGame
 {
     public class LadderGame : MiniGame
     {
-        [SerializeField] private GameObject screen;
         [SerializeField] private List<Ladder> ladders;
 
         private Vector2Int arrSize;
@@ -20,53 +19,32 @@ namespace Shy.Event.LadderGame
         protected override void Start()
         {
             base.Start();
-            for (int i = 0; i < ladders.Count; i++)
-            {
-                ladders[i].Init(Play);
-            }
+            foreach (var item in ladders) item.Init(Play);
         }
 
         public override void Init()
         {
             base.Init();
 
-            screen.SetActive(true);
-
             arrSize = new(ladders.Count, ladders[0].yValue);
             arr = new int[arrSize.y];
 
             foreach (var item in ladders) item.InitEvent();
 
-            SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, LadderSet);
+            SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, 
+                () => LadderValueSet(linkCount, 0, linkCount - 2));
         }
 
         private void Play(LadderNode _startNode)
         {
             foreach (var item in ladders) item.ButtonOff();
+            LadderLinkShow();
 
-            screen.SetActive(false);
-
-            var currentNode = _startNode;
-
-            for (int i = 0; i < arrSize.y; i++)
-            {
-                currentNode = currentNode.GetNextNode();
-            }
-
-            // Reward ºÎºÐ
-            if(currentNode is RewardNode _rewardNode)
-            {
-
-            }
+            _startNode.AnimateDown(() => SequnceTool.Instance.FadeOutCanvasGroup(canvasGroup, 0.8f, 
+                () => canvasGroup.gameObject.SetActive(false)));
         }
 
         #region Ladder Setting
-        private void LadderSet()
-        {
-            LadderValueSet(linkCount, 0, linkCount - 2);
-            LadderLinkShow();
-        }
-
         private void LadderValueSet(int _total, int _y, int _n)
         {
             if (_total == 0) return;
@@ -86,25 +64,25 @@ namespace Shy.Event.LadderGame
             {
                 if (arr[i] == 1)
                 {
-                    int _rand = Random.Range(1, arrSize.x);
-                    ladders[_rand].Link(i, ladders[_rand - 1]);
+                    int _rand = Random.Range(0, arrSize.x - 1);
+                    ladders[_rand].Link(i, ladders[_rand + 1]);
                 }
                 else if (arr[i] == 2)
                 {
                     switch (Random.Range(0, 3))
                     {
                         case 0:
-                            ladders[1].Link(i, ladders[0]);
-                            ladders[3].Link(i, ladders[2]);
+                            ladders[0].Link(i, ladders[1]);
+                            ladders[2].Link(i, ladders[3]);
                             break;
                         case 1:
-                            ladders[1].Link(i, ladders[0]);
-                            ladders[4].Link(i, ladders[3]);
+                            ladders[0].Link(i, ladders[1]);
+                            ladders[3].Link(i, ladders[4]);
                             break;
 
                         case 2:
-                            ladders[2].Link(i, ladders[1]);
-                            ladders[4].Link(i, ladders[3]);
+                            ladders[1].Link(i, ladders[2]);
+                            ladders[3].Link(i, ladders[4]);
                             break;
                     }
                 }

@@ -113,6 +113,25 @@ namespace Shy
         }
     }
 
+    public struct CountDownText
+    {
+        public TMPro.TextMeshProUGUI tmp;
+        public string frontMessage, backMessage;
+
+        public CountDownText(TMPro.TextMeshProUGUI _tmp)
+        {
+            tmp = _tmp;
+            frontMessage = backMessage = "";
+        }
+
+        public CountDownText(TMPro.TextMeshProUGUI _tmp, string _fM, string _bM)
+        {
+            tmp = _tmp;
+            frontMessage = _fM;
+            backMessage = _bM;
+        }
+    }
+
     #region Synergy & Characteristic
     public struct Characteristic
     {
@@ -209,6 +228,12 @@ namespace Shy
             public PoolType poolType;
             public int count;
             public Pool prefab;
+        }
+
+        [Show]
+        public struct ParticleClamp
+        {
+            public Transform xMin, xMax, yMin;
         }
     }
 }

@@ -32,7 +32,9 @@ namespace Shy.Event.BlackJack
             exitBt.onClickEvent = Exit;
             stayBt.onClickEvent = Stay;
 
-            initAction = () => SequnceTool.Instance.Delay(() => ButtonState(false), 0.3f);
+            initAction = () => RewardUpdate(gameOff ? 3 : -1);
+            initAction += () => gameOff = false;
+            initAction += () => SequnceTool.Instance.Delay(() => ButtonState(false), 0.5f);
 
             playerCard.SetEvent(() => SequnceTool.Instance.Delay(() =>
             {
@@ -63,9 +65,13 @@ namespace Shy.Event.BlackJack
             playerCard.Init();
             enemyCard.Init();
 
-            tmp.gameObject.SetActive(false);
+            if (gameOff)
+            {
+                rewardValue = 0;
+                rewardTmp.SetText("0");
+            }
 
-            RewardUpdate(gameOff ? 3 : -1);
+            tmp.gameObject.SetActive(false);
 
             ButtonState(true);
             StayBtAble(false);
@@ -75,8 +81,6 @@ namespace Shy.Event.BlackJack
                 SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, initAction);
             else
                 initAction.Invoke();
-
-            gameOff = false;
         }
 
         #region Button Actions
@@ -175,6 +179,12 @@ namespace Shy.Event.BlackJack
             tmp.SetText(_message);
             tmp.gameObject.SetActive(true);
 
+            if (_winner == Team.Enemy)
+            {
+                rewardValue = 0;
+                rewardTmp.SetText("0");
+            }
+
             StayBtAble(true);
             ExitBtAble(true);
 
@@ -185,15 +195,11 @@ namespace Shy.Event.BlackJack
         private void RewardUpdate(int _setValue = -1)
         {
             if (_setValue == -1)
-            {
                 rewardValue *= 2;
-            }
             else
-            {
                 rewardValue = _setValue;
-            }
 
-            rewardTmp.SetText(rewardValue.ToString());
+            SequnceTool.Instance.DOCountUp(rewardTmp, rewardValue, 0.15f, new());
         }
 
         private void GetReward()

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using IEnumerator = System.Collections.IEnumerator;
 
 namespace Shy
@@ -48,21 +49,36 @@ namespace Shy
             _endAction?.Invoke();
         }
 
-        public void DOCountDown(TextMeshProUGUI _tmp, int _value, float _useTime, TextEvent _event) => StartCoroutine(CountDown(_tmp, _value, _useTime, _event));
+        public void DOCountUp(TextMeshProUGUI _tmp, int _v, float _t, TextEvent _e) => StartCoroutine(CountUp(new(_tmp), int.Parse(_tmp.text), _v, _t, _e));
+        public void DOCountUp(CountDownText _cdt, int _bv , int _v, float _t, TextEvent _e) => StartCoroutine(CountUp(_cdt, _bv, _v, _t, _e));
 
-        private IEnumerator CountDown(TextMeshProUGUI _tmp, int _value, float _useTime, TextEvent _event)
+        private IEnumerator CountUp(CountDownText _cdt, int _beforeValue, int _value, float _useTime, TextEvent _event)
         {
-            int _alreadyValue = int.Parse(_tmp.text);
-            int _gap = Mathf.Abs(_value - _alreadyValue);
+            int _gap = Mathf.Abs(_value - _beforeValue);
             
             for (int i = 0; i < _gap; i++)
             {
                 yield return new WaitForSeconds(_useTime);
-                _event.EqualCheck(++_alreadyValue);
-                _tmp.SetText(_alreadyValue.ToString());
+                _event.EqualCheck(++_beforeValue);
+                _cdt.tmp.SetText(_cdt.frontMessage + _beforeValue + _cdt.backMessage);
             }
 
             _event.endEvent?.Invoke();
+        }
+
+        public void DOFillAmount(Image _img, float _v, float _t, UnityAction _e) => StartCoroutine(FillAmount(_img, _v, _t, _e));
+
+        private IEnumerator FillAmount(Image _img, float _value, float _useTime, UnityAction _endAction)
+        {
+            float _delay = _useTime * 0.01f, _addValue = (_value - _img.fillAmount) * 0.01f;
+
+            for (int i = 0; i < 100; i++)
+            {
+                yield return new WaitForSeconds(_delay);
+                _img.fillAmount += _addValue;
+            }
+
+            _endAction?.Invoke();
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Shy.Event.LadderGame
         public void InitEvent()
         {
             foreach (var _node in linkNode) _node.InitEvent();
+            button.useable = true;
             result.InitEvent();
         }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Shy.Event.LadderGame
@@ -10,20 +11,22 @@ namespace Shy.Event.LadderGame
 
         internal virtual void Init(bool _isLinkeNode, LadderNode _downNode)
         {
-            line = transform.Find("Line").GetComponent<Image>();
+            line = transform.Find("Line").Find("Paint").GetComponent<Image>();
+
             downNode = _downNode;
         }
 
         public virtual void InitEvent()
         {
             linkedNode = null;
-            line.color = Color.white;
+            line.fillAmount = 0;
         }
 
-        internal virtual LadderNode GetNextNode()
+        public virtual void AnimateDown(UnityAction _action)
         {
-            line.color = Color.yellow;
-            return linkedNode ? linkedNode.downNode : downNode;
+            SequnceTool.Instance.DOFillAmount(line, 1, 0.8f, _action);
         }
+
+        public virtual void AnimateLeft(UnityAction _action) { }
     }
 }

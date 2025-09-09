@@ -6,6 +6,7 @@ namespace Shy.Event
     public class Item_Synergy : EventItemSO
     {
         public SynergySO item;
+        public bool badSynergy = false;
 
         public override string GetName() => item.synergyName;
     }

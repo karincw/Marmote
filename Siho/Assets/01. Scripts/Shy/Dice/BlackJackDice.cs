@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Shy.Event
+namespace Shy.Event.BlackJack
 {
     public class BlackJackDice : MonoBehaviour
     {
