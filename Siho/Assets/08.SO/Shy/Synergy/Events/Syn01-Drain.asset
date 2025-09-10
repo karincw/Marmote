@@ -17,9 +17,11 @@ MonoBehaviour:
   calculate: 0
   effectByLevel:
   - level: 1
-    value: 10
+    value: 7
   - level: 2
-    value: 15
+    value: 14
   - level: 3
-    value: 20
+    value: 21
+  - level: 4
+    value: 30
   valueSign: n%

@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c83d98405cc5647a7eb579e673d8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: b53843d10250a954e83a45f04ecb9b86, type: 3}
+  sprite: {fileID: 0}
   prefab: {fileID: 5708336388568459189, guid: a2e02bf1134a3534294f2c8d955658f8, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  spawnValue: 11
+  color: {r: 0.9056604, g: 0.24207887, b: 0.24207887, a: 1}
+  spawnValue: 7
   removeDelay: 0.2
   spawnDelay: {x: 0, y: 0.1}
   clamp:
@@ -199,6 +199,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1}
+  m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}

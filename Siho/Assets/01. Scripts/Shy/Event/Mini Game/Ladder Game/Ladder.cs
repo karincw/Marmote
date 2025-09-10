@@ -48,11 +48,7 @@ namespace Shy.Event.LadderGame
             otherNode.LinkNode(linkNode[_y], false);
         }
 
-        public void RewardSet(EventItemSO _item, int _value)
-        {
-            reward.Init(_item, _value);
-            Debug.Log("Reward 받아야 겠지?" + gameObject.name);
-        }
+        public void RewardSet(LadderReward _reward) => reward.Init(_reward);
 
         public void RewardSet(Sprite _sprite)
         {

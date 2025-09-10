@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df43d591b04423d4a842f1c4533a94c3, type: 3}
   m_Name: Syn02-st
   m_EditorClassIdentifier: 
-  synergyName: "\uADFC\uC721\uC9C8"
+  synergyName: "\uAC15\uC778\uD568"
   synergyType: 1
-  maxLevel: 0
-  explain: "\uBC1B\uB294 \uD53C\uD574\uAC00 (7/15)% \uAC10\uC18C\uD558\uACE0 \uC785\uD788\uB294
-    \uD53C\uD574\uAC00 (7/15)% \uC99D\uAC00\uD558\uB294 \uB300\uC2E0, \uCD08\uB2F9
-    \uACF5\uACA9\uD69F\uC218\uAC00  (0.15/0.05)\uD68C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  maxLevel: 4
+  explain: "\uCCB4\uB825\uC774 (3/5/8/12) \uC99D\uAC00\uD558\uACE0, \uBC29\uC5B4\uB825\uC774
+    (1.5/2/2.5/3) \uC99D\uAC00\uD569\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: fe0725aa010fb524281172f04d196132, type: 3}
   showNum: 1
-  synergies: []
+  synergies:
+  - {fileID: 11400000, guid: 2c09ff8bc4e3c6843a6d1171877c1329, type: 2}
+  - {fileID: 11400000, guid: 56d3be48ca633ad4fbb4659d533921f1, type: 2}

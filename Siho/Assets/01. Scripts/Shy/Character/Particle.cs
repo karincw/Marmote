@@ -35,7 +35,7 @@ namespace Shy.Pooling
         public void Play()
         {
             gameObject.SetActive(true);
-            rigid.AddForce(new(Random.Range(-1.5f, 1.5f), Random.Range(0.5f, 1.5f)), ForceMode2D.Impulse);
+            rigid.AddForce(new(Random.Range(-1.5f, 1.5f), Random.Range(0.5f, 2f)), ForceMode2D.Impulse);
         }
 
         private void VelocityReset()

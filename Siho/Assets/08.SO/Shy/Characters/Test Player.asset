@@ -23,5 +23,6 @@ MonoBehaviour:
   baseSynergies:
   - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
   - {fileID: 11400000, guid: 49d3fd196f3168643957f048212e2a62, type: 2}
+  - {fileID: 11400000, guid: 6b722d1a13708aa408dcd9316d4c5c27, type: 2}
   - {fileID: 11400000, guid: 797845c144e47f946a4f86597a03cd0b, type: 2}
-  - {fileID: 11400000, guid: 4ab6fdab9a8cff74fb8d5fe341b997a8, type: 2}
+  - {fileID: 11400000, guid: 0f08a5b17c6113446ac78a88d03186ef, type: 2}

@@ -51,6 +51,7 @@ namespace Shy
         Spine,
         Cool,
         Steel,
+        Stomachache,
         Panic
     }
 

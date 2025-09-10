@@ -169,8 +169,15 @@ namespace Shy
         #region Character Action
         public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
         
-        public void Regeneration() => HealEvent(totalSubStat.regen);
-        public void SubscribeCounter() => OnHit += (Attack _attack) => { if (Random.Range(0, 100f) <= totalSubStat.counter) BattleManager.Instance.AttackTimeReset(team); }; 
+        public void Regeneration() => HealEvent(totalSubStat.maxHp * (1 - totalSubStat.regen * 0.01f));
+        public void SubscribeCounter() => OnHit += (Attack _attack) => 
+        {
+            if (Random.Range(0, 100f) < totalSubStat.counter)
+            {
+                Debug.Log("counter " + gameObject.name);
+                BattleManager.Instance.AttackTimeReset(team);
+            }
+        }; 
         public void AttackEvent(Attack _result)
         {
             if (_result.dmg > 0) OnAttack?.Invoke(_result);

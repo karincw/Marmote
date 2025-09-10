@@ -46,7 +46,7 @@ namespace Shy.Event.BlackJack
             SequnceTool.Instance.DOCountUp(totalTmp, value, 0.15f, textEvent);
         }
 
-        public bool OverValueCheck() => value >= conditionValue - 1;
+        public bool OverValueCheck() => value >= conditionValue;
         public bool OverCntCheck() => cnt >= 5;
     }
 }

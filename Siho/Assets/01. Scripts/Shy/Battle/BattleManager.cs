@@ -60,9 +60,9 @@ namespace Shy
 
             eventManager.HideAllUis();
 
-            SequnceTool.Instance.FadeInCanvasGroup(battlePanel, 0.5f, () =>
+            SequnceTool.Instance.FadeInCanvasGroup(battlePanel, 0.35f, () =>
             {
-                SequnceTool.Instance.Delay(eventManager.BeginEvent, 1.3f);
+                SequnceTool.Instance.Delay(eventManager.BeginEvent, 0.7f);
             });
         }
 
@@ -166,7 +166,7 @@ namespace Shy
         #endregion
 
         #region Attack Value
-        private float DefCalc(float _dmg, float _def, float _reduceDmg) => (_dmg - (_def * 0.5f)) * (1 - _reduceDmg);
+        private float DefCalc(float _dmg, float _def, float _reduceDmg) => (_dmg - (_def * 0.5f)) * (1 - _reduceDmg * 0.01f);
 
         private float GetDamage(Character _user, Character _target)
         {
@@ -182,6 +182,7 @@ namespace Shy
         private Attack GetAttackData(Character _user, Character _target)
         {
             Attack result = new();
+            result.attackResult = AttackResult.Normal;
             result.target = _target;
             float hitValue = _user.GetNowStat(SubStatEnum.HitChance) - _target.GetNowStat(SubStatEnum.DodgeChance);
 
@@ -205,7 +206,6 @@ namespace Shy
                 dmg *= _user.GetNowStat(SubStatEnum.CriDmg) * 0.01f;
             }
 
-            result.attackResult = AttackResult.Normal;
             result.dmg = dmg;
             return result;
         }

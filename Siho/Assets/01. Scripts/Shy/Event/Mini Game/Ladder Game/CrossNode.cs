@@ -11,7 +11,7 @@ namespace Shy.Event.LadderGame
         private Image linkerPaint, head;
         private bool isLeftNode;
 
-        private const float headAnimeTime = 0.25f, linkerAnimeTime = 0.5f;
+        private const float headAnimeTime = 0.1f, linkerAnimeTime = 0.5f;
 
         internal override void Init(bool _isLinkeNode, LadderNode _downNode)
         {

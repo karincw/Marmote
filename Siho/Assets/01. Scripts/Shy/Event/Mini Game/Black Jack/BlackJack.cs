@@ -9,12 +9,15 @@ namespace Shy.Event.BlackJack
         [Header("Name Card")]
         [SerializeField] private BlackJackCard playerCard;
         [SerializeField] private BlackJackCard enemyCard;
+
         [Header("Dice")]
         [SerializeField][Range(1, 6)] private int maxCnt;
         [SerializeField] private Sprite[] diceEyes;
+
         [Header("Buttons")]
         [SerializeField] private BlackJackButton playBt;
         [SerializeField] private BlackJackButton stopBt, stayBt, exitBt;
+
         [Header("Tmps")]
         [SerializeField] private TextMeshProUGUI tmp;
         [SerializeField] private TextMeshProUGUI rewardTmp;
@@ -29,12 +32,19 @@ namespace Shy.Event.BlackJack
 
             playBt.onClickEvent = Play;
             stopBt.onClickEvent = Stop;
-            exitBt.onClickEvent = Exit;
+            exitBt.onClickEvent = GetReward;
             stayBt.onClickEvent = Stay;
 
             initAction = () => RewardUpdate(gameOff ? 3 : -1);
-            initAction += () => gameOff = false;
-            initAction += () => SequnceTool.Instance.Delay(() => ButtonState(false), 0.5f);
+            initAction += () => SequnceTool.Instance.Delay(() =>
+            {
+                ButtonState(false);
+                if(gameOff)
+                {
+                    stopBt.LockChange(false);
+                    gameOff = false;
+                }
+            }, 0.5f);
 
             playerCard.SetEvent(() => SequnceTool.Instance.Delay(() =>
             {
@@ -75,7 +85,7 @@ namespace Shy.Event.BlackJack
 
             ButtonState(true);
             StayBtAble(false);
-            ExitBtAble(gameOff);
+            ExitBtAble(!gameOff);
 
             if (gameOff)
                 SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, initAction);
@@ -204,7 +214,7 @@ namespace Shy.Event.BlackJack
 
         private void GetReward()
         {
-            //Money Ãß°¡
+            //MapManager.instance.money
 
             Exit();
         }

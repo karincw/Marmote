@@ -66,7 +66,7 @@ namespace Shy
             _ss.def = 5 + _ms.HP * 0.7f + _ms.INT * 0.4f;
             _ss.criChance = 20 + _ms.INT * 0.5f + _ms.DEX * 0.4f;
             _ss.criDmg = 130 + _ms.HP * 0.4f + _ms.STR * 0.85f;
-            _ss.hitChance = 70 + _ms.DEX * 4.5f;
+            _ss.hitChance = 70 + _ms.INT * 4.5f;
             _ss.dodgeChance = 15 + _ms.DEX * 2.8f;
 
             return _ss;

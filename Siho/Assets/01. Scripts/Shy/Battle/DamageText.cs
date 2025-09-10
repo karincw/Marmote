@@ -41,12 +41,12 @@ namespace Shy
 
         public void Use(Attack _attack)
         {
-            Color _color = Color.white;
+            Color _white = Color.white;
 
             switch (_attack.attackResult)
             {
                 case AttackResult.Normal:
-                    Use(_attack.dmg, _color);
+                    Use(_attack.dmg, Color.red);
                     return;
 
                 case AttackResult.Critical:
@@ -54,11 +54,11 @@ namespace Shy
                     return;
 
                 case AttackResult.Dodge:
-                    Use("DODGE", _color);
+                    Use("DODGE", _white);
                     return;
 
                 case AttackResult.Block:
-                    Use("BLOCK", _color);
+                    Use("BLOCK", _white);
                     return;
             }
         }

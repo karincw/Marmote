@@ -213,7 +213,7 @@ namespace Shy
         namespace LadderGame
         {
             [Show]
-            public struct LadderReward
+            public struct LadderNormalReward
             {
                 public int value, weight;
             }
@@ -223,6 +223,14 @@ namespace Shy
             {
                 public EventItemSO item;
                 public int value, weight;
+            }
+
+            public struct LadderReward
+            {
+                public EventItemSO item;
+                public int value;
+
+                public LadderReward(EventItemSO _e, int _v) { item = _e; value = _v; }
             }
         }
     }

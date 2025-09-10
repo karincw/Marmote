@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +10,8 @@ namespace Shy.Event.LadderGame
         private Image rewardIcon;
         private TextMeshProUGUI rewardValue;
 
+        private LadderReward reward;
+
         internal override void Init(bool _isLinkeNode, LadderNode _downNode)
         {
             base.Init(_isLinkeNode, _downNode);
@@ -18,21 +19,45 @@ namespace Shy.Event.LadderGame
             rewardValue = rewardIcon.GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void Init(EventItemSO _item, int _value)
+        public void Init(LadderReward _reward)
         {
-            rewardIcon.sprite = _item.GetIcon();
-            rewardValue.SetText(_value <= 1 ? "" : _value.ToString());
+            reward = _reward;
+
+            rewardIcon.sprite = _reward.item.GetIcon();
+            rewardValue.SetText(_reward.value <= 1 ? "" : _reward.value.ToString());
         }
+
         internal void Init(Sprite _sprite)
         {
+            reward = new();
+
             rewardIcon.sprite = _sprite;
             rewardValue.SetText("");
         }
 
         public override void AnimateDown(UnityAction _action)
         {
-            base.AnimateDown(_action);
-            Debug.Log("Reward Node 동작 -> " + gameObject.name);
+            UnityAction _ac = Reward;
+            _ac += _action;
+            base.AnimateDown(_ac);
+        }
+
+        private void Reward()
+        {
+            Debug.Log("Get Reward -> " + reward.item);
+
+            if (reward.item is Item_Stat _stat)
+            {
+                PlayerManager.Instance.AddStat(_stat.statType, reward.value);
+            }
+            else if (reward.item is Item_Synergy _synergy)
+            {
+                PlayerManager.Instance.AddSynergy(_synergy.item.synergyType, reward.value);
+            }
+            else if (reward.item is Item_Money _money)
+            {
+                //Money 추가 reward.value;
+            }
         }
     }
 }

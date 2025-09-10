@@ -15,7 +15,7 @@ namespace Shy.Event.LadderGame
         [Header("Rewards")]
         [SerializeField] private Sprite failIcon;
         [SerializeField] private Item_Money moneySO;
-        [SerializeField] private List<LadderReward> normalReward;
+        [SerializeField] private List<LadderNormalReward> normalReward;
         [SerializeField] private List<LadderBestReward> bestRewards;
 
         protected override void Start()
@@ -66,7 +66,7 @@ namespace Shy.Event.LadderGame
                 if (rand1 < 0 && rand1 != int.MinValue)
                 {
                     int _rand = Random.Range(0, _arr.Count);
-                    ladders[_arr[_rand]].RewardSet(moneySO, normalReward[i].value);
+                    ladders[_arr[_rand]].RewardSet(new LadderReward(moneySO, normalReward[i].value));
                     _arr.RemoveAt(_rand);
                     rand1 = int.MinValue;
                 }
@@ -74,7 +74,7 @@ namespace Shy.Event.LadderGame
                 if (rand2 < 0 && rand2 != int.MinValue)
                 {
                     int _rand = Random.Range(0, _arr.Count);
-                    ladders[_arr[_rand]].RewardSet(moneySO, normalReward[i].value);
+                    ladders[_arr[_rand]].RewardSet(new LadderReward(moneySO, normalReward[i].value));
                     _arr.RemoveAt(_rand);
                     rand2 = int.MinValue;
                 }
@@ -93,7 +93,7 @@ namespace Shy.Event.LadderGame
                 if(rand1 < 0)
                 {
                     int _rand = Random.Range(0, _arr.Count);
-                    ladders[_arr[_rand]].RewardSet(bestRewards[i].item, bestRewards[i].value);
+                    ladders[_arr[_rand]].RewardSet(new LadderReward(bestRewards[i].item, bestRewards[i].value));
                     _arr.RemoveAt(_rand);
                     break;
                 }

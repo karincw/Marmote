@@ -68,7 +68,7 @@ namespace Shy.Event
                     bool _minus = _item.calc == Calculate.Minus;
                     resultTmp.color = _minus ? badColor : goodColor;
 
-                    _resultMes = $"{_stat.GetName()} {_item.value} {(_minus ? "감소" : "증가")}";
+                    _resultMes = $" {(_minus ? "-" : "+")} {_stat.GetName()} {_item.value}";
 
                     PlayerManager.Instance.ChangeStat(_stat.statType, _item.value, _item.calc);
                 }
@@ -76,13 +76,18 @@ namespace Shy.Event
                 {
                     resultTmp.color = _synergy.badSynergy ? badColor : goodColor;
 
-                    _resultMes = $"{_synergy.GetName()} {_item.value} 추가";
+                    _resultMes = $"{_synergy.GetName()} {_item.value} 획득";
 
                     PlayerManager.Instance.AddSynergy(_synergy.item.synergyType, _item.value);
                 }
                 else if (_item.item is Item_Money _money)
                 {
-                    //Money 추가
+                    bool _minus = _item.value < 0;
+                    resultTmp.color = _minus ? badColor : goodColor;
+
+                    _resultMes = $"{(_minus ? "-" : "+")} {_money.GetName()} {Mathf.Abs(_item.value)}";
+
+                    //Money 추가 _item.value;
                 }
             }
 

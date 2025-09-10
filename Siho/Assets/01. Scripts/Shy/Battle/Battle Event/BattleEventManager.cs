@@ -100,7 +100,7 @@ namespace Shy
             beginBattle = _beginBattle;
             endBattle = _endBattle;
 
-            dice.diceFinEvent = (int _n) => SequnceTool.Instance.Delay(() => OnBattleEvent(_n), 0.6f);
+            dice.diceFinEvent = (int _n) => SequnceTool.Instance.Delay(() => OnBattleEvent(_n), 0.5f);
 
             foreach (var _event in eventUiButtons)
             {
