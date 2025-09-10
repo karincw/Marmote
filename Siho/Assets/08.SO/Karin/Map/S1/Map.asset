@@ -19,11 +19,11 @@ MonoBehaviour:
     tileType: 2
   - count: 0
     tileType: 3
-  - count: 2
+  - count: 3
     tileType: 4
-  - count: 1
+  - count: 3
     tileType: 5
-  - count: 15
+  - count: 10
     tileType: 6
   - count: 1
     tileType: 7

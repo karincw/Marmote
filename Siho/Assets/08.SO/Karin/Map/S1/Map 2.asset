@@ -23,7 +23,7 @@ MonoBehaviour:
     tileType: 4
   - count: 2
     tileType: 5
-  - count: 19
+  - count: 14
     tileType: 6
   - count: 2
     tileType: 7

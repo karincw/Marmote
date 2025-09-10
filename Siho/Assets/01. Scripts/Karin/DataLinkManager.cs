@@ -45,7 +45,7 @@ public class DataLinkManager : MonoBehaviour
 
     public void SetCharacterData()
     {
-        characterData = StatueManager.Instance.GetCharacterData();
+        characterData = StatueManager.Instance.chData;
     }
 
     public CharacterDataSO GetEnemy()
