@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 186b7c9d114fab2478f877038763fc7b, type: 3}
-  m_Name: TEv01-2-1
+  m_Name: TEv00-2
   m_EditorClassIdentifier: 
-  message: "\uC774\uB7F0 \uACF3\uC5D0 \uC788\uB294 \uC790\uD310\uAE30\uC5D0\uC11C
-    \uBA40\uCA61\uD55C \uAC78 \uD314 \uC77C\uC774 \uC5C6\uB2E4\uACE0 \uC2A4\uC2A4\uB85C
-    \uB2E4\uB3C5\uC774\uBA70, \uAE38\uC744 \uB098\uC130\uC2B5\uB2C8\uB2E4."
+  message: "\uCE58\uC988\uC5D0 \uB300\uD55C \uC544\uC26C\uC6C0\uC744 \uB4A4\uB85C
+    \uD558\uACE0 \uBC1C\uAC78\uC74C\uC744 \uC62E\uACBC\uC2B5\uB2C8\uB2E4."

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77b799cb71fe7eb4fb714332722a7fb2, type: 3}
-  m_Name: TEv01
+  m_Name: TEv02
   m_EditorClassIdentifier: 
   explain: "\uACE0\uCCA0\uB369\uC774\uB4E4 \uC18D\uC5D0\uC11C \uC2E0\uBE44\uD55C
     \uC790\uD310\uAE30\uB97C \uBC1C\uACAC\uD588\uC2B5\uB2C8\uB2E4."

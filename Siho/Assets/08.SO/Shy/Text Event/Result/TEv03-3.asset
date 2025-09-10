@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5648454fb9a4b354f8042008d6622a80, type: 3}
-  m_Name: Syn-Spine
+  m_Script: {fileID: 11500000, guid: 186b7c9d114fab2478f877038763fc7b, type: 3}
+  m_Name: TEv03-3
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 0f08a5b17c6113446ac78a88d03186ef, type: 2}
-  badSynergy: 0
+  message: "\uB2EB\uD788\uB294 \uC154\uD130\uB97C \uBA40\uB9AC\uC11C \uBC14\uB77C\uBCFC
+    \uBFD0\uC774\uC5C8\uC2B5\uB2C8\uB2E4.\r"

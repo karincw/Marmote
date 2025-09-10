@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 186b7c9d114fab2478f877038763fc7b, type: 3}
-  m_Name: TEv00-2-1
+  m_Script: {fileID: 11500000, guid: 5648454fb9a4b354f8042008d6622a80, type: 3}
+  m_Name: Syn-Steel
   m_EditorClassIdentifier: 
-  message: "\uCE58\uC988\uC5D0 \uB300\uD55C \uC544\uC26C\uC6C0\uC744 \uB4A4\uB85C
-    \uD558\uACE0 \uBC1C\uAC78\uC74C\uC744 \uC62E\uACBC\uC2B5\uB2C8\uB2E4."
+  item: {fileID: 11400000, guid: 6b722d1a13708aa408dcd9316d4c5c27, type: 2}
+  badSynergy: 0

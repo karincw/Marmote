@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5648454fb9a4b354f8042008d6622a80, type: 3}
-  m_Name: Syn-Spine
+  m_Name: Syn-Pain
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 0f08a5b17c6113446ac78a88d03186ef, type: 2}
-  badSynergy: 0
+  item: {fileID: 11400000, guid: 124ea6f1c150b6d408ab39bfb25370de, type: 2}
+  badSynergy: 1

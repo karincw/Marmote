@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b799cb71fe7eb4fb714332722a7fb2, type: 3}
+  m_Name: TEv04
+  m_EditorClassIdentifier: 
+  explain: "\uBD89\uC740 \uC57D\uACFC \uD478\uB978 \uC57D\uC744 \uBC1C\uACAC\uD588\uC2B5\uB2C8\uB2E4.\r"
+  events:
+  - eventExplain: "\uBD89\uC740 \uC57D\uC744 \uBCF5\uC6A9\uD55C\uB2E4."
+    sprite: {fileID: 0}
+    condition:
+      item: {fileID: 0}
+      value: 0
+      conditionType: 0
+    results:
+    - resultSO: {fileID: 11400000, guid: 2ba35b265e9f12742ae00e62f786512a, type: 2}
+      chance: 20
+    - resultSO: {fileID: 11400000, guid: 7337d22523eb84747822716ff89b3622, type: 2}
+      chance: 40
+    - resultSO: {fileID: 11400000, guid: 74d5f9a801deb7b4994478b929362bd7, type: 2}
+      chance: 40
+  - eventExplain: "\uD478\uB978 \uC57D\uC744 \uBCF5\uC6A9\uD55C\uB2E4."
+    sprite: {fileID: 0}
+    condition:
+      item: {fileID: 0}
+      value: 0
+      conditionType: 0
+    results:
+    - resultSO: {fileID: 11400000, guid: 6c5aba7910acbd5468171a6e2bbab28a, type: 2}
+      chance: 20
+    - resultSO: {fileID: 11400000, guid: 169c091107beb424a95098407028559f, type: 2}
+      chance: 40
+    - resultSO: {fileID: 11400000, guid: a066cb2b87e47bb4e8df1bb38da8252a, type: 2}
+      chance: 40
+  - eventExplain: "\uB458\uB2E4 \uBCF5\uC6A9\uD55C\uB2E4."
+    sprite: {fileID: 0}
+    condition:
+      item: {fileID: 0}
+      value: 0
+      conditionType: 0
+    results:
+    - resultSO: {fileID: 11400000, guid: 7547af3928350df4d96a530955d34c26, type: 2}
+      chance: 70
+    - resultSO: {fileID: 11400000, guid: bda530e15d30b21409d9c0a413171fd7, type: 2}
+      chance: 30

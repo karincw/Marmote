@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172115f6649f33c4d94ee4f9ebd9b137, type: 3}
+  m_Name: TEv04-1-3
+  m_EditorClassIdentifier: 
+  message: "\uC57D\uC744 \uBA39\uC790 \uACE7 \uC2EC\uAC01\uD55C \uB450\uD1B5\uC774
+    \uBC00\uB824\uC654\uB2E4.\r\r"
+  item: {fileID: 11400000, guid: 43467db36d7d25043a69a9816ee05d9e, type: 2}
+  value: 1
+  calc: 1

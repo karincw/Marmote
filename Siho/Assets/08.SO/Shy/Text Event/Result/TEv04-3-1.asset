@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172115f6649f33c4d94ee4f9ebd9b137, type: 3}
-  m_Name: TEv01-1-1
+  m_Name: TEv04-3-1
   m_EditorClassIdentifier: 
-  message: "\uCF54\uC778\uC744 \uB123\uC790 \uC7A0\uC2DC \uC790\uD310\uAE30\uC5D0\uC11C
-    \uC18C\uB9AC\uAC00 \uC6B8\uB9AC\uB354\uB2C8, \uC774\uB0B4 \uC544\uBB34 \uC77C\uB3C4
-    \uC77C\uC5B4\uB098\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4"
-  item: {fileID: 11400000, guid: a22f4c393683c21469d9d542d8093d11, type: 2}
-  value: 10
-  calc: 1
+  message: "\uC2EC\uAC01\uD55C \uB450\uD1B5\uACFC \uC5B4\uC9C0\uB7FC\uC99D\uC774
+    \uCC3E\uC544\uC654\uACE0 \uCEE8\uB514\uC158\uC740 \uCD5C\uC545\uC774 \uB418\uC5C8\uB2E4.
+    \uD2B8\uB77C\uC6B0\uB9C8\uB85C \uB0A8\uC744 \uB4EF \uD588\uB2E4.\r"
+  item: {fileID: 11400000, guid: ea38e072e85a5ad429bdff2b2fd67c6b, type: 2}
+  value: 1
+  calc: 0
