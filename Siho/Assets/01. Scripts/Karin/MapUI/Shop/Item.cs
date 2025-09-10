@@ -1,3 +1,5 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +8,19 @@ public class Item : MonoBehaviour
     public ItemDataSO data;
 
     private Image _image;
+    private Button _infoButton;
     private AnimationButton _button;
+
+    private CanvasGroup _infoGroup;
+    private TMP_Text _infoText;
 
     private void Awake()
     {
         _image = transform.Find("Image").GetComponent<Image>();
+        _infoButton = _image.GetComponent<Button>();
         _button = transform.Find("BuyButton").transform.Find("Button").GetComponent<AnimationButton>();
+        _infoGroup = transform.Find("Info").GetComponent<CanvasGroup>();
+        _infoText = transform.Find("Info").Find("InfoText").GetComponent<TMP_Text>();
         _button.onClick.AddListener(HandleBuy);
     }
 
@@ -26,12 +35,61 @@ public class Item : MonoBehaviour
         _button.SetText($"{data.price} Cheese");
         _image.sprite = data.image;
         _button.interactable = true;
+        _infoButton.onClick.AddListener(OpenInfo);
+    }
+
+    public void OpenInfo()
+    {
+        transform.SetAsLastSibling();
+        _infoText.text = data.itemDescription;
+        _infoGroup.DOFade(1, 0.3f);
+        _infoButton.onClick.RemoveAllListeners();
+        _infoButton.onClick.AddListener(CloseInfo);
+    }
+
+    public void CloseInfo()
+    {
+        _infoButton.onClick.RemoveAllListeners();
+        _infoButton.onClick.AddListener(OpenInfo);
+        _infoGroup.DOFade(0, 0.3f);
     }
 
     private void HandleBuy()
     {
+        if(MapManager.instance.money.Value < data.price)
+        {
+            Debug.Log("님 돈없음");
+            return;
+        }
+
         _button.interactable = false;
 
-        Debug.Log("아이템 구매시 로직 추가");
+        switch (data.ItemType)
+        {
+            case ItemType.Red_Injecter:
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Blood);
+                break;
+            case ItemType.Blue_Injecter:
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Cool);
+                break;
+            case ItemType.Yellow_Injecter:
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Strong);
+                break;
+            case ItemType.Purple_Injecter:
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Fear);
+                break;
+            case ItemType.Green_Injecter:
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Spine);
+                break;
+            case ItemType.Grey_Injecter:
+                Shy.PlayerManager.Instance.AddSynergy(Shy.SynergyType.Steel);
+                break;
+            default:
+                Debug.LogWarning("효과안넣음");
+                break;
+        }
+
+        MapManager.instance.money.Value -= data.price;
+
     }
 }

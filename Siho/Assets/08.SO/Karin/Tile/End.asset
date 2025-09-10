@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a01e77639f6e34bba77e88d7de8797, type: 3}
   m_Name: End
   m_EditorClassIdentifier: 
-  imageTexture: {fileID: 0}
+  imageTexture: {fileID: 2800000, guid: 7d4eac99c3cc2e34a85cac428e0ef4e3, type: 3}

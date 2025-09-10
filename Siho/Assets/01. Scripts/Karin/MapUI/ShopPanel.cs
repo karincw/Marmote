@@ -7,10 +7,13 @@ public class ShopPanel : FadeUI
     [SerializeField] private List<Item> _itemList = new List<Item>();
     [SerializeField] private List<ItemDataSO> _SellItems = new List<ItemDataSO>();
     [SerializeField] private bool _useRandom = false;
+    private AnimationButton _rerollButton;
 
     protected override void Awake()
     {
         base.Awake();
+        _rerollButton = transform.Find("RerollButton").Find("Button").GetComponent<AnimationButton>();
+        _rerollButton.onClick.AddListener(Reroll);
     }
 
     private void RefreshItems()
@@ -37,5 +40,11 @@ public class ShopPanel : FadeUI
     public override void Close()
     {
         base.Close();
+    }
+
+    public void Reroll()
+    {
+
+        RefreshItems();
     }
 }

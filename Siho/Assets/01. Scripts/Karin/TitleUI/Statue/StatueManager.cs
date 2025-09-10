@@ -13,6 +13,7 @@ public class StatueManager : MonoBehaviour
     [SerializeField] private List<Statue> _statues;
     [SerializeField] private CharacterDataSO _chData;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private TMP_Text _stateText;
 
 
     private void Awake()
@@ -23,6 +24,10 @@ public class StatueManager : MonoBehaviour
     private void Update()
     {
         _text.text = count.ToString();
+        _stateText.text = _stateText.text.Replace("A", _chData.mainStat.STR.ToString());
+        _stateText.text = _stateText.text.Replace("B", _chData.mainStat.DEX.ToString());
+        _stateText.text = _stateText.text.Replace("C", _chData.mainStat.STR.ToString());
+        _stateText.text = _stateText.text.Replace("D", _chData.mainStat.INT.ToString());
     }
 
     public CharacterDataSO GetCharacterData()

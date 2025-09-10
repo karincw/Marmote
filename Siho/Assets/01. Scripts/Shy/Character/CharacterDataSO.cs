@@ -15,6 +15,7 @@ namespace Shy
 
         public virtual CharacterDataSO Init()
         {
+            Debug.Log("asd");
             var _so = CreateInstance<CharacterDataSO>();
 
             _so.itemName = itemName;

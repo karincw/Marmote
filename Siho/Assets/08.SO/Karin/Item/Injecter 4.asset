@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Injecter 4
   m_EditorClassIdentifier: 
   itemName: Green Injecter
+  itemDescription: "<color=#16C740>\uCD08\uB85D\uC0C9 \uC8FC\uC0AC\uAE30</color>\n\uC0AC\uC6A9\uD558\uBA74
+    \uBF08\uAC00 \uAC15\uD574\uC9C0\uB294 \uC57D\uBB3C\uC774 \uB4E4\uC5B4\uC788\uB2E4.\n<color=#16C740>\uCC99\uCD94
+    \uBC18\uC0AC + 1</color>"
   ItemType: 5
   image: {fileID: -4836079549176190678, guid: aa77b0b4ca8a5c84b8ef45d2cd9fb066, type: 3}
   price: 12

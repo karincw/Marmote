@@ -20,6 +20,9 @@ public class MapManager : MonoBehaviour
     [Header("MapData")]
     [SerializeField] private int _currentMapIndex = 0;
 
+    [SerializeField] private AnimationButton _button;
+    public Money money;
+
     private int _tileCount;
     public Symbol symbol;
     private int _mapIndex;
@@ -30,6 +33,7 @@ public class MapManager : MonoBehaviour
         instance = this;
 
         symbol = FindFirstObjectByType<Symbol>();
+        money = FindFirstObjectByType<Money>();
         _mapChangeDelayWait = new WaitForSeconds(_mapChangeDelay);
         _tileCount = _tiles.Count;
         Symbol.OnMoveEndEvent += HandleMoveEnd;
@@ -39,6 +43,7 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         _mapIndex = 0;
+        _mapDatas = DataLinkManager.instance.stage.mapDatas;
         MakeMap();
         SetTileNumbers(0);
     }
@@ -51,6 +56,7 @@ public class MapManager : MonoBehaviour
 
     public void HandleMoveEnd(int index)
     {
+        _button.enabled = true;
         index %= 40;
         _tiles[index].OnEnterEvent?.Invoke();
     }

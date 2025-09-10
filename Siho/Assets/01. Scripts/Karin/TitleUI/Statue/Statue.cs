@@ -15,7 +15,6 @@ public class Statue : MonoBehaviour
     [SerializeField] private Button _add;
     [SerializeField] private Button _subtract;
     private string _originText;
-    [SerializeField] private List<float> _modifyValue;
 
     private void Awake()
     {
@@ -55,9 +54,7 @@ public class Statue : MonoBehaviour
     private void UpdateStat()
     {
         string t = _originText;
-        t = t.Replace("a", (_modifyValue[0] * _value).ToString());
-        t = t.Replace("b", (_modifyValue[1] * _value).ToString());
-        t = t.Replace("c", (_modifyValue[2] * _value).ToString());
+        t = t.Replace("A", (_value).ToString());
         _text.text = t;
     }
 
