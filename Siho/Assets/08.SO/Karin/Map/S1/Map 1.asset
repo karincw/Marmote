@@ -15,16 +15,18 @@ MonoBehaviour:
   _tiles:
   - count: 0
     tileType: 1
-  - count: 1
+  - count: 2
     tileType: 2
   - count: 0
     tileType: 3
-  - count: 2
+  - count: 0
     tileType: 4
   - count: 3
     tileType: 5
-  - count: 12
+  - count: 3
     tileType: 6
-  - count: 1
+  - count: 16
     tileType: 7
+  - count: 1
+    tileType: 8
   isEnd: 0

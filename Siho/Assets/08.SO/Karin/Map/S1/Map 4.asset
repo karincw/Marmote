@@ -13,18 +13,20 @@ MonoBehaviour:
   m_Name: Map 4
   m_EditorClassIdentifier: 
   _tiles:
-  - count: 0
+  - count: 1
     tileType: 1
-  - count: 0
+  - count: 1
     tileType: 2
-  - count: 0
+  - count: 1
     tileType: 3
-  - count: 2
+  - count: 1
     tileType: 4
-  - count: 1
+  - count: 2
     tileType: 5
-  - count: 20
+  - count: 2
     tileType: 6
-  - count: 1
+  - count: 22
     tileType: 7
-  isEnd: 1
+  - count: 2
+    tileType: 8
+  isEnd: 0

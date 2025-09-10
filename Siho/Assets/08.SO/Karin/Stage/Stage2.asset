@@ -16,8 +16,8 @@ MonoBehaviour:
   stageIndex: 2
   stageImage: {fileID: 21300000, guid: b2d78b6bb312db54fb91518e4b321e13, type: 3}
   mapDatas:
-  - {fileID: 11400000, guid: 1c49bbb66f8719f4c94962ff43e29fa8, type: 2}
-  - {fileID: 11400000, guid: ec9c4bd180616454780c7efcf093db8a, type: 2}
-  - {fileID: 11400000, guid: ba64f5201def8d9468da39e76562c93b, type: 2}
-  - {fileID: 11400000, guid: 7f6c18c495ae0024d9c03379dc243954, type: 2}
-  - {fileID: 11400000, guid: b22f5f41fed128948afee927aefca584, type: 2}
+  - {fileID: 11400000, guid: 8b1bb82792880294ab0fe1850599e33d, type: 2}
+  - {fileID: 11400000, guid: 83a4c717ee82db04f955bca92f85b6d7, type: 2}
+  - {fileID: 11400000, guid: 54a71930633b8514abe294c4f00d8c68, type: 2}
+  - {fileID: 11400000, guid: 646cf75a7a04353458cd1f984d630412, type: 2}
+  - {fileID: 11400000, guid: 58574c04ca5441047b443ff946f735e7, type: 2}

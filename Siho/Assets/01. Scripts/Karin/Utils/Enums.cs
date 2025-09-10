@@ -18,6 +18,7 @@ public enum TileType
     Event3,
     Event4,
     Event5,
+    Event6,
     Enemy,
     Shop,
     NextStage,

@@ -19,12 +19,14 @@ MonoBehaviour:
     tileType: 2
   - count: 0
     tileType: 3
-  - count: 3
+  - count: 0
     tileType: 4
   - count: 3
     tileType: 5
-  - count: 10
+  - count: 3
     tileType: 6
-  - count: 1
+  - count: 14
     tileType: 7
+  - count: 1
+    tileType: 8
   isEnd: 0

@@ -23,8 +23,10 @@ MonoBehaviour:
     tileType: 4
   - count: 2
     tileType: 5
-  - count: 16
+  - count: 3
     tileType: 6
-  - count: 1
+  - count: 20
     tileType: 7
+  - count: 2
+    tileType: 8
   isEnd: 0
