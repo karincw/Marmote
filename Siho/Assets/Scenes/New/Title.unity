@@ -153,10 +153,10 @@ RectTransform:
   - {fileID: 1112896551}
   m_Father: {fileID: 1313215249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1226, y: -121.75}
-  m_SizeDelta: {x: 774, y: 243.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &17721673
 MonoBehaviour:
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 108.85
+  m_fontSize: 72.65
   m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1. \uD0C8\uCD9C"
+  m_text: "1. \uC720\uB9AC\uAD00"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2867612f87682f349b3ec477e1378b5c, type: 2}
   m_sharedMaterial: {fileID: -7538824168382182838, guid: 2867612f87682f349b3ec477e1378b5c, type: 2}
@@ -1560,6 +1560,10 @@ PrefabInstance:
     - target: {fileID: 3347037379311473038, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3781530642194507126, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
+      propertyPath: _statType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4128188406716434971, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_Pivot.x
@@ -3523,7 +3527,7 @@ GameObject:
   - component: {fileID: 1163373575}
   - component: {fileID: 1163373574}
   m_Layer: 5
-  m_Name: Text (TMP)_1
+  m_Name: StateText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3545,8 +3549,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: -80, y: -90}
+  m_AnchoredPosition: {x: 0, y: -45}
+  m_SizeDelta: {x: -80, y: -190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163373574
 MonoBehaviour:
@@ -3568,8 +3572,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uACF5\uACA9\uB825 : A\n\uBBFC\uCCA9\uD568 : B\n\uBC29\uC5B4\uB825 : C\n\uC9C0\uB2A5
-    : D\n"
+  m_text: "\uACF5\uACA9\uB825 : A\n\uBBFC\uCCA9\uD568 : B\n\uCCB4\uB825 : C\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2867612f87682f349b3ec477e1378b5c, type: 2}
   m_sharedMaterial: {fileID: -7538824168382182838, guid: 2867612f87682f349b3ec477e1378b5c, type: 2}
@@ -4339,10 +4342,10 @@ RectTransform:
   - {fileID: 1929552937}
   m_Father: {fileID: 1313215249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 442, y: -121.75}
-  m_SizeDelta: {x: 774, y: 243.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1362497965
 MonoBehaviour:
@@ -4984,12 +4987,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb5fb424e8e0b743af0b626101040d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 20
+  count: 18
   _statues:
   - {fileID: 2534074340415860631}
   - {fileID: 574435195}
   - {fileID: 2109483652}
-  _chData: {fileID: 11400000, guid: 22c36bf6bdb59a844b08d423cf8d4b40, type: 2}
+  chData: {fileID: 11400000, guid: 22c36bf6bdb59a844b08d423cf8d4b40, type: 2}
   _text: {fileID: 2002735504}
   _stateText: {fileID: 1163373574}
 --- !u!114 &1653810673
@@ -5785,11 +5788,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1003606184443662980, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_text
-      value: "\uBC29\uC5B4\uB825 + A\n"
+      value: "\uCCB4\uB825 + A\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1003606184443662980, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_fontSize
-      value: 55
+      value: 52.35
       objectReference: {fileID: 0}
     - target: {fileID: 1003606184443662980, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_fontSizeMax
@@ -5870,6 +5873,10 @@ PrefabInstance:
     - target: {fileID: 3347037379311473038, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3781530642194507126, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
+      propertyPath: _statType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4128188406716434971, guid: 3534ae982d34e654d8968abe78524efb, type: 3}
       propertyPath: m_Pivot.x
