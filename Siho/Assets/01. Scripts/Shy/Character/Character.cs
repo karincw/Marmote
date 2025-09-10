@@ -169,7 +169,7 @@ namespace Shy
         #region Character Action
         public void VisualUpdate(bool _idle) => visual.sprite = (_idle) ? idle : attack;
         
-        public void Regeneration() => HealEvent(totalSubStat.maxHp * (1 - totalSubStat.regen * 0.01f));
+        public void Regeneration() => HealEvent(totalSubStat.maxHp * (totalSubStat.regen * 0.01f));
         public void SubscribeCounter() => OnHit += (Attack _attack) => 
         {
             if (Random.Range(0, 100f) < totalSubStat.counter)
