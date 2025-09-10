@@ -56,7 +56,7 @@ namespace Shy.Event.LadderGame
             }
             else if (reward.item is Item_Money _money)
             {
-                //Money Ãß°¡ reward.value;
+                MapManager.instance.money.Value += reward.value;
             }
         }
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
   maxLevel: 4
   explain: "\uCCB4\uB825\uC774 (3/5/8/12) \uC99D\uAC00\uD558\uACE0, \uBC29\uC5B4\uB825\uC774
     (1.5/2/2.5/3) \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: fe0725aa010fb524281172f04d196132, type: 3}
+  icon: {fileID: 21300000, guid: 0188617af29c5dc45be93c2fc1ae0517, type: 3}
   showNum: 1
   synergies:
   - {fileID: 11400000, guid: 2c09ff8bc4e3c6843a6d1171877c1329, type: 2}

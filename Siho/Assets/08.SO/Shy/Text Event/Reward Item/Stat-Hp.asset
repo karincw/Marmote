@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: "\uCCB4\uB825"
   statType: 2
+  statIcon: {fileID: 21300000, guid: 03aaf56edb9b1bb4894c7c2bd0aab22c, type: 3}

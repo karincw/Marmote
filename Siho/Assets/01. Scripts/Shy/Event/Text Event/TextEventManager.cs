@@ -87,7 +87,7 @@ namespace Shy.Event
 
                     _resultMes = $"{(_minus ? "-" : "+")} {_money.GetName()} {Mathf.Abs(_item.value)}";
 
-                    //Money Ãß°¡ _item.value;
+                    MapManager.instance.money.Value += _item.value;
                 }
             }
 

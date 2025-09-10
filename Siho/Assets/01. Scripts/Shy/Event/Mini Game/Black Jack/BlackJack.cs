@@ -214,8 +214,7 @@ namespace Shy.Event.BlackJack
 
         private void GetReward()
         {
-            //MapManager.instance.money
-
+            MapManager.instance.money.Value += rewardValue;
             Exit();
         }
         #endregion

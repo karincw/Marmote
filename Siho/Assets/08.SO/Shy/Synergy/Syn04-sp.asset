@@ -17,7 +17,7 @@ MonoBehaviour:
   maxLevel: 6
   explain: "\uD53C\uD574\uB97C \uBC1B\uC744 \uC2DC (5%/10%/15%/25%/50%/70%) \uD655\uB960\uB85C
     \uBC14\uB85C \uACF5\uACA9\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: 49e5b03294afefe45b184a8c1de024ef, type: 3}
+  icon: {fileID: 21300000, guid: bd890ae5c90ec014ca2ff5081544d894, type: 3}
   showNum: 1
   synergies:
   - {fileID: 11400000, guid: 543798f814ee2da448f445ddf83273d4, type: 2}

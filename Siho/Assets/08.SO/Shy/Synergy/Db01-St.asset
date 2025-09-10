@@ -16,7 +16,7 @@ MonoBehaviour:
   synergyType: 6
   maxLevel: 1
   explain: "\uD68C\uD53C (5%) \uAC10\uC18C"
-  icon: {fileID: 21300000, guid: fac9642c3fc2916469b51c75fcb3e59f, type: 3}
+  icon: {fileID: 21300000, guid: 1518b65da070d884587986c39199e744, type: 3}
   showNum: 0
   synergies:
   - {fileID: 11400000, guid: 4a2a21d603542ab47adebd8b60ceed40, type: 2}

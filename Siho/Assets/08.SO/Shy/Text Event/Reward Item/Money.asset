@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9d01c06b53b4e4eb40c1b2ce218efb, type: 3}
   m_Name: Money
   m_EditorClassIdentifier: Assembly-CSharp:Shy.Event:Condition_Stat
-  moneyIcon: {fileID: 21300000, guid: b53843d10250a954e83a45f04ecb9b86, type: 3}
+  moneyIcon: {fileID: -1392431492558884781, guid: f94034c1eb3002a4b8ba6b5789f0f7dd, type: 3}

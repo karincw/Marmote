@@ -92,6 +92,8 @@ namespace Shy
         private void EndBattle()
         {
             nowFight = false;
+            MapManager.instance.money.Value += 3;
+
             SequnceTool.Instance.Delay(() =>
             {
                 SequnceTool.Instance.FadeOutCanvasGroup(battlePanel, 0.5f, () => battlePanel.gameObject.SetActive(false));

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5648454fb9a4b354f8042008d6622a80, type: 3}
   m_Name: Syn-Fear
   m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 4ab6fdab9a8cff74fb8d5fe341b997a8, type: 2}
+  badSynergy: 0

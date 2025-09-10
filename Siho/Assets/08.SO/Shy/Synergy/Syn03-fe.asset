@@ -18,7 +18,7 @@ MonoBehaviour:
   explain: "\uC0C1\uB300\uBC29\uC758 \uCE58\uBA85\uD0C0 \uD655\uB960\uC774 (4%/6%/8%)\uB9CC\uD07C
     \uAC10\uC18C\uD558\uACE0, \uCE58\uBA85\uD0C0 \uD53C\uD574\uB7C9\uC774 (10%/15%/20%)\uB9CC\uD07C
     \uAC10\uC18C\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: fac9642c3fc2916469b51c75fcb3e59f, type: 3}
+  icon: {fileID: 21300000, guid: ce02a649407a9f6489c77f0fe812e323, type: 3}
   showNum: 1
   synergies:
   - {fileID: 11400000, guid: 7b38a1dba9b5233448867738a0786ab6, type: 2}
