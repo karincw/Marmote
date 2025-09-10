@@ -69,8 +69,8 @@ public class Statue : MonoBehaviour
             case MainStatEnum.Dex:
                 stat.DEX = _value;
                 break;
-            case MainStatEnum.Int:
-                stat.INT = _value;
+            case MainStatEnum.Hp:
+                stat.HP = _value;
                 break;
         }
         return stat;

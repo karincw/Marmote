@@ -18,6 +18,6 @@ MonoBehaviour:
   mainStat:
     STR: 2
     DEX: 2
-    HP: 3
-    INT: 2
+    HP: 2
+    INT: 7
   baseSynergies: []

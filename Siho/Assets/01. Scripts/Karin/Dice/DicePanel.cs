@@ -42,7 +42,7 @@ public class DicePanel : MonoBehaviour
             if (_result == dice + 1)
             {
                 _doubleText.text = "´õºí!";
-                OnDoubleEvent?.Invoke(_result);
+                OnDoubleEvent?.Invoke(_result*2);
             }
             else
                 _doubleText.text = "";

@@ -11,35 +11,38 @@ public class StatueManager : MonoBehaviour
     public int count = 3;
 
     [SerializeField] private List<Statue> _statues;
-    [SerializeField] private CharacterDataSO _chData;
+    public CharacterDataSO chData;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private TMP_Text _stateText;
-
+    private MainStat _originStat;
+    private string _originText;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        chData = Instantiate(chData);
+        _originText = _stateText.text;
+        _originStat = chData.mainStat;
     }
 
     private void Update()
     {
         _text.text = count.ToString();
-        _stateText.text = _stateText.text.Replace("A", _chData.mainStat.STR.ToString());
-        _stateText.text = _stateText.text.Replace("B", _chData.mainStat.DEX.ToString());
-        _stateText.text = _stateText.text.Replace("C", _chData.mainStat.STR.ToString());
-        _stateText.text = _stateText.text.Replace("D", _chData.mainStat.INT.ToString());
+        StatUpdate();
     }
 
-    public CharacterDataSO GetCharacterData()
+    public void StatUpdate()
     {
-        _chData = Instantiate(_chData);
         MainStat stat = default;
         foreach (var statue in _statues)
         {
             stat += statue.resultStat();
         }
-        _chData.mainStat += stat;
-        return _chData;
+        chData.mainStat = stat + _originStat;
+
+        _stateText.text = _originText.Replace("A", chData.mainStat.STR.ToString());
+        _stateText.text = _stateText.text.Replace("B", chData.mainStat.DEX.ToString());
+        _stateText.text = _stateText.text.Replace("C", chData.mainStat.HP.ToString());
     }
 
 }

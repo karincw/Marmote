@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageName: "3. \uD0C8\uCD9C"
   stageIndex: 2
-  stageImage: {fileID: 21300000, guid: b2d78b6bb312db54fb91518e4b321e13, type: 3}
+  stageImage: {fileID: 21300000, guid: 8a96c56472fff0147a8902591e2f3a79, type: 3}
   mapDatas:
   - {fileID: 11400000, guid: 1c49bbb66f8719f4c94962ff43e29fa8, type: 2}
   - {fileID: 11400000, guid: ec9c4bd180616454780c7efcf093db8a, type: 2}
