@@ -25,9 +25,9 @@ public class MapDataSO : ScriptableObject
             mapData.Insert(0, TileType.End);
         else
             mapData.Insert(0, TileType.NextStage);
-        mapData.Insert(10, TileType.Event1);
+        mapData.Insert(10, TileType.Event5);
         mapData.Insert(20, TileType.Shop);
-        mapData.Insert(30, TileType.Event1);
+        mapData.Insert(30, TileType.Event6);
 
         return mapData;
     }

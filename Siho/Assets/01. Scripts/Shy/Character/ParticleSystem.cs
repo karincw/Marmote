@@ -34,6 +34,7 @@ namespace Shy.Pooling
             }
         }
 
+        [ContextMenu("Init")]
         public override void Init()
         {
             base.Init();
@@ -47,6 +48,7 @@ namespace Shy.Pooling
             }
         }
 
+        [ContextMenu("asd")]
         public void Play()
         {
             gameObject.SetActive(true);
