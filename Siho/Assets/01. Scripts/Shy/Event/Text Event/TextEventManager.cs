@@ -76,18 +76,18 @@ namespace Shy.Event
                 {
                     resultTmp.color = _synergy.badSynergy ? badColor : goodColor;
 
-                    _resultMes = $"{_synergy.GetName()} {_item.value} È¹µæ";
+                    _resultMes = $"{_synergy.GetName()}{(_item.value < 1 ? "" : " " + _item.value)} È¹µæ";
 
                     PlayerManager.Instance.AddSynergy(_synergy.item.synergyType, _item.value);
                 }
                 else if (_item.item is Item_Money _money)
                 {
-                    bool _minus = _item.value < 0;
+                    bool _minus = _item.calc == Calculate.Minus;
                     resultTmp.color = _minus ? badColor : goodColor;
 
-                    _resultMes = $"{(_minus ? "-" : "+")} {_money.GetName()} {Mathf.Abs(_item.value)}";
+                    _resultMes = $"{(_minus ? "-" : "+")} {_money.GetName()} {_item.value}";
 
-                    MapManager.instance.money.Value += _item.value;
+                    MapManager.instance.money.Value = _minus ? -_item.value : _item.value;
                 }
             }
 

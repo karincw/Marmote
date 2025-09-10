@@ -9,6 +9,6 @@ namespace Shy.Event
 
         public override Sprite GetIcon() => moneyIcon;
 
-        public override string GetName() => "µ·";
+        public override string GetName() => "ÄÚÀÎ";
     }
 }

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5648454fb9a4b354f8042008d6622a80, type: 3}
   m_Name: Syn-Stomach
   m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 66641c0c5ac4af74984d5d75a3e6c9a8, type: 2}
+  badSynergy: 1

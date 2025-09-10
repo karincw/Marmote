@@ -12,18 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b799cb71fe7eb4fb714332722a7fb2, type: 3}
   m_Name: TEv01
   m_EditorClassIdentifier: 
-  explain: "\uD0D0\uC0C9\uC744 \uC774\uC5B4\uAC00\uB358 \uB3C4\uC911, \uAE38\uAC00\uC5D0
-    \uCE58\uC988\uAC00 \uB193\uC5EC\uC838 \uC788\uB294 \uAC83\uC744 \uBC1C\uACAC\uD588\uC2B5\uB2C8\uB2E4."
+  explain: "\uACE0\uCCA0\uB369\uC774\uB4E4 \uC18D\uC5D0\uC11C \uC2E0\uBE44\uD55C
+    \uC790\uD310\uAE30\uB97C \uBC1C\uACAC\uD588\uC2B5\uB2C8\uB2E4."
   events:
-  - eventExplain: "\uC2DC\uB108\uC9C0\uB97C \uC5BB\uB294\uB2E4."
+  - eventExplain: "10 \uCF54\uC778\uC744 \uB123\uB294\uB2E4."
     sprite: {fileID: 0}
     condition:
-      item: {fileID: 0}
-      value: 0
-      conditionType: 0
+      item: {fileID: 11400000, guid: a22f4c393683c21469d9d542d8093d11, type: 2}
+      value: 10
+      conditionType: 2
     results:
-    - resultSO: {fileID: 11400000, guid: 96d1ae90dde845c41a640d4784709411, type: 2}
-      chance: 100
+    - resultSO: {fileID: 11400000, guid: 771c289399354e843b8f80f2b83ce316, type: 2}
+      chance: 70
+    - resultSO: {fileID: 11400000, guid: 81f61f82ad658554280a6b36878da0d5, type: 2}
+      chance: 25
+    - resultSO: {fileID: 11400000, guid: 3c48470927b8b044691449372f8cedb4, type: 2}
+      chance: 5
   - eventExplain: "\uBB34\uC2DC\uD558\uACE0 \uC9C0\uB098\uAC04\uB2E4."
     sprite: {fileID: 0}
     condition:
@@ -31,5 +35,14 @@ MonoBehaviour:
       value: 0
       conditionType: 0
     results:
-    - resultSO: {fileID: 11400000, guid: 5db52867c5b5d0844b7b55d0c6836e33, type: 2}
+    - resultSO: {fileID: 11400000, guid: 1fcd7713529df6e469c2ecc88a3a6f6d, type: 2}
+      chance: 100
+  - eventExplain: "\uC790\uD310\uAE30\uB97C \uAC15\uD0C0\uD55C\uB2E4."
+    sprite: {fileID: 0}
+    condition:
+      item: {fileID: 11400000, guid: 3c6cd8cf79335b042b74efe237072fc5, type: 2}
+      value: 5
+      conditionType: 2
+    results:
+    - resultSO: {fileID: 11400000, guid: f6abd6934a6d39549a8c44814f975677, type: 2}
       chance: 100

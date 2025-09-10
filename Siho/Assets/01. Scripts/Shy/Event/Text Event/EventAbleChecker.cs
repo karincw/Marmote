@@ -9,7 +9,7 @@ namespace Shy.Event
                 return PlayerManager.Instance.GetStatCount(_stat.statType);
             else if (_so is Item_Money _money)
             {
-                // Get Money
+                return MapManager.instance.money.Value;
             }
             else if (_so is Item_Synergy _synergy)
                 return PlayerManager.Instance.GetSynergyCount(_synergy.item.synergyType);
