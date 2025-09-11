@@ -70,9 +70,9 @@ namespace Shy
 
         private IEnumerator FillAmount(Image _img, float _value, float _useTime, UnityAction _endAction)
         {
-            float _delay = _useTime * 0.01f, _addValue = (_value - _img.fillAmount) * 0.01f;
+            float _delay = _useTime * 0.1f, _addValue = (_value - _img.fillAmount) * 0.1f;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 yield return new WaitForSeconds(_delay);
                 _img.fillAmount += _addValue;
