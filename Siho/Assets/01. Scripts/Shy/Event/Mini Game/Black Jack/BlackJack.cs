@@ -229,14 +229,9 @@ namespace Shy.Event.BlackJack
                 }
                 else if (enemyCard.OverCntCheck() == false)
                 {
-                    if (playerCard.value > enemyCard.value)
-                    {
-                        Roll(Team.Enemy);
-                    }
-                    else
-                    {
-                        GameResult(Team.Enemy);
-                    }
+                    if(playerCard.value <= enemyCard.value && playerCard.cnt > enemyCard.cnt) GameResult(Team.Enemy);
+
+                    Roll(Team.Enemy);
                 }
                 else
                 {

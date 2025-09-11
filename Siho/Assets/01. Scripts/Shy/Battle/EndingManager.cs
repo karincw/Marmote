@@ -12,6 +12,8 @@ namespace Shy
         [SerializeField] private Transform enemyParent;
         [SerializeField] private CanvasGroup deadCanvasGroup;
 
+        private bool canTouch = false;
+
         private void Awake()
         {
             if (Instance != null)
@@ -36,12 +38,18 @@ namespace Shy
             seq.Append(_enemy.DOLocalMove(new Vector2(-250, 0), 0.5f));
             seq.Join(_enemy.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.5f));
 
+            canTouch = true;
+
             SequnceTool.Instance.FadeInCanvasGroup(deadCanvasGroup, 0.5f);
         }
 
         public void GoToTitle()
         {
             if (deadCanvasGroup.alpha < 1) return;
+
+            if (!canTouch) return;
+            canTouch = false;
+
             SceneChanger.instance.LoadScene("Title");
         }
     }
