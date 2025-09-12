@@ -32,10 +32,10 @@ namespace Shy.Event.LadderGame
             arr = new int[arrSize.y];
 
             foreach (var item in ladders) item.InitEvent();
-
+            LadderValueSet(linkCount, 0, linkCount - 2);
             SetReward();
 
-            SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, () => LadderValueSet(linkCount, 0, linkCount - 2));
+            SequnceTool.Instance.FadeInCanvasGroup(canvasGroup, 0.5f, null);
         }
 
         private void Play(LadderNode _startNode)

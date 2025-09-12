@@ -7,7 +7,7 @@ namespace Shy.Event.LadderGame
         public void Init(UnityAction _action)
         {
             onClickEvent = _action;
-            useable = true;
+            useable = false;
         }
     }
 }

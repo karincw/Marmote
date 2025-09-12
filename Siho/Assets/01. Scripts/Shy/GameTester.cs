@@ -48,13 +48,19 @@ namespace Shy
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Debug.Log("Test E : Ladder Game Start");
-                ladderGame.Init();
+                LadderGame();
             }
         }
 
         public void BattleStart()
         {
             BattleManager.Instance.InitBattle(enemy);
+        }
+
+        [ContextMenu("ladder")]
+        public void LadderGame()
+        {
+            ladderGame.Init();
         }
 
         public void EventStart()
