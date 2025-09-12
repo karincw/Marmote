@@ -29,4 +29,4 @@ MonoBehaviour:
     tileType: 7
   - count: 1
     tileType: 8
-  isEnd: 0
+  isEnd: 1
