@@ -176,7 +176,7 @@ namespace Shy.Event.BlackJack
 
             if (v > 0) GameResult(Team.Player);
             else if (v < 0) GameResult(Team.Enemy);
-            else
+            else if (v == 0)
             {
                 if (playerCard.cnt > enemyCard.cnt) GameResult(Team.Enemy);
                 else GameResult(Team.Player);
@@ -224,19 +224,16 @@ namespace Shy.Event.BlackJack
             SequnceTool.Instance.Delay(() =>
             {
                 if (enemyCard.OverValueCheck())
-                {
                     GameResult(Team.Player);
-                }
                 else if (enemyCard.OverCntCheck() == false)
                 {
-                    if(playerCard.value <= enemyCard.value && playerCard.cnt > enemyCard.cnt) GameResult(Team.Enemy);
+                    if(playerCard.value == enemyCard.value && playerCard.cnt > enemyCard.cnt) GameResult(Team.Enemy);
+                    if(playerCard.value < enemyCard.value) GameResult(Team.Enemy);
 
                     Roll(Team.Enemy);
                 }
                 else
-                {
                     GameResult();
-                }
             }, 0.5f);
             
         }
